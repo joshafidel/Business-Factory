@@ -50,7 +50,10 @@ export class MockAudioProvider implements AudioProvider {
   readonly key = "mock-audio";
   async generateSpeech(params: { text: string }): Promise<MediaResult> {
     // Minimal valid WAV header + silence.
-    const header = Buffer.from("UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=", "base64");
+    const header = Buffer.from(
+      "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=",
+      "base64",
+    );
     return {
       data: header,
       mimeType: "audio/wav",

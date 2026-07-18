@@ -3,11 +3,7 @@ import { prisma, type Prisma, type WorkflowStep } from "@bf/database";
 import { notify } from "@bf/notifications";
 import { getStorage } from "@bf/storage";
 import { PlatformError } from "@bf/shared";
-import {
-  STEP_CONFIG_SCHEMAS,
-  getCodeFunction,
-  readPath,
-} from "./definitions";
+import { STEP_CONFIG_SCHEMAS, getCodeFunction, readPath } from "./definitions";
 
 /**
  * Step executors. Each returns the step's output object. Control-flow steps
@@ -47,7 +43,7 @@ export async function executeAgentTask(
 
 export async function executeApiCall(
   step: WorkflowStep,
-  ctx: ExecContext,
+  _ctx: ExecContext,
 ): Promise<Record<string, unknown>> {
   const config = STEP_CONFIG_SCHEMAS.API_CALL.parse(step.config);
   // Outbound calls are restricted to http(s) and never carry org secrets
@@ -89,7 +85,8 @@ export async function executeCodeFunction(
   // Resolve "$." references in args against the run context.
   const args: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(config.args)) {
-    args[key] = typeof value === "string" && value.startsWith("$.") ? readPath(ctx.context, value) : value;
+    args[key] =
+      typeof value === "string" && value.startsWith("$.") ? readPath(ctx.context, value) : value;
   }
   return fn(args, ctx.context);
 }
@@ -112,13 +109,18 @@ export async function executeFileGeneration(
 ): Promise<Record<string, unknown>> {
   const config = STEP_CONFIG_SCHEMAS.FILE_GENERATION.parse(step.config);
   const content = readPath(ctx.context, config.contentPath);
-  const body =
-    typeof content === "string" ? content : JSON.stringify(content ?? null, null, 2);
+  const body = typeof content === "string" ? content : JSON.stringify(content ?? null, null, 2);
   const storage = getStorage();
   const key = `${ctx.organizationId}/${ctx.workflowRunId}/${step.key}-${Date.now()}.${
     config.assetType === "JSON" ? "json" : "txt"
   }`;
   const stored = await storage.put(key, body, { contentType: config.mimeType });
+  // Content that already passed an approval gate earlier in this run is saved
+  // as APPROVED and linked to that request; otherwise it awaits review.
+  const priorApproval = await prisma.approvalRequest.findFirst({
+    where: { workflowRunId: ctx.workflowRunId, status: "APPROVED" },
+    orderBy: { updatedAt: "desc" },
+  });
   const asset = await prisma.asset.create({
     data: {
       organizationId: ctx.organizationId,
@@ -130,7 +132,8 @@ export async function executeFileGeneration(
       sizeBytes: stored.sizeBytes,
       workflowRunId: ctx.workflowRunId,
       source: `workflow:${ctx.workflowKey}:${step.key}`,
-      approvalStatus: "PENDING_REVIEW",
+      approvalStatus: priorApproval ? "APPROVED" : "PENDING_REVIEW",
+      approvalRequestId: priorApproval?.id,
       metadata: { stepKey: step.key } as Prisma.InputJsonValue,
     },
   });

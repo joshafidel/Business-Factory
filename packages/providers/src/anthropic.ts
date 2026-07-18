@@ -51,7 +51,10 @@ export class AnthropicProvider implements AIProvider {
     return { system: system || undefined, rest };
   }
 
-  private async request(body: Record<string, unknown>, timeoutMs?: number): Promise<{
+  private async request(
+    body: Record<string, unknown>,
+    timeoutMs?: number,
+  ): Promise<{
     content: AnthropicContentBlock[];
     stop_reason: string;
     usage: { input_tokens: number; output_tokens: number };

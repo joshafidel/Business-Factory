@@ -16,10 +16,7 @@ import {
   validateJsonSchema,
 } from "@bf/shared";
 import { STEP_CONFIG_SCHEMAS, readPath } from "./definitions";
-import {
-  createApprovalRequest,
-  evaluateApprovalPolicies,
-} from "./approvals";
+import { createApprovalRequest, evaluateApprovalPolicies } from "./approvals";
 import {
   type ExecContext,
   executeAgentTask,
@@ -187,8 +184,7 @@ export async function advanceWorkflowRun(
         workflowStepId: step.id,
         stepKey: step.key,
         status: "RUNNING",
-        attempt:
-          stepRunsLive.filter((sr) => sr.workflowStepId === step.id).length + 1,
+        attempt: stepRunsLive.filter((sr) => sr.workflowStepId === step.id).length + 1,
         input: context as Prisma.InputJsonValue,
         startedAt: new Date(),
       },
@@ -210,7 +206,11 @@ export async function advanceWorkflowRun(
       const config = STEP_CONFIG_SCHEMAS.DELAY.parse(step.config);
       await prisma.stepRun.update({
         where: { id: stepRun.id },
-        data: { status: "COMPLETED", output: { delayedMs: config.delayMs }, finishedAt: new Date() },
+        data: {
+          status: "COMPLETED",
+          output: { delayedMs: config.delayMs },
+          finishedAt: new Date(),
+        },
       });
       const next = nextStep(steps, step, null);
       await prisma.workflowRun.update({
@@ -220,7 +220,12 @@ export async function advanceWorkflowRun(
       if (next) {
         await enqueueAdvance(run.id, run.organizationId, { delayMs: config.delayMs });
       } else {
-        await finishRun(run.id, run.organizationId, buildContext(run, stepRunsLive), run.workflow.key);
+        await finishRun(
+          run.id,
+          run.organizationId,
+          buildContext(run, stepRunsLive),
+          run.workflow.key,
+        );
       }
       return;
     }
@@ -484,10 +489,15 @@ export async function applyApprovalDecision(params: {
     const targetStep = steps[Math.max(0, target)];
     if (!targetStep) return;
     // Invalidate outputs from the target step onward so they re-execute.
+    // CANCELLED (not SKIPPED): the advance loop treats SKIPPED as "done".
     const invalidKeys = steps.slice(Math.max(0, target)).map((s) => s.id);
     await prisma.stepRun.updateMany({
-      where: { workflowRunId: run.id, workflowStepId: { in: invalidKeys }, status: { in: ["COMPLETED", "AWAITING_APPROVAL"] } },
-      data: { status: "SKIPPED" },
+      where: {
+        workflowRunId: run.id,
+        workflowStepId: { in: invalidKeys },
+        status: { in: ["COMPLETED", "AWAITING_APPROVAL"] },
+      },
+      data: { status: "CANCELLED" },
     });
     await prisma.workflowRun.update({
       where: { id: run.id },

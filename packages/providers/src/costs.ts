@@ -24,7 +24,11 @@ const COSTS: Record<string, ModelCost> = {
 
 const FALLBACK: ModelCost = { inputMicroUsdPerMTok: 15_000_000, outputMicroUsdPerMTok: 75_000_000 };
 
-export function estimateCostMicroUsd(model: string, inputTokens: number, outputTokens: number): bigint {
+export function estimateCostMicroUsd(
+  model: string,
+  inputTokens: number,
+  outputTokens: number,
+): bigint {
   const cost = COSTS[model] ?? FALLBACK;
   const micro =
     (inputTokens * cost.inputMicroUsdPerMTok) / 1_000_000 +

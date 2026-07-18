@@ -61,7 +61,11 @@ export const humanApprovalConfigSchema = z.object({
 });
 
 export const delayConfigSchema = z.object({
-  delayMs: z.number().int().min(0).max(30 * 24 * 3600 * 1000),
+  delayMs: z
+    .number()
+    .int()
+    .min(0)
+    .max(30 * 24 * 3600 * 1000),
 });
 
 export const conditionConfigSchema = z.object({

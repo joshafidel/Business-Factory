@@ -1,4 +1,39 @@
+import fs from "node:fs";
+import path from "node:path";
 import { z } from "zod";
+
+/**
+ * Load the repo-root .env into process.env for processes that don't do it
+ * themselves (worker, seed scripts, tests). Existing variables always win;
+ * this never overrides real environment configuration.
+ */
+export function hydrateEnvFromDotfile(): void {
+  if (process.env.__BF_ENV_HYDRATED === "1") return;
+  process.env.__BF_ENV_HYDRATED = "1";
+  let dir = process.cwd();
+  for (let i = 0; i < 8; i++) {
+    const candidate = path.join(dir, ".env");
+    if (fs.existsSync(candidate)) {
+      for (const line of fs.readFileSync(candidate, "utf8").split("\n")) {
+        const match = /^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/.exec(line);
+        if (!match) continue;
+        const key = match[1] as string;
+        let value = (match[2] as string).trim();
+        if (
+          (value.startsWith('"') && value.endsWith('"')) ||
+          (value.startsWith("'") && value.endsWith("'"))
+        ) {
+          value = value.slice(1, -1);
+        }
+        if (process.env[key] === undefined) process.env[key] = value;
+      }
+      return;
+    }
+    const parent = path.dirname(dir);
+    if (parent === dir) return;
+    dir = parent;
+  }
+}
 
 /**
  * Server-side environment configuration, validated once at startup.
@@ -44,6 +79,7 @@ let cached: Env | null = null;
 /** Parse and cache process.env. Throws a readable error listing every missing var. */
 export function loadEnv(overrides?: Partial<Record<keyof Env, string>>): Env {
   if (cached && !overrides) return cached;
+  hydrateEnvFromDotfile();
   const parsed = envSchema.safeParse({ ...process.env, ...overrides });
   if (!parsed.success) {
     const issues = parsed.error.issues

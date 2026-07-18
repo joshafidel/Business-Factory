@@ -1,4 +1,8 @@
+import { hydrateEnvFromDotfile } from "@bf/config";
 import { PrismaClient } from "@prisma/client";
+
+// Ensure DATABASE_URL is present for processes that don't load .env themselves.
+hydrateEnvFromDotfile();
 
 /**
  * Singleton Prisma client. In Next.js dev, module reloads would otherwise

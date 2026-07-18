@@ -9,7 +9,7 @@
     "queue:clean": "tsx src/scripts/clean-queues.ts",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@bf/agents": "workspace:*",

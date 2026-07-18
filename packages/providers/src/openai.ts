@@ -29,7 +29,10 @@ export class OpenAIProvider implements AIProvider {
     if (!apiKey) throw new Error("OpenAIProvider requires an API key");
   }
 
-  private async request(body: Record<string, unknown>, timeoutMs?: number): Promise<{
+  private async request(
+    body: Record<string, unknown>,
+    timeoutMs?: number,
+  ): Promise<{
     choices: OpenAIChoice[];
     usage: { prompt_tokens: number; completion_tokens: number };
   }> {

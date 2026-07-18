@@ -7,12 +7,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl as awsGetSignedUrl } from "@aws-sdk/s3-request-presigner";
-import {
-  type ObjectInfo,
-  type PutOptions,
-  type StorageAdapter,
-  type StoredObject,
-} from "./types";
+import { type ObjectInfo, type PutOptions, type StorageAdapter, type StoredObject } from "./types";
 
 export interface S3Config {
   endpoint?: string;
@@ -92,10 +87,8 @@ export class S3Storage implements StorageAdapter {
   }
 
   async getSignedUrl(key: string, expiresInSeconds = 900): Promise<string> {
-    return awsGetSignedUrl(
-      this.client,
-      new GetObjectCommand({ Bucket: this.bucket, Key: key }),
-      { expiresIn: expiresInSeconds },
-    );
+    return awsGetSignedUrl(this.client, new GetObjectCommand({ Bucket: this.bucket, Key: key }), {
+      expiresIn: expiresInSeconds,
+    });
   }
 }

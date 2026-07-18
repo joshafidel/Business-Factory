@@ -45,8 +45,7 @@ export async function reconcileSchedules(): Promise<void> {
 
   for (const schedule of schedules) {
     const schedulerId = `schedule:${schedule.id}`;
-    const active =
-      schedule.status === "ACTIVE" && schedule.workflow.status === "ACTIVE";
+    const active = schedule.status === "ACTIVE" && schedule.workflow.status === "ACTIVE";
 
     if (schedule.cron && active) {
       await queue.upsertJobScheduler(

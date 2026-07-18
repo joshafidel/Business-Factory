@@ -57,9 +57,7 @@ export interface GenerateObjectResult {
 }
 
 export type StreamChunk =
-  | { type: "text"; delta: string }
-  | { type: "usage"; usage: Usage }
-  | { type: "done" };
+  { type: "text"; delta: string } | { type: "usage"; usage: Usage } | { type: "done" };
 
 /**
  * Provider-neutral AI interface. All adapters normalize errors to
@@ -85,7 +83,11 @@ export class ProviderError extends PlatformError {
 }
 
 /** Map an HTTP status from a provider API to a normalized error. */
-export function normalizeHttpError(providerKey: string, status: number, body: string): ProviderError {
+export function normalizeHttpError(
+  providerKey: string,
+  status: number,
+  body: string,
+): ProviderError {
   const detail = { providerKey, status, body: body.slice(0, 500) };
   if (status === 429) {
     return new ProviderError("PROVIDER_RATE_LIMIT", `${providerKey}: rate limited`, {

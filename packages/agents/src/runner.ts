@@ -62,10 +62,14 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
     throw new PlatformError("VALIDATION", `Agent "${params.agentKey}" is not active`);
   }
   const version = agent.activeVersion;
-  if (!version) throw new PlatformError("VALIDATION", `Agent "${params.agentKey}" has no active version`);
+  if (!version)
+    throw new PlatformError("VALIDATION", `Agent "${params.agentKey}" has no active version`);
 
   // 1. Validate input.
-  const inputErrors = validateJsonSchema(version.inputSchema as Record<string, unknown>, params.input);
+  const inputErrors = validateJsonSchema(
+    version.inputSchema as Record<string, unknown>,
+    params.input,
+  );
   if (inputErrors.length > 0) {
     throw new PlatformError("VALIDATION", `Agent input invalid: ${inputErrors.join("; ")}`);
   }
@@ -95,7 +99,10 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
   const moduleKey = params.moduleKey ?? agent.module?.key ?? null;
 
   const stringVars: Record<string, string> = Object.fromEntries(
-    Object.entries(params.input).map(([k, v]) => [k, typeof v === "string" ? v : JSON.stringify(v)]),
+    Object.entries(params.input).map(([k, v]) => [
+      k,
+      typeof v === "string" ? v : JSON.stringify(v),
+    ]),
   );
   const promptText = promptVersion
     ? renderTemplate(promptVersion.template, { ...stringVars, ...params.variables })
@@ -149,9 +156,13 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
         result.object,
       );
       if (outputErrors.length > 0) {
-        throw new PlatformError("PROVIDER_ERROR", `Output failed schema: ${outputErrors.join("; ")}`, {
-          retryable: true,
-        });
+        throw new PlatformError(
+          "PROVIDER_ERROR",
+          `Output failed schema: ${outputErrors.join("; ")}`,
+          {
+            retryable: true,
+          },
+        );
       }
 
       // 7. Record usage and cost.

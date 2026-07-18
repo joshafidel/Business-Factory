@@ -16,12 +16,12 @@ Guiding principles:
    is a hardcoded screen.
 2. **Nothing irreversible without a human.** Publishing, outreach, spending,
    deletion, and deployment are modeled as `PUBLISH`-class steps that always route
-   through the approval system. The platform automates *preparation*; humans gate
-   *release*.
+   through the approval system. The platform automates _preparation_; humans gate
+   _release_.
 3. **Modules are plugins.** Business modules implement a `ModuleContract` and are
    registered in the database. The core never imports business logic.
 4. **Cost is a first-class citizen.** Every provider call records usage; cost
-   limits are enforced *before* execution continues, with hard stops.
+   limits are enforced _before_ execution continues, with hard stops.
 
 ## 2. Monorepo layout
 
@@ -64,7 +64,7 @@ apps/web and apps/worker consume everything; nothing consumes apps.
 An **Agent** is a versioned database record (`Agent` + `AgentVersion`) holding:
 role, instructions, input/output JSON Schemas, allowed/forbidden tools, model
 config, temperature, budgets (tokens/cost), retries, timeout, approval
-requirements. Agents are *not* free-running loops: every `AgentRun` is created
+requirements. Agents are _not_ free-running loops: every `AgentRun` is created
 with a goal, validated input, budget, tool permissions, max steps, and explicit
 completion/failure conditions.
 
@@ -162,7 +162,7 @@ aggregates. Dashboards read these tables directly.
 
 ```ts
 interface ModuleContract {
-  key: string;                    // e.g. "kids-shorts"
+  key: string; // e.g. "kids-shorts"
   name: string;
   description: string;
   workflows: WorkflowBlueprint[]; // definitions the module ships
@@ -171,7 +171,7 @@ interface ModuleContract {
   requiredPermissions: Permission[];
   dashboard: { navLabel: string; widgets: WidgetDescriptor[] };
   metrics: MetricDescriptor[];
-  configSchema: z.ZodTypeAny;     // module settings validated at install time
+  configSchema: z.ZodTypeAny; // module settings validated at install time
 }
 ```
 
@@ -184,21 +184,21 @@ dashboard can show them without any business logic existing.
 ~30 Prisma models, all org-scoped where applicable, all with
 `id / createdAt / updatedAt / status / metadata` conventions:
 
-| Area | Models |
-|---|---|
-| Identity | `User`, `Organization`, `OrganizationMember` |
-| Modules | `BusinessModule` |
-| Agents | `Agent`, `AgentVersion`, `AgentRun` |
-| Workflows | `Workflow`, `WorkflowVersion`, `WorkflowStep`, `WorkflowRun`, `StepRun` |
-| Governance | `ApprovalPolicy`, `ApprovalRequest`, `ApprovalDecision`, `AuditLog` |
-| Execution | `Job`, `Schedule`, `ErrorEvent` |
-| Prompts | `Prompt`, `PromptVersion` |
-| Providers/Cost | `Provider`, `ProviderUsage`, `CostRecord`, `CostLimit` |
-| Tools | `Tool`, `ToolPermission` |
-| Integrations | `Integration`, `SecretReference` |
-| Content | `Asset` |
-| Comms | `Notification` |
-| Analytics | `Metric` |
+| Area           | Models                                                                  |
+| -------------- | ----------------------------------------------------------------------- |
+| Identity       | `User`, `Organization`, `OrganizationMember`                            |
+| Modules        | `BusinessModule`                                                        |
+| Agents         | `Agent`, `AgentVersion`, `AgentRun`                                     |
+| Workflows      | `Workflow`, `WorkflowVersion`, `WorkflowStep`, `WorkflowRun`, `StepRun` |
+| Governance     | `ApprovalPolicy`, `ApprovalRequest`, `ApprovalDecision`, `AuditLog`     |
+| Execution      | `Job`, `Schedule`, `ErrorEvent`                                         |
+| Prompts        | `Prompt`, `PromptVersion`                                               |
+| Providers/Cost | `Provider`, `ProviderUsage`, `CostRecord`, `CostLimit`                  |
+| Tools          | `Tool`, `ToolPermission`                                                |
+| Integrations   | `Integration`, `SecretReference`                                        |
+| Content        | `Asset`                                                                 |
+| Comms          | `Notification`                                                          |
+| Analytics      | `Metric`                                                                |
 
 Money is stored as **integer micro-USD** (`costMicroUsd BigInt`) to avoid float
 drift; tokens as integers. JSON columns (`Json`) hold schemas, step configs, and
@@ -206,21 +206,21 @@ metadata; anything read from them is re-validated with Zod at the boundary.
 
 ## 6. Key decisions (and why)
 
-| Decision | Rationale |
-|---|---|
-| pnpm workspaces + Turborepo | Standard, fast, simple task graph |
-| Source-level packages (no per-package build) | 12 packages; build pipelines add friction with zero runtime benefit here |
-| DB-backed workflow state machine (not in-memory) | Survives worker restarts; approvals can park runs for days |
-| BullMQ jobs per *step*, not per run | Small, retryable units; cost checks between steps |
-| JWT sessions + credentials auth | Works offline/local with zero external services; OAuth later |
-| Micro-USD integers for money | Exact accumulation and limit comparison |
-| Mock provider is schema-aware, not canned strings | Sample workflow produces structurally valid output end-to-end |
-| `SecretReference` (env or AES-GCM) instead of raw columns | Secrets never sit in plaintext rows; UI shows masks only |
+| Decision                                                  | Rationale                                                                |
+| --------------------------------------------------------- | ------------------------------------------------------------------------ |
+| pnpm workspaces + Turborepo                               | Standard, fast, simple task graph                                        |
+| Source-level packages (no per-package build)              | 12 packages; build pipelines add friction with zero runtime benefit here |
+| DB-backed workflow state machine (not in-memory)          | Survives worker restarts; approvals can park runs for days               |
+| BullMQ jobs per _step_, not per run                       | Small, retryable units; cost checks between steps                        |
+| JWT sessions + credentials auth                           | Works offline/local with zero external services; OAuth later             |
+| Micro-USD integers for money                              | Exact accumulation and limit comparison                                  |
+| Mock provider is schema-aware, not canned strings         | Sample workflow produces structurally valid output end-to-end            |
+| `SecretReference` (env or AES-GCM) instead of raw columns | Secrets never sit in plaintext rows; UI shows masks only                 |
 
 ## 7. Risks & assumptions
 
 - **Auth.js v5 is beta** — pinned version; the auth surface is small (credentials
-  + JWT) so migration risk is low.
+  - JWT) so migration risk is low.
 - **Prisma + serverless**: Vercel deployment needs a pooled connection string
   (PgBouncer/Neon); documented in README. Workers use direct connections.
 - **BullMQ repeatable jobs vs. DB `Schedule` rows** can drift; the worker

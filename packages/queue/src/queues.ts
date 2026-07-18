@@ -91,7 +91,11 @@ export async function enqueue<T extends Record<string, unknown>>(
     },
   });
 
-  const job = await getQueue(queueName).add(jobName, { ...data, _jobRecordId: record.id }, jobOptions);
+  const job = await getQueue(queueName).add(
+    jobName,
+    { ...data, _jobRecordId: record.id },
+    jobOptions,
+  );
   await prisma.job.update({ where: { id: record.id }, data: { externalId: job.id } });
   return record.id;
 }
@@ -157,7 +161,10 @@ export async function cancelJob(jobRecordId: string): Promise<boolean> {
 
 /** Aggregate queue counts for the dashboard. */
 export async function queueCounts(): Promise<
-  Record<string, { waiting: number; active: number; delayed: number; failed: number; completed: number }>
+  Record<
+    string,
+    { waiting: number; active: number; delayed: number; failed: number; completed: number }
+  >
 > {
   const out: Record<
     string,

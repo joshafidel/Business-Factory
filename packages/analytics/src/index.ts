@@ -37,7 +37,9 @@ export async function agentSuccessRate(organizationId: string, days = 30): Promi
     prisma.agentRun.count({
       where: { organizationId, status: "COMPLETED", createdAt: { gte: since } },
     }),
-    prisma.agentRun.count({ where: { organizationId, status: "FAILED", createdAt: { gte: since } } }),
+    prisma.agentRun.count({
+      where: { organizationId, status: "FAILED", createdAt: { gte: since } },
+    }),
   ]);
   return toRate(total, succeeded, failed);
 }

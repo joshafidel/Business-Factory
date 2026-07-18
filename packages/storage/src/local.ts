@@ -1,11 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import {
-  type ObjectInfo,
-  type PutOptions,
-  type StorageAdapter,
-  type StoredObject,
-} from "./types";
+import { type ObjectInfo, type PutOptions, type StorageAdapter, type StoredObject } from "./types";
 
 /**
  * Local filesystem storage for development. Keys are sanitized to stay inside

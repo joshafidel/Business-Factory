@@ -31,7 +31,6 @@ export async function writeAudit(entry: AuditEntry, tx?: Prisma.TransactionClien
       },
     });
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error("[audit] failed to write audit log", entry.action, err);
   }
 }
