@@ -1,0 +1,47 @@
+{
+  "name": "ai-business-factory",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:web": "pnpm --filter @bf/web dev",
+    "dev:worker": "pnpm --filter @bf/worker dev",
+    "build": "turbo run build",
+    "start:worker": "pnpm --filter @bf/worker start",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,yml,yaml,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,yml,yaml,css}\"",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "pnpm --filter @bf/web test:e2e",
+    "db:generate": "pnpm --filter @bf/database db:generate",
+    "db:migrate": "pnpm --filter @bf/database db:migrate",
+    "db:migrate:deploy": "pnpm --filter @bf/database db:migrate:deploy",
+    "db:push": "pnpm --filter @bf/database db:push",
+    "db:seed": "pnpm --filter @bf/database db:seed",
+    "db:studio": "pnpm --filter @bf/database db:studio",
+    "queue:clean": "pnpm --filter @bf/worker queue:clean",
+    "infra:up": "docker compose up -d postgres redis",
+    "infra:down": "docker compose down"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "prettier": "^3.4.0",
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "msgpackr-extract",
+      "prisma",
+      "sharp"
+    ]
+  }
+}

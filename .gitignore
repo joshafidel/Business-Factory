@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+dist/
+out/
+.turbo/
+
+# env & secrets
+.env
+.env.local
+.env.*.local
+
+# local data
+.data/
+*.local.db
+
+# test artifacts
+coverage/
+playwright-report/
+test-results/
+
+# logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

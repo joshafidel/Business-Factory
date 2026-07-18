@@ -1,0 +1,36 @@
+{
+  "name": "@bf/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "queue:clean": "tsx src/scripts/clean-queues.ts",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@bf/agents": "workspace:*",
+    "@bf/analytics": "workspace:*",
+    "@bf/config": "workspace:*",
+    "@bf/database": "workspace:*",
+    "@bf/notifications": "workspace:*",
+    "@bf/prompts": "workspace:*",
+    "@bf/providers": "workspace:*",
+    "@bf/queue": "workspace:*",
+    "@bf/shared": "workspace:*",
+    "@bf/storage": "workspace:*",
+    "@bf/workflows": "workspace:*",
+    "bullmq": "^5.34.0",
+    "ioredis": "^5.4.0",
+    "tsx": "^4.19.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.19.0",
+    "vitest": "^3.0.0"
+  }
+}

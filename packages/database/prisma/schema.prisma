@@ -1,0 +1,967 @@
+// AI Business Factory — core platform schema.
+// Conventions: cuid ids, org scoping via organizationId, createdAt/updatedAt,
+// money in integer micro-USD (BigInt), JSON columns re-validated with Zod at
+// the application boundary. Raw secrets are NEVER stored in domain tables —
+// see SecretReference.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Identity & tenancy ─────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  memberships       OrganizationMember[]
+  approvalDecisions ApprovalDecision[]
+  auditLogs         AuditLog[]
+  notifications     Notification[]
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members          OrganizationMember[]
+  modules          BusinessModule[]
+  agents           Agent[]
+  agentRuns        AgentRun[]
+  workflows        Workflow[]
+  workflowRuns     WorkflowRun[]
+  approvalPolicies ApprovalPolicy[]
+  approvalRequests ApprovalRequest[]
+  jobs             Job[]
+  schedules        Schedule[]
+  prompts          Prompt[]
+  providers        Provider[]
+  providerUsage    ProviderUsage[]
+  costRecords      CostRecord[]
+  costLimits       CostLimit[]
+  tools            Tool[]
+  toolPermissions  ToolPermission[]
+  integrations     Integration[]
+  secretReferences SecretReference[]
+  assets           Asset[]
+  notifications    Notification[]
+  auditLogs        AuditLog[]
+  metrics          Metric[]
+  errorEvents      ErrorEvent[]
+}
+
+enum OrgRole {
+  OWNER
+  ADMIN
+  OPERATOR
+  REVIEWER
+  VIEWER
+}
+
+model OrganizationMember {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String
+  role           OrgRole
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+}
+
+// ─── Business modules ───────────────────────────────────────────────────────
+
+enum ModuleStatus {
+  COMING_NEXT
+  NOT_INSTALLED
+  INSTALLED
+  DISABLED
+}
+
+model BusinessModule {
+  id             String       @id @default(cuid())
+  organizationId String
+  key            String
+  name           String
+  description    String
+  status         ModuleStatus @default(COMING_NEXT)
+  /// ModuleManifest JSON: workflows, agents, integrations, permissions, widgets, metrics, configSchema
+  manifest       Json
+  /// Validated instance configuration (against manifest.configSchema)
+  config         Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  agents       Agent[]
+  workflows    Workflow[]
+
+  @@unique([organizationId, key])
+}
+
+// ─── Agents ─────────────────────────────────────────────────────────────────
+
+enum AgentStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+model Agent {
+  id              String      @id @default(cuid())
+  organizationId  String
+  moduleId        String?
+  key             String
+  name            String
+  description     String
+  role            String
+  status          AgentStatus @default(DRAFT)
+  /// Points at the AgentVersion currently used for new runs
+  activeVersionId String?     @unique
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  organization  Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  module        BusinessModule? @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  versions      AgentVersion[]  @relation("AgentVersions")
+  activeVersion AgentVersion?   @relation("ActiveVersion", fields: [activeVersionId], references: [id])
+  runs          AgentRun[]
+
+  @@unique([organizationId, key])
+}
+
+model AgentVersion {
+  id           String   @id @default(cuid())
+  agentId      String
+  version      Int
+  instructions String
+  /// JSON Schema for run input
+  inputSchema  Json
+  /// JSON Schema for structured output
+  outputSchema Json
+  allowedTools String[]
+  forbiddenTools String[]
+  provider     String   @default("mock")
+  model        String   @default("mock-basic")
+  temperature  Float    @default(0.7)
+  maxTokens    Int      @default(4096)
+  /// Per-run cost ceiling in micro-USD
+  maxCostMicroUsd BigInt @default(500000)
+  maxRetries   Int      @default(2)
+  timeoutMs    Int      @default(120000)
+  maxSteps     Int      @default(8)
+  /// Whether runs of this agent require human approval of the output
+  requiresApproval Boolean @default(false)
+  promptId     String?
+  /// Pin a specific prompt version; null = use prompt's active version
+  promptVersionId String?
+  changelog    String?
+  createdAt    DateTime @default(now())
+
+  agent          Agent          @relation("AgentVersions", fields: [agentId], references: [id], onDelete: Cascade)
+  activeForAgent Agent?         @relation("ActiveVersion")
+  prompt         Prompt?        @relation(fields: [promptId], references: [id], onDelete: SetNull)
+  promptVersion  PromptVersion? @relation(fields: [promptVersionId], references: [id], onDelete: SetNull)
+  runs           AgentRun[]
+
+  @@unique([agentId, version])
+}
+
+enum RunStatus {
+  QUEUED
+  RUNNING
+  AWAITING_APPROVAL
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+model AgentRun {
+  id             String    @id @default(cuid())
+  organizationId String
+  agentId        String
+  agentVersionId String
+  stepRunId      String?   @unique
+  status         RunStatus @default(QUEUED)
+  goal           String
+  input          Json
+  output         Json?
+  /// Exact prompt version used (recorded even when resolved from "active")
+  promptVersionId String?
+  inputTokens    Int       @default(0)
+  outputTokens   Int       @default(0)
+  costMicroUsd   BigInt    @default(0)
+  attempts       Int       @default(0)
+  steps          Int       @default(0)
+  error          Json?
+  startedAt      DateTime?
+  finishedAt     DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  organization Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  agent        Agent         @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  agentVersion AgentVersion  @relation(fields: [agentVersionId], references: [id])
+  stepRun      StepRun?      @relation(fields: [stepRunId], references: [id], onDelete: SetNull)
+  promptVersion PromptVersion? @relation(fields: [promptVersionId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, status])
+  @@index([agentId, createdAt])
+}
+
+// ─── Workflows ──────────────────────────────────────────────────────────────
+
+enum WorkflowStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum TriggerType {
+  MANUAL
+  SCHEDULE
+  API
+  EVENT
+}
+
+model Workflow {
+  id              String         @id @default(cuid())
+  organizationId  String
+  moduleId        String?
+  key             String
+  name            String
+  description     String
+  status          WorkflowStatus @default(DRAFT)
+  triggerType     TriggerType    @default(MANUAL)
+  activeVersionId String?        @unique
+  /// Total cost ceiling per run, micro-USD
+  costLimitMicroUsd BigInt       @default(2000000)
+  maxStepRetries  Int            @default(2)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  organization  Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  module        BusinessModule?   @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  versions      WorkflowVersion[] @relation("WorkflowVersions")
+  activeVersion WorkflowVersion?  @relation("ActiveWorkflowVersion", fields: [activeVersionId], references: [id])
+  runs          WorkflowRun[]
+  schedules     Schedule[]
+
+  @@unique([organizationId, key])
+}
+
+model WorkflowVersion {
+  id          String   @id @default(cuid())
+  workflowId  String
+  version     Int
+  /// JSON Schema for the run input
+  inputSchema Json
+  changelog   String?
+  createdAt   DateTime @default(now())
+
+  workflow          Workflow       @relation("WorkflowVersions", fields: [workflowId], references: [id], onDelete: Cascade)
+  activeForWorkflow Workflow?      @relation("ActiveWorkflowVersion")
+  steps             WorkflowStep[]
+  runs              WorkflowRun[]
+
+  @@unique([workflowId, version])
+}
+
+enum StepType {
+  AGENT_TASK
+  API_CALL
+  CODE_FUNCTION
+  TRANSFORM
+  FILE_GENERATION
+  HUMAN_APPROVAL
+  DELAY
+  CONDITION
+  NOTIFICATION
+  CHILD_WORKFLOW
+  PUBLISH
+}
+
+model WorkflowStep {
+  id                String   @id @default(cuid())
+  workflowVersionId String
+  key               String
+  name              String
+  type              StepType
+  /// Execution order; conditions may skip forward
+  order             Int
+  /// Step-type-specific config (agentKey, url, functionKey, condition expr, etc.)
+  config            Json
+  /// Approval settings for HUMAN_APPROVAL / PUBLISH steps
+  approvalConfig    Json?
+  retryLimit        Int      @default(2)
+  timeoutMs         Int      @default(300000)
+  createdAt         DateTime @default(now())
+
+  workflowVersion WorkflowVersion @relation(fields: [workflowVersionId], references: [id], onDelete: Cascade)
+  stepRuns        StepRun[]
+
+  @@unique([workflowVersionId, key])
+  @@index([workflowVersionId, order])
+}
+
+enum WorkflowRunStatus {
+  QUEUED
+  RUNNING
+  AWAITING_APPROVAL
+  PAUSED
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+model WorkflowRun {
+  id                String            @id @default(cuid())
+  organizationId    String
+  workflowId        String
+  workflowVersionId String
+  status            WorkflowRunStatus @default(QUEUED)
+  input             Json
+  output            Json?
+  /// Key of the step currently executing or awaiting
+  currentStepKey    String?
+  costMicroUsd      BigInt            @default(0)
+  error             Json?
+  /// Who/what triggered it: { kind: "user"|"schedule"|"api", id }
+  triggeredBy       Json?
+  parentRunId       String?
+  idempotencyKey    String?
+  startedAt         DateTime?
+  finishedAt        DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  organization    Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflow        Workflow        @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowVersion WorkflowVersion @relation(fields: [workflowVersionId], references: [id])
+  parentRun       WorkflowRun?    @relation("ChildRuns", fields: [parentRunId], references: [id], onDelete: SetNull)
+  childRuns       WorkflowRun[]   @relation("ChildRuns")
+  stepRuns        StepRun[]
+  approvals       ApprovalRequest[]
+  assets          Asset[]
+
+  @@unique([organizationId, idempotencyKey])
+  @@index([organizationId, status])
+  @@index([workflowId, createdAt])
+}
+
+enum StepRunStatus {
+  PENDING
+  RUNNING
+  AWAITING_APPROVAL
+  COMPLETED
+  FAILED
+  SKIPPED
+  CANCELLED
+}
+
+model StepRun {
+  id             String        @id @default(cuid())
+  workflowRunId  String
+  workflowStepId String
+  stepKey        String
+  status         StepRunStatus @default(PENDING)
+  attempt        Int           @default(1)
+  input          Json?
+  output         Json?
+  logs           Json?
+  error          Json?
+  costMicroUsd   BigInt        @default(0)
+  startedAt      DateTime?
+  finishedAt     DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  workflowRun  WorkflowRun  @relation(fields: [workflowRunId], references: [id], onDelete: Cascade)
+  workflowStep WorkflowStep @relation(fields: [workflowStepId], references: [id])
+  agentRun     AgentRun?
+
+  @@index([workflowRunId, createdAt])
+}
+
+// ─── Approvals ──────────────────────────────────────────────────────────────
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ApprovalActionType {
+  PUBLISH_CONTENT
+  SEND_EMAIL
+  DEPLOY_WEBSITE
+  SPEND_MONEY
+  EXTERNAL_PURCHASE
+  DELETE_ASSET
+  CONTACT_PROSPECT
+  CHANGE_PRODUCTION_SETTINGS
+  REVIEW_OUTPUT
+  OTHER
+}
+
+/// Configurable rules for when an approval is required.
+model ApprovalPolicy {
+  id             String              @id @default(cuid())
+  organizationId String
+  name           String
+  /// Match criteria; null = wildcard
+  moduleKey      String?
+  workflowKey    String?
+  stepKey        String?
+  actionType     ApprovalActionType?
+  /// Require approval when estimated cost exceeds this (micro-USD)
+  costThresholdMicroUsd BigInt?
+  /// Require approval at or above this risk level
+  minRiskLevel   RiskLevel?
+  /// Minimum role allowed to decide
+  requiredRole   OrgRole             @default(REVIEWER)
+  isEnabled      Boolean             @default(true)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REVISION_REQUESTED
+  CANCELLED
+}
+
+model ApprovalRequest {
+  id             String             @id @default(cuid())
+  organizationId String
+  workflowRunId  String?
+  stepRunId      String?
+  title          String
+  description    String
+  actionType     ApprovalActionType @default(REVIEW_OUTPUT)
+  riskLevel      RiskLevel          @default(MEDIUM)
+  status         ApprovalStatus     @default(PENDING)
+  /// What the reviewer is looking at
+  payload        Json
+  estimatedCostMicroUsd BigInt      @default(0)
+  requiredRole   OrgRole            @default(REVIEWER)
+  expiresAt      DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflowRun  WorkflowRun?       @relation(fields: [workflowRunId], references: [id], onDelete: Cascade)
+  decisions    ApprovalDecision[]
+  assets       Asset[]
+
+  @@index([organizationId, status])
+}
+
+enum ApprovalDecisionType {
+  APPROVED
+  REJECTED
+  REVISION_REQUESTED
+}
+
+model ApprovalDecision {
+  id                String               @id @default(cuid())
+  approvalRequestId String
+  userId            String
+  decision          ApprovalDecisionType
+  comment           String?
+  createdAt         DateTime             @default(now())
+
+  approvalRequest ApprovalRequest @relation(fields: [approvalRequestId], references: [id], onDelete: Cascade)
+  user            User            @relation(fields: [userId], references: [id])
+}
+
+// ─── Jobs & scheduling ──────────────────────────────────────────────────────
+
+enum JobStatus {
+  WAITING
+  ACTIVE
+  COMPLETED
+  FAILED
+  DELAYED
+  DEAD
+  CANCELLED
+}
+
+/// Mirror of queue jobs for dashboard visibility and dead-letter records.
+model Job {
+  id             String    @id @default(cuid())
+  organizationId String?
+  queue          String
+  name           String
+  /// BullMQ job id
+  externalId     String?
+  status         JobStatus @default(WAITING)
+  payload        Json?
+  result         Json?
+  error          Json?
+  attempts       Int       @default(0)
+  maxAttempts    Int       @default(3)
+  priority       Int       @default(0)
+  idempotencyKey String?
+  scheduledFor   DateTime?
+  startedAt      DateTime?
+  finishedAt     DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([queue, idempotencyKey])
+  @@index([organizationId, status])
+  @@index([queue, status])
+}
+
+enum ScheduleStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+}
+
+model Schedule {
+  id             String         @id @default(cuid())
+  organizationId String
+  workflowId     String
+  name           String
+  /// Cron expression, or null for one-shot
+  cron           String?
+  timezone       String         @default("UTC")
+  /// One-shot execution time
+  runAt          DateTime?
+  input          Json?
+  status         ScheduleStatus @default(ACTIVE)
+  lastRunAt      DateTime?
+  nextRunAt      DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflow     Workflow     @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, status])
+}
+
+// ─── Prompts ────────────────────────────────────────────────────────────────
+
+enum PromptStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+model Prompt {
+  id              String       @id @default(cuid())
+  organizationId  String
+  key             String
+  name            String
+  description     String?
+  status          PromptStatus @default(ACTIVE)
+  activeVersionId String?      @unique
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  organization  Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  versions      PromptVersion[] @relation("PromptVersions")
+  activeVersion PromptVersion?  @relation("ActivePromptVersion", fields: [activeVersionId], references: [id])
+  agentVersions AgentVersion[]
+
+  @@unique([organizationId, key])
+}
+
+model PromptVersion {
+  id        String   @id @default(cuid())
+  promptId  String
+  version   Int
+  /// Template with {{variable}} placeholders
+  template  String
+  variables String[]
+  changelog String?
+  createdAt DateTime @default(now())
+
+  prompt          Prompt         @relation("PromptVersions", fields: [promptId], references: [id], onDelete: Cascade)
+  activeForPrompt Prompt?        @relation("ActivePromptVersion")
+  agentVersions   AgentVersion[]
+  agentRuns       AgentRun[]
+
+  @@unique([promptId, version])
+}
+
+// ─── Providers, usage & cost ────────────────────────────────────────────────
+
+enum ProviderKind {
+  TEXT
+  IMAGE
+  AUDIO
+  VIDEO
+}
+
+model Provider {
+  id             String       @id @default(cuid())
+  organizationId String
+  key            String
+  name           String
+  kind           ProviderKind @default(TEXT)
+  isEnabled      Boolean      @default(false)
+  /// Non-secret settings (default model, base URL). Secrets go via SecretReference.
+  config         Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  usage        ProviderUsage[]
+
+  @@unique([organizationId, key])
+}
+
+model ProviderUsage {
+  id             String   @id @default(cuid())
+  organizationId String
+  providerId     String?
+  providerKey    String
+  model          String
+  operation      String
+  inputTokens    Int      @default(0)
+  outputTokens   Int      @default(0)
+  units          Int      @default(1)
+  costMicroUsd   BigInt   @default(0)
+  agentRunId     String?
+  workflowRunId  String?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  provider     Provider?    @relation(fields: [providerId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([providerKey, createdAt])
+}
+
+enum CostCategory {
+  AI_TOKENS
+  IMAGE_GENERATION
+  AUDIO_GENERATION
+  VIDEO_GENERATION
+  STORAGE
+  EXTERNAL_API
+  OTHER
+}
+
+model CostRecord {
+  id             String       @id @default(cuid())
+  organizationId String
+  category       CostCategory
+  moduleKey      String?
+  workflowRunId  String?
+  agentRunId     String?
+  providerKey    String?
+  description    String?
+  costMicroUsd   BigInt
+  /// Marks seeded demo rows so real spend is never mixed with demo charts
+  isDemo         Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, createdAt])
+  @@index([organizationId, moduleKey, createdAt])
+}
+
+enum CostLimitScope {
+  RUN
+  DAILY
+  MONTHLY
+  PROVIDER
+  MODULE
+}
+
+model CostLimit {
+  id             String         @id @default(cuid())
+  organizationId String
+  scope          CostLimitScope
+  /// providerKey or moduleKey when scoped
+  scopeKey       String?
+  limitMicroUsd  BigInt
+  /// Emit a warning notification at this fraction (0-1) of the limit
+  warnAtFraction Float          @default(0.8)
+  /// Hard stop: block further execution when reached
+  isHardStop     Boolean        @default(true)
+  isEnabled      Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, scope, scopeKey])
+}
+
+// ─── Tools ──────────────────────────────────────────────────────────────────
+
+model Tool {
+  id             String   @id @default(cuid())
+  organizationId String
+  key            String
+  name           String
+  description    String
+  /// JSON Schema of tool parameters
+  paramsSchema   Json
+  /// Whether invoking this tool is side-effecting (requires approval wiring)
+  isSideEffecting Boolean @default(false)
+  isEnabled      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  permissions  ToolPermission[]
+
+  @@unique([organizationId, key])
+}
+
+model ToolPermission {
+  id             String   @id @default(cuid())
+  organizationId String
+  toolId         String
+  /// Grantee: agent key (per-agent grants)
+  agentKey       String
+  isAllowed      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tool         Tool         @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@unique([toolId, agentKey])
+}
+
+// ─── Integrations & secrets ─────────────────────────────────────────────────
+
+enum IntegrationStatus {
+  NOT_CONFIGURED
+  CONFIGURED
+  CONNECTED
+  ERROR
+  DISABLED
+}
+
+model Integration {
+  id             String            @id @default(cuid())
+  organizationId String
+  key            String
+  name           String
+  description    String
+  status         IntegrationStatus @default(NOT_CONFIGURED)
+  /// Non-secret config only
+  config         Json?
+  lastCheckedAt  DateTime?
+  lastError      String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  organization Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  secrets      SecretReference[]
+
+  @@unique([organizationId, key])
+}
+
+enum SecretSource {
+  ENV
+  ENCRYPTED
+}
+
+/// Points at a secret without storing it raw. ENV: name of an environment
+/// variable on the server. ENCRYPTED: AES-256-GCM ciphertext (key from
+/// SECRET_ENCRYPTION_KEY, never in the DB).
+model SecretReference {
+  id             String       @id @default(cuid())
+  organizationId String
+  integrationId  String?
+  key            String
+  source         SecretSource
+  /// ENV: variable name. ENCRYPTED: base64(iv|ciphertext|authTag)
+  reference      String
+  /// Masked hint for the UI, e.g. "sk-…3fj9"
+  maskedPreview  String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  integration  Integration? @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, key])
+}
+
+// ─── Assets ─────────────────────────────────────────────────────────────────
+
+enum AssetType {
+  TEXT
+  IMAGE
+  AUDIO
+  VIDEO
+  DOCUMENT
+  THUMBNAIL
+  WEBSITE
+  JSON
+}
+
+enum AssetApprovalStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+}
+
+model Asset {
+  id             String              @id @default(cuid())
+  organizationId String
+  name           String
+  type           AssetType
+  mimeType       String
+  /// Storage driver key, e.g. "local" or "s3"
+  storageDriver  String
+  /// Key/path within the storage backend
+  storageKey     String
+  sizeBytes      Int                 @default(0)
+  moduleKey      String?
+  workflowRunId  String?
+  approvalRequestId String?
+  /// Where it came from: agent run, upload, generation
+  source         String?
+  approvalStatus AssetApprovalStatus @default(DRAFT)
+  metadata       Json?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  organization    Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflowRun     WorkflowRun?     @relation(fields: [workflowRunId], references: [id], onDelete: SetNull)
+  approvalRequest ApprovalRequest? @relation(fields: [approvalRequestId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, type])
+  @@index([organizationId, createdAt])
+}
+
+// ─── Notifications ──────────────────────────────────────────────────────────
+
+enum NotificationKind {
+  APPROVAL_REQUIRED
+  WORKFLOW_FAILED
+  WORKFLOW_COMPLETED
+  COST_WARNING
+  COST_LIMIT_REACHED
+  INTEGRATION_FAILURE
+  JOB_FAILURE
+  SYSTEM
+}
+
+enum NotificationChannel {
+  IN_APP
+  EMAIL
+  SLACK
+  SMS
+}
+
+model Notification {
+  id             String              @id @default(cuid())
+  organizationId String
+  userId         String?
+  kind           NotificationKind
+  channel        NotificationChannel @default(IN_APP)
+  title          String
+  body           String
+  /// Link target within the dashboard
+  href           String?
+  isRead         Boolean             @default(false)
+  sentAt         DateTime?
+  createdAt      DateTime            @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, userId, isRead])
+}
+
+// ─── Audit, metrics, errors ─────────────────────────────────────────────────
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String?
+  /// "user" | "agent" | "system" | "workflow"
+  actorType      String
+  action         String
+  entityType     String
+  entityId       String?
+  /// Before/after snapshots or event payload (no secrets)
+  detail         Json?
+  ip             String?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([organizationId, entityType, entityId])
+}
+
+model Metric {
+  id             String   @id @default(cuid())
+  organizationId String
+  key            String
+  moduleKey      String?
+  value          Float
+  unit           String   @default("count")
+  /// Aggregation bucket start
+  bucketStart    DateTime
+  /// "hour" | "day" | "month"
+  bucketSize     String   @default("day")
+  isDemo         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, key, moduleKey, bucketStart, bucketSize])
+  @@index([organizationId, key, bucketStart])
+}
+
+model ErrorEvent {
+  id             String   @id @default(cuid())
+  organizationId String
+  /// Stable hash of code+message+location for grouping
+  fingerprint    String
+  code           String
+  message        String
+  source         String
+  workflowRunId  String?
+  agentRunId     String?
+  jobId          String?
+  detail         Json?
+  isResolved     Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, createdAt])
+  @@index([organizationId, fingerprint])
+}

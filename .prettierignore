@@ -1,0 +1,10 @@
+node_modules
+.next
+.turbo
+dist
+coverage
+pnpm-lock.yaml
+.data
+playwright-report
+test-results
+packages/database/src/generated
