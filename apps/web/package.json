@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^7.9.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/react": "^19.0.0",

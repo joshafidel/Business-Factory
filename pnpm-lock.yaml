@@ -117,6 +117,9 @@ importers:
       '@playwright/test':
         specifier: ^1.49.0
         version: 1.61.1
+      '@prisma/nextjs-monorepo-workaround-plugin':
+        specifier: ^7.9.0
+        version: 7.9.0
       '@tailwindcss/postcss':
         specifier: ^4.0.0
         version: 4.3.3
@@ -1130,6 +1133,9 @@ packages:
 
   '@prisma/get-platform@6.19.3':
     resolution: {integrity: sha512-xFj1VcJ1N3MKooOQAGO0W5tsd0W2QzIvW7DD7c/8H14Zmp4jseeWAITm+w2LLoLrlhoHdPPh0NMZ8mfL6puoHA==}
+
+  '@prisma/nextjs-monorepo-workaround-plugin@7.9.0':
+    resolution: {integrity: sha512-9qqwPObrLiIymn2D8me97dD42MbI3xrHLbSyBixIWRJEUI09gpVd9VCKeehnzjOnCtfxhdgDUHbHmXNr/VmoVg==}
 
   '@radix-ui/number@1.1.2':
     resolution: {integrity: sha512-ceTwaxc4I5IOi97DgCotl3pqiyRGvffcc0oOsE2dQYaJOFIDsDt4VWG6xEbg1QePv9QWausCEIppud/tJ1wNig==}
@@ -3476,6 +3482,8 @@ snapshots:
   '@prisma/get-platform@6.19.3':
     dependencies:
       '@prisma/debug': 6.19.3
+
+  '@prisma/nextjs-monorepo-workaround-plugin@7.9.0': {}
 
   '@radix-ui/number@1.1.2': {}
 

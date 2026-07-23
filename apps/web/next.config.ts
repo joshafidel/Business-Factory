@@ -1,3 +1,4 @@
+import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 import type { NextConfig } from "next";
 
 const securityHeaders = [
@@ -22,6 +23,18 @@ const nextConfig: NextConfig = {
     "@bf/workflows",
   ],
   serverExternalPackages: ["@prisma/client", "bullmq", "ioredis", "pino"],
+  // Prisma in a pnpm monorepo on Vercel: make sure the query engine binary
+  // reaches the serverless bundle (belt: official plugin copies engines;
+  // braces: force-trace the generated client directory).
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins.push(new PrismaPlugin());
+    }
+    return config;
+  },
+  outputFileTracingIncludes: {
+    "/**/*": ["../../packages/database/src/generated/client/**"],
+  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
