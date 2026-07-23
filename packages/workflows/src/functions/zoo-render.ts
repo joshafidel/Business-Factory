@@ -1,6 +1,13 @@
 import { execFileSync } from "node:child_process";
-import ffmpegInstaller from "@ffmpeg-installer/ffmpeg";
-import { mkdtempSync, rmSync, writeFileSync, readFileSync } from "node:fs";
+import {
+  chmodSync,
+  existsSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { recordCost } from "@bf/agents";
@@ -161,7 +168,46 @@ async function mp3DurationSeconds(data: Buffer, chars: number): Promise<number> 
  * Stitch stills + voice-over into a 1080x1920 MP4. Runs ffmpeg synchronously
  * in a temp dir; low fps + stillimage tune keeps encode time serverless-safe.
  */
+/**
+ * Locate the ffmpeg binary without importing @ffmpeg-installer/ffmpeg —
+ * its index.js throws at import time when bundled, so we resolve the traced
+ * platform binary from the filesystem (pnpm store layouts, local + Vercel).
+ */
+function resolveFfmpeg(): string {
+  if (process.env.FFMPEG_PATH && existsSync(process.env.FFMPEG_PATH)) {
+    return process.env.FFMPEG_PATH;
+  }
+  const suffix = `node_modules/@ffmpeg-installer/${process.platform}-${process.arch}/ffmpeg`;
+  const roots = [process.cwd(), path.join(process.cwd(), "../.."), "/var/task"];
+  const candidates: string[] = [];
+  for (const root of roots) {
+    candidates.push(path.join(root, suffix));
+    const pnpmDir = path.join(root, "node_modules/.pnpm");
+    try {
+      for (const entry of readdirSync(pnpmDir)) {
+        if (entry.startsWith("@ffmpeg-installer+")) {
+          candidates.push(path.join(pnpmDir, entry, suffix));
+        }
+      }
+    } catch {
+      // root has no pnpm store — skip
+    }
+  }
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      try {
+        chmodSync(candidate, 0o755);
+      } catch {
+        // already executable
+      }
+      return candidate;
+    }
+  }
+  throw new Error(`ffmpeg binary not found; searched ${candidates.length} locations`);
+}
+
 function assembleSlideshow(images: Buffer[], audio: Buffer, audioSeconds: number): Buffer {
+  const ffmpegPath = resolveFfmpeg();
   const dir = mkdtempSync(path.join(os.tmpdir(), "zoo-"));
   try {
     const perImage = Math.max(2, audioSeconds / images.length);
@@ -180,7 +226,7 @@ function assembleSlideshow(images: Buffer[], audio: Buffer, audioSeconds: number
     const outFile = path.join(dir, "out.mp4");
 
     execFileSync(
-      ffmpegInstaller.path,
+      ffmpegPath,
       [
         "-y",
         "-f", "concat", "-safe", "0", "-i", listFile,
