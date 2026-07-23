@@ -6,6 +6,9 @@
 
 generator client {
   provider = "prisma-client-js"
+  // Generate into the package so Next.js output tracing bundles the query
+  // engine binary (pnpm-store paths are missed on Vercel otherwise).
+  output   = "../src/generated/client"
 }
 
 datasource db {

@@ -46,12 +46,18 @@ function api(method, path, body) {
     "Content-Type: application/json",
   ];
   if (body !== undefined) args.push("-d", JSON.stringify(body));
-  const out = execFileSync("curl", args, { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
-  try {
-    return JSON.parse(out);
-  } catch {
-    throw new Error(`Non-JSON response from ${path}: ${out.slice(0, 300)}`);
+  let lastErr;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+      const out = execFileSync("curl", args, { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
+      return JSON.parse(out);
+    } catch (err) {
+      lastErr = err;
+      // Transient network failure — back off and retry.
+      execFileSync("sleep", [String(2 * (attempt + 1))]);
+    }
   }
+  throw lastErr;
 }
 
 function teamQuery(teamId, extra = "") {

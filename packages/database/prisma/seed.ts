@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { hydrateEnvFromDotfile } from "@bf/config";
 import bcrypt from "bcryptjs";
-import { PrismaClient, type Prisma } from "@prisma/client";
+import { PrismaClient, type Prisma } from "../src/generated/client";
 
 hydrateEnvFromDotfile();
 

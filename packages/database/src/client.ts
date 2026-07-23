@@ -1,5 +1,5 @@
 import { hydrateEnvFromDotfile, normalizeDatabaseUrl } from "@bf/config";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "./generated/client";
 
 // Ensure DATABASE_URL is present for processes that don't load .env themselves,
 // and map Vercel integration variable names (POSTGRES_URL etc.) onto it.
