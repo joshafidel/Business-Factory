@@ -1,8 +1,10 @@
-import { hydrateEnvFromDotfile } from "@bf/config";
+import { hydrateEnvFromDotfile, normalizeDatabaseUrl } from "@bf/config";
 import { PrismaClient } from "@prisma/client";
 
-// Ensure DATABASE_URL is present for processes that don't load .env themselves.
+// Ensure DATABASE_URL is present for processes that don't load .env themselves,
+// and map Vercel integration variable names (POSTGRES_URL etc.) onto it.
 hydrateEnvFromDotfile();
+normalizeDatabaseUrl();
 
 /**
  * Singleton Prisma client. In Next.js dev, module reloads would otherwise

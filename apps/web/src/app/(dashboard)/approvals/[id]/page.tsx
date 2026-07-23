@@ -16,6 +16,8 @@ import {
 import { DecisionForm } from "./decision-form";
 
 export const metadata = { title: "Approval" };
+// Inline execution mode runs workflow steps inside the request lifecycle.
+export const maxDuration = 60;
 
 export default async function ApprovalDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const ctx = await requireOrgContext();

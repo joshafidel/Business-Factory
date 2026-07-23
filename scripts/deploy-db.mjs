@@ -18,6 +18,13 @@ if (fs.existsSync(envFile)) {
 }
 
 if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL =
+    process.env.POSTGRES_PRISMA_URL ??
+    process.env.POSTGRES_URL ??
+    process.env.POSTGRES_URL_NON_POOLING ??
+    "";
+}
+if (!process.env.DATABASE_URL) {
   console.error("[deploy-db] DATABASE_URL is not set — cannot migrate.");
   process.exit(1);
 }

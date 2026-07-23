@@ -87,10 +87,26 @@ export type Env = z.infer<typeof envSchema>;
 
 let cached: Env | null = null;
 
+/**
+ * Vercel database integrations inject POSTGRES_URL / POSTGRES_PRISMA_URL
+ * rather than DATABASE_URL. Normalize so Prisma and the app find the DB
+ * regardless of which integration created it.
+ */
+export function normalizeDatabaseUrl(): void {
+  if (!process.env.DATABASE_URL) {
+    const fallback =
+      process.env.POSTGRES_PRISMA_URL ??
+      process.env.POSTGRES_URL ??
+      process.env.POSTGRES_URL_NON_POOLING;
+    if (fallback) process.env.DATABASE_URL = fallback;
+  }
+}
+
 /** Parse and cache process.env. Throws a readable error listing every missing var. */
 export function loadEnv(overrides?: Partial<Record<keyof Env, string>>): Env {
   if (cached && !overrides) return cached;
   hydrateEnvFromDotfile();
+  normalizeDatabaseUrl();
   const parsed = envSchema.safeParse({ ...process.env, ...overrides });
   if (!parsed.success) {
     const issues = parsed.error.issues
