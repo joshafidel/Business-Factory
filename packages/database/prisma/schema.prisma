@@ -968,3 +968,13 @@ model ErrorEvent {
   @@index([organizationId, createdAt])
   @@index([organizationId, fingerprint])
 }
+
+/// Durable blob storage for serverless deployments without S3 (driver "db").
+/// Video/image/audio bytes; prunable after external publishing.
+model StorageBlob {
+  key       String   @id
+  data      Bytes
+  mimeType  String?
+  sizeBytes Int
+  createdAt DateTime @default(now())
+}

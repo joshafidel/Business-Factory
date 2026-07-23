@@ -18,6 +18,9 @@
     "@bf/providers": "workspace:*",
     "@bf/shared": "workspace:*",
     "@bf/storage": "workspace:*",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "music-metadata": "^10.5.0",
+    "undici": "^7.2.0",
     "zod": "^3.24.0"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import { loadEnv } from "@bf/config";
+import { DbStorage } from "./db";
 import { LocalFsStorage } from "./local";
 import { S3Storage } from "./s3";
 import { type StorageAdapter } from "./types";
@@ -23,15 +24,17 @@ export function getStorage(): StorageAdapter {
       secretAccessKey: env.S3_SECRET_ACCESS_KEY,
       forcePathStyle: env.S3_FORCE_PATH_STYLE,
     });
+  } else if (
+    env.STORAGE_DRIVER === "db" ||
+    process.env.VERCEL ||
+    process.env.AWS_LAMBDA_FUNCTION_NAME
+  ) {
+    // Serverless filesystems are ephemeral — persist blobs in Postgres so
+    // generated media survives across function instances. Move to S3/R2 for
+    // higher volume.
+    cached = new DbStorage();
   } else {
-    // Serverless filesystems (Vercel/Lambda) are read-only except /tmp.
-    // Falling back keeps the pipeline working, but /tmp is per-instance and
-    // ephemeral — configure STORAGE_DRIVER=s3 for persistent assets in prod.
-    const root =
-      process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
-        ? "/tmp/bf-storage"
-        : env.STORAGE_LOCAL_ROOT;
-    cached = new LocalFsStorage(root);
+    cached = new LocalFsStorage(env.STORAGE_LOCAL_ROOT);
   }
   return cached;
 }

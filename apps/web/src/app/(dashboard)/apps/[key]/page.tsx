@@ -20,7 +20,7 @@ import {
 import { CreateVideoForm } from "./create-video-form";
 
 export const metadata = { title: "App" };
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 const WORKFLOW_BY_APP: Record<string, string> = { "kids-shorts": "zoo-shorts-pipeline" };
 

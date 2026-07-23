@@ -22,7 +22,13 @@ const nextConfig: NextConfig = {
     "@bf/storage",
     "@bf/workflows",
   ],
-  serverExternalPackages: ["@prisma/client", "bullmq", "ioredis", "pino"],
+  serverExternalPackages: [
+    "@prisma/client",
+    "bullmq",
+    "ioredis",
+    "pino",
+    "@ffmpeg-installer/ffmpeg",
+  ],
   // Prisma in a pnpm monorepo on Vercel: make sure the query engine binary
   // reaches the serverless bundle (belt: official plugin copies engines;
   // braces: force-trace the generated client directory).
@@ -33,7 +39,10 @@ const nextConfig: NextConfig = {
     return config;
   },
   outputFileTracingIncludes: {
-    "/**/*": ["../../packages/database/src/generated/client/**"],
+    "/**/*": [
+      "../../packages/database/src/generated/client/**",
+      "../../node_modules/.pnpm/@ffmpeg-installer+linux-x64@*/**",
+    ],
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];

@@ -19,7 +19,7 @@ import { setWorkflowStatusAction } from "../actions";
 
 export const metadata = { title: "Workflow" };
 // Inline execution mode runs workflow steps inside the request lifecycle.
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 export default async function WorkflowDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const ctx = await requireOrgContext();

@@ -7,7 +7,7 @@ import { dispatchAdvance } from "@/lib/execution";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { getOrgContext } from "@/lib/session";
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 const bodySchema = z.object({ input: z.record(z.unknown()).default({}) });
 

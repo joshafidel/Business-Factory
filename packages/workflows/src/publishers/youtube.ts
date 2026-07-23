@@ -3,6 +3,14 @@ import { createLogger } from "@bf/shared";
 
 const log = createLogger("publisher:youtube");
 
+/** Honor HTTPS_PROXY (corporate/sandbox egress) — no-op when unset. */
+async function fetchOpts(): Promise<Record<string, unknown>> {
+  const proxy = process.env.HTTPS_PROXY ?? process.env.https_proxy;
+  if (!proxy) return {};
+  const { ProxyAgent } = await import("undici");
+  return { dispatcher: new ProxyAgent(proxy) };
+}
+
 export interface YouTubeUploadParams {
   title: string;
   description: string;
@@ -29,6 +37,7 @@ export function youtubeConfigured(): boolean {
 async function accessToken(): Promise<string> {
   const env = loadEnv();
   const res = await fetch("https://oauth2.googleapis.com/token", {
+    ...(await fetchOpts()),
     method: "POST",
     headers: { "content-type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
@@ -71,6 +80,7 @@ export async function uploadToYouTube(params: YouTubeUploadParams): Promise<YouT
   const init = await fetch(
     "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
     {
+      ...(await fetchOpts()),
       method: "POST",
       headers: {
         authorization: `Bearer ${token}`,
@@ -88,6 +98,7 @@ export async function uploadToYouTube(params: YouTubeUploadParams): Promise<YouT
   if (!uploadUrl) throw new Error("YouTube upload init returned no upload URL");
 
   const upload = await fetch(uploadUrl, {
+    ...(await fetchOpts()),
     method: "PUT",
     headers: { "content-type": params.mimeType },
     body: new Uint8Array(params.videoData),
