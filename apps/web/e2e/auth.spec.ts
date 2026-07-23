@@ -17,7 +17,7 @@ test("redirects unauthenticated visitors to sign-in", async ({ page }) => {
 test("owner signs in and sees the dashboard", async ({ page }) => {
   await signIn(page, "owner@factory.local");
   await expect(page.getByText("Factory Demo Org").first()).toBeVisible();
-  await expect(page.getByText("Active workflows")).toBeVisible();
+  await expect(page.getByText("Zoo Shorts").first()).toBeVisible();
 });
 
 test("viewer cannot see admin-only controls (RBAC)", async ({ page }) => {
@@ -28,7 +28,7 @@ test("viewer cannot see admin-only controls (RBAC)", async ({ page }) => {
   await expect(page.getByText("Add member")).toHaveCount(0);
   // Audit log requires REVIEWER+; viewer is bounced to overview.
   await page.goto("/audit");
-  await expect(page.getByRole("heading", { name: "Overview" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "My Apps" })).toBeVisible();
 });
 
 test("reviewer can open the approval inbox", async ({ page }) => {

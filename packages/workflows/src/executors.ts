@@ -83,7 +83,10 @@ export async function executeCodeFunction(
     throw new PlatformError("VALIDATION", `Unknown code function "${config.functionKey}"`);
   }
   // Resolve "$." references in args against the run context.
-  const args: Record<string, unknown> = {};
+  const args: Record<string, unknown> = {
+    organizationId: ctx.organizationId,
+    workflowRunId: ctx.workflowRunId,
+  };
   for (const [key, value] of Object.entries(config.args)) {
     args[key] =
       typeof value === "string" && value.startsWith("$.") ? readPath(ctx.context, value) : value;
@@ -158,14 +161,66 @@ export async function executeNotification(
 
 export async function executePublish(
   step: WorkflowStep,
-  _ctx: ExecContext,
+  ctx: ExecContext,
 ): Promise<Record<string, unknown>> {
   const config = STEP_CONFIG_SCHEMAS.PUBLISH.parse(step.config);
-  // No real external publishing targets exist yet. The engine has already
-  // enforced approval before this step runs; the executor records the intent.
+  // The engine has already enforced human approval before this step runs.
+  if (config.target === "youtube") {
+    const { uploadToYouTube, youtubeConfigured } = await import("./publishers/youtube");
+    if (!youtubeConfigured()) {
+      return {
+        published: false,
+        target: "youtube",
+        reason: "youtube-not-connected",
+        note: "Video is approved and ready. Connect YouTube (Settings checklist) to publish automatically.",
+      };
+    }
+    const videoAsset = await prisma.asset.findFirst({
+      where: { workflowRunId: ctx.workflowRunId, type: "VIDEO" },
+      orderBy: { createdAt: "desc" },
+    });
+    if (!videoAsset) {
+      throw new PlatformError("STEP_FAILED", "No video asset found on this run to publish");
+    }
+    if ((videoAsset.metadata as { placeholder?: boolean } | null)?.placeholder) {
+      return {
+        published: false,
+        target: "youtube",
+        reason: "placeholder-video",
+        note: "This video was rendered with the placeholder provider. Connect real media generation before publishing to YouTube.",
+      };
+    }
+    const metadata = readPath(ctx.context, "$.steps.metadata") as {
+      title?: string;
+      description?: string;
+      tags?: string[];
+    };
+    const storage = getStorage();
+    const data = await storage.get(videoAsset.storageKey);
+    const result = await uploadToYouTube({
+      title: metadata?.title ?? videoAsset.name,
+      description: metadata?.description ?? "",
+      tags: metadata?.tags ?? [],
+      madeForKids: true,
+      videoData: data,
+      mimeType: videoAsset.mimeType,
+      privacyStatus: "private",
+    });
+    await prisma.asset.update({
+      where: { id: videoAsset.id },
+      data: {
+        metadata: {
+          ...((videoAsset.metadata as Record<string, unknown> | null) ?? {}),
+          youtubeVideoId: result.videoId,
+          youtubeUrl: result.url,
+        } as Prisma.InputJsonValue,
+      },
+    });
+    return { published: true, target: "youtube", videoId: result.videoId, url: result.url };
+  }
   return {
     published: false,
     target: config.target,
-    note: "Publish targets are not connected yet; recorded as a dry run.",
+    note: "Publish target not connected yet; recorded as a dry run.",
   };
 }

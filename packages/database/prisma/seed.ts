@@ -278,8 +278,30 @@ async function main(): Promise<void> {
   async function seedPrompt(key: string, name: string, template: string): Promise<string> {
     const existing = await prisma.prompt.findUnique({
       where: { organizationId_key: { organizationId: org.id, key } },
+      include: { activeVersion: true, versions: { orderBy: { version: "desc" }, take: 1 } },
     });
-    if (existing) return existing.id;
+    if (existing) {
+      // Template changed in a newer seed: publish it as a new active version.
+      if (existing.activeVersion && existing.activeVersion.template !== template) {
+        const next = (existing.versions[0]?.version ?? 1) + 1;
+        const v = await prisma.promptVersion.create({
+          data: {
+            promptId: existing.id,
+            version: next,
+            template,
+            variables: [...template.matchAll(/\{\{\s*([a-zA-Z0-9_.]+)\s*\}\}/g)].map(
+              (m) => m[1] as string,
+            ),
+            changelog: "Updated by seed",
+          },
+        });
+        await prisma.prompt.update({
+          where: { id: existing.id },
+          data: { activeVersionId: v.id },
+        });
+      }
+      return existing.id;
+    }
     const prompt = await prisma.prompt.create({
       data: { organizationId: org.id, key, name },
     });
@@ -628,6 +650,291 @@ async function main(): Promise<void> {
     });
   }
   console.log("✓ demo metrics (isDemo=true, excluded from real analytics)");
+
+
+  // ── Zoo Shorts: the first installed business ──────────────────────────────
+  const zooModule = await prisma.businessModule.update({
+    where: { organizationId_key: { organizationId: org.id, key: "kids-shorts" } },
+    data: { name: "Zoo Shorts", status: "INSTALLED" },
+  });
+
+  const zooIdeaPromptId = await seedPrompt(
+    "zoo-idea",
+    "Zoo Shorts: episode idea",
+    "Pick a zoo animal for a 45-second children's YouTube Short (ages 3-7). If the input data names an animal, use that one; otherwise choose a crowd-pleasing zoo animal. Give a catchy hook and 3 true, simple fun facts. Keep everything gentle, positive, and easy for small children.",
+  );
+  const zooScriptPromptId = await seedPrompt(
+    "zoo-script",
+    "Zoo Shorts: script",
+    "Write a 45-second narration script for a children's zoo Short using the idea in the input data. 5-7 short scenes. Each scene: one narration sentence (simple words, warm tone) and one visual description (bright, cartoon zoo style). No scary content, no brands, no names of real people.",
+  );
+  const zooMetadataPromptId = await seedPrompt(
+    "zoo-metadata",
+    "Zoo Shorts: YouTube metadata",
+    "Create YouTube metadata for this children's zoo Short. Title under 70 characters with the animal name. 2-3 sentence description for parents. 8-12 tags. This is 'made for kids' content under COPPA.",
+  );
+  const zooSafetyPromptId = await seedPrompt(
+    "zoo-safety",
+    "Zoo Shorts: safety check",
+    "You are a strict children's-content safety reviewer. Check the script and metadata in the input data for: scary/violent content, unsafe imitable behavior, brands or real people, factual errors about the animal, and COPPA compliance. Score 0-100 and verdict pass/revise.",
+  );
+
+  async function seedZooAgent(params: {
+    key: string;
+    name: string;
+    role: string;
+    description: string;
+    instructions: string;
+    promptId: string;
+    inputSchema: Prisma.InputJsonValue;
+    outputSchema: Prisma.InputJsonValue;
+  }): Promise<void> {
+    const existingAgent = await prisma.agent.findUnique({
+      where: { organizationId_key: { organizationId: org.id, key: params.key } },
+    });
+    if (existingAgent) return;
+    const agent = await prisma.agent.create({
+      data: {
+        organizationId: org.id,
+        moduleId: zooModule.id,
+        key: params.key,
+        name: params.name,
+        description: params.description,
+        role: params.role,
+        status: "ACTIVE",
+      },
+    });
+    const version = await prisma.agentVersion.create({
+      data: {
+        agentId: agent.id,
+        version: 1,
+        instructions: params.instructions,
+        inputSchema: params.inputSchema,
+        outputSchema: params.outputSchema,
+        allowedTools: [],
+        forbiddenTools: [],
+        // Real Claude when ANTHROPIC_API_KEY is set; automatic mock fallback until then.
+        provider: "anthropic",
+        model: "claude-sonnet-4-5",
+        temperature: 0.8,
+        maxTokens: 2048,
+        maxCostMicroUsd: 250_000n,
+        maxRetries: 2,
+        timeoutMs: 60_000,
+        promptId: params.promptId,
+        changelog: "Initial version",
+      },
+    });
+    await prisma.agent.update({ where: { id: agent.id }, data: { activeVersionId: version.id } });
+  }
+
+  await seedZooAgent({
+    key: "zoo-idea-agent",
+    name: "Zoo Idea Agent",
+    role: "creative",
+    description: "Picks the animal and hook for each episode.",
+    instructions:
+      "You create ideas for gentle, joyful children's zoo videos (ages 3-7). Facts must be true and simple. Never scary.",
+    promptId: zooIdeaPromptId,
+    inputSchema: { type: "object", properties: { animal: { type: "string" } } },
+    outputSchema: {
+      type: "object",
+      properties: {
+        animal: { type: "string" },
+        title: { type: "string" },
+        hook: { type: "string" },
+        facts: { type: "array", items: { type: "string" }, minItems: 3 },
+      },
+      required: ["animal", "title", "hook", "facts"],
+    },
+  });
+  await seedZooAgent({
+    key: "zoo-script-agent",
+    name: "Zoo Script Agent",
+    role: "writer",
+    description: "Writes the scene-by-scene narration script.",
+    instructions:
+      "You write warm, simple narration for children ages 3-7. Short sentences. Bright, friendly cartoon visuals. Never scary, never brands.",
+    promptId: zooScriptPromptId,
+    inputSchema: {
+      type: "object",
+      properties: { idea: { type: "object" } },
+      required: ["idea"],
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        scenes: {
+          type: "array",
+          minItems: 4,
+          items: {
+            type: "object",
+            properties: { narration: { type: "string" }, visual: { type: "string" } },
+            required: ["narration", "visual"],
+          },
+        },
+        outro: { type: "string" },
+      },
+      required: ["scenes", "outro"],
+    },
+  });
+  await seedZooAgent({
+    key: "zoo-metadata-agent",
+    name: "Zoo Metadata Agent",
+    role: "publisher",
+    description: "Writes the YouTube title, description, and tags.",
+    instructions:
+      "You write YouTube metadata for made-for-kids content. Honest, appealing to parents, COPPA-compliant.",
+    promptId: zooMetadataPromptId,
+    inputSchema: {
+      type: "object",
+      properties: { idea: { type: "object" }, script: { type: "object" } },
+      required: ["idea"],
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        title: { type: "string", minLength: 5 },
+        description: { type: "string" },
+        tags: { type: "array", items: { type: "string" }, minItems: 5 },
+      },
+      required: ["title", "description", "tags"],
+    },
+  });
+  await seedZooAgent({
+    key: "zoo-safety-agent",
+    name: "Zoo Safety Agent",
+    role: "reviewer",
+    description: "Independent kid-safety and quality check before human review.",
+    instructions:
+      "You are a strict, conservative children's content safety reviewer. When in doubt, verdict revise.",
+    promptId: zooSafetyPromptId,
+    inputSchema: {
+      type: "object",
+      properties: { script: { type: "object" }, metadata: { type: "object" } },
+      required: ["script"],
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        score: { type: "integer", minimum: 0, maximum: 100 },
+        issues: { type: "array", items: { type: "string" } },
+        verdict: { type: "string", enum: ["pass", "revise"] },
+      },
+      required: ["score", "issues", "verdict"],
+    },
+  });
+  console.log("✓ Zoo Shorts agents (Claude with automatic mock fallback)");
+
+  const zooWfKey = "zoo-shorts-pipeline";
+  const existingZooWf = await prisma.workflow.findUnique({
+    where: { organizationId_key: { organizationId: org.id, key: zooWfKey } },
+  });
+  if (!existingZooWf) {
+    const wf = await prisma.workflow.create({
+      data: {
+        organizationId: org.id,
+        moduleId: zooModule.id,
+        key: zooWfKey,
+        name: "Zoo Short: idea to YouTube",
+        description:
+          "Creates a complete zoo-themed children's Short — idea, script, metadata, safety check, media — pauses for your review, then publishes to YouTube once connected.",
+        status: "ACTIVE",
+        triggerType: "MANUAL",
+        costLimitMicroUsd: 2_000_000n,
+      },
+    });
+    const version = await prisma.workflowVersion.create({
+      data: {
+        workflowId: wf.id,
+        version: 1,
+        inputSchema: { type: "object", properties: { animal: { type: "string" } } },
+        changelog: "Initial version",
+      },
+    });
+    const zooSteps: { key: string; name: string; type: "AGENT_TASK" | "CODE_FUNCTION" | "HUMAN_APPROVAL" | "PUBLISH"; config: Prisma.InputJsonValue }[] = [
+      {
+        key: "idea",
+        name: "Pick the animal & hook",
+        type: "AGENT_TASK",
+        config: {
+          agentKey: "zoo-idea-agent",
+          goal: "Choose the animal and hook for this episode",
+          inputMapping: { animal: "$.input.animal" },
+        },
+      },
+      {
+        key: "script",
+        name: "Write the script",
+        type: "AGENT_TASK",
+        config: {
+          agentKey: "zoo-script-agent",
+          goal: "Write the scene-by-scene narration",
+          inputMapping: { idea: "$.steps.idea" },
+        },
+      },
+      {
+        key: "metadata",
+        name: "Write YouTube title & description",
+        type: "AGENT_TASK",
+        config: {
+          agentKey: "zoo-metadata-agent",
+          goal: "Write the YouTube metadata",
+          inputMapping: { idea: "$.steps.idea", script: "$.steps.script" },
+        },
+      },
+      {
+        key: "safety",
+        name: "Kid-safety check",
+        type: "AGENT_TASK",
+        config: {
+          agentKey: "zoo-safety-agent",
+          goal: "Independent safety and quality review",
+          inputMapping: { script: "$.steps.script", metadata: "$.steps.metadata" },
+        },
+      },
+      {
+        key: "render",
+        name: "Create images, voice-over & video",
+        type: "CODE_FUNCTION",
+        config: { functionKey: "render_zoo_short", args: {} },
+      },
+      {
+        key: "review",
+        name: "Your review",
+        type: "HUMAN_APPROVAL",
+        config: {
+          title: "Review zoo Short before publishing",
+          description:
+            "Check the script, title, and safety score. Approving publishes to YouTube (once connected).",
+          actionType: "PUBLISH_CONTENT",
+          riskLevel: "HIGH",
+          payloadPaths: ["$.steps.idea", "$.steps.script", "$.steps.metadata", "$.steps.safety"],
+        },
+      },
+      {
+        key: "publish",
+        name: "Publish to YouTube",
+        type: "PUBLISH",
+        config: { target: "youtube", payloadPath: "$.steps.metadata" },
+      },
+    ];
+    let zooOrder = 0;
+    for (const step of zooSteps) {
+      await prisma.workflowStep.create({
+        data: {
+          workflowVersionId: version.id,
+          key: step.key,
+          name: step.name,
+          type: step.type,
+          order: zooOrder++,
+          config: step.config,
+        },
+      });
+    }
+    await prisma.workflow.update({ where: { id: wf.id }, data: { activeVersionId: version.id } });
+    console.log("✓ Zoo Shorts pipeline (7 steps, publish gated on your approval)");
+  }
 
   console.log("\nSeed complete. Sign in at http://localhost:3000 with owner@factory.local");
 }

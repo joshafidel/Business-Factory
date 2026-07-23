@@ -95,7 +95,19 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
   });
 
   const registry = params.registry ?? getProviderRegistry();
-  const provider = registry.get(version.provider);
+  // Agents configured for a real provider fall back to mock until that
+  // provider's API key is set — pipelines never break, and they upgrade to
+  // real AI automatically when the key appears.
+  let provider;
+  try {
+    provider = registry.get(version.provider);
+  } catch {
+    log.warn(
+      { agentKey: agent.key, provider: version.provider },
+      "provider not enabled; falling back to mock",
+    );
+    provider = registry.get("mock");
+  }
   const moduleKey = params.moduleKey ?? agent.module?.key ?? null;
 
   const stringVars: Record<string, string> = Object.fromEntries(
@@ -141,7 +153,7 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
 
       // 5. Provider call.
       const result = await provider.generateObject({
-        model: version.model,
+        model: provider.key === "mock" ? "mock-basic" : version.model,
         messages,
         temperature: version.temperature,
         maxTokens: version.maxTokens,
@@ -175,8 +187,8 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
       await prisma.providerUsage.create({
         data: {
           organizationId: params.organizationId,
-          providerKey: version.provider,
-          model: version.model,
+          providerKey: provider.key,
+          model: provider.key === "mock" ? "mock-basic" : version.model,
           operation: "generateObject",
           inputTokens: result.usage.inputTokens,
           outputTokens: result.usage.outputTokens,

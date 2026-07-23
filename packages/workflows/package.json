@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@bf/agents": "workspace:*",
+    "@bf/config": "workspace:*",
     "@bf/database": "workspace:*",
     "@bf/notifications": "workspace:*",
+    "@bf/providers": "workspace:*",
     "@bf/shared": "workspace:*",
     "@bf/storage": "workspace:*",
     "zod": "^3.24.0"

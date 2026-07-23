@@ -13,7 +13,8 @@ import {
   DollarSign,
   FileText,
   FolderOpen,
-  Home,
+  Gauge,
+  LayoutGrid,
   ListChecks,
   Plug,
   Bot,
@@ -23,22 +24,26 @@ import { requireOrgContext } from "@/lib/session";
 import { signOut } from "@/auth";
 import { Badge } from "@/components/ui";
 
-const NAV = [
-  { href: "/", label: "Overview", icon: Home },
-  { href: "/modules", label: "Business Modules", icon: Boxes },
+/**
+ * Navigation: the everyday surface is deliberately tiny — your apps and the
+ * approval inbox. Everything operational lives in a collapsed "Under the
+ * hood" section so it never crowds the main experience.
+ */
+const OPS_NAV = [
+  { href: "/ops", label: "System overview", icon: Gauge },
   { href: "/agents", label: "Agents", icon: Bot },
   { href: "/workflows", label: "Workflows", icon: Workflow },
-  { href: "/runs", label: "Workflow Runs", icon: Activity },
-  { href: "/approvals", label: "Approval Inbox", icon: CheckSquare },
-  { href: "/jobs", label: "Jobs & Queues", icon: ListChecks },
+  { href: "/runs", label: "Runs", icon: Activity },
+  { href: "/jobs", label: "Jobs & queues", icon: ListChecks },
   { href: "/schedules", label: "Schedules", icon: Clock },
-  { href: "/prompts", label: "Prompt Library", icon: FileText },
-  { href: "/assets", label: "Asset Library", icon: FolderOpen },
+  { href: "/prompts", label: "Prompts", icon: FileText },
+  { href: "/assets", label: "Assets", icon: FolderOpen },
   { href: "/integrations", label: "Integrations", icon: Plug },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/costs", label: "Costs", icon: DollarSign },
-  { href: "/errors", label: "Error Logs", icon: AlertTriangle },
-  { href: "/audit", label: "Audit Logs", icon: ClipboardList },
+  { href: "/errors", label: "Errors", icon: AlertTriangle },
+  { href: "/audit", label: "Audit log", icon: ClipboardList },
+  { href: "/modules", label: "Module registry", icon: Boxes },
   { href: "/settings", label: "Settings", icon: Cog },
 ];
 
@@ -77,28 +82,48 @@ export default async function DashboardLayout({ children }: { children: React.Re
             </p>
           </div>
         </div>
+
         <nav className="flex-1 space-y-0.5 overflow-y-auto p-2">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm text-foreground/80 hover:bg-muted hover:text-foreground"
-            >
-              <item.icon className="h-4 w-4 shrink-0 text-muted-foreground" />
-              <span className="flex-1">{item.label}</span>
-              {item.href === "/approvals" && pendingApprovals > 0 ? (
-                <Badge variant="warning">{pendingApprovals}</Badge>
-              ) : null}
-            </Link>
-          ))}
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm font-medium hover:bg-muted"
+          >
+            <LayoutGrid className="h-4 w-4 shrink-0 text-primary" />
+            My Apps
+          </Link>
+          <Link
+            href="/approvals"
+            className="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm font-medium hover:bg-muted"
+          >
+            <CheckSquare className="h-4 w-4 shrink-0 text-primary" />
+            <span className="flex-1">Approvals</span>
+            {pendingApprovals > 0 ? <Badge variant="warning">{pendingApprovals}</Badge> : null}
+          </Link>
+
+          <details className="mt-4 group">
+            <summary className="cursor-pointer select-none rounded-md px-2.5 py-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground hover:bg-muted">
+              Under the hood
+            </summary>
+            <div className="mt-1 space-y-0.5">
+              {OPS_NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                >
+                  <item.icon className="h-4 w-4 shrink-0" />
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </details>
         </nav>
+
         <div className="border-t border-border p-3">
           <div className="flex items-center justify-between gap-2">
             <div className="min-w-0">
               <p className="truncate text-sm font-medium">{ctx.userName}</p>
-              <p className="truncate text-xs text-muted-foreground">
-                {ctx.role.toLowerCase()} · {ctx.userEmail}
-              </p>
+              <p className="truncate text-xs text-muted-foreground">{ctx.role.toLowerCase()}</p>
             </div>
             <Link href="/notifications" className="relative rounded-md p-1.5 hover:bg-muted">
               <Bell className="h-4 w-4 text-muted-foreground" />

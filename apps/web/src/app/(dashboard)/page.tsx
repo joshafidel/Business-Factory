@@ -1,183 +1,127 @@
 import Link from "next/link";
 import { prisma } from "@bf/database";
-import { spendTotals } from "@bf/analytics";
-import { getExecutionMode, getWorkerHealth, redisHealthy } from "@bf/queue";
-import { formatMicroUsd } from "@bf/shared";
 import { requireOrgContext } from "@/lib/session";
-import { formatDate } from "@/lib/utils";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  EmptyState,
-  PageHeader,
-  Stat,
-  StatusBadge,
-} from "@/components/ui";
+import { Badge, Card, CardContent, PageHeader, StatusBadge } from "@/components/ui";
 
-export default async function OverviewPage() {
+export const metadata = { title: "My Apps" };
+
+const APP_EMOJI: Record<string, string> = {
+  "kids-shorts": "🦁",
+  "dating-parody": "💘",
+  "amazon-reviews": "📦",
+  "smb-websites": "🌐",
+  "realestate-videos": "🏠",
+};
+
+/**
+ * Home: one card per business. Installed apps show live numbers and are
+ * clickable; future apps sit quietly at the bottom until they're built.
+ */
+export default async function MyAppsPage() {
   const ctx = await requireOrgContext();
   const orgId = ctx.organizationId;
-
-  const [
-    activeWorkflows,
-    pendingApprovals,
-    failedJobs,
-    spend,
-    recentRuns,
-    recentAssets,
-    dbOk,
-    redisOk,
-    workers,
-  ] = await Promise.all([
-    prisma.workflow.count({ where: { organizationId: orgId, status: "ACTIVE" } }),
+  const [modules, pendingApprovals] = await Promise.all([
+    prisma.businessModule.findMany({
+      where: { organizationId: orgId },
+      orderBy: [{ status: "asc" }, { name: "asc" }],
+    }),
     prisma.approvalRequest.count({ where: { organizationId: orgId, status: "PENDING" } }),
-    prisma.job.count({ where: { organizationId: orgId, status: { in: ["FAILED", "DEAD"] } } }),
-    spendTotals(orgId),
-    prisma.agentRun.findMany({
-      where: { organizationId: orgId },
-      include: { agent: { select: { name: true } } },
-      orderBy: { createdAt: "desc" },
-      take: 6,
-    }),
-    prisma.asset.findMany({
-      where: { organizationId: orgId },
-      orderBy: { createdAt: "desc" },
-      take: 6,
-    }),
-    prisma.$queryRaw`SELECT 1`.then(
-      () => true,
-      () => false,
-    ),
-    getExecutionMode() === "inline" ? Promise.resolve(false) : redisHealthy(),
-    getExecutionMode() === "inline"
-      ? Promise.resolve([])
-      : redisHealthy().then((ok) => (ok ? getWorkerHealth() : [])),
   ]);
 
-  const healthyWorkers = workers.filter((w) => w.healthy).length;
-  const inlineMode = getExecutionMode() === "inline";
+  const installed = modules.filter((m) => m.status === "INSTALLED");
+  const upcoming = modules.filter((m) => m.status !== "INSTALLED");
+
+  // Live stats per installed app.
+  const stats = new Map<string, { videos: number; awaiting: number; published: number }>();
+  for (const mod of installed) {
+    const [videos, awaiting, published] = await Promise.all([
+      prisma.asset.count({ where: { organizationId: orgId, moduleKey: mod.key, type: "VIDEO" } }),
+      prisma.workflowRun.count({
+        where: {
+          organizationId: orgId,
+          status: "AWAITING_APPROVAL",
+          workflow: { module: { key: mod.key } },
+        },
+      }),
+      prisma.asset.count({
+        where: {
+          organizationId: orgId,
+          moduleKey: mod.key,
+          type: "VIDEO",
+          // any string value present = uploaded
+          metadata: { path: ["youtubeVideoId"], string_starts_with: "" },
+        },
+      }),
+    ]);
+    stats.set(mod.key, { videos, awaiting, published });
+  }
 
   return (
     <>
-      <PageHeader
-        title="Overview"
-        description={`Operations snapshot for ${ctx.organizationName}`}
-      />
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat label="Active workflows" value={activeWorkflows} />
-        <Stat label="Pending approvals" value={pendingApprovals} />
-        <Stat label="Failed jobs" value={failedJobs} />
-        <Stat
-          label="Cost today"
-          value={formatMicroUsd(spend.todayMicroUsd)}
-          sub={`${formatMicroUsd(spend.monthMicroUsd)} this month`}
-        />
+      <PageHeader title="My Apps" description="Your businesses, at a glance." />
+
+      {pendingApprovals > 0 ? (
+        <Link
+          href="/approvals"
+          className="mb-6 flex items-center justify-between rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm hover:bg-warning/20"
+        >
+          <span className="font-medium">
+            {pendingApprovals} item{pendingApprovals === 1 ? "" : "s"} waiting for your review
+          </span>
+          <span className="text-muted-foreground">Open approvals →</span>
+        </Link>
+      ) : null}
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {installed.map((mod) => {
+          const s = stats.get(mod.key) ?? { videos: 0, awaiting: 0, published: 0 };
+          return (
+            <Link key={mod.id} href={`/apps/${mod.key}`}>
+              <Card className="h-full transition-shadow hover:shadow-md">
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between">
+                    <span className="text-3xl">{APP_EMOJI[mod.key] ?? "📁"}</span>
+                    <StatusBadge status="ACTIVE" />
+                  </div>
+                  <h2 className="mt-3 text-lg font-semibold">{mod.name}</h2>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+                    {mod.description}
+                  </p>
+                  <div className="mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-center">
+                    <div>
+                      <p className="text-lg font-semibold tabular-nums">{s.videos}</p>
+                      <p className="text-xs text-muted-foreground">videos</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold tabular-nums">{s.awaiting}</p>
+                      <p className="text-xs text-muted-foreground">to review</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold tabular-nums">{s.published}</p>
+                      <p className="text-xs text-muted-foreground">published</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          );
+        })}
       </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle>Recent agent runs</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {recentRuns.length === 0 ? (
-              <EmptyState
-                title="No agent runs yet"
-                hint="Run the sample workflow to see activity."
-              />
-            ) : (
-              <ul className="divide-y divide-border">
-                {recentRuns.map((run) => (
-                  <li key={run.id} className="flex items-center justify-between py-2 text-sm">
-                    <div>
-                      <span className="font-medium">{run.agent.name}</span>
-                      <span className="ml-2 text-xs text-muted-foreground">
-                        {run.goal.slice(0, 60)}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs text-muted-foreground">
-                        {formatMicroUsd(run.costMicroUsd)}
-                      </span>
-                      <StatusBadge status={run.status} />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </CardContent>
-        </Card>
-
-        <div className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>System health</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm">
-              <HealthRow label="Database" ok={dbOk} />
-              {inlineMode ? (
-                <div className="flex items-center justify-between">
-                  <span>Execution</span>
-                  <span className="font-medium text-success">inline (serverless)</span>
-                </div>
-              ) : (
-                <HealthRow label="Redis" ok={redisOk} />
-              )}
-              {inlineMode ? null : (
-                <HealthRow
-                  label={`Workers (${healthyWorkers}/${workers.length || 0})`}
-                  ok={healthyWorkers > 0}
-                  warn={workers.length === 0}
-                />
-              )}
+      <h2 className="mb-3 mt-10 text-sm font-medium text-muted-foreground">Coming next</h2>
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {upcoming.map((mod) => (
+          <Card key={mod.id} className="opacity-70">
+            <CardContent className="flex items-center gap-3 p-4">
+              <span className="text-2xl grayscale">{APP_EMOJI[mod.key] ?? "📁"}</span>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium">{mod.name}</p>
+                <Badge className="mt-0.5">coming soon</Badge>
+              </div>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent assets</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {recentAssets.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No assets yet.</p>
-              ) : (
-                <ul className="space-y-2 text-sm">
-                  {recentAssets.map((asset) => (
-                    <li key={asset.id} className="flex items-center justify-between gap-2">
-                      <Link href="/assets" className="truncate hover:underline">
-                        {asset.name}
-                      </Link>
-                      <span className="text-xs text-muted-foreground">
-                        {formatDate(asset.createdAt)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Card>
-        </div>
+        ))}
       </div>
     </>
-  );
-}
-
-function HealthRow({ label, ok, warn }: { label: string; ok: boolean; warn?: boolean }) {
-  return (
-    <div className="flex items-center justify-between">
-      <span>{label}</span>
-      <span
-        className={
-          warn
-            ? "text-warning font-medium"
-            : ok
-              ? "text-success font-medium"
-              : "text-destructive font-medium"
-        }
-      >
-        {warn ? "none running" : ok ? "healthy" : "down"}
-      </span>
-    </div>
   );
 }

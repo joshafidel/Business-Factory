@@ -329,6 +329,18 @@ async function prepareApprovalGate(
   context: Record<string, unknown>,
 ): Promise<boolean> {
   const isPublish = step.type === "PUBLISH";
+  if (isPublish) {
+    // A publish action approved earlier in this run (a HUMAN_APPROVAL step
+    // with actionType PUBLISH_CONTENT) satisfies the gate — don't ask twice.
+    const prior = await prisma.approvalRequest.findFirst({
+      where: {
+        workflowRunId: run.id,
+        status: "APPROVED",
+        actionType: "PUBLISH_CONTENT",
+      },
+    });
+    if (prior) return false;
+  }
   const config = isPublish
     ? {
         title: `Publish approval: ${step.name}`,

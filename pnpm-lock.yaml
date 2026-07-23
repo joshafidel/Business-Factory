@@ -479,12 +479,18 @@ importers:
       '@bf/agents':
         specifier: workspace:*
         version: link:../agents
+      '@bf/config':
+        specifier: workspace:*
+        version: link:../config
       '@bf/database':
         specifier: workspace:*
         version: link:../database
       '@bf/notifications':
         specifier: workspace:*
         version: link:../notifications
+      '@bf/providers':
+        specifier: workspace:*
+        version: link:../providers
       '@bf/shared':
         specifier: workspace:*
         version: link:../shared
