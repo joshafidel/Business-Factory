@@ -2,10 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma, writeAudit } from "@bf/database";
-import { JOB_NAMES, QUEUES, computeNextRun, enqueue } from "@bf/queue";
+import { JOB_NAMES, QUEUES, computeNextRun, enqueue, getExecutionMode } from "@bf/queue";
+import { startWorkflowRun } from "@bf/workflows";
 import { PlatformError } from "@bf/shared";
 import { z } from "zod";
 import { assertPermission } from "@/lib/session";
+import { dispatchAdvance } from "@/lib/execution";
 
 export async function toggleScheduleAction(scheduleId: string): Promise<void> {
   const ctx = await assertPermission("schedules:manage");
@@ -43,12 +45,30 @@ export async function runScheduleNowAction(scheduleId: string): Promise<void> {
     where: { id: scheduleId, organizationId: ctx.organizationId },
   });
   if (!schedule) throw new PlatformError("NOT_FOUND", "Schedule not found");
-  await enqueue(
-    QUEUES.workflow,
-    JOB_NAMES.scheduleFire,
-    { scheduleId: schedule.id, organizationId: ctx.organizationId },
-    { organizationId: ctx.organizationId },
-  );
+  if (getExecutionMode() === "inline") {
+    // No worker to fire the schedule job — start the workflow directly.
+    const workflow = await prisma.workflow.findUniqueOrThrow({
+      where: { id: schedule.workflowId },
+    });
+    await startWorkflowRun({
+      organizationId: ctx.organizationId,
+      workflowKey: workflow.key,
+      input: (schedule.input as Record<string, unknown>) ?? {},
+      triggeredBy: { kind: "schedule", id: schedule.id },
+      enqueueAdvance: dispatchAdvance,
+    });
+    await prisma.schedule.update({
+      where: { id: schedule.id },
+      data: { lastRunAt: new Date() },
+    });
+  } else {
+    await enqueue(
+      QUEUES.workflow,
+      JOB_NAMES.scheduleFire,
+      { scheduleId: schedule.id, organizationId: ctx.organizationId },
+      { organizationId: ctx.organizationId },
+    );
+  }
   await writeAudit({
     organizationId: ctx.organizationId,
     userId: ctx.userId,

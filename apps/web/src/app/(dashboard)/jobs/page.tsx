@@ -1,5 +1,5 @@
 import { prisma } from "@bf/database";
-import { getWorkerHealth, queueCounts, redisHealthy } from "@bf/queue";
+import { getExecutionMode, getWorkerHealth, queueCounts, redisHealthy } from "@bf/queue";
 import { requireOrgContext } from "@/lib/session";
 import { formatDate } from "@/lib/utils";
 import {
@@ -25,7 +25,8 @@ export const dynamic = "force-dynamic";
 
 export default async function JobsPage() {
   const ctx = await requireOrgContext();
-  const redisOk = await redisHealthy();
+  const inlineMode = getExecutionMode() === "inline";
+  const redisOk = inlineMode ? false : await redisHealthy();
   const emptyCounts: Awaited<ReturnType<typeof queueCounts>> = {};
   const [counts, workers, jobs] = await Promise.all([
     redisOk ? queueCounts() : Promise.resolve(emptyCounts),
@@ -53,6 +54,14 @@ export default async function JobsPage() {
         title="Jobs & Queues"
         description="Live queue state, job history, and worker health."
       />
+      {inlineMode ? (
+        <p className="mb-4 rounded-md bg-muted p-2 text-xs text-muted-foreground">
+          Execution mode is <span className="font-medium">inline</span>: workflow steps run inside
+          the web server right after each request — no Redis queue or worker required. Queue panels
+          below are inactive. Configure REDIS_URL and deploy the worker to enable queue mode (needed
+          for cron schedules and long delays).
+        </p>
+      ) : null}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="Active" value={totals.active} />
         <Stat label="Waiting / delayed" value={totals.waiting} />
@@ -67,8 +76,14 @@ export default async function JobsPage() {
           </CardHeader>
           <CardContent>
             {!redisOk ? (
-              <p className="text-sm text-destructive">
-                Redis unreachable — queue state unavailable.
+              <p
+                className={
+                  inlineMode ? "text-sm text-muted-foreground" : "text-sm text-destructive"
+                }
+              >
+                {inlineMode
+                  ? "Queues inactive in inline mode."
+                  : "Redis unreachable — queue state unavailable."}
               </p>
             ) : (
               <ul className="divide-y divide-border text-sm">

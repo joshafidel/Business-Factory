@@ -1,11 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { enqueueWorkflowAdvance } from "@bf/queue";
 import { PlatformError, toErrorRecord } from "@bf/shared";
 import { applyApprovalDecision, decideApproval } from "@bf/workflows";
 import { z } from "zod";
 import { assertPermission } from "@/lib/session";
+import { dispatchAdvance } from "@/lib/execution";
 
 const decisionSchema = z.object({
   approvalRequestId: z.string().min(1),
@@ -34,7 +34,7 @@ export async function decideApprovalAction(formData: FormData): Promise<{ error?
     // Resume/cancel/revise the parked workflow run.
     await applyApprovalDecision({
       approvalRequestId: parsed.data.approvalRequestId,
-      enqueueAdvance: enqueueWorkflowAdvance,
+      enqueueAdvance: dispatchAdvance,
     });
   } catch (err) {
     if (err instanceof PlatformError) return { error: toErrorRecord(err).message };

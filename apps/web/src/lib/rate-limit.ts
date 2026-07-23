@@ -14,7 +14,9 @@ export async function checkRateLimit(
   windowSeconds: number,
 ): Promise<boolean> {
   try {
-    const { getRedis } = await import("@bf/queue");
+    const { getRedis, getExecutionMode } = await import("@bf/queue");
+    // Inline mode runs without Redis — don't pay a connection timeout per check.
+    if (getExecutionMode() === "inline") throw new Error("inline mode");
     const redis = getRedis();
     const redisKey = `bf:rl:${key}`;
     const count = await redis.incr(redisKey);

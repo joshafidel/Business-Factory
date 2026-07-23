@@ -34,7 +34,14 @@ export async function getWorkerHealth(): Promise<WorkerHealth[]> {
 
 export async function redisHealthy(): Promise<boolean> {
   try {
-    return (await getRedis().ping()) === "PONG";
+    // The race keeps dashboards fast when Redis is absent; when Redis is up,
+    // the offline queue lets the first ping resolve as soon as the fresh
+    // connection is ready.
+    const pong = await Promise.race([
+      getRedis().ping(),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 2_500)),
+    ]);
+    return pong === "PONG";
   } catch {
     return false;
   }

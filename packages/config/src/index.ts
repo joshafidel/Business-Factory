@@ -46,6 +46,17 @@ const envSchema = z.object({
   DATABASE_URL: z.string().url().or(z.string().startsWith("postgresql://")),
   REDIS_URL: z.string().default("redis://localhost:6379"),
 
+  /**
+   * How workflow steps execute:
+   *  - "queue": BullMQ jobs processed by the separate worker (default when
+   *    REDIS_URL is explicitly configured)
+   *  - "inline": steps run in-process right after the triggering request —
+   *    no Redis or worker needed. Used for serverless-only deployments
+   *    (e.g. Vercel without a worker host). Schedules and long DELAY steps
+   *    require the worker and are unavailable inline.
+   */
+  EXECUTION_MODE: z.enum(["queue", "inline"]).optional(),
+
   AUTH_SECRET: z.string().min(16, "AUTH_SECRET must be at least 16 chars"),
   AUTH_URL: z.string().optional(),
 

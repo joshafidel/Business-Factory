@@ -116,15 +116,51 @@ through an org context resolved from the session. Roles: Owner > Admin >
 Operator > Reviewer > Viewer, enforced by one policy map shared by pages,
 server actions, and API routes. Everything meaningful lands in `AuditLog`.
 
-## Deployment notes
+## Deploying to Vercel
 
-- **Web**: deployable to Vercel. Use a pooled Postgres connection string
-  (Neon/PgBouncer) for serverless; set all `.env` values in the project config.
-- **Worker**: any Node host (Railway, Fly, ECS, a VM). Run
-  `pnpm --filter @bf/worker start`. It needs direct Postgres + Redis access and
-  exposes `/` health on `WORKER_HEALTH_PORT`.
-- **Storage**: set `STORAGE_DRIVER=s3` with S3/MinIO/R2 credentials in prod;
-  local filesystem is for development.
+The web app deploys to Vercel as-is and runs **without Redis or a worker**
+thanks to inline execution mode (see below). You only need a hosted Postgres.
+
+1. **Database**: in your Vercel project, add a Postgres integration
+   (Vercel Postgres / Neon / Supabase). Copy the **pooled** connection string.
+2. **Project settings → General → Root Directory**: set to `apps/web`
+   (leave "Include files outside root directory" enabled). The committed
+   `apps/web/vercel.json` supplies the build command, which runs
+   `prisma generate` → `prisma migrate deploy` → optional seed → `next build`.
+3. **Environment variables** (Production + Preview):
+
+   | Variable                               | Value                                                                          |
+   | -------------------------------------- | ------------------------------------------------------------------------------ |
+   | `DATABASE_URL`                         | pooled Postgres connection string                                              |
+   | `AUTH_SECRET`                          | `openssl rand -base64 32`                                                      |
+   | `SECRET_ENCRYPTION_KEY`                | `openssl rand -hex 32`                                                         |
+   | `SEED_ON_BUILD`                        | `1` for the **first** deploy (demo org + users + sample workflow), then remove |
+   | `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` | optional — enables real providers                                              |
+   | `REDIS_URL`                            | optional — only when running the worker (switches to queue mode)               |
+   | `STORAGE_DRIVER` + `S3_*`              | optional — S3/R2 for persistent assets                                         |
+
+4. Deploy. Sign in with `owner@factory.local` / `factory-dev-password` and
+   **change the seeded passwords immediately** (Settings → members) — the
+   defaults are public knowledge from this README.
+
+### Execution modes
+
+- **inline** (automatic when `REDIS_URL` is not set — the Vercel-only setup):
+  workflow steps execute inside the serverless function right after the
+  request via Next's `after()`. The sample pipeline works end-to-end.
+  Limitations: cron schedules don't fire on their own ("Run now" works), and
+  `DELAY` steps are capped at 10s.
+- **queue** (set `REDIS_URL`, deploy `apps/worker` to Railway/Fly/ECS/a VM
+  with `pnpm --filter @bf/worker start`): full feature set — cron schedules,
+  long delays, retries with real backoff, worker health. Use Upstash or any
+  hosted Redis reachable by both Vercel and the worker.
+
+### Storage on Vercel
+
+Without S3 configured, local storage falls back to `/tmp` (ephemeral, per
+instance): generated assets keep their metadata but bytes may not survive
+between requests. Set `STORAGE_DRIVER=s3` with any S3-compatible store
+(AWS S3, Cloudflare R2, MinIO) for persistence.
 
 ## Testing
 

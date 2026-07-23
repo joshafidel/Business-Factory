@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@bf/database";
 import { spendTotals } from "@bf/analytics";
-import { getWorkerHealth, redisHealthy } from "@bf/queue";
+import { getExecutionMode, getWorkerHealth, redisHealthy } from "@bf/queue";
 import { formatMicroUsd } from "@bf/shared";
 import { requireOrgContext } from "@/lib/session";
 import { formatDate } from "@/lib/utils";
@@ -50,11 +50,14 @@ export default async function OverviewPage() {
       () => true,
       () => false,
     ),
-    redisHealthy(),
-    redisHealthy().then((ok) => (ok ? getWorkerHealth() : [])),
+    getExecutionMode() === "inline" ? Promise.resolve(false) : redisHealthy(),
+    getExecutionMode() === "inline"
+      ? Promise.resolve([])
+      : redisHealthy().then((ok) => (ok ? getWorkerHealth() : [])),
   ]);
 
   const healthyWorkers = workers.filter((w) => w.healthy).length;
+  const inlineMode = getExecutionMode() === "inline";
 
   return (
     <>
@@ -114,12 +117,21 @@ export default async function OverviewPage() {
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <HealthRow label="Database" ok={dbOk} />
-              <HealthRow label="Redis" ok={redisOk} />
-              <HealthRow
-                label={`Workers (${healthyWorkers}/${workers.length || 0})`}
-                ok={healthyWorkers > 0}
-                warn={workers.length === 0}
-              />
+              {inlineMode ? (
+                <div className="flex items-center justify-between">
+                  <span>Execution</span>
+                  <span className="font-medium text-success">inline (serverless)</span>
+                </div>
+              ) : (
+                <HealthRow label="Redis" ok={redisOk} />
+              )}
+              {inlineMode ? null : (
+                <HealthRow
+                  label={`Workers (${healthyWorkers}/${workers.length || 0})`}
+                  ok={healthyWorkers > 0}
+                  warn={workers.length === 0}
+                />
+              )}
             </CardContent>
           </Card>
           <Card>

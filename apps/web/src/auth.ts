@@ -26,6 +26,9 @@ const credentialsSchema = z.object({
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   pages: { signIn: "/sign-in" },
+  // Behind Vercel/other proxies the Host header is trusted infrastructure;
+  // required when AUTH_URL is not pinned.
+  trustHost: true,
   providers: [
     Credentials({
       name: "Email and password",

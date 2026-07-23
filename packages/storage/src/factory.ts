@@ -24,7 +24,14 @@ export function getStorage(): StorageAdapter {
       forcePathStyle: env.S3_FORCE_PATH_STYLE,
     });
   } else {
-    cached = new LocalFsStorage(env.STORAGE_LOCAL_ROOT);
+    // Serverless filesystems (Vercel/Lambda) are read-only except /tmp.
+    // Falling back keeps the pipeline working, but /tmp is per-instance and
+    // ephemeral — configure STORAGE_DRIVER=s3 for persistent assets in prod.
+    const root =
+      process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+        ? "/tmp/bf-storage"
+        : env.STORAGE_LOCAL_ROOT;
+    cached = new LocalFsStorage(root);
   }
   return cached;
 }

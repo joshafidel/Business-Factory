@@ -1,11 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { enqueueWorkflowAdvance } from "@bf/queue";
 import { setWorkflowStatus, startWorkflowRun } from "@bf/workflows";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { assertPermission } from "@/lib/session";
+import { dispatchAdvance } from "@/lib/execution";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { PlatformError, toErrorRecord } from "@bf/shared";
 
@@ -35,7 +35,7 @@ export async function runWorkflowAction(
       workflowKey,
       input,
       triggeredBy: { kind: "user", id: ctx.userId },
-      enqueueAdvance: enqueueWorkflowAdvance,
+      enqueueAdvance: dispatchAdvance,
     });
     runId = run.id;
   } catch (err) {
