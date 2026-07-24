@@ -254,7 +254,11 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   const clips = new Map<number, Buffer>();
   let clipCost = 0n;
   if (animationJobs.length > 0) {
-    const deadline = Date.now() + 205_000;
+    // 150s polling cap keeps poll + download + ffmpeg safely inside the
+    // 300s invocation limit (attempt 1 previously timed out at 205s). Jobs
+    // were submitted ~65s ago (render end + the 60s DELAY step), so this
+    // still covers dop-lite's observed 180-216s generation time.
+    const deadline = Date.now() + 150_000;
     const results = await awaitJobSets(
       animationJobs.map((j) => j.jobSetId),
       deadline,
