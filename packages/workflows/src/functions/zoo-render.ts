@@ -11,22 +11,51 @@ import {
 import os from "node:os";
 import path from "node:path";
 import { recordCost } from "@bf/agents";
+import { loadEnv } from "@bf/config";
 import { prisma, type Prisma } from "@bf/database";
-import { getMediaProviders } from "@bf/providers";
+import {
+  awaitJobSets,
+  downloadClip,
+  getMediaProviders,
+  higgsfieldConfigured,
+  submitImageToVideo,
+  HIGGSFIELD_CLIP_COST_MICRO_USD,
+} from "@bf/providers";
 import { getStorage } from "@bf/storage";
-import { createLogger } from "@bf/shared";
+import { createLogger, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
 
 const log = createLogger("zoo-render");
 
 /**
- * Zoo Shorts renderer (CODE_FUNCTION "render_zoo_short").
+ * Zoo Shorts rendering, split across two workflow steps so each gets its own
+ * serverless invocation (Higgsfield needs ~3-4 minutes per clip):
  *
- * With OPENAI_API_KEY set: one gpt-image illustration per scene (generated in
- * parallel), a gpt-4o-mini-tts voice-over, and an ffmpeg-assembled 1080x1920
- * MP4 slideshow synced to the narration. Without it: local mocks keep the
- * pipeline alive and the video is flagged placeholder (never uploaded).
+ *  1. "render" (render_zoo_short): scene illustrations (gpt-image, parallel),
+ *     the sung voice-over (gpt-4o-mini-tts), and — when Higgsfield keys plus a
+ *     public base URL are configured — submits one image-to-video job per
+ *     scene so the stills become true animated shots.
+ *  2. "assemble" (assemble_zoo_video): waits for the animation jobs, downloads
+ *     finished clips, falls back to Ken Burns for any scene whose clip isn't
+ *     ready, and cuts the final 1080x1920 MP4 with crossfades, the voice-over,
+ *     and a synthesized music-box bed.
+ *
+ * Without OPENAI_API_KEY the mocks keep the pipeline alive and the video is
+ * flagged placeholder (never uploaded).
  */
+
+/** Nominal Higgsfield clip length (dop-lite produces ~5.3-5.4s). */
+const HF_CLIP_SECONDS = 5.3;
+
+/** Public URL Higgsfield's fetcher can use to download scene images. */
+function publicBaseUrl(): string | undefined {
+  const env = loadEnv();
+  if (env.APP_BASE_URL) return env.APP_BASE_URL.replace(/\/$/, "");
+  const prod = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (prod) return `https://${prod}`;
+  return undefined;
+}
+
 registerCodeFunction("render_zoo_short", async (args, context) => {
   const organizationId = String(args.organizationId ?? "");
   const workflowRunId = String(args.workflowRunId ?? "");
@@ -83,59 +112,73 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
         .then((r) => ({ i, r })),
     ),
   );
-  const imageBuffers: Buffer[] = [];
+  const imageAssetIds: string[] = [];
   for (const { i, r } of images.sort((a, b) => a.i - b.i)) {
     totalCost += r.costMicroUsd;
-    imageBuffers.push(r.data);
-    await save(
+    const id = await save(
       `Scene ${i + 1}: ${(scenes[i]?.visual ?? "").slice(0, 60)}`,
       "IMAGE",
       r.mimeType,
       r.data,
       { sceneIndex: i, visual: scenes[i]?.visual, provider: providers.image.key },
     );
+    imageAssetIds.push(id);
   }
 
-  // Voice-over.
+  // Voice-over — warm, motherly, human (see OpenAISpeechProvider for voice).
   const narration = [...scenes.map((s) => s?.narration ?? ""), script?.outro ?? ""]
     .filter(Boolean)
     .join(" ");
   const voice = await providers.audio.generateSpeech({
     text: narration,
     style:
-      "Sing-song nursery-rhyme delivery for toddlers: melodic, bouncy, rhythmic like a children's song, " +
-      "gentle and joyful, slightly slower pace, playful emphasis on repeated sound words",
+      "You are a young mom singing a nursery rhyme to your own toddler, smiling the whole time. " +
+      "Upbeat, happy, bouncy and melodic — a true sing-song children's-rhyme delivery with natural " +
+      "human breaths, warm affectionate tone, playful emphasis on animal sounds and repeated words. " +
+      "Slightly slower pace for little ears. Sound genuinely delighted and loving, never flat, " +
+      "never robotic, never like a synthetic narrator.",
   });
   totalCost += voice.costMicroUsd;
-  await save(`Voice-over: ${title.slice(0, 60)}`, "AUDIO", voice.mimeType, voice.data, {
-    chars: narration.length,
-    provider: providers.audio.key,
-  });
-
-  // Video.
-  let videoData: Buffer;
-  let videoMeta: Record<string, unknown>;
-  if (providers.real && imageBuffers.length > 0) {
-    const audioSeconds = await mp3DurationSeconds(voice.data, narration.length);
-    videoData = assembleNurseryVideo(imageBuffers, voice.data, audioSeconds);
-    videoMeta = {
-      provider: "ffmpeg-kenburns-music",
-      placeholder: false,
-      sceneCount: scenes.length,
-      durationSeconds: Math.round(audioSeconds),
-    };
-  } else {
-    const rendered = await providers.video.generateVideo({ prompt: title });
-    videoData = rendered.data;
-    videoMeta = { provider: providers.video.key, placeholder: true, sceneCount: scenes.length };
-  }
-  const videoAssetId = await save(
-    `Video: ${title.slice(0, 80)}`,
-    "VIDEO",
-    "video/mp4",
-    videoData,
-    videoMeta,
+  const audioAssetId = await save(
+    `Voice-over: ${title.slice(0, 60)}`,
+    "AUDIO",
+    voice.mimeType,
+    voice.data,
+    { chars: narration.length, provider: providers.audio.key },
   );
+  const audioSeconds = await mp3DurationSeconds(voice.data, narration.length);
+
+  // Submit Higgsfield image-to-video jobs (the next step polls + assembles).
+  // Requires a public base URL so their fetcher can download the images.
+  const animationJobs: { sceneIndex: number; jobSetId: string }[] = [];
+  const base = publicBaseUrl();
+  if (providers.real && higgsfieldConfigured() && base && imageAssetIds.length > 0) {
+    const env = loadEnv();
+    const exp = Math.floor(Date.now() / 1000) + 2 * 60 * 60;
+    const submissions = await Promise.allSettled(
+      imageAssetIds.map(async (assetId, i) => {
+        const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, assetId, exp);
+        const imageUrl = `${base}/api/assets/public?id=${assetId}&exp=${exp}&sig=${sig}`;
+        const motion = (scenes[i]?.visual ?? "a happy baby zoo animal").slice(0, 300);
+        const jobSetId = await submitImageToVideo({
+          imageUrl,
+          prompt:
+            `Gentle toddler-cartoon animation: ${motion}. The cute baby animal moves softly — ` +
+            "blinks, bounces, wiggles ears, smiles. Slow smooth cinematic camera, subtle motion, " +
+            "keep the exact 3D nursery-rhyme art style of the image. No text.",
+        });
+        return { sceneIndex: i, jobSetId };
+      }),
+    );
+    for (const s of submissions) {
+      if (s.status === "fulfilled") animationJobs.push(s.value);
+      else log.warn({ err: s.reason }, "higgsfield submission failed; scene will use Ken Burns");
+    }
+    log.info(
+      { submitted: animationJobs.length, scenes: imageAssetIds.length },
+      "higgsfield jobs submitted",
+    );
+  }
 
   if (totalCost > 0n) {
     await recordCost({
@@ -150,14 +193,150 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
   }
 
   return {
-    videoAssetId,
+    imageAssetIds,
+    audioAssetId,
+    audioSeconds,
+    animationJobs,
     assetIds,
     sceneCount: scenes.length,
-    isPlaceholder: !(providers.real && imageBuffers.length > 0),
-    // Engine folds this into the run's total cost (limits included).
+    isReal: providers.real && imageAssetIds.length > 0,
     _costMicroUsd: totalCost.toString(),
   };
 });
+
+registerCodeFunction("assemble_zoo_video", async (args, context) => {
+  const organizationId = String(args.organizationId ?? "");
+  const workflowRunId = String(args.workflowRunId ?? "");
+  const render = readPath(context, "$.steps.render") as {
+    imageAssetIds?: string[];
+    audioAssetId?: string;
+    audioSeconds?: number;
+    animationJobs?: { sceneIndex: number; jobSetId: string }[];
+    sceneCount?: number;
+    isReal?: boolean;
+  };
+  const metadata = readPath(context, "$.steps.metadata") as { title?: string };
+  const title = metadata?.title ?? "Zoo short";
+  const storage = getStorage();
+  const providers = getMediaProviders();
+
+  const imageAssetIds = render?.imageAssetIds ?? [];
+  const animationJobs = render?.animationJobs ?? [];
+
+  // Placeholder path (no real media generation configured).
+  if (!render?.isReal || imageAssetIds.length === 0 || !render.audioAssetId) {
+    const rendered = await providers.video.generateVideo({ prompt: title });
+    const videoAssetId = await saveVideoAsset(organizationId, workflowRunId, title, rendered.data, {
+      provider: providers.video.key,
+      placeholder: true,
+      sceneCount: render?.sceneCount ?? 0,
+    });
+    return { videoAssetId, isPlaceholder: true, animatedScenes: 0 };
+  }
+
+  // Load stills + voice back from storage.
+  const loadAsset = async (id: string): Promise<Buffer> => {
+    const asset = await prisma.asset.findUnique({ where: { id } });
+    if (!asset) throw new Error(`Asset ${id} not found`);
+    return storage.get(asset.storageKey);
+  };
+  const [imageBuffers, audioBuffer] = await Promise.all([
+    Promise.all(imageAssetIds.map(loadAsset)),
+    loadAsset(render.audioAssetId),
+  ]);
+  const audioSeconds =
+    render.audioSeconds && render.audioSeconds > 1
+      ? render.audioSeconds
+      : await mp3DurationSeconds(audioBuffer, 600);
+
+  // Wait for Higgsfield clips — bounded so this invocation stays inside its
+  // serverless limit. Scenes whose clip isn't ready fall back to Ken Burns.
+  const clips = new Map<number, Buffer>();
+  let clipCost = 0n;
+  if (animationJobs.length > 0) {
+    const deadline = Date.now() + 205_000;
+    const results = await awaitJobSets(
+      animationJobs.map((j) => j.jobSetId),
+      deadline,
+    );
+    const downloads = await Promise.allSettled(
+      animationJobs.map(async (job) => {
+        const r = results.get(job.jobSetId);
+        if (r?.status !== "completed" || !r.videoUrl) {
+          throw new Error(`clip not ready (${r?.status ?? "missing"})`);
+        }
+        return { sceneIndex: job.sceneIndex, data: await downloadClip(r.videoUrl) };
+      }),
+    );
+    for (const d of downloads) {
+      if (d.status === "fulfilled") {
+        clips.set(d.value.sceneIndex, d.value.data);
+        clipCost += HIGGSFIELD_CLIP_COST_MICRO_USD;
+      } else {
+        log.warn({ err: d.reason }, "scene falls back to Ken Burns");
+      }
+    }
+    log.info({ animated: clips.size, total: imageBuffers.length }, "higgsfield clips ready");
+  }
+
+  const videoData = assembleNurseryVideo(imageBuffers, clips, audioBuffer, audioSeconds);
+  const videoAssetId = await saveVideoAsset(organizationId, workflowRunId, title, videoData, {
+    provider: clips.size > 0 ? "higgsfield+ffmpeg" : "ffmpeg-kenburns-music",
+    placeholder: false,
+    sceneCount: imageBuffers.length,
+    animatedScenes: clips.size,
+    durationSeconds: Math.round(audioSeconds),
+  });
+
+  if (clipCost > 0n) {
+    await recordCost({
+      organizationId,
+      category: "VIDEO_GENERATION",
+      costMicroUsd: clipCost,
+      moduleKey: "kids-shorts",
+      workflowRunId,
+      providerKey: "higgsfield",
+      description: `Animated ${clips.size} scene(s) for "${title.slice(0, 60)}" (dop-lite)`,
+    });
+  }
+
+  return {
+    videoAssetId,
+    isPlaceholder: false,
+    animatedScenes: clips.size,
+    sceneCount: imageBuffers.length,
+    _costMicroUsd: clipCost.toString(),
+  };
+});
+
+async function saveVideoAsset(
+  organizationId: string,
+  workflowRunId: string,
+  title: string,
+  data: Buffer,
+  meta: Record<string, unknown>,
+): Promise<string> {
+  const storage = getStorage();
+  const key = `${organizationId}/${workflowRunId}/video-final-${Date.now()}`;
+  const stored = await storage.put(key, data, { contentType: "video/mp4" });
+  const asset = await prisma.asset.create({
+    data: {
+      organizationId,
+      name: `Video: ${title.slice(0, 80)}`,
+      type: "VIDEO",
+      mimeType: "video/mp4",
+      storageDriver: storage.driver,
+      storageKey: stored.key,
+      sizeBytes: stored.sizeBytes,
+      moduleKey: "kids-shorts",
+      workflowRunId,
+      source: "workflow:zoo-shorts-pipeline:assemble",
+      approvalStatus: "PENDING_REVIEW",
+      metadata: meta as Prisma.InputJsonValue,
+    },
+  });
+  return asset.id;
+}
 
 /** Read MP3 duration; falls back to a speech-rate estimate on parse failure. */
 async function mp3DurationSeconds(data: Buffer, chars: number): Promise<number> {
@@ -171,10 +350,6 @@ async function mp3DurationSeconds(data: Buffer, chars: number): Promise<number> 
   return Math.max(10, chars / 15); // ~15 chars/second of narration
 }
 
-/**
- * Stitch stills + voice-over into a 1080x1920 MP4. Runs ffmpeg synchronously
- * in a temp dir; low fps + stillimage tune keeps encode time serverless-safe.
- */
 /**
  * Locate the ffmpeg binary without importing @ffmpeg-installer/ffmpeg —
  * its index.js throws at import time when bundled, so we resolve the traced
@@ -214,50 +389,79 @@ function resolveFfmpeg(): string {
 }
 
 /**
- * Nursery-rhyme assembly: slow Ken Burns zoom on every scene, 0.6s
- * crossfades, sung voice-over, and a soft synthesized music-box arpeggio
- * underneath (generated with ffmpeg — no licensed audio involved).
+ * Nursery-rhyme assembly. Animated scenes use their Higgsfield clip (scaled
+ * and cropped to 1080x1920, gently time-stretched to the scene length);
+ * others get a slow Ken Burns zoom. 0.6s crossfades chain the scenes, the
+ * sung voice-over sits on top of a soft synthesized music-box arpeggio
+ * (generated in JS — no licensed audio involved).
  */
-function assembleNurseryVideo(images: Buffer[], audio: Buffer, audioSeconds: number): Buffer {
+function assembleNurseryVideo(
+  images: Buffer[],
+  clips: Map<number, Buffer>,
+  audio: Buffer,
+  audioSeconds: number,
+): Buffer {
   const ffmpegPath = resolveFfmpeg();
   const dir = mkdtempSync(path.join(os.tmpdir(), "zoo-"));
   try {
     const n = images.length;
     const fade = 0.6;
     const total = audioSeconds + 1.2;
-    // Every clip has the same length; crossfades overlap them.
+    // Every scene has the same length; crossfades overlap them.
     const clipLen = (total + (n - 1) * fade) / n;
     const fps = 24;
     const frames = Math.ceil(clipLen * fps);
 
     const inputs: string[] = [];
-    images.forEach((img, i) => {
-      const file = path.join(dir, `img${i}.png`);
-      writeFileSync(file, img);
-      inputs.push("-i", file);
-    });
+    for (let i = 0; i < n; i++) {
+      const clip = clips.get(i);
+      if (clip) {
+        const file = path.join(dir, `clip${i}.mp4`);
+        writeFileSync(file, clip);
+        inputs.push("-i", file);
+      } else {
+        const file = path.join(dir, `img${i}.png`);
+        writeFileSync(file, images[i] as Buffer);
+        inputs.push("-i", file);
+      }
+    }
     const audioFile = path.join(dir, "voice.mp3");
     writeFileSync(audioFile, audio);
     const outFile = path.join(dir, "out.mp4");
 
-    // Ken Burns per still: gentle zoom-in, alternating with zoom-out.
     const filters: string[] = [];
     for (let i = 0; i < n; i++) {
-      const zoomExpr =
-        i % 2 === 0
-          ? `min(1+0.0018*on,1.14)` // zoom in
-          : `max(1.14-0.0018*on,1.0)`; // zoom out
-      filters.push(
-        `[${i}:v]scale=1400:2489:force_original_aspect_ratio=increase,crop=1400:2489,` +
-          `zoompan=z='${zoomExpr}':d=${frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps=${fps}[v${i}]`,
-      );
+      if (clips.has(i)) {
+        // Gentle time-stretch so the ~5.3s clip fills the scene slot, then
+        // clone-pad as a safety net and trim to the exact length. fps must
+        // come last: xfade requires CFR inputs and tpad/trim drop the rate.
+        const stretch = Math.min(2.0, Math.max(0.75, clipLen / HF_CLIP_SECONDS));
+        filters.push(
+          `[${i}:v]setpts=${stretch.toFixed(4)}*PTS,` +
+            `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
+            `tpad=stop_mode=clone:stop_duration=10,trim=duration=${clipLen.toFixed(2)},` +
+            `setpts=PTS-STARTPTS,fps=${fps}[v${i}]`,
+        );
+      } else {
+        // Ken Burns per still: gentle zoom-in, alternating with zoom-out.
+        const zoomExpr =
+          i % 2 === 0
+            ? `min(1+0.0018*on,1.14)` // zoom in
+            : `max(1.14-0.0018*on,1.0)`; // zoom out
+        filters.push(
+          `[${i}:v]scale=1400:2489:force_original_aspect_ratio=increase,crop=1400:2489,` +
+            `zoompan=z='${zoomExpr}':d=${frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps=${fps}[v${i}]`,
+        );
+      }
     }
     // Chain crossfades.
     let last = "v0";
     for (let i = 1; i < n; i++) {
       const out = i === n - 1 ? "vout" : `x${i}`;
       const offset = (i * (clipLen - fade)).toFixed(2);
-      filters.push(`[${last}][v${i}]xfade=transition=fade:duration=${fade}:offset=${offset}[${out}]`);
+      filters.push(
+        `[${last}][v${i}]xfade=transition=fade:duration=${fade}:offset=${offset}[${out}]`,
+      );
       last = out;
     }
     if (n === 1) filters.push(`[v0]copy[vout]`);
@@ -277,14 +481,30 @@ function assembleNurseryVideo(images: Buffer[], audio: Buffer, audioSeconds: num
       [
         "-y",
         ...inputs,
-        "-i", audioFile,
-        "-i", musicFile,
-        "-filter_complex", filters.join(";"),
-        "-map", "[vout]", "-map", "[aout]",
-        "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p",
-        "-t", total.toFixed(2),
-        "-c:a", "aac", "-b:a", "128k",
-        "-movflags", "+faststart",
+        "-i",
+        audioFile,
+        "-i",
+        musicFile,
+        "-filter_complex",
+        filters.join(";"),
+        "-map",
+        "[vout]",
+        "-map",
+        "[aout]",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "ultrafast",
+        "-pix_fmt",
+        "yuv420p",
+        "-t",
+        total.toFixed(2),
+        "-c:a",
+        "aac",
+        "-b:a",
+        "128k",
+        "-movflags",
+        "+faststart",
         outFile,
       ],
       { stdio: ["ignore", "ignore", "pipe"], timeout: 240_000 },

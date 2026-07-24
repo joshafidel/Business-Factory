@@ -63,7 +63,11 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
     }),
     prisma.asset.count({ where: { organizationId: orgId, moduleKey: key, type: "VIDEO" } }),
     prisma.approvalRequest.count({
-      where: { organizationId: orgId, status: "PENDING", workflowRun: { workflow: { key: workflowKey } } },
+      where: {
+        organizationId: orgId,
+        status: "PENDING",
+        workflowRun: { workflow: { key: workflowKey } },
+      },
     }),
     prisma.costRecord.aggregate({
       where: {
@@ -92,7 +96,10 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
 
   return (
     <>
-      <PageHeader title={`🦁 ${mod.name}`} description="Zoo-themed YouTube Shorts for kids, made by your agents.">
+      <PageHeader
+        title={`🦁 ${mod.name}`}
+        description="Zoo-themed YouTube Shorts for kids, made by your agents."
+      >
         <StatusBadge status="ACTIVE" />
       </PageHeader>
 
@@ -113,8 +120,8 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
               hint="Videos stop at 'approved & ready' until YouTube is connected."
             />
             <p className="pt-1 text-xs text-muted-foreground">
-              Both are covered step-by-step in the setup instructions you were given. Everything else
-              is automatic.
+              Both are covered step-by-step in the setup instructions you were given. Everything
+              else is automatic.
             </p>
           </CardContent>
         </Card>
@@ -131,7 +138,10 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
         <div className="lg:col-span-2">
           <h2 className="mb-3 text-sm font-semibold">Recent videos</h2>
           {runs.length === 0 ? (
-            <EmptyState title="No videos yet" hint="Click “Make a video” to create the first one." />
+            <EmptyState
+              title="No videos yet"
+              hint="Click “Make a video” to create the first one."
+            />
           ) : (
             <div className="space-y-2">
               {runs.map((run) => {
@@ -182,7 +192,10 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
                       ) : (
                         <StatusBadge status={run.status} />
                       )}
-                      <Link href={`/runs/${run.id}`} className="text-xs text-muted-foreground hover:underline">
+                      <Link
+                        href={`/runs/${run.id}`}
+                        className="text-xs text-muted-foreground hover:underline"
+                      >
                         details
                       </Link>
                     </div>
@@ -209,7 +222,9 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
               <CardTitle>How it works</CardTitle>
             </CardHeader>
             <CardContent className="space-y-1.5 text-sm text-muted-foreground">
-              <p>1. Agents pick an animal, write the script and title, and run a kid-safety check.</p>
+              <p>
+                1. Agents pick an animal, write the script and title, and run a kid-safety check.
+              </p>
               <p>2. Images, voice-over, and video are generated.</p>
               <p>3. It waits for your one-click review in Approvals.</p>
               <p>4. Approved videos publish to YouTube automatically (once connected).</p>

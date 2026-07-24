@@ -1,10 +1,5 @@
 import { prisma } from "@bf/database";
-import {
-  type ObjectInfo,
-  type PutOptions,
-  type StorageAdapter,
-  type StoredObject,
-} from "./types";
+import { type ObjectInfo, type PutOptions, type StorageAdapter, type StoredObject } from "./types";
 
 /**
  * Postgres-backed blob storage (driver "db"). Used automatically on

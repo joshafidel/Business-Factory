@@ -651,7 +651,6 @@ async function main(): Promise<void> {
   }
   console.log("✓ demo metrics (isDemo=true, excluded from real analytics)");
 
-
   // ── Zoo Shorts: the first installed business ──────────────────────────────
   const zooModule = await prisma.businessModule.update({
     where: { organizationId_key: { organizationId: org.id, key: "kids-shorts" } },
@@ -695,7 +694,10 @@ async function main(): Promise<void> {
     });
     if (existingAgent) {
       // Instructions changed in a newer seed: publish as a new agent version.
-      if (existingAgent.activeVersion && existingAgent.activeVersion.instructions !== params.instructions) {
+      if (
+        existingAgent.activeVersion &&
+        existingAgent.activeVersion.instructions !== params.instructions
+      ) {
         const base = existingAgent.activeVersion;
         const v = await prisma.agentVersion.create({
           data: {
@@ -858,98 +860,139 @@ async function main(): Promise<void> {
   console.log("✓ Zoo Shorts agents (Claude with automatic mock fallback)");
 
   const zooWfKey = "zoo-shorts-pipeline";
-  const existingZooWf = await prisma.workflow.findUnique({
+  // Cost limit covers OpenAI media (~$0.15) plus Higgsfield animation
+  // (~$0.55/clip × up to 8 scenes).
+  const zooCostLimit = 6_000_000n;
+  const zooSteps: {
+    key: string;
+    name: string;
+    type: "AGENT_TASK" | "CODE_FUNCTION" | "HUMAN_APPROVAL" | "PUBLISH" | "DELAY";
+    config: Prisma.InputJsonValue;
+  }[] = [
+    {
+      key: "idea",
+      name: "Pick the animal & hook",
+      type: "AGENT_TASK",
+      config: {
+        agentKey: "zoo-idea-agent",
+        goal: "Choose the animal and hook for this episode",
+        inputMapping: { animal: "$.input.animal" },
+      },
+    },
+    {
+      key: "script",
+      name: "Write the script",
+      type: "AGENT_TASK",
+      config: {
+        agentKey: "zoo-script-agent",
+        goal: "Write the scene-by-scene narration",
+        inputMapping: { idea: "$.steps.idea" },
+      },
+    },
+    {
+      key: "metadata",
+      name: "Write YouTube title & description",
+      type: "AGENT_TASK",
+      config: {
+        agentKey: "zoo-metadata-agent",
+        goal: "Write the YouTube metadata",
+        inputMapping: { idea: "$.steps.idea", script: "$.steps.script" },
+      },
+    },
+    {
+      key: "safety",
+      name: "Kid-safety check",
+      type: "AGENT_TASK",
+      config: {
+        agentKey: "zoo-safety-agent",
+        goal: "Independent safety and quality review",
+        inputMapping: { script: "$.steps.script", metadata: "$.steps.metadata" },
+      },
+    },
+    {
+      key: "render",
+      name: "Create images, voice-over & start animation",
+      type: "CODE_FUNCTION",
+      config: { functionKey: "render_zoo_short", args: {} },
+    },
+    {
+      key: "wait",
+      name: "Let the animation studio work",
+      type: "DELAY",
+      config: { delayMs: 60_000 },
+    },
+    {
+      key: "assemble",
+      name: "Animate scenes & cut the video",
+      type: "CODE_FUNCTION",
+      config: { functionKey: "assemble_zoo_video", args: {} },
+    },
+    {
+      key: "review",
+      name: "Your review",
+      type: "HUMAN_APPROVAL",
+      config: {
+        title: "Review zoo Short before publishing",
+        description:
+          "Check the script, title, and safety score. Approving publishes to YouTube (once connected).",
+        actionType: "PUBLISH_CONTENT",
+        riskLevel: "HIGH",
+        payloadPaths: ["$.steps.idea", "$.steps.script", "$.steps.metadata", "$.steps.safety"],
+      },
+    },
+    {
+      key: "publish",
+      name: "Publish to YouTube",
+      type: "PUBLISH",
+      config: { target: "youtube", payloadPath: "$.steps.metadata" },
+    },
+  ];
+  // Create the workflow if missing; version-bump when the step list changed
+  // (compares key/type/config) so existing deployments pick up new steps.
+  let zooWf = await prisma.workflow.findUnique({
     where: { organizationId_key: { organizationId: org.id, key: zooWfKey } },
+    include: { activeVersion: { include: { steps: { orderBy: { order: "asc" } } } } },
   });
-  if (!existingZooWf) {
-    const wf = await prisma.workflow.create({
+  if (!zooWf) {
+    const created = await prisma.workflow.create({
       data: {
         organizationId: org.id,
         moduleId: zooModule.id,
         key: zooWfKey,
         name: "Zoo Short: idea to YouTube",
         description:
-          "Creates a complete zoo-themed children's Short — idea, script, metadata, safety check, media — pauses for your review, then publishes to YouTube once connected.",
+          "Creates a complete zoo-themed children's Short — idea, script, metadata, safety check, animated media — pauses for your review, then publishes to YouTube once connected.",
         status: "ACTIVE",
         triggerType: "MANUAL",
-        costLimitMicroUsd: 2_000_000n,
+        costLimitMicroUsd: zooCostLimit,
       },
+    });
+    zooWf = { ...created, activeVersion: null } as typeof zooWf & { activeVersion: null };
+  }
+  const activeSteps = zooWf!.activeVersion?.steps ?? [];
+  const stepsMatch =
+    activeSteps.length === zooSteps.length &&
+    activeSteps.every(
+      (s, i) =>
+        s.key === zooSteps[i]!.key &&
+        s.type === zooSteps[i]!.type &&
+        JSON.stringify(s.config) === JSON.stringify(zooSteps[i]!.config),
+    );
+  if (!stepsMatch) {
+    const latest = await prisma.workflowVersion.findFirst({
+      where: { workflowId: zooWf!.id },
+      orderBy: { version: "desc" },
     });
     const version = await prisma.workflowVersion.create({
       data: {
-        workflowId: wf.id,
-        version: 1,
+        workflowId: zooWf!.id,
+        version: (latest?.version ?? 0) + 1,
         inputSchema: { type: "object", properties: { animal: { type: "string" } } },
-        changelog: "Initial version",
+        changelog: latest
+          ? "Higgsfield scene animation (render/wait/assemble split)"
+          : "Initial version",
       },
     });
-    const zooSteps: { key: string; name: string; type: "AGENT_TASK" | "CODE_FUNCTION" | "HUMAN_APPROVAL" | "PUBLISH"; config: Prisma.InputJsonValue }[] = [
-      {
-        key: "idea",
-        name: "Pick the animal & hook",
-        type: "AGENT_TASK",
-        config: {
-          agentKey: "zoo-idea-agent",
-          goal: "Choose the animal and hook for this episode",
-          inputMapping: { animal: "$.input.animal" },
-        },
-      },
-      {
-        key: "script",
-        name: "Write the script",
-        type: "AGENT_TASK",
-        config: {
-          agentKey: "zoo-script-agent",
-          goal: "Write the scene-by-scene narration",
-          inputMapping: { idea: "$.steps.idea" },
-        },
-      },
-      {
-        key: "metadata",
-        name: "Write YouTube title & description",
-        type: "AGENT_TASK",
-        config: {
-          agentKey: "zoo-metadata-agent",
-          goal: "Write the YouTube metadata",
-          inputMapping: { idea: "$.steps.idea", script: "$.steps.script" },
-        },
-      },
-      {
-        key: "safety",
-        name: "Kid-safety check",
-        type: "AGENT_TASK",
-        config: {
-          agentKey: "zoo-safety-agent",
-          goal: "Independent safety and quality review",
-          inputMapping: { script: "$.steps.script", metadata: "$.steps.metadata" },
-        },
-      },
-      {
-        key: "render",
-        name: "Create images, voice-over & video",
-        type: "CODE_FUNCTION",
-        config: { functionKey: "render_zoo_short", args: {} },
-      },
-      {
-        key: "review",
-        name: "Your review",
-        type: "HUMAN_APPROVAL",
-        config: {
-          title: "Review zoo Short before publishing",
-          description:
-            "Check the script, title, and safety score. Approving publishes to YouTube (once connected).",
-          actionType: "PUBLISH_CONTENT",
-          riskLevel: "HIGH",
-          payloadPaths: ["$.steps.idea", "$.steps.script", "$.steps.metadata", "$.steps.safety"],
-        },
-      },
-      {
-        key: "publish",
-        name: "Publish to YouTube",
-        type: "PUBLISH",
-        config: { target: "youtube", payloadPath: "$.steps.metadata" },
-      },
-    ];
     let zooOrder = 0;
     for (const step of zooSteps) {
       await prisma.workflowStep.create({
@@ -963,8 +1006,16 @@ async function main(): Promise<void> {
         },
       });
     }
-    await prisma.workflow.update({ where: { id: wf.id }, data: { activeVersionId: version.id } });
-    console.log("✓ Zoo Shorts pipeline (7 steps, publish gated on your approval)");
+    await prisma.workflow.update({
+      where: { id: zooWf!.id },
+      data: { activeVersionId: version.id, costLimitMicroUsd: zooCostLimit },
+    });
+    console.log(`✓ Zoo Shorts pipeline v${version.version} (${zooSteps.length} steps)`);
+  } else if (zooWf!.costLimitMicroUsd !== zooCostLimit) {
+    await prisma.workflow.update({
+      where: { id: zooWf!.id },
+      data: { costLimitMicroUsd: zooCostLimit },
+    });
   }
 
   console.log("\nSeed complete. Sign in at http://localhost:3000 with owner@factory.local");

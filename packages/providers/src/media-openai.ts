@@ -66,15 +66,23 @@ export class OpenAIImageProvider implements ImageProvider {
 export class OpenAISpeechProvider implements AudioProvider {
   readonly key = "openai-tts";
 
-  async generateSpeech(params: { text: string; voice?: string; style?: string }): Promise<MediaResult> {
+  async generateSpeech(params: {
+    text: string;
+    voice?: string;
+    style?: string;
+  }): Promise<MediaResult> {
     const res = await openaiFetch("/audio/speech", {
       model: "gpt-4o-mini-tts",
-      voice: params.voice ?? "nova",
+      // "coral" is the warmest, most natural female voice for this model —
+      // "nova" reads noticeably flatter/more synthetic for kids' content.
+      voice: params.voice ?? "coral",
       input: params.text,
       response_format: "mp3",
       instructions:
         params.style ??
-        "Warm, cheerful children's narrator. Clear and not too fast.",
+        "You are a warm, loving mom reading to her own toddler. Upbeat, happy, " +
+          "and affectionate, with a real smile in your voice. Natural human pacing " +
+          "with little breaths and playful emphasis — never flat, never robotic.",
     });
     const data = Buffer.from(await res.arrayBuffer());
     // ~$12 per 1M input characters.

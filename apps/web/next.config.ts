@@ -22,13 +22,7 @@ const nextConfig: NextConfig = {
     "@bf/storage",
     "@bf/workflows",
   ],
-  serverExternalPackages: [
-    "@prisma/client",
-    "bullmq",
-    "ioredis",
-    "pino",
-    "ffmpeg-static",
-  ],
+  serverExternalPackages: ["@prisma/client", "bullmq", "ioredis", "pino", "ffmpeg-static"],
   // Prisma in a pnpm monorepo on Vercel: make sure the query engine binary
   // reaches the serverless bundle (belt: official plugin copies engines;
   // braces: force-trace the generated client directory).

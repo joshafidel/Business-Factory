@@ -5,4 +5,5 @@ export * from "./anthropic";
 export * from "./openai";
 export * from "./media";
 export * from "./media-openai";
+export * from "./media-higgsfield";
 export * from "./registry";

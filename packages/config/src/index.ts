@@ -72,6 +72,13 @@ const envSchema = z.object({
   YOUTUBE_CLIENT_SECRET: z.string().optional(),
   YOUTUBE_REFRESH_TOKEN: z.string().optional(),
 
+  // Higgsfield image-to-video animation (Zoo Shorts). Both keys plus
+  // APP_BASE_URL (a publicly reachable deployment URL so Higgsfield can
+  // fetch scene images) are required to enable animated clips.
+  HIGGSFIELD_API_KEY: z.string().optional(),
+  HIGGSFIELD_SECRET: z.string().optional(),
+  APP_BASE_URL: z.string().url().optional(),
+
   STORAGE_DRIVER: z.enum(["local", "s3", "db"]).default("local"),
   STORAGE_LOCAL_ROOT: z.string().default(".data/storage"),
   S3_ENDPOINT: z.string().optional(),

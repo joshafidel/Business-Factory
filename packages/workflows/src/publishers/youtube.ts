@@ -48,7 +48,9 @@ async function accessToken(): Promise<string> {
     }),
   });
   if (!res.ok) {
-    throw new Error(`YouTube token refresh failed (${res.status}): ${(await res.text()).slice(0, 200)}`);
+    throw new Error(
+      `YouTube token refresh failed (${res.status}): ${(await res.text()).slice(0, 200)}`,
+    );
   }
   const data = (await res.json()) as { access_token: string };
   return data.access_token;
@@ -92,7 +94,9 @@ export async function uploadToYouTube(params: YouTubeUploadParams): Promise<YouT
     },
   );
   if (!init.ok) {
-    throw new Error(`YouTube upload init failed (${init.status}): ${(await init.text()).slice(0, 300)}`);
+    throw new Error(
+      `YouTube upload init failed (${init.status}): ${(await init.text()).slice(0, 300)}`,
+    );
   }
   const uploadUrl = init.headers.get("location");
   if (!uploadUrl) throw new Error("YouTube upload init returned no upload URL");
@@ -104,7 +108,9 @@ export async function uploadToYouTube(params: YouTubeUploadParams): Promise<YouT
     body: new Uint8Array(params.videoData),
   });
   if (!upload.ok) {
-    throw new Error(`YouTube upload failed (${upload.status}): ${(await upload.text()).slice(0, 300)}`);
+    throw new Error(
+      `YouTube upload failed (${upload.status}): ${(await upload.text()).slice(0, 300)}`,
+    );
   }
   const video = (await upload.json()) as { id: string };
   log.info({ videoId: video.id }, "uploaded to YouTube");
