@@ -6,7 +6,15 @@ import type { NextRequest } from "next/server";
  * safe); full session validation happens server-side in getOrgContext. The
  * sign-in page and auth endpoints stay public.
  */
-const PUBLIC_PATHS = ["/sign-in", "/api/auth", "/api/health"];
+const PUBLIC_PATHS = [
+  "/sign-in",
+  "/api/auth",
+  "/api/health",
+  // HMAC-authenticated routes (signed tokens, no session): public asset
+  // URLs for external fetchers + the workflow self-dispatch endpoint.
+  "/api/assets/public",
+  "/api/internal/advance",
+];
 
 export function middleware(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
