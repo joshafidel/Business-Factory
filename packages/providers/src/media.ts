@@ -20,7 +20,7 @@ export interface ImageProvider {
 
 export interface AudioProvider {
   readonly key: string;
-  generateSpeech(params: { text: string; voice?: string }): Promise<MediaResult>;
+  generateSpeech(params: { text: string; voice?: string; style?: string }): Promise<MediaResult>;
 }
 
 export interface VideoProvider {

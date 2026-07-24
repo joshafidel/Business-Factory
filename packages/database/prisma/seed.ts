@@ -661,17 +661,17 @@ async function main(): Promise<void> {
   const zooIdeaPromptId = await seedPrompt(
     "zoo-idea",
     "Zoo Shorts: episode idea",
-    "Pick a zoo animal for a 45-second children's YouTube Short (ages 3-7). If the input data names an animal, use that one; otherwise choose a crowd-pleasing zoo animal. Give a catchy hook and 3 true, simple fun facts. Keep everything gentle, positive, and easy for small children.",
+    "Create a nursery-rhyme song concept for a 45-second children's YouTube Short (ages 1-4), in the style of modern 3D nursery-rhyme channels (think Nunu TV / Cocomelon): a zoo animal, a super-catchy repeated chorus line built on a simple sound (like 'Roar roar roar!' or 'Stomp stomp stomp!'), and a tiny story (3 beats: hello, play, goodnight/goodbye). If the input data names an animal, use it; otherwise pick a toddler favorite. The hook must be singable and repetitive. facts should be 3 ultra-simple truths a 2-year-old can absorb.",
   );
   const zooScriptPromptId = await seedPrompt(
     "zoo-script",
     "Zoo Shorts: script",
-    "Write a 45-second narration script for a children's zoo Short using the idea in the input data. 5-7 short scenes. Each scene: one narration sentence (simple words, warm tone) and one visual description (bright, cartoon zoo style). No scary content, no brands, no names of real people.",
+    "Write a 45-second NURSERY RHYME SONG (not narration) using the idea in the input data, in the style of modern toddler song channels. 6 scenes. Each scene's narration field = 2 short SUNG lines that rhyme and bounce (include the chorus sound-line at least every other scene, e.g. 'Roar roar roar!'), with one interactive moment ('Can YOU roar too?'). Each scene's visual field = the SAME main character in a new pose/action: describe the character identically every time (e.g. 'Louie, a chubby adorable baby lion with a fluffy round mane, huge sparkly eyes, tiny paws') plus what happens in that scene. outro = one soft goodbye line. Simple words only. No scary content, no brands.",
   );
   const zooMetadataPromptId = await seedPrompt(
     "zoo-metadata",
     "Zoo Shorts: YouTube metadata",
-    "Create YouTube metadata for this children's zoo Short. Title under 70 characters with the animal name. 2-3 sentence description for parents. 8-12 tags. This is 'made for kids' content under COPPA.",
+    "Create YouTube metadata for this children's nursery-rhyme Short. Title format like toddler song channels: '[Sound] [Sound] [Sound]! Baby [Animal] Song 🦁 | Zoo Friends Nursery Rhymes' — under 90 characters. 2-3 sentence description for parents mentioning sing-along and learning. 10-12 tags including 'nursery rhymes', 'kids songs', 'baby songs', 'toddler learning'. This is 'made for kids' content under COPPA.",
   );
   const zooSafetyPromptId = await seedPrompt(
     "zoo-safety",
@@ -691,8 +691,39 @@ async function main(): Promise<void> {
   }): Promise<void> {
     const existingAgent = await prisma.agent.findUnique({
       where: { organizationId_key: { organizationId: org.id, key: params.key } },
+      include: { activeVersion: true, versions: { orderBy: { version: "desc" }, take: 1 } },
     });
-    if (existingAgent) return;
+    if (existingAgent) {
+      // Instructions changed in a newer seed: publish as a new agent version.
+      if (existingAgent.activeVersion && existingAgent.activeVersion.instructions !== params.instructions) {
+        const base = existingAgent.activeVersion;
+        const v = await prisma.agentVersion.create({
+          data: {
+            agentId: existingAgent.id,
+            version: (existingAgent.versions[0]?.version ?? 1) + 1,
+            instructions: params.instructions,
+            inputSchema: params.inputSchema,
+            outputSchema: params.outputSchema,
+            allowedTools: base.allowedTools,
+            forbiddenTools: base.forbiddenTools,
+            provider: base.provider,
+            model: base.model,
+            temperature: base.temperature,
+            maxTokens: base.maxTokens,
+            maxCostMicroUsd: base.maxCostMicroUsd,
+            maxRetries: base.maxRetries,
+            timeoutMs: base.timeoutMs,
+            promptId: params.promptId,
+            changelog: "Updated by seed",
+          },
+        });
+        await prisma.agent.update({
+          where: { id: existingAgent.id },
+          data: { activeVersionId: v.id },
+        });
+      }
+      return;
+    }
     const agent = await prisma.agent.create({
       data: {
         organizationId: org.id,
@@ -734,7 +765,7 @@ async function main(): Promise<void> {
     role: "creative",
     description: "Picks the animal and hook for each episode.",
     instructions:
-      "You create ideas for gentle, joyful children's zoo videos (ages 3-7). Facts must be true and simple. Never scary.",
+      "You create nursery-rhyme song concepts for toddlers (ages 1-4), like modern 3D nursery-rhyme YouTube channels. Everything must be singable, repetitive, and joyful. Facts must be true and ultra-simple. Never scary.",
     promptId: zooIdeaPromptId,
     inputSchema: { type: "object", properties: { animal: { type: "string" } } },
     outputSchema: {
@@ -754,7 +785,7 @@ async function main(): Promise<void> {
     role: "writer",
     description: "Writes the scene-by-scene narration script.",
     instructions:
-      "You write warm, simple narration for children ages 3-7. Short sentences. Bright, friendly cartoon visuals. Never scary, never brands.",
+      "You write sing-along nursery-rhyme lyrics for toddlers, with bouncy rhythm, heavy repetition, and one consistent adorable main character in every scene. Never scary, never brands.",
     promptId: zooScriptPromptId,
     inputSchema: {
       type: "object",
@@ -784,7 +815,7 @@ async function main(): Promise<void> {
     role: "publisher",
     description: "Writes the YouTube title, description, and tags.",
     instructions:
-      "You write YouTube metadata for made-for-kids content. Honest, appealing to parents, COPPA-compliant.",
+      "You write YouTube metadata for made-for-kids nursery-rhyme content in the style of top toddler song channels. Honest, appealing to parents, COPPA-compliant.",
     promptId: zooMetadataPromptId,
     inputSchema: {
       type: "object",

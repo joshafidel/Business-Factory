@@ -66,13 +66,15 @@ export class OpenAIImageProvider implements ImageProvider {
 export class OpenAISpeechProvider implements AudioProvider {
   readonly key = "openai-tts";
 
-  async generateSpeech(params: { text: string; voice?: string }): Promise<MediaResult> {
+  async generateSpeech(params: { text: string; voice?: string; style?: string }): Promise<MediaResult> {
     const res = await openaiFetch("/audio/speech", {
       model: "gpt-4o-mini-tts",
       voice: params.voice ?? "nova",
       input: params.text,
       response_format: "mp3",
-      instructions: "Warm, cheerful children's narrator. Clear and not too fast.",
+      instructions:
+        params.style ??
+        "Warm, cheerful children's narrator. Clear and not too fast.",
     });
     const data = Buffer.from(await res.arrayBuffer());
     // ~$12 per 1M input characters.

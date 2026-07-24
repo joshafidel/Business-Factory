@@ -42,6 +42,7 @@
       "@prisma/client",
       "@prisma/engines",
       "esbuild",
+      "ffmpeg-static",
       "msgpackr-extract",
       "prisma",
       "sharp"

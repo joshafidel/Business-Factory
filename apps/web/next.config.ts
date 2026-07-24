@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
     "bullmq",
     "ioredis",
     "pino",
-    "@ffmpeg-installer/ffmpeg",
+    "ffmpeg-static",
   ],
   // Prisma in a pnpm monorepo on Vercel: make sure the query engine binary
   // reaches the serverless bundle (belt: official plugin copies engines;
@@ -41,7 +41,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/**/*": [
       "../../packages/database/src/generated/client/**",
-      "../../node_modules/.pnpm/@ffmpeg-installer+linux-x64@*/**",
+      "../../node_modules/.pnpm/ffmpeg-static@*/**",
     ],
   },
   async headers() {
