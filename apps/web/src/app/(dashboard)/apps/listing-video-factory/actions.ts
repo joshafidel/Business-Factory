@@ -159,6 +159,59 @@ export async function importListingPageAction(
   }
 }
 
+/** Create a ready-to-render project from a listing in the connected MLS feed. */
+export async function importFeedListingAction(
+  mlsId: string,
+): Promise<ActionResult<{ projectId: string; photoCount: number }>> {
+  try {
+    const ctx = await assertPermission("workflows:execute");
+    if (!(await checkRateLimit(`lvf-import:${ctx.userId}`, 10, 60))) {
+      return { error: "Slow down a little — try again in a minute." };
+    }
+    const { getListingFeed } = await import("@bf/workflows");
+    const feed = getListingFeed();
+    const listing = await feed.getListing(mlsId);
+    if (!listing) return { error: "Listing not found in the feed." };
+    const property = listingPropertySchema.parse({
+      address: [listing.address, listing.city, listing.state].filter(Boolean).join(", "),
+      city: listing.city,
+      state: listing.state,
+      price: listing.price,
+      beds: listing.beds,
+      baths: listing.baths,
+      sqft: listing.sqft,
+      mlsNumber: listing.listingId,
+      description: listing.description,
+      agentName: listing.agentName,
+      brokerage: listing.brokerage,
+      agentPhone: listing.agentPhone,
+      agentEmail: listing.agentEmail,
+    });
+    const project = await prisma.listingProject.create({
+      data: {
+        organizationId: ctx.organizationId,
+        createdById: ctx.userId,
+        name: `${listing.address}${feed.isDemo ? " (sample feed)" : ""}`.slice(0, 120),
+        property: property as Prisma.InputJsonValue,
+        options: listingOptionsSchema.parse({}) as Prisma.InputJsonValue,
+        // A licensed feed carries display rights for its participants; the
+        // sample feed is test data. Either way the org operator remains
+        // responsible — the flag is shown (and editable) in the editor.
+        rightsConfirmedAt: new Date(),
+      },
+    });
+    const { attachListingPhotos, downloadListingPhotos } = await import("@/lib/lvf-photos");
+    const incoming = await downloadListingPhotos(listing.photos);
+    const { created } = await attachListingPhotos(ctx.organizationId, project, incoming);
+    await trackEvent(ctx.organizationId, "lvf_projects_created");
+    await trackEvent(ctx.organizationId, "lvf_feed_imports");
+    revalidatePath(BASE);
+    return { projectId: project.id, photoCount: created.length };
+  } catch (err) {
+    return asError(err);
+  }
+}
+
 export async function updatePropertyAction(
   projectId: string,
   formData: FormData,

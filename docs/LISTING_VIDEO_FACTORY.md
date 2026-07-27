@@ -103,6 +103,25 @@ Estimated cost per video with real providers: script + social ≈ $0.01–0.05
 **$0.02–0.08 per video**; rendering itself is free (ffmpeg). A $3 hard cost
 limit guards every render run, on top of the org's daily/monthly limits.
 
+## Real listings: how to get them (and why not Zillow scraping)
+
+There is **no public Zillow API** for listings — Zillow displays data licensed
+from MLSs, retired its public listing API years ago, and its terms prohibit
+scraping; listing photos are copyrighted by agents/photographers. The lawful
+sources for real active listings with photos are **licensed MLS/IDX feeds**:
+
+| Source | What it is | How to get access |
+| --- | --- | --- |
+| **SimplyRETS** (integrated) | Any MLS feed, clean REST API, ~days to set up | An agent/broker authorizes their MLS feed at simplyrets.com → set `SIMPLYRETS_USERNAME`/`SIMPLYRETS_PASSWORD` |
+| **Bridge Interactive** | Zillow Group's own data-licensing platform | Apply at bridgeinteractive.com; requires MLS affiliation approval |
+| **MLS Grid / Trestle (CoreLogic) / Spark (FBS)** | RESO-standard MLS aggregators | Vendor agreements per MLS |
+
+The **MLS feed** tab on the subapp dashboard browses the connected feed and
+creates a ready-to-render project (facts, listing agent, photos) in one
+click. Without credentials it uses the SimplyRETS sample feed, clearly
+labeled — the identical code path serves real listings the moment licensed
+credentials are set.
+
 ## Adding an image-to-video (AI motion) provider
 
 Implement `ImageMotionProvider` from `@bf/providers` (`media-picsart.ts`

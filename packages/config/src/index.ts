@@ -90,6 +90,12 @@ const envSchema = z.object({
   // motion only; nothing breaks.
   PICSART_API_KEY: z.string().optional(),
 
+  // MLS listing feed via SimplyRETS (Listing Video Factory). Credentials
+  // come from a licensed MLS/IDX feed; without them the public sample feed
+  // is used and clearly labeled as such.
+  SIMPLYRETS_USERNAME: z.string().optional(),
+  SIMPLYRETS_PASSWORD: z.string().optional(),
+
   STORAGE_DRIVER: z.enum(["local", "s3", "db"]).default("local"),
   STORAGE_LOCAL_ROOT: z.string().default(".data/storage"),
   S3_ENDPOINT: z.string().optional(),
