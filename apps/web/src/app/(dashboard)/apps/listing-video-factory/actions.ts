@@ -2,10 +2,12 @@
 
 import { prisma, type Prisma } from "@bf/database";
 import { PlatformError, toErrorRecord } from "@bf/shared";
+import { isSafePhotoUrl } from "@bf/shared";
 import {
   LIMITS,
   RENDER_WORKFLOW_KEY,
   estimateRenderCostMicroUsd,
+  extractListingData,
   generateListingScript,
   generateSocialPackage,
   getTemplate,
@@ -79,6 +81,86 @@ export async function createProjectAction(
     await trackEvent(ctx.organizationId, "lvf_projects_created");
     revalidatePath(BASE);
     return { projectId: project.id };
+  } catch (err) {
+    return asError(err);
+  }
+}
+
+/**
+ * Create a project straight from a listing page URL: fetches the page once
+ * (user-confirmed rights, https-only public hosts), extracts the property
+ * facts, the listing agent, and the photos from schema.org JSON-LD /
+ * Open Graph data, then imports everything.
+ */
+export async function importListingPageAction(
+  _prev: ActionResult<{ projectId: string; photoCount: number; agentName: string }>,
+  formData: FormData,
+): Promise<ActionResult<{ projectId: string; photoCount: number; agentName: string }>> {
+  try {
+    const ctx = await assertPermission("workflows:execute");
+    if (!(await checkRateLimit(`lvf-import:${ctx.userId}`, 10, 60))) {
+      return { error: "Slow down a little — try again in a minute." };
+    }
+    const url = String(formData.get("url") ?? "").trim();
+    if (formData.get("rightsConfirmed") !== "on") {
+      return { error: "Confirm you have permission to use this page's photos and materials." };
+    }
+    if (!isSafePhotoUrl(url)) {
+      return { error: "Enter a public https:// listing page URL." };
+    }
+    let html: string;
+    try {
+      const res = await fetch(url, {
+        redirect: "follow",
+        signal: AbortSignal.timeout(20_000),
+        headers: { accept: "text/html", "user-agent": "BusinessFactory-ListingImport/1.0" },
+      });
+      if (!res.ok) return { error: `The page returned ${res.status} — check the URL.` };
+      html = (await res.text()).slice(0, 3_000_000);
+    } catch {
+      return { error: "Couldn't fetch that page — check the URL and try again." };
+    }
+    const extracted = extractListingData(html, url);
+    if (!extracted.property.address && extracted.photoUrls.length === 0) {
+      return {
+        error:
+          "No structured listing data found on that page. Create the project manually and upload the photos instead.",
+      };
+    }
+    const property = listingPropertySchema.parse({
+      address: extracted.property.address ?? "Address pending",
+      price: extracted.property.price ?? "",
+      beds: extracted.property.beds ?? "",
+      baths: extracted.property.baths ?? "",
+      sqft: extracted.property.sqft ?? "",
+      description: extracted.property.description ?? "",
+      agentName: extracted.property.agentName ?? "",
+      brokerage: extracted.property.brokerage ?? "",
+      agentPhone: extracted.property.agentPhone ?? "",
+      agentEmail: extracted.property.agentEmail ?? "",
+      listingUrl: url,
+    });
+    const project = await prisma.listingProject.create({
+      data: {
+        organizationId: ctx.organizationId,
+        createdById: ctx.userId,
+        name: (extracted.title ?? property.address).slice(0, 120),
+        property: property as Prisma.InputJsonValue,
+        options: listingOptionsSchema.parse({}) as Prisma.InputJsonValue,
+        rightsConfirmedAt: new Date(),
+      },
+    });
+    let photoCount = 0;
+    if (extracted.photoUrls.length > 0) {
+      const { attachListingPhotos, downloadListingPhotos } = await import("@/lib/lvf-photos");
+      const incoming = await downloadListingPhotos(extracted.photoUrls);
+      const { created } = await attachListingPhotos(ctx.organizationId, project, incoming);
+      photoCount = created.length;
+    }
+    await trackEvent(ctx.organizationId, "lvf_projects_created");
+    await trackEvent(ctx.organizationId, "lvf_page_imports");
+    revalidatePath(BASE);
+    return { projectId: project.id, photoCount, agentName: property.agentName };
   } catch (err) {
     return asError(err);
   }
