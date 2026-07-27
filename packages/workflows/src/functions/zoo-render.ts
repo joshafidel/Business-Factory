@@ -307,15 +307,15 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       ? render.audioSeconds
       : await mp3DurationSeconds(audioBuffer, 600);
 
-  // Probe the per-scene render cache first (see below): scenes already
-  // rendered by a previous attempt need neither their Higgsfield clip nor a
+  // Probe the per-scene render cache (existence only — bytes are fetched
+  // lazily at stitch time so probing costs nothing): scenes already rendered
+  // by a previous attempt need neither their Higgsfield clip nor a
   // re-encode, so polling and downloads are skipped for them entirely.
   // "-v2" invalidates pre-fade cache entries.
   const sceneCachePrefix = `${organizationId}/${workflowRunId}/scene-render-v2-`;
-  const cachedScenes = new Map<number, Buffer>();
+  const cachedScenes = new Set<number>();
   for (let i = 0; i < imageAssetIds.length; i++) {
-    const key = `${sceneCachePrefix}${i}.mp4`;
-    if (await storage.exists(key)) cachedScenes.set(i, await storage.get(key));
+    if (await storage.exists(`${sceneCachePrefix}${i}.mp4`)) cachedScenes.add(i);
   }
 
   // Wait for Higgsfield clips — bounded so this invocation stays inside its
@@ -387,6 +387,7 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   const videoData = await assembleNurseryVideo(imageBuffers, clips, audioBuffer, audioSeconds, {
     withMusicBed,
     cached: cachedScenes,
+    cacheGet: (i) => storage.get(`${sceneCachePrefix}${i}.mp4`),
     cachePut: async (i, data) => {
       await storage.put(`${sceneCachePrefix}${i}.mp4`, data, { contentType: "video/mp4" });
     },
@@ -470,8 +471,9 @@ async function assembleNurseryVideo(
   audioSeconds: number,
   opts: {
     withMusicBed: boolean;
-    /** Scene renders recovered from a previous attempt (storage-backed). */
-    cached: Map<number, Buffer>;
+    /** Scene indexes already rendered by a previous attempt (storage-backed). */
+    cached: Set<number>;
+    cacheGet: (i: number) => Promise<Buffer>;
     cachePut: (i: number, data: Buffer) => Promise<void>;
   },
 ): Promise<Buffer> {
@@ -501,16 +503,13 @@ async function assembleNurseryVideo(
     // never re-encodes video.
     const edgeFade =
       `,fade=t=in:d=0.25,fade=t=out:st=${Math.max(0, clipLen - 0.25).toFixed(2)}:d=0.25`;
-    const sceneFiles: string[] = [];
-    for (let i = 0; i < n; i++) {
-      const sceneOut = path.join(dir, `scene${i}.mp4`);
-      const cached = opts.cached.get(i);
-      if (cached) {
-        writeFileSync(sceneOut, cached);
-        sceneFiles.push(sceneOut);
-        log.info({ scene: i, cached: true, at: elapsed() }, "scene ready");
-        continue;
-      }
+    // NEW work first: render every un-cached scene before touching cached
+    // bytes, so each attempt's budget goes entirely into forward progress.
+    // Cached scenes are only downloaded once everything is rendered.
+    const sceneFile = (i: number): string => path.join(dir, `scene${i}.mp4`);
+    const order = [...Array(n).keys()];
+    for (const i of order.filter((x) => !opts.cached.has(x))) {
+      const sceneOut = sceneFile(i);
       let input: string;
       let filter: string;
       const clip = clips.get(i);
@@ -551,8 +550,12 @@ async function assembleNurseryVideo(
         { stdio: ["ignore", "ignore", "pipe"], timeout: 90_000 },
       );
       await opts.cachePut(i, readFileSync(sceneOut));
-      sceneFiles.push(sceneOut);
       log.info({ scene: i, cached: false, at: elapsed() }, "scene rendered");
+    }
+    // All scenes rendered — now pull the previously-cached ones.
+    for (const i of order.filter((x) => opts.cached.has(x))) {
+      writeFileSync(sceneFile(i), await opts.cacheGet(i));
+      log.info({ scene: i, cached: true, at: elapsed() }, "scene ready");
     }
     log.info({ at: elapsed(), scenes: n }, "pass1 complete; starting stitch");
 
@@ -560,7 +563,7 @@ async function assembleNurseryVideo(
     // starting on a keyframe): video is never re-encoded, so this pass takes
     // seconds regardless of length. Only the audio graph is computed.
     const listFile = path.join(dir, "concat.txt");
-    writeFileSync(listFile, sceneFiles.map((f) => `file '${f}'`).join("\n"));
+    writeFileSync(listFile, order.map((i) => `file '${sceneFile(i)}'`).join("\n"));
 
     // Audio graph. Narration mode layers the JS-synthesized music-box bed
     // under the voice; song mode uses the sung track as-is (it already has
