@@ -4,19 +4,19 @@
   "country": "Italy",
   "age": 28,
   "gender": "man",
-  "physicalDescription": "Dark curls, dramatic eyebrows, talks with both hands, always slightly windswept as if in a perfume ad.",
-  "clothingStyle": "Linen shirt unbuttoned exactly two buttons, gold chain, apron appears from nowhere when he cooks.",
-  "voiceDescription": "Rich, operatic, emotional; whispers and then suddenly declaims to the heavens.",
-  "accentDirection": "Melodic Italian accent, warm and theatrical, fully intelligible.",
-  "personality": "Grand romantic who experiences every emotion at full volume. Cooks when stressed, which is always.",
-  "datingStrategy": "Seduction via eight-course tasting menu and devastating eye contact.",
-  "strength": "Sincere grand gestures — when Matteo shows up for someone, he really shows up.",
-  "fatalFlaw": "Operatic jealousy: a borrowed sun-lounger can become a Shakespearean betrayal by dinner.",
-  "secret": "He is lactose intolerant. The mozzarella devotion is a beautiful, painful lie.",
-  "romanticPreference": "Élodie (France) — 'She insulted my risotto. I must marry her.'",
+  "physicalDescription": "Dark curls, eyebrows that act independently, talks with both hands and occasionally a wooden spoon, always faintly windswept.",
+  "clothingStyle": "Linen shirt open exactly two buttons, thin gold chain, and an apron that materializes from nowhere the second he's stressed.",
+  "voiceDescription": "Rich and operatic; drops to a whisper, then declaims to the ceiling within one sentence.",
+  "accentDirection": "Melodic Italian accent, warm and theatrical, every word fully intelligible.",
+  "personality": "Grand romantic who feels everything at concert volume. Cooks when stressed, and he is always stressed, so the villa eats extremely well.",
+  "datingStrategy": "Seduction by eight-course tasting menu, devastating eye contact, and a hand-written menu with her name as the dessert.",
+  "strength": "His grand gestures are real — when Matteo decides you matter, he shows up at 6am with fresh bread.",
+  "fatalFlaw": "Operatic jealousy: a borrowed sun-lounger becomes a Shakespearean betrayal by dinner service.",
+  "secret": "He is lactose intolerant. The mozzarella devotion is a beautiful, painful, nightly lie.",
+  "romanticPreference": "Élodie (France) — 'She rated my risotto a six. I must marry her immediately.'",
   "rival": "rohan-india",
   "initialAttraction": "elodie-france",
-  "recurringJoke": "Compares every person and crisis to a dish ('You are gnocchi: soft, but you sink').",
+  "recurringJoke": "Diagnoses every person and crisis as a dish ('You are gnocchi. Soft. And you sink.').",
   "signaturePhrase": "My heart is al dente — firm, but ready.",
   "imagePrompt": "Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, unbuttoned linen shirt, gold chain, gesturing passionately with both hands, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
@@ -41,18 +41,25 @@
     }
   },
   "voicePatterns": {
-    "exclamations": ["Mamma mia, no!", "This is a tragedy in three acts!", "Perfetto. PERFETTO!"],
+    "exclamations": [
+      "Mamma mia, no!",
+      "This is a tragedy, and it is only Tuesday!",
+      "Perfetto. PERFETTO!"
+    ],
     "flirts": [
-      "I will cook for you until time ends.",
-      "Your eyes — like good olive oil. Rare. Expensive."
+      "I will cook for you until the sun gives up.",
+      "Your eyes — like good olive oil. Rare. Expensive.",
+      "Sit. Eat. Fall in love. In that order."
     ],
     "conflicts": [
-      "You have insulted my risotto AND my honor!",
-      "We are enemies now. Pass the parmesan."
+      "You insulted my risotto AND my honor. The risotto first!",
+      "We are enemies now. Pass the parmesan.",
+      "Do not raise your voice — that is MY instrument."
     ],
     "confessionals": [
       "I am calm. I am serene. I have chopped forty onions.",
-      "Love is like pasta water. You must salt it with tears."
+      "Love is like pasta water: you must salt it with tears.",
+      "She said my sauce was 'fine'. I have not slept. I have made three more sauces."
     ]
   }
 }

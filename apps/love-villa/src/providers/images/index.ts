@@ -45,9 +45,11 @@ export async function characterImage(
   });
   return new OpenAIImageProvider().generateImage({
     prompt:
-      `${c.imagePrompt}. Full upper-body character cutout, facing camera, ` +
-      `centered, consistent design reference: ${c.visualReference}`,
-    negativePrompt: c.negativeImagePrompt,
+      `${c.imagePrompt}. Full upper-body character cutout, facing camera, centered, ` +
+      `consistent design reference: ${c.visualReference}. IMPORTANT: isolated sticker-style ` +
+      `cutout on a completely TRANSPARENT background (alpha channel) — no background, no ` +
+      `backdrop, no scenery, no gradient, no color field behind the character.`,
+    negativePrompt: `${c.negativeImagePrompt}, background, backdrop, scenery, gradient background, color background`,
     seed: c.imageSeed,
     aspect: "portrait",
     transparent: true,
