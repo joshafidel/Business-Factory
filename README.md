@@ -14,6 +14,8 @@ end-to-end with zero external spend.
 
 - Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - Phased plan & checklist: [`docs/PLAN.md`](docs/PLAN.md)
+- Listing Video Factory (real-estate tour videos):
+  [`docs/LISTING_VIDEO_FACTORY.md`](docs/LISTING_VIDEO_FACTORY.md)
 
 ## Stack
 
@@ -189,8 +191,11 @@ between requests. Set `STORAGE_DRIVER=s3` with any S3-compatible store
 
 ## What's deliberately NOT here yet
 
-- The five business modules (present only as disabled `COMING_NEXT` placeholders
-  with contract manifests).
+- Three of the five business modules (still disabled `COMING_NEXT`
+  placeholders). **Zoo Shorts** and **Listing Video Factory**
+  (`/apps/listing-video-factory`, see
+  [`docs/LISTING_VIDEO_FACTORY.md`](docs/LISTING_VIDEO_FACTORY.md)) are
+  installed and working.
 - Real publishing/outreach/deployment integrations — `PUBLISH` steps execute as
   approval-gated dry runs.
 - Real email/Slack/SMS delivery (in-app + mock email only).

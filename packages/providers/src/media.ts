@@ -55,13 +55,28 @@ export class MockImageProvider implements ImageProvider {
 export class MockAudioProvider implements AudioProvider {
   readonly key = "mock-audio";
   async generateSpeech(params: { text: string }): Promise<MediaResult> {
-    // Minimal valid WAV header + silence.
-    const header = Buffer.from(
-      "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=",
-      "base64",
-    );
+    // Real silence sized to the text (~15 chars/sec of speech) so downstream
+    // duration math and audio muxing behave exactly like a real clip.
+    const rate = 24000;
+    const seconds = Math.min(30, Math.max(0.5, params.text.length / 15));
+    const samples = new Int16Array(Math.ceil(seconds * rate));
+    const dataSize = samples.length * 2;
+    const header = Buffer.alloc(44);
+    header.write("RIFF", 0);
+    header.writeUInt32LE(36 + dataSize, 4);
+    header.write("WAVE", 8);
+    header.write("fmt ", 12);
+    header.writeUInt32LE(16, 16);
+    header.writeUInt16LE(1, 20);
+    header.writeUInt16LE(1, 22);
+    header.writeUInt32LE(rate, 24);
+    header.writeUInt32LE(rate * 2, 28);
+    header.writeUInt16LE(2, 32);
+    header.writeUInt16LE(16, 34);
+    header.write("data", 36);
+    header.writeUInt32LE(dataSize, 40);
     return {
-      data: header,
+      data: Buffer.concat([header, Buffer.from(samples.buffer)]),
       mimeType: "audio/wav",
       costMicroUsd: 0n,
       metadata: { mock: true, chars: params.text.length },

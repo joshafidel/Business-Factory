@@ -153,28 +153,36 @@ async function main(): Promise<void> {
       ],
     },
     {
-      key: "realestate-videos",
-      name: "Real-Estate Listing Videos",
-      description: "Turns listing photos into narrated video walkthroughs.",
-      integrations: ["realestate-data", "video-gen", "voice-gen"],
+      key: "listing-video-factory",
+      name: "Listing Video Factory",
+      description:
+        "Turns listing photos into cinematic property-tour videos for TikTok, Reels, Shorts, and listing pages.",
+      integrations: ["voice-gen", "video-gen"],
       workflows: [
         {
-          key: "listing-video",
-          name: "Listing video",
-          description: "Photos → sequence → narration → review → deliver",
+          key: "listing-factory-render",
+          name: "Render listing video",
+          description: "Photos → script → voice → deterministic motion render",
         },
       ],
       agents: [
         {
-          key: "walkthrough-narrator",
-          name: "Walkthrough Narrator",
+          key: "lvf-script-agent",
+          name: "Listing Script Agent",
           role: "writer",
-          description: "Writes walkthrough narration",
+          description: "Writes fact-grounded tour scripts",
         },
       ],
-      metrics: [{ key: "videos_delivered", label: "Videos delivered", unit: "count" as const }],
+      metrics: [{ key: "lvf_videos_rendered", label: "Videos rendered", unit: "count" as const }],
     },
   ];
+
+  // Legacy key from the original roadmap — carries the row (and any linked
+  // data) over to the Listing Video Factory key before the upsert loop.
+  await prisma.businessModule.updateMany({
+    where: { organizationId: org.id, key: "realestate-videos" },
+    data: { key: "listing-video-factory" },
+  });
 
   for (const mod of modules) {
     const manifest = {
@@ -683,7 +691,8 @@ async function main(): Promise<void> {
     "You are a strict children's-content safety reviewer. Check the script and metadata in the input data for: scary/violent content, unsafe imitable behavior, brands or real people, factual errors about the animal, and COPPA compliance. Score 0-100 and verdict pass/revise.",
   );
 
-  async function seedZooAgent(params: {
+  async function seedModuleAgent(params: {
+    moduleId: string;
     key: string;
     name: string;
     role: string;
@@ -734,7 +743,7 @@ async function main(): Promise<void> {
     const agent = await prisma.agent.create({
       data: {
         organizationId: org.id,
-        moduleId: zooModule.id,
+        moduleId: params.moduleId,
         key: params.key,
         name: params.name,
         description: params.description,
@@ -766,7 +775,8 @@ async function main(): Promise<void> {
     await prisma.agent.update({ where: { id: agent.id }, data: { activeVersionId: version.id } });
   }
 
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-idea-agent",
     name: "Zoo Idea Agent",
     role: "creative",
@@ -786,7 +796,8 @@ async function main(): Promise<void> {
       required: ["animal", "title", "hook", "facts"],
     },
   });
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-script-agent",
     name: "Zoo Script Agent",
     role: "writer",
@@ -822,7 +833,8 @@ async function main(): Promise<void> {
       required: ["scenes", "outro"],
     },
   });
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-metadata-agent",
     name: "Zoo Metadata Agent",
     role: "publisher",
@@ -845,7 +857,8 @@ async function main(): Promise<void> {
       required: ["title", "description", "tags"],
     },
   });
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-safety-agent",
     name: "Zoo Safety Agent",
     role: "reviewer",
@@ -955,7 +968,8 @@ async function main(): Promise<void> {
       key: "publish",
       name: "Publish to YouTube",
       type: "PUBLISH",
-      config: { target: "youtube", payloadPath: "$.steps.metadata" },
+      // madeForKids MUST stay true for this module (COPPA).
+      config: { target: "youtube", payloadPath: "$.steps.metadata", madeForKids: true },
     },
   ];
   // Create the workflow if missing; version-bump when the step list changed
@@ -1000,7 +1014,7 @@ async function main(): Promise<void> {
         version: (latest?.version ?? 0) + 1,
         inputSchema: { type: "object", properties: { animal: { type: "string" } } },
         changelog: latest
-          ? "Higgsfield scene animation (render/wait/assemble split)"
+          ? "Updated by seed"
           : "Initial version",
       },
     });
