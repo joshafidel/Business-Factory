@@ -94,9 +94,9 @@ OUT=/tmp/sample.mp4 pnpm --filter @bf/database exec tsx ../workflows/scripts/sam
 
 ## API keys
 
-| Works without any keys | With `ANTHROPIC_API_KEY` | With `OPENAI_API_KEY` | With `ELEVENLABS_API_KEY` | With `PICSART_API_KEY` |
+| Works without any keys | With `ANTHROPIC_API_KEY` | With `OPENAI_API_KEY` | With `ELEVENLABS_API_KEY` | With `HIGGSFIELD_*` or `PICSART_API_KEY` |
 | --- | --- | --- | --- | --- |
-| Whole flow end-to-end: mock script, silent voice-over track, full render with music, captions, downloads | Real fact-grounded scripts + social packages | Real narration (gpt-4o-mini-tts, ≈$12/1M chars) | Upgraded expressive voices | Reserved: photo enhancement + AI motion adapters exist (`media-picsart.ts`) but stay disabled until the integration is verified against current Picsart docs |
+| Whole flow end-to-end: mock script, silent voice-over track, full render with music, captions, downloads | Real fact-grounded scripts + social packages | Real narration (gpt-4o-mini-tts, ≈$12/1M chars) | Upgraded expressive voices | **AI walkthrough motion** (~$0.55/scene, final renders): each photo becomes a moving steadicam-style shot via image-to-video (Higgsfield preferred; Picsart GenAI image2video otherwise), with conservative preserve-the-property prompts and per-scene Ken Burns fallback |
 
 Estimated cost per video with real providers: script + social ≈ $0.01–0.05
 (Claude), narration ≈ $0.01–0.03 (about 800–2,500 characters) — roughly

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@bf/database";
+import { ensureListingFactoryInstalled } from "@bf/workflows";
 import { requireOrgContext } from "@/lib/session";
 import { Badge, Card, CardContent, PageHeader, StatusBadge } from "@/components/ui";
 
@@ -20,6 +21,9 @@ const APP_EMOJI: Record<string, string> = {
 export default async function MyAppsPage() {
   const ctx = await requireOrgContext();
   const orgId = ctx.organizationId;
+  // Installed modules must never show as dead "coming soon" cards on a
+  // fresh deployment — the installer fast-paths to one query when current.
+  await ensureListingFactoryInstalled(orgId);
   const [modules, pendingApprovals] = await Promise.all([
     prisma.businessModule.findMany({
       where: { organizationId: orgId },

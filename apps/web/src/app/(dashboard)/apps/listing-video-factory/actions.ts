@@ -214,6 +214,7 @@ export async function updateSettingsAction(
       voiceover: bool("voiceover"),
       captions: bool("captions"),
       music: bool("music"),
+      aiMotion: bool("aiMotion"),
       showPrice: bool("showPrice"),
       showAddress: bool("showAddress"),
       agentOutro: bool("agentOutro"),

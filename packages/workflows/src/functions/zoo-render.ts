@@ -16,7 +16,7 @@ import {
 import { getStorage } from "@bf/storage";
 import { castLooks, createLogger, PlatformError, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
-import { mp3DurationSeconds, pcmToWav, resolveFfmpeg } from "./media-utils";
+import { mp3DurationSeconds, pcmToWav, publicBaseUrl, resolveFfmpeg } from "./media-utils";
 
 const log = createLogger("zoo-render");
 
@@ -39,15 +39,6 @@ const log = createLogger("zoo-render");
 
 /** Nominal Higgsfield clip length (dop-lite produces ~5.3-5.4s). */
 const HF_CLIP_SECONDS = 5.3;
-
-/** Public URL Higgsfield's fetcher can use to download scene images. */
-function publicBaseUrl(): string | undefined {
-  const env = loadEnv();
-  if (env.APP_BASE_URL) return env.APP_BASE_URL.replace(/\/$/, "");
-  const prod = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-  if (prod) return `https://${prod}`;
-  return undefined;
-}
 
 interface ZooScene {
   /** Sung lyric lines for this scene (song episodes). */

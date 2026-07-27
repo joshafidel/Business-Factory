@@ -17,7 +17,9 @@ export const LIMITS = {
   maxRenderScenes: 20,
   maxPhotoBytes: 8 * 1024 * 1024,
   maxProjectSeconds: 180,
-  maxRenderCostMicroUsd: 3_000_000n, // $3 hard stop per render run
+  /** AI walkthrough motion is ~$0.55/scene — cap the animated scenes. */
+  maxAiMotionScenes: 10,
+  maxRenderCostMicroUsd: 8_000_000n, // $8 hard stop per render run
 } as const;
 
 export const PHOTO_CATEGORIES = [
@@ -91,6 +93,9 @@ export const listingOptionsSchema = z.object({
   voiceover: z.boolean().default(true),
   captions: z.boolean().default(true),
   music: z.boolean().default(true),
+  /** AI walkthrough motion (final renders only; ~$0.55/scene, falls back to
+   *  deterministic Ken Burns per scene when a clip isn't usable). */
+  aiMotion: z.boolean().default(true),
   showPrice: z.boolean().default(true),
   showAddress: z.boolean().default(true),
   agentOutro: z.boolean().default(true),

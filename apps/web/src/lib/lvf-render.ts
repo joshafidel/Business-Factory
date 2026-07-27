@@ -1,4 +1,5 @@
 import { prisma, type Prisma } from "@bf/database";
+import { higgsfieldConfigured, picsartConfigured } from "@bf/providers";
 import { PlatformError } from "@bf/shared";
 import {
   LIMITS,
@@ -83,9 +84,14 @@ export async function startListingRender(params: {
     overlays,
   });
   const template = getTemplate(settings.style);
+  const aiMotionScenes =
+    kind === "final" && settings.options.aiMotion && (higgsfieldConfigured() || picsartConfigured())
+      ? Math.min(photos.length, LIMITS.maxAiMotionScenes)
+      : 0;
   const estimate = estimateRenderCostMicroUsd(
     settings.script,
     settings.options.voiceover && template.voiceover,
+    aiMotionScenes,
   );
   if (estimate > LIMITS.maxRenderCostMicroUsd) {
     throw new PlatformError(

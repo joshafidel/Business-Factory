@@ -4,15 +4,33 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { recordCost } from "@bf/agents";
+import { loadEnv } from "@bf/config";
 import { prisma, type Prisma } from "@bf/database";
-import { getMediaProviders } from "@bf/providers";
+import {
+  awaitJobSets,
+  CONSERVATIVE_MOTION_GUARDRAILS,
+  downloadClip,
+  getImageMotionProvider,
+  getMediaProviders,
+  higgsfieldConfigured,
+  HIGGSFIELD_CLIP_COST_MICRO_USD,
+  picsartConfigured,
+  submitImageToVideo,
+  type ImageMotionProvider,
+} from "@bf/providers";
 import { getStorage } from "@bf/storage";
-import { createLogger, PlatformError } from "@bf/shared";
+import { createLogger, PlatformError, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
-import { mp3DurationSeconds, pcmToWav, resolveFfmpeg } from "../functions/media-utils";
+import {
+  mp3DurationSeconds,
+  pcmToWav,
+  publicBaseUrl,
+  resolveFfmpeg,
+} from "../functions/media-utils";
 import { buildSrt, computeSceneTimings, type SceneTiming } from "./captions";
 import { getTemplate, type MotionPreset, type VideoTemplate } from "./templates";
 import {
+  LIMITS,
   MODULE_KEY,
   VIDEO_FORMATS,
   renderSettingsSchema,
@@ -39,6 +57,27 @@ const log = createLogger("lvf-render");
  */
 
 const OUTRO_CARD_SECONDS = 3.6;
+/** Nominal Higgsfield clip length (dop-lite produces ~5.3-5.4s). */
+const HF_CLIP_SECONDS = 5.3;
+
+interface AnimationJob {
+  sceneIndex: number;
+  jobSetId: string;
+  /** Which image-to-video backend produced the job. */
+  provider: "higgsfield" | "picsart";
+}
+
+/** Camera brief per shot, always wrapped in the conservative guardrails. */
+function motionPrompt(roomLabel: string | null, category: string): string {
+  const subject =
+    category === "exterior" || category === "aerial"
+      ? `a slow, smooth cinematic push toward the home's ${roomLabel === "Backyard" ? "backyard" : "entrance"}`
+      : `a smooth steadicam glide forward through the ${roomLabel?.toLowerCase() ?? "room"}`;
+  return (
+    `Real-estate walkthrough shot: ${subject}, as if a videographer is walking through with a ` +
+    `gimbal. Gentle, constant speed. ${CONSERVATIVE_MOTION_GUARDRAILS}`
+  );
+}
 
 interface VoiceSegment {
   /** Scene index the clip belongs to; the outro card uses the last index+1. */
@@ -46,6 +85,43 @@ interface VoiceSegment {
   assetId: string;
   seconds: number;
   chars: number;
+}
+
+/** Poll Picsart inferences until done or deadline (mirrors awaitJobSets). */
+async function awaitPicsartJobs(
+  jobIds: string[],
+  deadlineMs: number,
+  pollIntervalMs = 10_000,
+): Promise<Map<string, { status: string; videoUrl?: string }>> {
+  const provider: ImageMotionProvider | null = getImageMotionProvider();
+  const results = new Map<string, { status: string; videoUrl?: string }>();
+  if (!provider) {
+    for (const id of jobIds) results.set(id, { status: "unknown" });
+    return results;
+  }
+  const pending = new Set(jobIds);
+  while (pending.size > 0 && Date.now() < deadlineMs) {
+    const polled = await Promise.all(
+      [...pending].map(async (id) => ({ id, r: await provider.checkGenerationStatus(id) })),
+    );
+    for (const { id, r } of polled) {
+      if (r.status === "completed") {
+        results.set(id, { status: "completed", videoUrl: r.videoUrl });
+        pending.delete(id);
+      } else if (r.status === "failed") {
+        results.set(id, { status: "failed" });
+        pending.delete(id);
+        log.warn({ id, error: r.error }, "picsart job failed");
+      }
+    }
+    if (pending.size > 0) {
+      await new Promise((r) =>
+        setTimeout(r, Math.min(pollIntervalMs, Math.max(0, deadlineMs - Date.now()))),
+      );
+    }
+  }
+  for (const id of pending) results.set(id, { status: "unknown" });
+  return results;
 }
 
 async function loadRender(renderId: string): Promise<{
@@ -69,8 +145,16 @@ registerCodeFunction("listing_factory_prepare", async (_args, context) => {
 
   const template = getTemplate(settings.style);
   const wantVoice = settings.options.voiceover && template.voiceover;
+  const animationJobs = await submitAnimationJobs(render, settings);
   if (!wantVoice) {
-    return { renderId, segments: [], voiceReal: false, _costMicroUsd: "0" };
+    return {
+      renderId,
+      segments: [],
+      voiceReal: false,
+      animationJobs,
+      hasAnimation: animationJobs.length > 0,
+      _costMicroUsd: "0",
+    };
   }
 
   const providers = getMediaProviders();
@@ -165,19 +249,80 @@ registerCodeFunction("listing_factory_prepare", async (_args, context) => {
     renderId,
     segments,
     voiceReal: providers.real,
+    animationJobs,
+    hasAnimation: animationJobs.length > 0,
     _costMicroUsd: newCost.toString(),
   };
 });
 
-registerCodeFunction("listing_factory_assemble", async (_args, context) => {
+/**
+ * AI walkthrough motion: submit one conservative image-to-video job per
+ * photo (final renders with the option on, provider configured, and a
+ * public base URL for the image fetcher). Failures degrade per scene to
+ * deterministic Ken Burns — never fail the render here.
+ */
+async function submitAnimationJobs(
+  render: { id: string; organizationId: string; projectId: string },
+  settings: RenderSettings,
+): Promise<AnimationJob[]> {
+  const base = publicBaseUrl();
+  const useHiggsfield = higgsfieldConfigured();
+  const picsart = !useHiggsfield && picsartConfigured() ? getImageMotionProvider() : null;
+  if (
+    settings.kind !== "final" ||
+    !settings.options.aiMotion ||
+    (!useHiggsfield && !picsart) ||
+    !base
+  ) {
+    return [];
+  }
+  const photos = await prisma.listingPhoto.findMany({
+    where: { id: { in: settings.photoIds }, organizationId: render.organizationId },
+    select: { id: true, assetId: true, roomLabel: true, category: true },
+  });
+  const byId = new Map(photos.map((p) => [p.id, p]));
+  const env = loadEnv();
+  const exp = Math.floor(Date.now() / 1000) + 2 * 60 * 60;
+  const targets = settings.photoIds
+    .slice(0, LIMITS.maxAiMotionScenes)
+    .map((photoId, sceneIndex) => ({ photo: byId.get(photoId), sceneIndex }))
+    .filter((t): t is { photo: NonNullable<typeof t.photo>; sceneIndex: number } =>
+      Boolean(t.photo),
+    );
+  const submissions = await Promise.allSettled(
+    targets.map(async ({ photo, sceneIndex }): Promise<AnimationJob> => {
+      const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, photo.assetId, exp);
+      const imageUrl = `${base}/api/assets/public?id=${photo.assetId}&exp=${exp}&sig=${sig}`;
+      const prompt = motionPrompt(photo.roomLabel, photo.category);
+      if (useHiggsfield) {
+        const jobSetId = await submitImageToVideo({ imageUrl, prompt });
+        return { sceneIndex, jobSetId, provider: "higgsfield" };
+      }
+      const { jobId } = await picsart!.generateMotion({ imageUrl, prompt, durationSeconds: 5 });
+      return { sceneIndex, jobSetId: jobId, provider: "picsart" };
+    }),
+  );
+  const jobs: AnimationJob[] = [];
+  for (const s of submissions) {
+    if (s.status === "fulfilled") jobs.push(s.value);
+    else log.warn({ err: s.reason }, "higgsfield submission failed; scene will use Ken Burns");
+  }
+  log.info({ submitted: jobs.length, scenes: settings.photoIds.length }, "walkthrough jobs submitted");
+  return jobs;
+}
+
+registerCodeFunction("listing_factory_assemble", async (args, context) => {
+  const workflowRunId = String(args.workflowRunId ?? "");
   const renderId = String(readPath(context, "$.input.renderId") ?? "");
   const { render, settings } = await loadRender(renderId);
   const organizationId = render.organizationId;
   const prepare = readPath(context, "$.steps.prepare") as {
     segments?: VoiceSegment[];
     voiceReal?: boolean;
+    animationJobs?: AnimationJob[];
   };
   const segments = prepare?.segments ?? [];
+  const animationJobs = prepare?.animationJobs ?? [];
   const storage = getStorage();
   const template = getTemplate(settings.style);
   const isPreview = settings.kind === "preview";
@@ -230,11 +375,89 @@ registerCodeFunction("listing_factory_assemble", async (_args, context) => {
       if (asset) segmentBuffers.push({ sceneIndex: seg.sceneIndex, data: await storage.get(asset.storageKey) });
     }
 
+    // ── AI walkthrough clips: bounded polling; missing scenes fall back to
+    // Ken Burns. Generation can outlast one attempt's window — the jobs are
+    // already paid for and still rendering server-side, so fail retryable
+    // and let a fresh invocation collect them (final attempt ships whatever
+    // is ready).
+    const clips = new Map<number, Buffer>();
+    let clipCost = 0n;
+    if (animationJobs.length > 0) {
+      const deadline = Date.now() + 150_000;
+      const hfJobs = animationJobs.filter((j) => j.provider === "higgsfield");
+      const psJobs = animationJobs.filter((j) => j.provider === "picsart");
+      const [hfResults, psResults] = await Promise.all([
+        hfJobs.length > 0
+          ? awaitJobSets(
+              hfJobs.map((j) => j.jobSetId),
+              deadline,
+            )
+          : new Map<string, { status: string; videoUrl?: string }>(),
+        psJobs.length > 0
+          ? awaitPicsartJobs(
+              psJobs.map((j) => j.jobSetId),
+              deadline,
+            )
+          : new Map<string, { status: string; videoUrl?: string }>(),
+      ]);
+      const picsartProvider = psJobs.length > 0 ? getImageMotionProvider() : null;
+      const downloads = await Promise.allSettled(
+        animationJobs.map(async (job) => {
+          const r =
+            job.provider === "higgsfield" ? hfResults.get(job.jobSetId) : psResults.get(job.jobSetId);
+          if (r?.status !== "completed" || !r.videoUrl) {
+            throw new Error(`clip not ready (${r?.status ?? "missing"})`);
+          }
+          const data =
+            job.provider === "higgsfield"
+              ? await downloadClip(r.videoUrl)
+              : await picsartProvider!.downloadGeneration(r.videoUrl);
+          return { sceneIndex: job.sceneIndex, data, provider: job.provider };
+        }),
+      );
+      for (const d of downloads) {
+        if (d.status === "fulfilled") {
+          clips.set(d.value.sceneIndex, d.value.data);
+          clipCost += HIGGSFIELD_CLIP_COST_MICRO_USD; // both providers ≈ $0.55/clip
+        } else {
+          log.warn({ err: d.reason }, "scene falls back to Ken Burns");
+        }
+      }
+      log.info({ animated: clips.size, total: animationJobs.length }, "walkthrough clips ready");
+      if (clips.size < animationJobs.length) {
+        const attempt = await prisma.stepRun.count({
+          where: { workflowRunId, stepKey: "assemble" },
+        });
+        if (attempt <= 2) {
+          throw new PlatformError(
+            "PROVIDER_ERROR",
+            `Only ${clips.size}/${animationJobs.length} walkthrough clips ready; retrying to collect the rest`,
+            { retryable: true },
+          );
+        }
+      }
+      if (clipCost > 0n) {
+        await recordCost({
+          organizationId,
+          category: "VIDEO_GENERATION",
+          costMicroUsd: clipCost,
+          moduleKey: MODULE_KEY,
+          providerKey: "higgsfield",
+          description: `AI walkthrough motion: ${clips.size} scene(s) for render ${render.id}`,
+        });
+        await prisma.listingRender.update({
+          where: { id: render.id },
+          data: { costMicroUsd: { increment: clipCost } },
+        });
+      }
+    }
+
     const videoData = assembleVideo({
       settings,
       template,
       isPreview,
       photoBuffers,
+      clips,
       overlays: settings.overlays
         .filter((o) => overlayAssets.has(o.assetId))
         .map((o) => ({ ...o, data: overlayAssets.get(o.assetId)! })),
@@ -273,6 +496,8 @@ registerCodeFunction("listing_factory_assemble", async (_args, context) => {
           style: settings.style,
           durationSeconds: Math.round(totalSeconds),
           sceneCount: orderedPhotos.length,
+          animatedScenes: clips.size,
+          provider: clips.size > 0 ? "higgsfield+ffmpeg" : "ffmpeg-kenburns-ambient",
           voiceReal: prepare?.voiceReal ?? false,
         } as Prisma.InputJsonValue,
       },
@@ -306,7 +531,7 @@ registerCodeFunction("listing_factory_assemble", async (_args, context) => {
         category: p.category,
         virtuallyStaged: p.isStaged,
         aiEnhanced: p.isAiEnhanced,
-        motion: template.motion[i % template.motion.length],
+        motion: clips.has(i) ? "ai-walkthrough" : template.motion[i % template.motion.length],
         startSeconds: Math.round((timings[i]?.start ?? 0) * 10) / 10,
         seconds: Math.round((timings[i]?.duration ?? 0) * 10) / 10,
         narration: settings.script.scenes[i]?.narration ?? "",
@@ -316,7 +541,12 @@ registerCodeFunction("listing_factory_assemble", async (_args, context) => {
       disclosures: {
         aiEnhancedPhotos: orderedPhotos.some((p) => p.isAiEnhanced),
         virtuallyStagedPhotos: orderedPhotos.some((p) => p.isStaged),
-        deterministicMotionOnly: true,
+        deterministicMotionOnly: clips.size === 0,
+        aiMotionScenes: clips.size,
+        aiMotionNote:
+          clips.size > 0
+            ? "Some visual motion in this video was generated using AI. Property features were not intentionally altered."
+            : undefined,
       },
     };
     for (const [name, content, mime, type] of [
@@ -363,6 +593,9 @@ registerCodeFunction("listing_factory_assemble", async (_args, context) => {
       isPreview,
     };
   } catch (err) {
+    // Retryable step failures (e.g. clips still generating) get a fresh
+    // attempt from the engine — the render is still live, not failed.
+    if (err instanceof PlatformError && err.retryable) throw err;
     await prisma.listingRender.update({
       where: { id: render.id },
       data: { status: "FAILED", error: String((err as Error).message ?? err).slice(0, 500) },
@@ -415,6 +648,8 @@ function assembleVideo(params: {
   template: VideoTemplate;
   isPreview: boolean;
   photoBuffers: Buffer[];
+  /** AI walkthrough clips by scene index; other scenes get Ken Burns. */
+  clips: Map<number, Buffer>;
   overlays: OverlayInput[];
   segments: { sceneIndex: number; data: Buffer }[];
   timings: SceneTiming[];
@@ -437,14 +672,23 @@ function assembleVideo(params: {
     let inputIndex = 0;
     const idx = { photos: [] as number[], overlays: new Map<string, number>(), audio: [] as { sceneIndex: number; index: number }[], music: -1 };
 
-    // Photo inputs — the outro card reuses the final photo as its backdrop.
+    // Scene inputs — an AI walkthrough clip when one is ready, the still
+    // photo otherwise. The outro card reuses the final photo as backdrop.
     const photoCount = params.photoBuffers.length;
     const sceneBuffers = [...params.photoBuffers];
     if (params.useOutroCard) sceneBuffers.push(params.photoBuffers[photoCount - 1]!);
+    const isClipScene = (i: number): boolean =>
+      params.clips.has(i) && !(params.useOutroCard && i === sceneBuffers.length - 1);
     for (let i = 0; i < sceneBuffers.length; i++) {
-      const file = path.join(dir, `photo${i}.img`);
-      writeFileSync(file, sceneBuffers[i]!);
-      inputs.push("-i", file);
+      if (isClipScene(i)) {
+        const file = path.join(dir, `clip${i}.mp4`);
+        writeFileSync(file, params.clips.get(i)!);
+        inputs.push("-i", file);
+      } else {
+        const file = path.join(dir, `photo${i}.img`);
+        writeFileSync(file, sceneBuffers[i]!);
+        inputs.push("-i", file);
+      }
       idx.photos.push(inputIndex++);
     }
     // Overlay PNGs, looped so `enable` windows can address any time.
@@ -476,7 +720,21 @@ function assembleVideo(params: {
     const ow = Math.round(W * 1.3);
     const oh = Math.round(H * 1.3);
     for (let i = 0; i < sceneBuffers.length; i++) {
-      const frames = Math.max(1, Math.round((timings[i]?.duration ?? 3) * fps));
+      const duration = timings[i]?.duration ?? 3;
+      const frames = Math.max(1, Math.round(duration * fps));
+      if (isClipScene(i)) {
+        // Gentle time-stretch so the ~5.3s clip fills the scene slot, then
+        // clone-pad as a safety net and trim exactly. fps last: xfade needs
+        // CFR inputs and tpad/trim drop the rate.
+        const stretch = Math.min(2.2, Math.max(0.75, duration / HF_CLIP_SECONDS));
+        filters.push(
+          `[${idx.photos[i]}:v]setpts=${stretch.toFixed(4)}*PTS,` +
+            `scale=${W}:${H}:force_original_aspect_ratio=increase,crop=${W}:${H},` +
+            `tpad=stop_mode=clone:stop_duration=10,trim=duration=${duration.toFixed(2)},` +
+            `setpts=PTS-STARTPTS,fps=${fps},setsar=1[v${i}]`,
+        );
+        continue;
+      }
       const preset =
         i === sceneBuffers.length - 1 && params.useOutroCard
           ? "zoom-in"
