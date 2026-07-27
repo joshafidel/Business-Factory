@@ -39,7 +39,11 @@ export async function GET(): Promise<NextResponse> {
     _sum: { sizeBytes: true },
     _count: true,
   });
+  const [{ size }] = await prisma.$queryRawUnsafe<[{ size: bigint }]>(
+    "SELECT pg_database_size(current_database()) AS size",
+  );
   return NextResponse.json({
+    databaseMb: Math.round(Number(size) / 1024 / 102.4) / 10,
     assets: byModule.map((r) => ({
       moduleKey: r.moduleKey,
       type: r.type,
@@ -59,6 +63,8 @@ const pruneSchema = z.object({
   voiceCache: z.boolean().default(false),
   intermediates: z.boolean().default(false),
   orphans: z.boolean().default(false),
+  /** Run VACUUM so deleted blob pages are returned to the size quota. */
+  vacuum: z.boolean().default(false),
 });
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
@@ -150,5 +156,22 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
   }
 
-  return NextResponse.json({ deleted, freedMb: Math.round(freedBytes / 1024 / 102.4) / 10 });
+  let vacuumed = false;
+  if (opts.vacuum) {
+    // VACUUM can't run inside a transaction — send as a plain statement.
+    // Regular vacuum (not FULL): frees dead pages for reuse and truncates
+    // trailing empty pages back to the hosting plan's size quota.
+    await prisma.$executeRawUnsafe('VACUUM "StorageBlob"');
+    await prisma.$executeRawUnsafe("VACUUM");
+    vacuumed = true;
+  }
+  const [{ size }] = await prisma.$queryRawUnsafe<[{ size: bigint }]>(
+    "SELECT pg_database_size(current_database()) AS size",
+  );
+  return NextResponse.json({
+    deleted,
+    freedMb: Math.round(freedBytes / 1024 / 102.4) / 10,
+    vacuumed,
+    databaseMb: Math.round(Number(size) / 1024 / 102.4) / 10,
+  });
 }
