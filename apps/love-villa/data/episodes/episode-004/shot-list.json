@@ -1,0 +1,90 @@
+[
+  {
+    "scene": 0,
+    "slot": "hook",
+    "kind": "scene",
+    "locationId": "bedroom",
+    "characters": ["greta-germany", "matteo-italy"],
+    "imagePrompt": "Greta scheduled a 90-minute date. Matteo cooked for six hours. Nobody's ready. — caught mid-moment: The prize dinner: Greta arrives with an agenda; Matteo arrives with eight courses and unresolved Élodie feelin. Setting: Luxury shared bedroom with rows of neat double beds, soft lamps, pastel bedding, moonlight through windows, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 4.776923076923077
+  },
+  {
+    "scene": 1,
+    "slot": "setup",
+    "kind": "scene",
+    "locationId": "bedroom",
+    "characters": ["greta-germany", "matteo-italy", "elodie-france"],
+    "imagePrompt": "Setup: Greta and Matteo's chaotic-perfect prize dinner. Setting: Luxury shared bedroom with rows of neat double beds, soft lamps, pastel bedding, moonlight through windows, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands; Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-right",
+    "estimatedSeconds": 9.165384615384616
+  },
+  {
+    "scene": 2,
+    "slot": "escalation",
+    "kind": "argument",
+    "locationId": "kitchen",
+    "characters": ["greta-germany", "matteo-italy"],
+    "imagePrompt": "Argument erupts: Matteo eats cheese to impress Greta; suffers heroically and confesses nothing. Setting: Bright luxury open villa kitchen, marble island, hanging copper pans, bowls of lemons, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "parallax",
+    "estimatedSeconds": 8.01153846153846
+  },
+  {
+    "scene": 3,
+    "slot": "escalation",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": ["elodie-france"],
+    "imagePrompt": "elodie-france in the Spill Room, processing the chaos. Setting: Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 5.003846153846154
+  },
+  {
+    "scene": 4,
+    "slot": "escalation",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["brock-usa", "matteo-italy"],
+    "imagePrompt": "Villa reaction: Élodie interrogates Alejandro; his mask slips into a genuine laugh. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-left",
+    "estimatedSeconds": 4.392307692307693
+  },
+  {
+    "scene": 5,
+    "slot": "escalation",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": ["greta-germany"],
+    "imagePrompt": "greta-germany in the Spill Room, pretending to be fine. Setting: Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 5.965384615384615
+  },
+  {
+    "scene": 6,
+    "slot": "twist",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["elodie-france", "greta-germany"],
+    "imagePrompt": "TWIST: Matteo realizes mid-tiramisu that he didn't think about Élodie once all night.. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare; Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "shake",
+    "estimatedSeconds": 6.315384615384615
+  },
+  {
+    "scene": 7,
+    "slot": "engagement",
+    "kind": "endcard",
+    "locationId": "firepit",
+    "characters": [],
+    "imagePrompt": "End card: Greta+Matteo or Élodie+Alejandro — which date won the night? 🗳️. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "zoom-out",
+    "estimatedSeconds": 2.2
+  }
+]

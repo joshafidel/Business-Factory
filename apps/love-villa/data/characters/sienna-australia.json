@@ -1,0 +1,65 @@
+{
+  "id": "sienna-australia",
+  "fullName": "Sienna Blake",
+  "country": "Australia",
+  "age": 23,
+  "gender": "woman",
+  "physicalDescription": "Sun-bleached ponytail, zinc stripe across her nose, permanently barefoot, and a fresh band-aid somewhere new every morning.",
+  "clothingStyle": "Surf bikini top over boardshorts, shark-tooth necklace, sunglasses on a leash so she can lose them dramatically instead of permanently.",
+  "voiceDescription": "Bright, fast and gleeful; even 'good morning' sounds like the opening of a dare.",
+  "accentDirection": "Cheerful Australian accent, energetic and clear, fully intelligible.",
+  "personality": "Chaotic adventure gremlin who converts every situation into a challenge — including feelings, which she avoids by inventing more challenges.",
+  "datingStrategy": "If he survives the dares, he's a keeper. Nine men, zero survivors, and she's fine, thanks.",
+  "strength": "The villa's confidence dealer — everyone is braver within two metres of her.",
+  "fatalFlaw": "Turns every vulnerable moment into a dare a half-second before it becomes real.",
+  "secret": "She was engaged once, for forty-eight hours, to a man she met at a jet-ski rental counter. She still has the receipt.",
+  "romanticPreference": "Rohan (India) — 'He plans everything. I want to watch him plan for ME.'",
+  "rival": "greta-germany",
+  "initialAttraction": "rohan-india",
+  "recurringJoke": "Insists 'back home this would be legal' about increasingly unhinged activities, none of which are legal anywhere.",
+  "signaturePhrase": "Scared money don't find love!",
+  "imagePrompt": "Adventurous Australian woman in her early twenties, sun-bleached ponytail, zinc stripe on nose, surf bikini top and boardshorts, shark tooth necklace, mischievous grin, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin",
+  "imageSeed": 11006,
+  "palette": {
+    "skin": "#eab183",
+    "hair": "#f2e3b3",
+    "outfit": "#f28c38",
+    "accent": "#31b5c4"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.35,
+    "similarityBoost": 0.8,
+    "styleNotes": "Fast, bright, daring; everything sounds like a challenge or a prank reveal.",
+    "mock": {
+      "baseHz": 205,
+      "lilt": 0.5,
+      "rate": 6
+    }
+  },
+  "voicePatterns": {
+    "exclamations": [
+      "Let's send it!",
+      "Oh, this is about to get GOOD.",
+      "Absolute scenes!"
+    ],
+    "flirts": [
+      "Race you to the firepit. Loser confesses something.",
+      "You're cute when you're terrified.",
+      "Hold my necklace. And maybe my hand. Mainly the necklace."
+    ],
+    "conflicts": [
+      "Settle it with a dare. Winner's right.",
+      "Mate, you fumbled that so hard the ocean felt it.",
+      "I'll apologise. After I win."
+    ],
+    "confessionals": [
+      "Feelings? Hard. Backflips? Easy. Guess which one I'm doing.",
+      "He said 'let's talk about us' and I heard 'jump off the terrace'. Honest mistake.",
+      "I've got a plan for everything except being liked back."
+    ]
+  }
+}

@@ -26,6 +26,8 @@ Vitest · Playwright · pnpm workspaces + Turborepo.
 ```
 apps/web        Dashboard + API routes (deployable to Vercel with pooled PG)
 apps/worker     Standalone queue worker (deploy anywhere Node runs)
+apps/love-villa Love Villa: Nations — standalone Remotion pipeline that renders
+                serialized AI TikTok episodes (see apps/love-villa/README.md)
 packages/*      config, shared, database, storage, providers, prompts,
                 notifications, agents, workflows, queue, analytics
 ```

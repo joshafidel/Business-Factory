@@ -1,0 +1,20 @@
+{
+  "scope": "episode-003",
+  "entries": [
+    {
+      "provider": "anthropic",
+      "item": "episode-3-script",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:18:27.319Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "episode-3-script",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:43.629Z"
+    }
+  ],
+  "totalUsd": 0
+}

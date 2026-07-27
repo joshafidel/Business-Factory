@@ -17,6 +17,9 @@ const PUBLIC_PATHS = [
 ];
 
 export function middleware(request: NextRequest): NextResponse {
+  // Single-operator mode: skip the login wall entirely (see getOrgContext,
+  // which resolves visitors to the org owner).
+  if (process.env.AUTH_DISABLED === "1") return NextResponse.next();
   const { pathname } = request.nextUrl;
   if (PUBLIC_PATHS.some((p) => pathname.startsWith(p))) {
     return NextResponse.next();

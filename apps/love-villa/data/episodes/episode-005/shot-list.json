@@ -1,0 +1,90 @@
+[
+  {
+    "scene": 0,
+    "slot": "hook",
+    "kind": "scene",
+    "locationId": "pool",
+    "characters": ["rohan-india", "brock-usa", "poppy-uk"],
+    "imagePrompt": "Brock's 'seven-figure empire' just got fact-checked at the firepit. — caught mid-moment: Rohan's innocent networking question unravels Brock's startup story in front of everyone. The villa braces to . Setting: Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook; Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 4.392307692307693
+  },
+  {
+    "scene": 1,
+    "slot": "setup",
+    "kind": "scene",
+    "locationId": "pool",
+    "characters": ["brock-usa", "poppy-uk", "rohan-india"],
+    "imagePrompt": "Setup: Brock's lemonade-stand LLC secret is revealed. Setting: Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk; Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-right",
+    "estimatedSeconds": 8.973076923076924
+  },
+  {
+    "scene": 2,
+    "slot": "escalation",
+    "kind": "argument",
+    "locationId": "terrace",
+    "characters": ["brock-usa", "poppy-uk"],
+    "imagePrompt": "Argument erupts: Poppy unexpectedly defends Brock mid-roast. Setting: Rooftop villa terrace at golden hour, bougainvillea flowers, wicker chairs, ocean view, warm sunset glow, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "parallax",
+    "estimatedSeconds": 5.319230769230769
+  },
+  {
+    "scene": 3,
+    "slot": "escalation",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": ["rohan-india"],
+    "imagePrompt": "rohan-india in the Spill Room, processing the chaos. Setting: Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 4.811538461538461
+  },
+  {
+    "scene": 4,
+    "slot": "escalation",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["elodie-france", "poppy-uk"],
+    "imagePrompt": "Villa reaction: Brock's honest speech lands; villa respect unlocked. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-left",
+    "estimatedSeconds": 4.584615384615384
+  },
+  {
+    "scene": 5,
+    "slot": "escalation",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": ["brock-usa"],
+    "imagePrompt": "brock-usa in the Spill Room, pretending to be fine. Setting: Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 3.6576923076923076
+  },
+  {
+    "scene": 6,
+    "slot": "twist",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["poppy-uk", "brock-usa"],
+    "imagePrompt": "TWIST: Secret revealed: the empire is a lemonade stand — and Poppy is the one who saves him.. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk; Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "shake",
+    "estimatedSeconds": 5.3538461538461535
+  },
+  {
+    "scene": 7,
+    "slot": "engagement",
+    "kind": "endcard",
+    "locationId": "firepit",
+    "characters": [],
+    "imagePrompt": "End card: Poppy defending Brock?? What is HAPPENING 👀. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "zoom-out",
+    "estimatedSeconds": 2.2
+  }
+]

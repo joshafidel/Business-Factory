@@ -1,0 +1,90 @@
+[
+  {
+    "scene": 0,
+    "slot": "hook",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["sienna-australia", "rohan-india"],
+    "imagePrompt": "One quiz question just ended two friendships and started a romance. — caught mid-moment: First villa challenge: 'Heartquake' — couples answer questions about each other while standing on a wobble pla. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin; Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 4.007692307692308
+  },
+  {
+    "scene": 1,
+    "slot": "setup",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["rohan-india", "sienna-australia", "greta-germany"],
+    "imagePrompt": "Setup: Original challenge: Heartquake wobble-platform quiz. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook; Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin; Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-right",
+    "estimatedSeconds": 9.357692307692307
+  },
+  {
+    "scene": 2,
+    "slot": "escalation",
+    "kind": "argument",
+    "locationId": "pool",
+    "characters": ["rohan-india", "sienna-australia"],
+    "imagePrompt": "Argument erupts: Rohan freezes; Sienna dares him to answer with feelings instead of data. Setting: Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook; Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "parallax",
+    "estimatedSeconds": 7.626923076923077
+  },
+  {
+    "scene": 3,
+    "slot": "escalation",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": ["greta-germany"],
+    "imagePrompt": "greta-germany in the Spill Room, processing the chaos. Setting: Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 6.542307692307692
+  },
+  {
+    "scene": 4,
+    "slot": "escalation",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["alejandro-spain", "sienna-australia"],
+    "imagePrompt": "Villa reaction: Greta and Matteo win the challenge as a chaos pairing. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Alejandro: Spanish man, flowing dark hair, crimson shirt, white trousers, smolder, sunset backlight; Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-left",
+    "estimatedSeconds": 4.969230769230769
+  },
+  {
+    "scene": 5,
+    "slot": "escalation",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": ["rohan-india"],
+    "imagePrompt": "rohan-india in the Spill Room, pretending to be fine. Setting: Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 4.042307692307692
+  },
+  {
+    "scene": 6,
+    "slot": "twist",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": ["greta-germany", "rohan-india"],
+    "imagePrompt": "TWIST: Challenge result: the algorithm loses, the chaos couple wins — Greta chooses Matteo for the prize dinner.. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan; Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "shake",
+    "estimatedSeconds": 5.353846153846154
+  },
+  {
+    "scene": 7,
+    "slot": "engagement",
+    "kind": "endcard",
+    "locationId": "firepit",
+    "characters": [],
+    "imagePrompt": "End card: Greta + Matteo dinner date... what could go wrong? 🍝📋. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "zoom-out",
+    "estimatedSeconds": 2.2
+  }
+]
