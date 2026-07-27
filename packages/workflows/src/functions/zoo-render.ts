@@ -469,61 +469,75 @@ function assembleNurseryVideo(
     const fps = 24;
     const frames = Math.ceil(clipLen * fps);
 
-    const inputs: string[] = [];
-    for (let i = 0; i < n; i++) {
-      const clip = clips.get(i);
-      if (clip) {
-        const file = path.join(dir, `clip${i}.mp4`);
-        writeFileSync(file, clip);
-        inputs.push("-i", file);
-      } else {
-        const file = path.join(dir, `img${i}.png`);
-        writeFileSync(file, images[i] as Buffer);
-        inputs.push("-i", file);
-      }
-    }
     const audioFile = path.join(dir, "voice.mp3");
     writeFileSync(audioFile, audio);
     const outFile = path.join(dir, "out.mp4");
 
-    const filters: string[] = [];
+    // Pass 1 — render each scene to its own normalized file, one ffmpeg
+    // process at a time. A single graph with several video decoders plus
+    // zoompan upscales peaks past the serverless memory limit and kills the
+    // invocation mid-encode; sequential per-scene renders keep peak memory
+    // to a single small pipeline.
+    const sceneFiles: string[] = [];
     for (let i = 0; i < n; i++) {
-      if (clips.has(i)) {
+      const sceneOut = path.join(dir, `scene${i}.mp4`);
+      let input: string;
+      let filter: string;
+      const clip = clips.get(i);
+      if (clip) {
+        input = path.join(dir, `clip${i}.mp4`);
+        writeFileSync(input, clip);
         // Gentle time-stretch so the ~5.3s clip fills the scene slot, then
         // clone-pad as a safety net and trim to the exact length. fps must
         // come last: xfade requires CFR inputs and tpad/trim drop the rate.
-        // Cap 2.2x: song scenes run longer (~8-9s) and a dreamy half-speed
-        // motion still reads better for toddlers than a frozen frame.
+        // Cap 2.2x: a dreamy half-speed motion still reads better for
+        // toddlers than a frozen frame.
         const stretch = Math.min(2.2, Math.max(0.75, clipLen / HF_CLIP_SECONDS));
-        filters.push(
-          `[${i}:v]setpts=${stretch.toFixed(4)}*PTS,` +
-            `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
-            `tpad=stop_mode=clone:stop_duration=10,trim=duration=${clipLen.toFixed(2)},` +
-            `setpts=PTS-STARTPTS,fps=${fps}[v${i}]`,
-        );
+        filter =
+          `setpts=${stretch.toFixed(4)}*PTS,` +
+          `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
+          `tpad=stop_mode=clone:stop_duration=10,trim=duration=${clipLen.toFixed(2)},` +
+          `setpts=PTS-STARTPTS,fps=${fps}`;
       } else {
+        input = path.join(dir, `img${i}.png`);
+        writeFileSync(input, images[i] as Buffer);
         // Ken Burns per still: gentle zoom-in, alternating with zoom-out.
         const zoomExpr =
           i % 2 === 0
             ? `min(1+0.0018*on,1.14)` // zoom in
             : `max(1.14-0.0018*on,1.0)`; // zoom out
-        filters.push(
-          `[${i}:v]scale=1400:2489:force_original_aspect_ratio=increase,crop=1400:2489,` +
-            `zoompan=z='${zoomExpr}':d=${frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps=${fps}[v${i}]`,
-        );
+        filter =
+          `scale=1400:2489:force_original_aspect_ratio=increase,crop=1400:2489,` +
+          `zoompan=z='${zoomExpr}':d=${frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps=${fps}`;
       }
+      execFileSync(
+        ffmpegPath,
+        [
+          "-y", "-i", input, "-vf", filter,
+          "-t", clipLen.toFixed(2), "-an",
+          "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p",
+          sceneOut,
+        ],
+        { stdio: ["ignore", "ignore", "pipe"], timeout: 60_000 },
+      );
+      sceneFiles.push(sceneOut);
     }
-    // Chain crossfades.
-    let last = "v0";
+
+    // Pass 2 — stitch the uniform scene files with crossfades and mix audio.
+    // Plain decoders only; light on memory.
+    const inputs: string[] = [];
+    for (const f of sceneFiles) inputs.push("-i", f);
+    const filters: string[] = [];
+    let last = "0:v";
     for (let i = 1; i < n; i++) {
       const out = i === n - 1 ? "vout" : `x${i}`;
       const offset = (i * (clipLen - fade)).toFixed(2);
       filters.push(
-        `[${last}][v${i}]xfade=transition=fade:duration=${fade}:offset=${offset}[${out}]`,
+        `[${last}][${i}:v]xfade=transition=fade:duration=${fade}:offset=${offset}[${out}]`,
       );
       last = out;
     }
-    if (n === 1) filters.push(`[v0]copy[vout]`);
+    if (n === 1) filters.push(`[0:v]copy[vout]`);
 
     // Audio graph. Narration mode layers the JS-synthesized music-box bed
     // under the voice; song mode uses the sung track as-is (it already has
