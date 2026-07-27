@@ -679,9 +679,9 @@ async function main(): Promise<void> {
   const zooScriptPromptId = await seedPrompt(
     "zoo-script",
     "Zoo Shorts: script",
-    "Write a 60-75 second NURSERY RHYME SONG with a story, using the idea in the input data. Cast reference:\n" +
+    "Write a 40-55 second NURSERY RHYME SONG with a story, using the idea in the input data (short = high completion rate = the Shorts algorithm rewards it). Cast reference:\n" +
       castSheet() +
-      "\n\nProduce 7-8 scenes alternating verse and chorus (chorus appears 3 times: scenes 2, 5, and 7-or-8, IDENTICAL lyrics each time — repetition is what makes toddlers replay). Each scene: type = 'verse' or 'chorus'; lyrics = 2-4 short sung lines, bouncy AABB rhyme, ultra-simple words, chorus built on the hook sound; narration = same text as lyrics; characters = array of cast names appearing (2-3 per scene, they interact: hand things, hug, chase, help); visual = what happens in that scene told as one clear picture — name each character present and their exact action and emotion, plus one interactive beat somewhere in the song ('Can YOU stomp too?'). The story must follow the arc from the idea (setup → problem → funny try → happy fix + lesson). outro = one soft goodbye line inviting them back ('See you next time, zoo friends!'). No scary content, no brands.",
+      "\n\nProduce EXACTLY 6 scenes alternating verse and chorus (chorus at scenes 2 and 5, IDENTICAL lyrics both times — repetition is what makes toddlers replay). Each scene: type = 'verse' or 'chorus'; lyrics = 2-3 short sung lines, bouncy AABB rhyme, ultra-simple words, chorus built on the hook sound; narration = same text as lyrics; characters = array of cast names appearing (2-3 per scene, they interact: hand things, hug, chase, help); visual = what happens in that scene told as one clear picture — name each character present and their exact action and emotion, plus one interactive beat somewhere in the song ('Can YOU stomp too?'). The story must follow the arc from the idea (setup → problem → funny try → happy fix + lesson). outro = one soft goodbye line inviting them back ('See you next time, zoo friends!'). No scary content, no brands.",
   );
   const zooMetadataPromptId = await seedPrompt(
     "zoo-metadata",

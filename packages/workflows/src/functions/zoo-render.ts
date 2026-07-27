@@ -378,12 +378,23 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   // Songs are a complete soundtrack; the synth music-box bed is only for
   // the TTS-narration fallback.
   const withMusicBed = render.audioKind !== "song";
-  const videoData = assembleNurseryVideo(
-    imageBuffers,
-    clips,
-    audioBuffer,
-    audioSeconds,
+  // Per-scene renders are persisted to storage so an invocation that dies
+  // mid-encode (serverless CPU is slow; the ceiling is real) resumes where
+  // it left off instead of starting over.
+  const sceneCachePrefix = `${organizationId}/${workflowRunId}/scene-render-`;
+  const videoData = await assembleNurseryVideo(imageBuffers, clips, audioBuffer, audioSeconds, {
     withMusicBed,
+    cacheGet: async (i) => {
+      const key = `${sceneCachePrefix}${i}.mp4`;
+      return (await storage.exists(key)) ? storage.get(key) : null;
+    },
+    cachePut: async (i, data) => {
+      await storage.put(`${sceneCachePrefix}${i}.mp4`, data, { contentType: "video/mp4" });
+    },
+  });
+  // Best-effort cache cleanup — blobs are per-run and no longer needed.
+  await Promise.allSettled(
+    imageBuffers.map((_, i) => storage.delete(`${sceneCachePrefix}${i}.mp4`)),
   );
   const videoAssetId = await saveVideoAsset(organizationId, workflowRunId, title, videoData, {
     provider: clips.size > 0 ? "higgsfield+ffmpeg" : "ffmpeg-kenburns-music",
@@ -451,13 +462,19 @@ async function saveVideoAsset(
  * sung voice-over sits on top of a soft synthesized music-box arpeggio
  * (generated in JS — no licensed audio involved).
  */
-function assembleNurseryVideo(
+async function assembleNurseryVideo(
   images: Buffer[],
   clips: Map<number, Buffer>,
   audio: Buffer,
   audioSeconds: number,
-  withMusicBed = true,
-): Buffer {
+  opts: {
+    withMusicBed: boolean;
+    /** Resumable per-scene render cache (storage-backed). */
+    cacheGet: (i: number) => Promise<Buffer | null>;
+    cachePut: (i: number, data: Buffer) => Promise<void>;
+  },
+): Promise<Buffer> {
+  const { withMusicBed } = opts;
   const ffmpegPath = resolveFfmpeg();
   const dir = mkdtempSync(path.join(os.tmpdir(), "zoo-"));
   try {
@@ -481,6 +498,12 @@ function assembleNurseryVideo(
     const sceneFiles: string[] = [];
     for (let i = 0; i < n; i++) {
       const sceneOut = path.join(dir, `scene${i}.mp4`);
+      const cached = await opts.cacheGet(i);
+      if (cached) {
+        writeFileSync(sceneOut, cached);
+        sceneFiles.push(sceneOut);
+        continue;
+      }
       let input: string;
       let filter: string;
       const clip = clips.get(i);
@@ -518,8 +541,9 @@ function assembleNurseryVideo(
           "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p",
           sceneOut,
         ],
-        { stdio: ["ignore", "ignore", "pipe"], timeout: 60_000 },
+        { stdio: ["ignore", "ignore", "pipe"], timeout: 90_000 },
       );
+      await opts.cachePut(i, readFileSync(sceneOut));
       sceneFiles.push(sceneOut);
     }
 
