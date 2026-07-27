@@ -332,19 +332,24 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     }
     log.info({ animated: clips.size, total: imageBuffers.length }, "higgsfield clips ready");
 
-    // Generation sometimes outlasts this attempt's polling window. The jobs
-    // are already paid for and still rendering server-side, so rather than
-    // shipping a stills-only video, fail retryable: the engine re-runs this
-    // step (fresh invocation, fresh polling budget) and the retry finds the
-    // clips finished. The final attempt ships whatever is ready.
-    if (clips.size < animationJobs.length) {
+    // Generation regularly outlasts one polling window: Higgsfield caps
+    // per-account concurrency, so 8 jobs serialize into batches (~3.5min
+    // each). The jobs are already paid for and still rendering server-side,
+    // so rather than shipping a stills-only video, fail retryable while any
+    // job is genuinely still pending — each retry is a fresh invocation with
+    // a fresh polling budget. Jobs that terminally failed (nsfw/canceled)
+    // don't count as pending; the final attempt ships whatever is ready.
+    const stillPending = animationJobs.filter(
+      (j) => (results.get(j.jobSetId)?.status ?? "unknown") === "unknown",
+    ).length;
+    if (stillPending > 0) {
       const attempt = await prisma.stepRun.count({
         where: { workflowRunId, stepKey: "assemble" },
       });
-      if (attempt <= 2) {
+      if (attempt <= 4) {
         throw new PlatformError(
           "PROVIDER_ERROR",
-          `Only ${clips.size}/${animationJobs.length} animation clips ready; retrying to collect the rest`,
+          `${clips.size}/${animationJobs.length} animation clips ready, ${stillPending} still rendering; retrying to collect the rest`,
           { retryable: true },
         );
       }

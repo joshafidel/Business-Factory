@@ -879,6 +879,7 @@ async function main(): Promise<void> {
     name: string;
     type: "AGENT_TASK" | "CODE_FUNCTION" | "HUMAN_APPROVAL" | "PUBLISH" | "DELAY";
     config: Prisma.InputJsonValue;
+    retryLimit?: number;
   }[] = [
     {
       key: "idea",
@@ -930,13 +931,16 @@ async function main(): Promise<void> {
       key: "wait",
       name: "Let the animation studio work",
       type: "DELAY",
-      config: { delayMs: 60_000 },
+      config: { delayMs: 90_000 },
     },
     {
+      // Higgsfield serializes bulk jobs, so assemble may need several
+      // polling rounds — each retry is a fresh invocation (see renderer).
       key: "assemble",
       name: "Animate scenes & cut the video",
       type: "CODE_FUNCTION",
       config: { functionKey: "assemble_zoo_video", args: {} },
+      retryLimit: 4,
     },
     {
       key: "review",
@@ -1014,6 +1018,7 @@ async function main(): Promise<void> {
           type: step.type,
           order: zooOrder++,
           config: step.config,
+          ...(step.retryLimit !== undefined ? { retryLimit: step.retryLimit } : {}),
         },
       });
     }
