@@ -370,7 +370,9 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       const attempt = await prisma.stepRun.count({
         where: { workflowRunId, stepKey: "assemble" },
       });
-      if (attempt <= 4) {
+      // ~45 minutes of total patience: Higgsfield's global queue sometimes
+      // backs up far beyond the happy-path 4 minutes.
+      if (attempt <= 12) {
         throw new PlatformError(
           "PROVIDER_ERROR",
           `${clips.size}/${animationJobs.length} animation clips ready, ${stillPending} still rendering; retrying to collect the rest`,

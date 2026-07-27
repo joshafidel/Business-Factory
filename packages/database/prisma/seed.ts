@@ -940,7 +940,7 @@ async function main(): Promise<void> {
       name: "Animate scenes & cut the video",
       type: "CODE_FUNCTION",
       config: { functionKey: "assemble_zoo_video", args: {} },
-      retryLimit: 4,
+      retryLimit: 12,
     },
     {
       key: "review",
@@ -991,6 +991,7 @@ async function main(): Promise<void> {
       (s, i) =>
         s.key === zooSteps[i]!.key &&
         s.type === zooSteps[i]!.type &&
+        s.retryLimit === (zooSteps[i]!.retryLimit ?? 2) &&
         JSON.stringify(s.config) === JSON.stringify(zooSteps[i]!.config),
     );
   if (!stepsMatch) {
