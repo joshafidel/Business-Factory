@@ -307,6 +307,17 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       ? render.audioSeconds
       : await mp3DurationSeconds(audioBuffer, 600);
 
+  // Probe the per-scene render cache first (see below): scenes already
+  // rendered by a previous attempt need neither their Higgsfield clip nor a
+  // re-encode, so polling and downloads are skipped for them entirely.
+  // "-v2" invalidates pre-fade cache entries.
+  const sceneCachePrefix = `${organizationId}/${workflowRunId}/scene-render-v2-`;
+  const cachedScenes = new Map<number, Buffer>();
+  for (let i = 0; i < imageAssetIds.length; i++) {
+    const key = `${sceneCachePrefix}${i}.mp4`;
+    if (await storage.exists(key)) cachedScenes.set(i, await storage.get(key));
+  }
+
   // Wait for Higgsfield clips — bounded so this invocation stays inside its
   // serverless limit. Scenes whose clip isn't ready fall back to Ken Burns.
   const clips = new Map<number, Buffer>();
@@ -317,12 +328,13 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     // were submitted ~65s ago (render end + the 60s DELAY step), so this
     // still covers dop-lite's observed 180-216s generation time.
     const deadline = Date.now() + 150_000;
+    const jobsNeeded = animationJobs.filter((j) => !cachedScenes.has(j.sceneIndex));
     const results = await awaitJobSets(
-      animationJobs.map((j) => j.jobSetId),
+      jobsNeeded.map((j) => j.jobSetId),
       deadline,
     );
     const downloads = await Promise.allSettled(
-      animationJobs.map(async (job) => {
+      jobsNeeded.map(async (job) => {
         const r = results.get(job.jobSetId);
         if (r?.status !== "completed" || !r.videoUrl) {
           throw new Error(`clip not ready (${r?.status ?? "missing"})`);
@@ -347,7 +359,7 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     // job is genuinely still pending — each retry is a fresh invocation with
     // a fresh polling budget. Jobs that terminally failed (nsfw/canceled)
     // don't count as pending; the final attempt ships whatever is ready.
-    const stillPending = animationJobs.filter(
+    const stillPending = jobsNeeded.filter(
       (j) => (results.get(j.jobSetId)?.status ?? "unknown") === "unknown",
     ).length;
     if (stillPending > 0) {
@@ -372,13 +384,9 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   // Per-scene renders are persisted to storage so an invocation that dies
   // mid-encode (serverless CPU is slow; the ceiling is real) resumes where
   // it left off instead of starting over.
-  const sceneCachePrefix = `${organizationId}/${workflowRunId}/scene-render-`;
   const videoData = await assembleNurseryVideo(imageBuffers, clips, audioBuffer, audioSeconds, {
     withMusicBed,
-    cacheGet: async (i) => {
-      const key = `${sceneCachePrefix}${i}.mp4`;
-      return (await storage.exists(key)) ? storage.get(key) : null;
-    },
+    cached: cachedScenes,
     cachePut: async (i, data) => {
       await storage.put(`${sceneCachePrefix}${i}.mp4`, data, { contentType: "video/mp4" });
     },
@@ -449,8 +457,10 @@ async function saveVideoAsset(
 /**
  * Nursery-rhyme assembly. Animated scenes use their Higgsfield clip (scaled
  * and cropped to 1080x1920, gently time-stretched to the scene length);
- * others get a slow Ken Burns zoom. 0.6s crossfades chain the scenes, the
- * sung voice-over sits on top of a soft synthesized music-box arpeggio
+ * others get a slow Ken Burns zoom. Each scene bakes a short dip-to-black
+ * fade at its edges, so the final stitch is a stream-copy concat — no
+ * re-encode, which keeps the last pass to seconds on slow serverless CPUs.
+ * The sung voice-over sits on top of a soft synthesized music-box arpeggio
  * (generated in JS — no licensed audio involved).
  */
 async function assembleNurseryVideo(
@@ -460,8 +470,8 @@ async function assembleNurseryVideo(
   audioSeconds: number,
   opts: {
     withMusicBed: boolean;
-    /** Resumable per-scene render cache (storage-backed). */
-    cacheGet: (i: number) => Promise<Buffer | null>;
+    /** Scene renders recovered from a previous attempt (storage-backed). */
+    cached: Map<number, Buffer>;
     cachePut: (i: number, data: Buffer) => Promise<void>;
   },
 ): Promise<Buffer> {
@@ -470,10 +480,9 @@ async function assembleNurseryVideo(
   const dir = mkdtempSync(path.join(os.tmpdir(), "zoo-"));
   try {
     const n = images.length;
-    const fade = 0.6;
     const total = audioSeconds + 1.2;
-    // Every scene has the same length; crossfades overlap them.
-    const clipLen = (total + (n - 1) * fade) / n;
+    // Hard-cut concat: every scene is exactly total/n long.
+    const clipLen = total / n;
     const fps = 24;
     const frames = Math.ceil(clipLen * fps);
 
@@ -488,10 +497,14 @@ async function assembleNurseryVideo(
     // to a single small pipeline.
     const t0 = Date.now();
     const elapsed = (): string => `${((Date.now() - t0) / 1000).toFixed(1)}s`;
+    // Soft dip between scenes, baked into each scene file so the stitch
+    // never re-encodes video.
+    const edgeFade =
+      `,fade=t=in:d=0.25,fade=t=out:st=${Math.max(0, clipLen - 0.25).toFixed(2)}:d=0.25`;
     const sceneFiles: string[] = [];
     for (let i = 0; i < n; i++) {
       const sceneOut = path.join(dir, `scene${i}.mp4`);
-      const cached = await opts.cacheGet(i);
+      const cached = opts.cached.get(i);
       if (cached) {
         writeFileSync(sceneOut, cached);
         sceneFiles.push(sceneOut);
@@ -514,7 +527,7 @@ async function assembleNurseryVideo(
           `setpts=${stretch.toFixed(4)}*PTS,` +
           `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
           `tpad=stop_mode=clone:stop_duration=10,trim=duration=${clipLen.toFixed(2)},` +
-          `setpts=PTS-STARTPTS,fps=${fps}`;
+          `setpts=PTS-STARTPTS,fps=${fps}${edgeFade}`;
       } else {
         input = path.join(dir, `img${i}.png`);
         writeFileSync(input, images[i] as Buffer);
@@ -525,7 +538,7 @@ async function assembleNurseryVideo(
             : `max(1.14-0.0018*on,1.0)`; // zoom out
         filter =
           `scale=1400:2489:force_original_aspect_ratio=increase,crop=1400:2489,` +
-          `zoompan=z='${zoomExpr}':d=${frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps=${fps}`;
+          `zoompan=z='${zoomExpr}':d=${frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps=${fps}${edgeFade}`;
       }
       execFileSync(
         ffmpegPath,
@@ -543,70 +556,48 @@ async function assembleNurseryVideo(
     }
     log.info({ at: elapsed(), scenes: n }, "pass1 complete; starting stitch");
 
-    // Pass 2 — stitch the uniform scene files with crossfades and mix audio.
-    // Plain decoders only; light on memory.
-    const inputs: string[] = [];
-    for (const f of sceneFiles) inputs.push("-i", f);
-    const filters: string[] = [];
-    let last = "0:v";
-    for (let i = 1; i < n; i++) {
-      const out = i === n - 1 ? "vout" : `x${i}`;
-      const offset = (i * (clipLen - fade)).toFixed(2);
-      filters.push(
-        `[${last}][${i}:v]xfade=transition=fade:duration=${fade}:offset=${offset}[${out}]`,
-      );
-      last = out;
-    }
-    if (n === 1) filters.push(`[0:v]copy[vout]`);
+    // Pass 2 — concat with STREAM COPY (scene files are uniform h264, each
+    // starting on a keyframe): video is never re-encoded, so this pass takes
+    // seconds regardless of length. Only the audio graph is computed.
+    const listFile = path.join(dir, "concat.txt");
+    writeFileSync(listFile, sceneFiles.map((f) => `file '${f}'`).join("\n"));
 
     // Audio graph. Narration mode layers the JS-synthesized music-box bed
     // under the voice; song mode uses the sung track as-is (it already has
     // full instrumentation) with a gentle fade-out at the end.
     const audioInputs: string[] = [];
+    const filters: string[] = [];
     if (withMusicBed) {
       const musicFile = path.join(dir, "music.wav");
       writeFileSync(musicFile, synthMusicBoxWav(total));
       audioInputs.push("-i", musicFile);
-      filters.push(`[${n}:a]volume=1.0[voice]`);
+      filters.push(`[1:a]volume=1.0[voice]`);
       filters.push(
-        `[${n + 1}:a]volume=0.16,afade=t=in:d=1,afade=t=out:st=${Math.max(0, total - 1.5).toFixed(2)}:d=1.5[music]`,
+        `[2:a]volume=0.16,afade=t=in:d=1,afade=t=out:st=${Math.max(0, total - 1.5).toFixed(2)}:d=1.5[music]`,
       );
       filters.push(`[voice][music]amix=inputs=2:duration=first:normalize=0[aout]`);
     } else {
-      filters.push(`[${n}:a]afade=t=out:st=${Math.max(0, total - 1.2).toFixed(2)}:d=1.2[aout]`);
+      filters.push(`[1:a]afade=t=out:st=${Math.max(0, total - 1.2).toFixed(2)}:d=1.2[aout]`);
     }
 
     execFileSync(
       ffmpegPath,
       [
         "-y",
-        ...inputs,
-        "-i",
-        audioFile,
+        "-f", "concat", "-safe", "0", "-i", listFile,
+        "-i", audioFile,
         ...audioInputs,
-        "-filter_complex",
-        filters.join(";"),
-        "-map",
-        "[vout]",
-        "-map",
-        "[aout]",
-        "-c:v",
-        "libx264",
-        "-preset",
-        "ultrafast",
-        "-pix_fmt",
-        "yuv420p",
-        "-t",
-        total.toFixed(2),
-        "-c:a",
-        "aac",
-        "-b:a",
-        "128k",
-        "-movflags",
-        "+faststart",
+        "-filter_complex", filters.join(";"),
+        "-map", "0:v",
+        "-map", "[aout]",
+        "-c:v", "copy",
+        "-t", total.toFixed(2),
+        "-c:a", "aac",
+        "-b:a", "128k",
+        "-movflags", "+faststart",
         outFile,
       ],
-      { stdio: ["ignore", "ignore", "pipe"], timeout: 240_000 },
+      { stdio: ["ignore", "ignore", "pipe"], timeout: 120_000 },
     );
     log.info({ at: elapsed() }, "stitch complete");
     return readFileSync(outFile);
