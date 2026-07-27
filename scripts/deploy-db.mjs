@@ -29,10 +29,28 @@ if (!process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-const run = (cmd) => execSync(cmd, { stdio: "inherit", cwd: root, env: process.env });
+const run = (cmd, env = process.env) => execSync(cmd, { stdio: "inherit", cwd: root, env });
 
+// Migrations must use a DIRECT connection: Prisma's advisory lock breaks
+// behind PgBouncer/Neon poolers (stranded locks → P1002 timeouts on the
+// next deploy). Retry a few times in case a concurrent build holds it.
+const migrateEnv = { ...process.env };
+if (process.env.POSTGRES_URL_NON_POOLING) {
+  migrateEnv.DATABASE_URL = process.env.POSTGRES_URL_NON_POOLING;
+}
 console.log("[deploy-db] prisma migrate deploy…");
-run("pnpm --filter @bf/database db:migrate:deploy");
+let migrated = false;
+for (let attempt = 1; attempt <= 4 && !migrated; attempt++) {
+  try {
+    run("pnpm --filter @bf/database db:migrate:deploy", migrateEnv);
+    migrated = true;
+  } catch (err) {
+    if (attempt === 4) throw err;
+    const wait = attempt * 20;
+    console.log(`[deploy-db] migrate attempt ${attempt} failed; retrying in ${wait}s…`);
+    execSync(`sleep ${wait}`);
+  }
+}
 
 if (process.env.SEED_ON_BUILD === "1") {
   console.log("[deploy-db] SEED_ON_BUILD=1 — seeding database (idempotent)…");
