@@ -486,6 +486,8 @@ async function assembleNurseryVideo(
     // zoompan upscales peaks past the serverless memory limit and kills the
     // invocation mid-encode; sequential per-scene renders keep peak memory
     // to a single small pipeline.
+    const t0 = Date.now();
+    const elapsed = (): string => `${((Date.now() - t0) / 1000).toFixed(1)}s`;
     const sceneFiles: string[] = [];
     for (let i = 0; i < n; i++) {
       const sceneOut = path.join(dir, `scene${i}.mp4`);
@@ -493,6 +495,7 @@ async function assembleNurseryVideo(
       if (cached) {
         writeFileSync(sceneOut, cached);
         sceneFiles.push(sceneOut);
+        log.info({ scene: i, cached: true, at: elapsed() }, "scene ready");
         continue;
       }
       let input: string;
@@ -536,7 +539,9 @@ async function assembleNurseryVideo(
       );
       await opts.cachePut(i, readFileSync(sceneOut));
       sceneFiles.push(sceneOut);
+      log.info({ scene: i, cached: false, at: elapsed() }, "scene rendered");
     }
+    log.info({ at: elapsed(), scenes: n }, "pass1 complete; starting stitch");
 
     // Pass 2 — stitch the uniform scene files with crossfades and mix audio.
     // Plain decoders only; light on memory.
@@ -603,6 +608,7 @@ async function assembleNurseryVideo(
       ],
       { stdio: ["ignore", "ignore", "pipe"], timeout: 240_000 },
     );
+    log.info({ at: elapsed() }, "stitch complete");
     return readFileSync(outFile);
   } finally {
     rmSync(dir, { recursive: true, force: true });
