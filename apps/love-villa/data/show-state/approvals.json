@@ -25,8 +25,8 @@
   },
   "rough-cut:1": {
     "status": "approved",
-    "at": "2026-07-27T19:34:53.704Z",
-    "note": "Live art + live voices",
+    "at": "2026-07-27T21:43:01.989Z",
+    "note": "Animated draft approved",
     "locked": true
   },
   "script:2": {
@@ -79,8 +79,8 @@
   },
   "final-export:1": {
     "status": "approved",
-    "at": "2026-07-27T19:41:20.458Z",
-    "note": "Live art + voices, 75.4s, validation passed",
+    "at": "2026-07-27T21:47:52.429Z",
+    "note": "Animated final verified",
     "locked": true
   }
 }

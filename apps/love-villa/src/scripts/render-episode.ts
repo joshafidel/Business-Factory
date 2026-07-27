@@ -1,10 +1,10 @@
 import { copyFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { loadApprovals, requireApproved, setApproval } from "../approvals/approvals";
-import { DATA_DIR, OUTPUT_DIR, providerStatus } from "../config";
+import { APP_ROOT, DATA_DIR, OUTPUT_DIR, providerStatus } from "../config";
 import { loadEpisodeScript } from "../episodes/episode-generator";
 import { loadRenderPlan } from "../render/render-plan";
-import { renderEpisodeVideo, renderThumbnail } from "../render/render";
+import { renderEpisodeVideo, renderThumbnail, transcodeWebPreview } from "../render/render";
 import { parseArgs, intArg } from "../utils/args";
 import { CostTracker } from "../utils/cost";
 import { ensureDir, episodeId, readJsonIfExists, writeText } from "../utils/fs";
@@ -58,11 +58,29 @@ async function main(): Promise<void> {
   );
   log.ok(`output/episodes/${epId}/ complete`);
 
+  // Web preview: 720x1280 stream-friendly copy, dropped into the dashboard's
+  // public dir so /apps/love-villa can play it after commit + deploy.
+  log.step("Web preview for the dashboard");
+  const previewFile = path.join(outDir, "preview.mp4");
+  transcodeWebPreview(finalFile, previewFile);
+  const webPublic = path.resolve(APP_ROOT, "..", "web", "public");
+  if (existsSync(webPublic)) {
+    ensureDir(path.join(webPublic, "love-villa"));
+    copyFileSync(previewFile, path.join(webPublic, "love-villa", `${epId}.mp4`));
+    copyFileSync(
+      path.join(outDir, "thumbnail.png"),
+      path.join(webPublic, "love-villa", `${epId}-poster.png`),
+    );
+    log.ok(
+      `apps/web/public/love-villa/${epId}.mp4 — commit + deploy to watch it on /apps/love-villa`,
+    );
+  }
+
   setApproval("final-export", episode, "pending", `Review output/episodes/${epId}/final.mp4`);
   log.info(`Next: npm run validate-episode -- --episode ${episode}`);
   log.info(`Then: npm run approve -- --stage final-export --episode ${episode}`);
   log.info(
-    "Upload manually to TikTok using caption.txt + hashtags.txt (no auto-posting in the MVP).",
+    `Post it: npm run publish-episode -- --episode ${episode} (after tiktok-auth), or upload manually.`,
   );
 }
 
