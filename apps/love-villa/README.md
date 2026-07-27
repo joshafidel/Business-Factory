@@ -9,8 +9,14 @@ characters, distinct voices, AI-generated visuals, Remotion camera motion (no sl
 generated music + SFX, large animated word-highlight subtitles, a cold-open hook, a twist, an
 engagement beat, a thumbnail, and a suggested TikTok caption + hashtags.
 
-> **MVP scope:** no TikTok account automation. The pipeline produces the video + upload metadata;
-> you post it yourself. The Business-Factory dashboard shows this app at `/apps/love-villa`.
+> **Guides:** [docs/SETUP-APIS.md](docs/SETUP-APIS.md) — step-by-step key setup for every
+> provider (Anthropic, ElevenLabs, OpenAI, TikTok, fal.ai) with links ·
+> [docs/ANIMATION-QUALITY.md](docs/ANIMATION-QUALITY.md) — how to hit an extremely high
+> animation standard. The Business-Factory dashboard shows this app at `/apps/love-villa`.
+>
+> **TikTok posting:** built in. After a one-time OAuth (`npm run tiktok-auth`),
+> `npm run publish-episode -- --episode N` posts the approved episode automatically. Until your
+> TikTok app passes TikTok's audit, posts are restricted to private (SELF_ONLY) by TikTok policy.
 
 ## Quick start (zero API keys needed)
 
@@ -64,6 +70,8 @@ output/episodes/episode-001/
 | `npm run validate-episode -- --episode N`    | Full QA (see checklist below), writes `validation-report.json`                                                    |
 | `npm run validate-continuity -- --episode N` | Focused continuity pass (script vs season state)                                                                  |
 | `npm run approve [-- --stage S --episode N]` | List / approve / reject / request-revision / lock / unlock checkpoints                                            |
+| `npm run tiktok-auth`                        | One-time TikTok account connection (OAuth); `-- --status` to inspect                                              |
+| `npm run publish-episode -- --episode N`     | Post the final-export-approved episode to TikTok (Content Posting API)                                            |
 
 Flags: `--force` bypasses an approval gate or lock (logged loudly); `--skip-draft` on
 produce-episode skips the draft render; `--no-lock` approves without locking; `--revise`
@@ -83,13 +91,14 @@ artifact so it can't be silently regenerated — `--unlock` or `--force` to over
 
 ## Providers (all optional, all swappable)
 
-| Provider               | Env key              | Live behavior                                                                                                                     | Mock behavior (no key)                                            |
-| ---------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| **Anthropic Claude**   | `ANTHROPIC_API_KEY`  | Writes cast refinements, season arcs, episode scripts via structured outputs (`claude-opus-5`), validated by the same Zod schemas | Hand-authored fixtures + a deterministic procedural writers' room |
-| **OpenAI gpt-image-1** | `OPENAI_API_KEY`     | Transparent character cutouts + vertical location art from locked prompts/palettes                                                | Deterministic parametric SVG art from the same palettes           |
-| **ElevenLabs**         | `ELEVENLABS_API_KEY` | Stable per-character voices (map IDs in `data/voice-map.json`, template provided)                                                 | Distinct synthesized voices with realistic speech timing          |
-| Music & SFX            | —                    | Always generated locally in code — original, royalty-free by construction                                                         | same                                                              |
-| Image-to-video         | —                    | Interface only (`src/providers/video`) — drop in a provider later; Remotion supplies all motion in the MVP                        | disabled                                                          |
+| Provider               | Env key                      | Live behavior                                                                                                                     | Mock behavior (no key)                                            |
+| ---------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Anthropic Claude**   | `ANTHROPIC_API_KEY`          | Writes cast refinements, season arcs, episode scripts via structured outputs (`claude-opus-5`), validated by the same Zod schemas | Hand-authored fixtures + a deterministic procedural writers' room |
+| **OpenAI gpt-image-1** | `OPENAI_API_KEY`             | Transparent character cutouts + vertical location art from locked prompts/palettes                                                | Deterministic parametric SVG art from the same palettes           |
+| **ElevenLabs**         | `ELEVENLABS_API_KEY`         | Stable per-character voices (map IDs in `data/voice-map.json`, template provided)                                                 | Distinct synthesized voices with realistic speech timing          |
+| Music & SFX            | —                            | Always generated locally in code — original, royalty-free by construction                                                         | same                                                              |
+| **fal.ai i2v**         | `FAL_KEY`                    | True animation: clean-plate scene stills animated via Kling/Hailuo/Veo (`FAL_I2V_MODEL`) — see docs/ANIMATION-QUALITY.md          | Remotion camera moves                                             |
+| **TikTok**             | `TIKTOK_CLIENT_KEY`+`SECRET` | Automatic posting via the Content Posting API after `npm run tiktok-auth` (docs/SETUP-APIS.md §4)                                 | manual upload                                                     |
 
 Provider adapters live behind interfaces in `src/providers/` (`ImageProvider`, `TTSProvider`,
 `MusicProvider`, `MotionProvider`) — switching providers means implementing one interface.

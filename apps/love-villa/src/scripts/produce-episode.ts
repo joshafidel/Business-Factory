@@ -1,4 +1,4 @@
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { requireApproved, setApproval } from "../approvals/approvals";
 import { characterById, loadCast } from "../characters/character-manager";
@@ -6,6 +6,7 @@ import { ASSETS_DIR, DATA_DIR, OUTPUT_DIR, loadConfig } from "../config";
 import { loadEpisodeScript } from "../episodes/episode-generator";
 import { characterImage, locationImage } from "../providers/images";
 import { getMusicProvider } from "../providers/music";
+import { getMotionProvider } from "../providers/video";
 import { speakLine } from "../providers/tts";
 import {
   assetAbs,
@@ -14,7 +15,7 @@ import {
   findExistingAsset,
   type LineAudioInfo,
 } from "../render/render-plan";
-import { renderEpisodeVideo } from "../render/render";
+import { renderEpisodeVideo, renderSceneStill } from "../render/render";
 import { loadShowBible } from "../show/show-bible";
 import { parseArgs, intArg } from "../utils/args";
 import { CostTracker } from "../utils/cost";
@@ -176,6 +177,56 @@ async function main(): Promise<void> {
     lineAudio: manifest.lines,
     musicFile: musicRel,
   });
+
+  // True animation pass (image-to-video): render a clean-plate still of each
+  // scene and animate it through the motion provider. Hook and twist scenes
+  // first — they carry the episode. Failures fall back to camera moves.
+  const motion = getMotionProvider();
+  if (motion.enabled && env.MAX_VIDEO_GENS_PER_EPISODE > 0) {
+    log.step(`Animating scenes via ${motion.key} (${env.FAL_I2V_MODEL})`);
+    const priority = (s: (typeof plan.scenes)[number]): number =>
+      s.slot === "hook" ? 0 : s.slot === "twist" ? 1 : s.slot === "setup" ? 2 : 3;
+    const candidates = plan.scenes
+      .filter((s) => s.kind !== "endcard")
+      .sort((a, b) => priority(a) - priority(b))
+      .slice(0, env.MAX_VIDEO_GENS_PER_EPISODE);
+    for (const planScene of candidates) {
+      const scriptScene = script.scenes.find((s) => s.index === planScene.index);
+      try {
+        tracker.charge({
+          provider: motion.key,
+          item: `motion:scene-${planScene.index}`,
+          estimatedUsd: env.MOTION_COST_PER_CLIP_USD,
+          mode: "live",
+        });
+        const stillFile = assetAbs(assetRel("episodes", epId, "stills", `s${planScene.index}.png`));
+        await renderSceneStill(plan, planScene.index, stillFile);
+        const clip = await motion.imageToVideo({
+          image: readFileSync(stillFile),
+          prompt:
+            `${scriptScene?.visual ?? "villa scene"}. Gentle expressive character animation: they ` +
+            `blink, breathe, gesture and react naturally; subtle cloth and hair movement; slow ` +
+            `cinematic camera; keep the exact glossy animated reality-show art style and character ` +
+            `designs of the image; no text, no morphing.`,
+          seconds: env.MOTION_CLIP_SECONDS,
+        });
+        if (clip) {
+          const rel = assetRel("episodes", epId, "clips", `s${planScene.index}.${clip.ext}`);
+          ensureDir(path.dirname(assetAbs(rel)));
+          writeFileSync(assetAbs(rel), clip.data);
+          planScene.clipFile = rel;
+          planScene.clipDurationFrames = Math.round(env.MOTION_CLIP_SECONDS * plan.fps);
+          log.ok(`scene ${planScene.index + 1} animated → assets/${rel}`);
+        }
+      } catch (err) {
+        manifest.failures.push(
+          `motion:scene-${planScene.index}: ${err instanceof Error ? err.message : String(err)} (falling back to camera move)`,
+        );
+        log.warn(`scene ${planScene.index + 1} motion failed — camera-move fallback`);
+      }
+    }
+  }
+
   writeJson(path.join(ASSETS_DIR, "episodes", epId, "render-plan.json"), plan);
   writeJson(path.join(DATA_DIR, "episodes", epId, "assets.json"), manifest);
   log.ok(

@@ -1,5 +1,13 @@
 import React from "react";
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import {
+  AbsoluteFill,
+  Img,
+  interpolate,
+  Loop,
+  OffthreadVideo,
+  staticFile,
+  useCurrentFrame,
+} from "remotion";
 import { type PlanScene } from "../plan-types";
 
 /**
@@ -17,6 +25,26 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
   const activeSpeaker = scene.lines.find(
     (l) => frame >= l.startFrame && frame < l.startFrame + l.durationFrames,
   )?.speaker;
+
+  // True animated clip (image-to-video): the characters and set are baked into
+  // the clip, so play it full-bleed (looped to cover the scene) with a very
+  // gentle push-in on top for continuity with the house camera language.
+  if (scene.clipFile) {
+    return (
+      <AbsoluteFill style={{ overflow: "hidden" }}>
+        <AbsoluteFill style={{ transform: `scale(${1 + 0.04 * p})` }}>
+          <Loop durationInFrames={Math.max(1, scene.clipDurationFrames ?? scene.durationFrames)}>
+            <OffthreadVideo
+              src={staticFile(scene.clipFile)}
+              muted
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </Loop>
+        </AbsoluteFill>
+        {scene.kind === "confessional" ? <ConfessionalFrame /> : null}
+      </AbsoluteFill>
+    );
+  }
 
   if (scene.kind === "argument" && scene.characters.length >= 2) {
     return <ArgumentSplit scene={scene} activeSpeaker={activeSpeaker} />;

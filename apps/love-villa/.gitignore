@@ -1,5 +1,6 @@
 # local env + secrets
 .env
+data/tiktok-tokens.json
 
 # generated binary assets (regenerate with produce-episode / setup-show)
 assets/episodes/

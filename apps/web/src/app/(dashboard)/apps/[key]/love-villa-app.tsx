@@ -89,9 +89,10 @@ const PIPELINE_STEPS = [
   ["npm run setup-show", "Show bible, villa, cast + reference art, season state"],
   ["npm run generate-season -- --episodes 10", "Connected 10-episode arc"],
   ["npm run generate-episode -- --episode 1", "Script, shot list, caption, continuity update"],
-  ["npm run produce-episode -- --episode 1", "Images, voices, music + rough-cut draft"],
+  ["npm run produce-episode -- --episode 1", "Images, voices, music, animation + rough cut"],
   ["npm run render-episode -- --episode 1", "Final 1080×1920 MP4 + thumbnail + upload package"],
   ["npm run validate-episode -- --episode 1", "Continuity, safety, subtitle & duration QA"],
+  ["npm run publish-episode -- --episode 1", "Auto-post to the connected TikTok account"],
 ];
 
 export function LoveVillaApp({ description }: { description: string }) {
@@ -131,9 +132,11 @@ export function LoveVillaApp({ description }: { description: string }) {
                 </div>
               ))}
               <p className="pt-1 text-xs text-muted-foreground">
-                Episodes are produced by the local pipeline in{" "}
-                <code className="rounded bg-muted px-1">apps/love-villa</code> and uploaded to
-                TikTok manually — no account automation in the MVP.
+                Episodes are produced by the pipeline in{" "}
+                <code className="rounded bg-muted px-1">apps/love-villa</code> and posted to TikTok
+                automatically via <code className="rounded bg-muted px-1">publish-episode</code>{" "}
+                once the account is connected (
+                <code className="rounded bg-muted px-1">tiktok-auth</code>).
               </p>
             </CardContent>
           </Card>

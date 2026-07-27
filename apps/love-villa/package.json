@@ -13,6 +13,8 @@
     "validate-episode": "tsx src/scripts/validate-episode.ts",
     "validate-continuity": "tsx src/scripts/validate-continuity.ts",
     "approve": "tsx src/scripts/approve.ts",
+    "tiktok-auth": "tsx src/scripts/tiktok-auth.ts",
+    "publish-episode": "tsx src/scripts/publish-episode.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

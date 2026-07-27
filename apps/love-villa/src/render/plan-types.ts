@@ -47,6 +47,9 @@ export interface PlanScene {
   sfx: PlanSfx[];
   textMessages: { from: string; text: string }[];
   endcardText?: string;
+  /** True animated clip (image-to-video) — replaces the camera-move treatment. */
+  clipFile?: string;
+  clipDurationFrames?: number;
 }
 
 export interface RenderPlan {
@@ -59,6 +62,8 @@ export interface RenderPlan {
   durationFrames: number;
   music: { file: string; volume: number };
   scenes: PlanScene[];
+  /** Hide overlays (hook, chip, subtitles) — used for image-to-video source stills. */
+  cleanPlate?: boolean;
 }
 
 const MAX_LINE_CHARS = 18;

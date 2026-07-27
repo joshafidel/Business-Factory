@@ -37,9 +37,13 @@ const SceneBlock: React.FC<{ scene: PlanScene; plan: RenderPlan }> = ({ scene, p
         <>
           <SceneShot scene={scene} />
           {scene.kind === "text-message" ? <TextMessageOverlay scene={scene} /> : null}
-          {scene.slot === "hook" ? <HookTitle text={plan.hookText} /> : null}
-          <ShowChip episode={plan.episode} />
-          <Subtitles scene={scene} />
+          {plan.cleanPlate ? null : (
+            <>
+              {scene.slot === "hook" ? <HookTitle text={plan.hookText} /> : null}
+              <ShowChip episode={plan.episode} />
+              <Subtitles scene={scene} />
+            </>
+          )}
         </>
       )}
       {scene.lines.map((line, i) => (

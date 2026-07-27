@@ -27,14 +27,25 @@ const envSchema = z.object({
   IMAGE_QUALITY: z.enum(["draft", "high"]).default("draft"),
   ELEVENLABS_API_KEY: z.string().optional(),
   ELEVENLABS_MODEL: z.string().default("eleven_multilingual_v2"),
-  /** Optional image-to-video provider key (interface only in the MVP). */
-  VIDEO_PROVIDER: z.enum(["none"]).default("none"),
+  /** Optional image-to-video motion provider (fal.ai — Kling/Veo/etc.). */
+  FAL_KEY: z.string().optional(),
+  FAL_I2V_MODEL: z.string().default("fal-ai/kling-video/v2.1/standard/image-to-video"),
+  /** Seconds per generated clip (provider-dependent; Kling supports 5 or 10). */
+  MOTION_CLIP_SECONDS: z.coerce.number().default(5),
+  /** Budget-guard estimate per clip in USD. */
+  MOTION_COST_PER_CLIP_USD: z.coerce.number().default(0.35),
+  /** TikTok Content Posting API app credentials (developers.tiktok.com). */
+  TIKTOK_CLIENT_KEY: z.string().optional(),
+  TIKTOK_CLIENT_SECRET: z.string().optional(),
+  TIKTOK_REDIRECT_URI: z.string().optional(),
+  /** Default post visibility; unaudited TikTok apps are forced to SELF_ONLY. */
+  TIKTOK_PRIVACY: z.string().default("SELF_ONLY"),
   /** Chromium executable for Remotion (auto-detected when unset). */
   REMOTION_BROWSER_EXECUTABLE: z.string().optional(),
   /** Hard per-episode budget in USD. */
   MAX_COST_PER_EPISODE_USD: z.coerce.number().default(5),
   MAX_IMAGES_PER_EPISODE: z.coerce.number().int().default(14),
-  MAX_VIDEO_GENS_PER_EPISODE: z.coerce.number().int().default(0),
+  MAX_VIDEO_GENS_PER_EPISODE: z.coerce.number().int().default(8),
   MAX_TTS_REGENS_PER_LINE: z.coerce.number().int().default(2),
   /** Reuse previously generated character/location images instead of regenerating. */
   REUSE_EXISTING_ASSETS: z.coerce.boolean().default(true),
@@ -79,7 +90,8 @@ export interface ProviderStatus {
   images: ProviderMode;
   tts: ProviderMode;
   music: ProviderMode; // always local-generated (royalty-free by construction)
-  video: "disabled";
+  video: "live" | "disabled";
+  publish: "connected" | "configured" | "disabled";
 }
 
 export function providerStatus(): ProviderStatus {
@@ -89,17 +101,20 @@ export function providerStatus(): ProviderStatus {
     images: env.OPENAI_API_KEY ? "live" : "mock",
     tts: env.ELEVENLABS_API_KEY ? "live" : "mock",
     music: "mock",
-    video: "disabled",
+    video: env.FAL_KEY ? "live" : "disabled",
+    publish: env.TIKTOK_CLIENT_KEY && env.TIKTOK_CLIENT_SECRET ? "configured" : "disabled",
   };
 }
 
 export function describeProviders(): string {
   const s = providerStatus();
+  const env = loadConfig();
   return [
-    `  LLM (Anthropic):     ${s.llm === "live" ? `LIVE (${loadConfig().ANTHROPIC_MODEL})` : "mock (set ANTHROPIC_API_KEY for real writing)"}`,
+    `  LLM (Anthropic):     ${s.llm === "live" ? `LIVE (${env.ANTHROPIC_MODEL})` : "mock (set ANTHROPIC_API_KEY for real writing)"}`,
     `  Images (OpenAI):     ${s.images === "live" ? "LIVE (gpt-image-1)" : "mock (set OPENAI_API_KEY for real art)"}`,
     `  Voices (ElevenLabs): ${s.tts === "live" ? "LIVE" : "mock (set ELEVENLABS_API_KEY for real voices)"}`,
     `  Music & SFX:         generated locally (royalty-free by construction)`,
-    `  Motion:              Remotion camera moves (image-to-video provider: disabled)`,
+    `  Motion (fal.ai):     ${s.video === "live" ? `LIVE (${env.FAL_I2V_MODEL})` : "Remotion camera moves only (set FAL_KEY for true animation)"}`,
+    `  TikTok publishing:   ${s.publish === "configured" ? "app configured (npm run tiktok-auth to connect)" : "disabled (set TIKTOK_CLIENT_KEY/SECRET)"}`,
   ].join("\n");
 }

@@ -413,6 +413,139 @@
       "estimatedUsd": 0,
       "mode": "mock",
       "at": "2026-07-27T17:19:41.997Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:brock-usa:Bro. We're both all-in on the sa",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.767Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:matteo-italy:Not a girl. A vision. MY vision!",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.794Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:brock-usa:Élodie! Fresh mango protein. Pre",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.859Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:elodie-france:A smoothie. At ten a.m. ...Five.",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.876Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:matteo-italy:Move the smoothie. Risotto of my",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.889Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:elodie-france:Also five.",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.910Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:matteo-italy:You made her a smoothie. I made ",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.919Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:brock-usa:My smoothie has eighteen grams o",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.939Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:matteo-italy:You cannot blend your way into a",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.954Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:brock-usa:Watch me. I'll blend DESTINY.",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.972Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:poppy-uk:Day one, and two grown men are d",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:11.980Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:poppy-uk:My money's on the blender. Only ",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.004Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:greta-germany:Fourteen hundred hours: America ",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.030Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:sienna-australia:Best. Day. EVER.",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.057Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:lucas-brazil:This dance is called: Internatio",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.063Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:elodie-france:The smoothie? Five. The risotto?",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.086Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:sienna-australia:GUYS. Walkway alert. This one's ",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.110Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:alejandro-spain:I heard someone here rates men o",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.124Z"
+    },
+    {
+      "provider": "mock-voice",
+      "item": "tts:brock-usa:...Who invited SPAIN?!",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:43:12.151Z"
     }
   ],
   "totalUsd": 0

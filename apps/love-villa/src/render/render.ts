@@ -98,6 +98,42 @@ export async function renderEpisodeVideo(params: {
   return { file: outFile, seconds: composition.durationInFrames / composition.fps };
 }
 
+/**
+ * Clean-plate still of one scene (no subtitles/chip/hook overlays) — the
+ * source frame for image-to-video motion generation.
+ */
+export async function renderSceneStill(
+  plan: RenderPlan,
+  sceneIndex: number,
+  outFile: string,
+): Promise<string> {
+  const serveUrl = await bundleComposition();
+  const browserExecutable = findBrowserExecutable();
+  const scene = plan.scenes.find((s) => s.index === sceneIndex);
+  if (!scene) throw new Error(`No scene ${sceneIndex} in render plan`);
+  const cleanPlan: RenderPlan = { ...plan, cleanPlate: true };
+  const composition = await selectComposition({
+    serveUrl,
+    id: "Episode",
+    inputProps: { plan: cleanPlan },
+    browserExecutable,
+  });
+  ensureDir(path.dirname(outFile));
+  await renderStill({
+    serveUrl,
+    composition,
+    output: outFile,
+    frame: Math.min(
+      scene.startFrame + Math.floor(scene.durationFrames * 0.4),
+      composition.durationInFrames - 1,
+    ),
+    inputProps: { plan: cleanPlan },
+    browserExecutable,
+    chromiumOptions: { gl: "angle-egl" },
+  });
+  return outFile;
+}
+
 /** Thumbnail: a frame from the twist scene (most dramatic) or the hook. */
 export async function renderThumbnail(plan: RenderPlan, outFile: string): Promise<string> {
   const serveUrl = await bundleComposition();

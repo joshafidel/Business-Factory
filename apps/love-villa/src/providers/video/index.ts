@@ -1,13 +1,15 @@
+import { loadConfig } from "../../config";
 import { type GeneratedAsset, type MotionProvider } from "../types";
+import { FalMotionProvider } from "./fal";
 
 /**
- * Image-to-video generation is OPTIONAL by design: the MVP creates all motion
- * in Remotion (zooms, pans, parallax, shakes, split screens, reaction cuts),
- * so the pipeline works with no video-generation API at all.
+ * Image-to-video generation is OPTIONAL by design: without a key, all motion
+ * comes from Remotion (zooms, pans, parallax, shakes, split screens), so the
+ * pipeline works with no video-generation API at all.
  *
- * To add a real provider later (e.g. an API that animates stills), implement
- * MotionProvider, return the clip from imageToVideo(), and the render plan
- * builder will prefer real clips over Ken-Burns-style moves for those scenes.
+ * With FAL_KEY set, produce-episode animates each scene's clean-plate still
+ * through fal.ai (Kling/Hailuo/Veo/… — FAL_I2V_MODEL) and the final render
+ * plays the true animated clip instead of a camera move.
  */
 export class DisabledMotionProvider implements MotionProvider {
   readonly key = "disabled";
@@ -19,5 +21,5 @@ export class DisabledMotionProvider implements MotionProvider {
 }
 
 export function getMotionProvider(): MotionProvider {
-  return new DisabledMotionProvider();
+  return loadConfig().FAL_KEY ? new FalMotionProvider() : new DisabledMotionProvider();
 }
