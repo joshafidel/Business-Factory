@@ -72,6 +72,13 @@ const CAST = [
   },
 ];
 
+/**
+ * Episodes with committed web previews (apps/web/public/love-villa/…).
+ * render-episode drops preview.mp4 + poster there automatically; add the
+ * episode number here once the files are committed.
+ */
+const WATCHABLE = [1];
+
 const EPISODES = [
   { n: 1, title: "Two Kings, One Croissant", status: "rendered" },
   { n: 2, title: "The Spanish Inquisition of Hearts", status: "scripted" },
@@ -104,6 +111,35 @@ export function LoveVillaApp({ description }: { description: string }) {
 
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="space-y-4 lg:col-span-2">
+          {WATCHABLE.length > 0 ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>Watch</CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-4 sm:grid-cols-2">
+                {WATCHABLE.map((n) => {
+                  const id = `episode-${String(n).padStart(3, "0")}`;
+                  const ep = EPISODES.find((e) => e.n === n);
+                  return (
+                    <figure key={n} className="space-y-2">
+                      <video
+                        controls
+                        playsInline
+                        preload="metadata"
+                        poster={`/love-villa/${id}-poster.png`}
+                        src={`/love-villa/${id}.mp4`}
+                        className="aspect-[9/16] w-full rounded-xl border border-border bg-black object-contain"
+                      />
+                      <figcaption className="text-xs text-muted-foreground">
+                        EP {n} — {ep?.title ?? id}
+                      </figcaption>
+                    </figure>
+                  );
+                })}
+              </CardContent>
+            </Card>
+          ) : null}
+
           <Card>
             <CardHeader>
               <CardTitle>Season 1 — episode tracker</CardTitle>

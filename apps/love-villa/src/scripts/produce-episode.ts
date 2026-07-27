@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { requireApproved, setApproval } from "../approvals/approvals";
 import { characterById, loadCast } from "../characters/character-manager";
@@ -15,7 +15,7 @@ import {
   findExistingAsset,
   type LineAudioInfo,
 } from "../render/render-plan";
-import { renderEpisodeVideo, renderSceneStill } from "../render/render";
+import { renderEpisodeVideo, renderSceneStill, resetBundleCache } from "../render/render";
 import { loadShowBible } from "../show/show-bible";
 import { parseArgs, intArg } from "../utils/args";
 import { CostTracker } from "../utils/cost";
@@ -192,6 +192,14 @@ async function main(): Promise<void> {
       .slice(0, env.MAX_VIDEO_GENS_PER_EPISODE);
     for (const planScene of candidates) {
       const scriptScene = script.scenes.find((s) => s.index === planScene.index);
+      // Reuse an already-generated clip (paid asset) instead of re-billing.
+      const existingClip = assetRel("episodes", epId, "clips", `s${planScene.index}.mp4`);
+      if (env.REUSE_EXISTING_ASSETS && existsSync(assetAbs(existingClip))) {
+        planScene.clipFile = existingClip;
+        planScene.clipDurationFrames = Math.round(env.MOTION_CLIP_SECONDS * plan.fps);
+        log.info(`scene ${planScene.index + 1}: reusing existing clip`);
+        continue;
+      }
       try {
         tracker.charge({
           provider: motion.key,
@@ -225,6 +233,8 @@ async function main(): Promise<void> {
         log.warn(`scene ${planScene.index + 1} motion failed — camera-move fallback`);
       }
     }
+    // New clip files exist now — the cached bundle snapshotted assets without them.
+    resetBundleCache();
   }
 
   writeJson(path.join(ASSETS_DIR, "episodes", epId, "render-plan.json"), plan);
