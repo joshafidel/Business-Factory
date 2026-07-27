@@ -25,9 +25,21 @@ export interface OrgContext {
  */
 export const getOrgContext = cache(async (): Promise<OrgContext | null> => {
   const session = await auth();
-  if (!session?.user?.id) return null;
+  let userId = session?.user?.id;
+  // AUTH_DISABLED=1: single-operator mode — no sign-in page; every visitor
+  // acts as the org owner. Set for convenience at the owner's request;
+  // remove the env var to restore the login wall.
+  if (!userId && process.env.AUTH_DISABLED === "1") {
+    const owner = await prisma.organizationMember.findFirst({
+      where: { role: "OWNER" },
+      orderBy: { createdAt: "asc" },
+      select: { userId: true },
+    });
+    userId = owner?.userId;
+  }
+  if (!userId) return null;
   const membership = await prisma.organizationMember.findFirst({
-    where: { userId: session.user.id },
+    where: { userId },
     include: { organization: true, user: true },
     orderBy: { createdAt: "asc" },
   });
