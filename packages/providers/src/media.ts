@@ -28,6 +28,12 @@ export interface VideoProvider {
   generateVideo(params: { prompt: string; durationSeconds?: number }): Promise<MediaResult>;
 }
 
+export interface MusicProvider {
+  readonly key: string;
+  /** Generate a full song (vocals + instruments) from a styled prompt with lyrics. */
+  generateMusic(params: { prompt: string; lengthMs: number }): Promise<MediaResult>;
+}
+
 /** 1×1 transparent PNG. */
 const TINY_PNG = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",

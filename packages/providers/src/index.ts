@@ -6,4 +6,5 @@ export * from "./openai";
 export * from "./media";
 export * from "./media-openai";
 export * from "./media-higgsfield";
+export * from "./media-elevenlabs";
 export * from "./registry";

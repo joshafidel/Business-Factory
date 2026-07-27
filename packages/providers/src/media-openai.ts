@@ -6,8 +6,14 @@ import {
   type AudioProvider,
   type ImageProvider,
   type MediaResult,
+  type MusicProvider,
   type VideoProvider,
 } from "./media";
+import {
+  elevenLabsConfigured,
+  ElevenLabsMusicProvider,
+  ElevenLabsSpeechProvider,
+} from "./media-elevenlabs";
 
 /**
  * Real media generation via OpenAI. Estimated costs (micro-USD):
@@ -100,18 +106,26 @@ export interface MediaProviders {
   image: ImageProvider;
   audio: AudioProvider;
   video: VideoProvider;
+  /** Song generation (sung vocals + instruments). Present when ElevenLabs is configured. */
+  music?: MusicProvider;
   /** True when image+audio are real generators (video assembly can proceed). */
   real: boolean;
 }
 
-/** Real providers when OPENAI_API_KEY is set; local mocks otherwise. */
+/**
+ * Real providers when OPENAI_API_KEY is set; local mocks otherwise.
+ * ELEVENLABS_API_KEY upgrades narration (expressive human voices) and adds
+ * real sung music — both fall back gracefully when absent.
+ */
 export function getMediaProviders(): MediaProviders {
   const env = loadEnv();
   if (env.OPENAI_API_KEY) {
+    const el = elevenLabsConfigured();
     return {
       image: new OpenAIImageProvider(),
-      audio: new OpenAISpeechProvider(),
+      audio: el ? new ElevenLabsSpeechProvider() : new OpenAISpeechProvider(),
       video: new MockVideoProvider(), // assembly happens in the renderer via ffmpeg
+      ...(el ? { music: new ElevenLabsMusicProvider() } : {}),
       real: true,
     };
   }

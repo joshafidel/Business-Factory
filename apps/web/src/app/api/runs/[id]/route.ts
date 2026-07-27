@@ -44,11 +44,7 @@ export async function GET(
   if (run.status === "RUNNING") {
     const latest = run.stepRuns[run.stepRuns.length - 1];
     const startedAt = latest?.startedAt ? new Date(latest.startedAt).getTime() : 0;
-    if (
-      latest?.status === "RUNNING" &&
-      startedAt > 0 &&
-      Date.now() - startedAt > STUCK_STEP_MS
-    ) {
+    if (latest?.status === "RUNNING" && startedAt > 0 && Date.now() - startedAt > STUCK_STEP_MS) {
       log.warn({ runId: run.id, stepKey: latest.stepKey }, "stuck step detected; re-dispatching");
       await dispatchAdvance(run.id, run.organizationId);
     }

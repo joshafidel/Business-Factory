@@ -79,6 +79,12 @@ const envSchema = z.object({
   HIGGSFIELD_SECRET: z.string().optional(),
   APP_BASE_URL: z.string().url().optional(),
 
+  // ElevenLabs: expressive narration voices + Eleven Music (real sung songs
+  // with custom lyrics, commercially licensed). Set the API key to upgrade
+  // both voice and music; voice id optional (defaults to a warm female voice).
+  ELEVENLABS_API_KEY: z.string().optional(),
+  ELEVENLABS_VOICE_ID: z.string().optional(),
+
   STORAGE_DRIVER: z.enum(["local", "s3", "db"]).default("local"),
   STORAGE_LOCAL_ROOT: z.string().default(".data/storage"),
   S3_ENDPOINT: z.string().optional(),

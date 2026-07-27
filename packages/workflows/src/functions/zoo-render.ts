@@ -22,7 +22,7 @@ import {
   HIGGSFIELD_CLIP_COST_MICRO_USD,
 } from "@bf/providers";
 import { getStorage } from "@bf/storage";
-import { createLogger, signAssetToken } from "@bf/shared";
+import { castLooks, createLogger, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
 
 const log = createLogger("zoo-render");
@@ -56,11 +56,23 @@ function publicBaseUrl(): string | undefined {
   return undefined;
 }
 
+interface ZooScene {
+  /** Sung lyric lines for this scene (song episodes). */
+  lyrics?: string;
+  /** Spoken fallback text (pre-song episodes / TTS mode). */
+  narration?: string;
+  visual?: string;
+  /** Cast member names appearing in this scene (see ZOO_CAST). */
+  characters?: string[];
+  /** "verse" | "chorus" — used to structure the song. */
+  type?: string;
+}
+
 registerCodeFunction("render_zoo_short", async (args, context) => {
   const organizationId = String(args.organizationId ?? "");
   const workflowRunId = String(args.workflowRunId ?? "");
   const script = readPath(context, "$.steps.script") as {
-    scenes?: { narration?: string; visual?: string }[];
+    scenes?: ZooScene[];
     outro?: string;
   };
   const metadata = readPath(context, "$.steps.metadata") as { title?: string };
@@ -100,17 +112,22 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     return asset.id;
   };
 
-  // Scene images — parallel; serverless wall-clock matters.
+  // Scene images — parallel; serverless wall-clock matters. Injecting each
+  // character's verbatim look-line keeps the recurring cast visually
+  // consistent across scenes and episodes (the heart of a kids' "show").
   const style =
-    "Adorable chubby 3D-rendered baby animal character, huge sparkly eyes, soft rounded shapes, " +
-    "pastel rainbow colors, glossy toddler-animation style like modern 3D nursery rhyme cartoons, " +
-    "soft cinematic lighting, cheerful zoo playground background, no text, no words, no letters";
+    "Soft rounded shapes, pastel rainbow colors, glossy 3D toddler-animation style like modern " +
+    "nursery rhyme cartoons, huge sparkly eyes, soft cinematic lighting, cheerful sunny zoo " +
+    "playground background, no text, no words, no letters";
   const images = await Promise.all(
-    scenes.map((scene, i) =>
-      providers.image
-        .generateImage({ prompt: `${scene?.visual ?? "happy zoo animal"}. ${style}` })
-        .then((r) => ({ i, r })),
-    ),
+    scenes.map((scene, i) => {
+      const looks = castLooks(scene?.characters ?? []);
+      const castLine =
+        looks.length > 0 ? ` Characters (keep these exact designs): ${looks.join("; ")}.` : "";
+      return providers.image
+        .generateImage({ prompt: `${scene?.visual ?? "happy zoo animal"}.${castLine} ${style}` })
+        .then((r) => ({ i, r }));
+    }),
   );
   const imageAssetIds: string[] = [];
   for (const { i, r } of images.sort((a, b) => a.i - b.i)) {
@@ -125,28 +142,58 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     imageAssetIds.push(id);
   }
 
-  // Voice-over — warm, motherly, human (see OpenAISpeechProvider for voice).
-  const narration = [...scenes.map((s) => s?.narration ?? ""), script?.outro ?? ""]
-    .filter(Boolean)
-    .join(" ");
-  const voice = await providers.audio.generateSpeech({
-    text: narration,
-    style:
-      "You are a young mom singing a nursery rhyme to your own toddler, smiling the whole time. " +
-      "Upbeat, happy, bouncy and melodic — a true sing-song children's-rhyme delivery with natural " +
-      "human breaths, warm affectionate tone, playful emphasis on animal sounds and repeated words. " +
-      "Slightly slower pace for little ears. Sound genuinely delighted and loving, never flat, " +
-      "never robotic, never like a synthetic narrator.",
-  });
-  totalCost += voice.costMicroUsd;
+  // Audio track. Two modes:
+  //  - SONG (Eleven Music configured + script has lyrics): a real sung
+  //    nursery-rhyme with vocals — the Cocomelon formula. The song is the
+  //    entire soundtrack; no synth bed is layered underneath.
+  //  - NARRATION fallback: warm sung-style TTS + the synth music-box bed.
+  const sceneTexts = scenes.map((s) => s?.lyrics ?? s?.narration ?? "");
+  const hasLyrics = scenes.some((s) => Boolean(s?.lyrics));
+  let audioKind: "song" | "narration" = "narration";
+  let audio: { data: Buffer; mimeType: string; costMicroUsd: bigint };
+  let audioMeta: Record<string, unknown>;
+  if (providers.music && hasLyrics) {
+    const lyricSheet = scenes
+      .map((s, i) => `[${s?.type === "chorus" ? "chorus" : `verse ${i + 1}`}]\n${s?.lyrics ?? ""}`)
+      .concat(script?.outro ? [`[outro]\n${script.outro}`] : [])
+      .join("\n\n");
+    // ~8.5s of song per scene keeps scenes long enough for the animation.
+    const lengthMs = Math.max(45_000, Math.min(120_000, scenes.length * 8_500 + 6_000));
+    const song = await providers.music.generateMusic({
+      prompt:
+        "A joyful children's nursery rhyme song for toddlers (ages 1-4), sung by a warm, sweet, " +
+        "playful female voice with a gentle kids' choir echoing the chorus. Simple ultra-catchy " +
+        "melody that repeats, bouncy but soft: ukulele, glockenspiel, marimba, light hand-claps, " +
+        "soft drums. Around 95 BPM, C major, bright and happy, clean mix, toddler-friendly. " +
+        `Sing these lyrics exactly:\n\n${lyricSheet}`,
+      lengthMs,
+    });
+    audioKind = "song";
+    audio = song;
+    audioMeta = { provider: "elevenlabs-music", kind: "song", lengthMs };
+  } else {
+    const narration = [...sceneTexts, script?.outro ?? ""].filter(Boolean).join(" ");
+    const voice = await providers.audio.generateSpeech({
+      text: narration,
+      style:
+        "You are a young mom singing a nursery rhyme to your own toddler, smiling the whole time. " +
+        "Upbeat, happy, bouncy and melodic — a true sing-song children's-rhyme delivery with natural " +
+        "human breaths, warm affectionate tone, playful emphasis on animal sounds and repeated words. " +
+        "Slightly slower pace for little ears. Sound genuinely delighted and loving, never flat, " +
+        "never robotic, never like a synthetic narrator.",
+    });
+    audio = voice;
+    audioMeta = { provider: providers.audio.key, kind: "narration", chars: narration.length };
+  }
+  totalCost += audio.costMicroUsd;
   const audioAssetId = await save(
-    `Voice-over: ${title.slice(0, 60)}`,
+    `${audioKind === "song" ? "Song" : "Voice-over"}: ${title.slice(0, 60)}`,
     "AUDIO",
-    voice.mimeType,
-    voice.data,
-    { chars: narration.length, provider: providers.audio.key },
+    audio.mimeType,
+    audio.data,
+    audioMeta,
   );
-  const audioSeconds = await mp3DurationSeconds(voice.data, narration.length);
+  const audioSeconds = await mp3DurationSeconds(audio.data, sceneTexts.join(" ").length || 600);
 
   // Submit Higgsfield image-to-video jobs (the next step polls + assembles).
   // Requires a public base URL so their fetcher can download the images.
@@ -163,9 +210,10 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
         const jobSetId = await submitImageToVideo({
           imageUrl,
           prompt:
-            `Gentle toddler-cartoon animation: ${motion}. The cute baby animal moves softly — ` +
-            "blinks, bounces, wiggles ears, smiles. Slow smooth cinematic camera, subtle motion, " +
-            "keep the exact 3D nursery-rhyme art style of the image. No text.",
+            `Gentle toddler-cartoon animation: ${motion}. The cute baby animals move softly and ` +
+            "expressively — they blink, bounce to the music, wiggle ears, smile at each other. " +
+            "Slow smooth cinematic camera, subtle motion, keep the exact 3D nursery-rhyme art " +
+            "style of the image. No text.",
         });
         return { sceneIndex: i, jobSetId };
       }),
@@ -195,6 +243,7 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
   return {
     imageAssetIds,
     audioAssetId,
+    audioKind,
     audioSeconds,
     animationJobs,
     assetIds,
@@ -210,6 +259,7 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   const render = readPath(context, "$.steps.render") as {
     imageAssetIds?: string[];
     audioAssetId?: string;
+    audioKind?: string;
     audioSeconds?: number;
     animationJobs?: { sceneIndex: number; jobSetId: string }[];
     sceneCount?: number;
@@ -283,10 +333,20 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     log.info({ animated: clips.size, total: imageBuffers.length }, "higgsfield clips ready");
   }
 
-  const videoData = assembleNurseryVideo(imageBuffers, clips, audioBuffer, audioSeconds);
+  // Songs are a complete soundtrack; the synth music-box bed is only for
+  // the TTS-narration fallback.
+  const withMusicBed = render.audioKind !== "song";
+  const videoData = assembleNurseryVideo(
+    imageBuffers,
+    clips,
+    audioBuffer,
+    audioSeconds,
+    withMusicBed,
+  );
   const videoAssetId = await saveVideoAsset(organizationId, workflowRunId, title, videoData, {
     provider: clips.size > 0 ? "higgsfield+ffmpeg" : "ffmpeg-kenburns-music",
     placeholder: false,
+    audioKind: render.audioKind ?? "narration",
     sceneCount: imageBuffers.length,
     animatedScenes: clips.size,
     durationSeconds: Math.round(audioSeconds),
@@ -404,6 +464,7 @@ function assembleNurseryVideo(
   clips: Map<number, Buffer>,
   audio: Buffer,
   audioSeconds: number,
+  withMusicBed = true,
 ): Buffer {
   const ffmpegPath = resolveFfmpeg();
   const dir = mkdtempSync(path.join(os.tmpdir(), "zoo-"));
@@ -439,7 +500,9 @@ function assembleNurseryVideo(
         // Gentle time-stretch so the ~5.3s clip fills the scene slot, then
         // clone-pad as a safety net and trim to the exact length. fps must
         // come last: xfade requires CFR inputs and tpad/trim drop the rate.
-        const stretch = Math.min(2.0, Math.max(0.75, clipLen / HF_CLIP_SECONDS));
+        // Cap 2.2x: song scenes run longer (~8-9s) and a dreamy half-speed
+        // motion still reads better for toddlers than a frozen frame.
+        const stretch = Math.min(2.2, Math.max(0.75, clipLen / HF_CLIP_SECONDS));
         filters.push(
           `[${i}:v]setpts=${stretch.toFixed(4)}*PTS,` +
             `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
@@ -470,15 +533,22 @@ function assembleNurseryVideo(
     }
     if (n === 1) filters.push(`[v0]copy[vout]`);
 
-    // Soft music-box bed synthesized in JS (no licensed audio, no ffmpeg
-    // expression parsing) — mixed under the sung voice-over.
-    const musicFile = path.join(dir, "music.wav");
-    writeFileSync(musicFile, synthMusicBoxWav(total));
-    filters.push(`[${n}:a]volume=1.0[voice]`);
-    filters.push(
-      `[${n + 1}:a]volume=0.16,afade=t=in:d=1,afade=t=out:st=${Math.max(0, total - 1.5).toFixed(2)}:d=1.5[music]`,
-    );
-    filters.push(`[voice][music]amix=inputs=2:duration=first:normalize=0[aout]`);
+    // Audio graph. Narration mode layers the JS-synthesized music-box bed
+    // under the voice; song mode uses the sung track as-is (it already has
+    // full instrumentation) with a gentle fade-out at the end.
+    const audioInputs: string[] = [];
+    if (withMusicBed) {
+      const musicFile = path.join(dir, "music.wav");
+      writeFileSync(musicFile, synthMusicBoxWav(total));
+      audioInputs.push("-i", musicFile);
+      filters.push(`[${n}:a]volume=1.0[voice]`);
+      filters.push(
+        `[${n + 1}:a]volume=0.16,afade=t=in:d=1,afade=t=out:st=${Math.max(0, total - 1.5).toFixed(2)}:d=1.5[music]`,
+      );
+      filters.push(`[voice][music]amix=inputs=2:duration=first:normalize=0[aout]`);
+    } else {
+      filters.push(`[${n}:a]afade=t=out:st=${Math.max(0, total - 1.2).toFixed(2)}:d=1.2[aout]`);
+    }
 
     execFileSync(
       ffmpegPath,
@@ -487,8 +557,7 @@ function assembleNurseryVideo(
         ...inputs,
         "-i",
         audioFile,
-        "-i",
-        musicFile,
+        ...audioInputs,
         "-filter_complex",
         filters.join(";"),
         "-map",

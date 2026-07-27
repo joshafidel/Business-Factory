@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { hydrateEnvFromDotfile } from "@bf/config";
+import { castSheet } from "@bf/shared";
 import bcrypt from "bcryptjs";
 import { PrismaClient, type Prisma } from "../src/generated/client";
 
@@ -660,17 +661,21 @@ async function main(): Promise<void> {
   const zooIdeaPromptId = await seedPrompt(
     "zoo-idea",
     "Zoo Shorts: episode idea",
-    "Create a nursery-rhyme song concept for a 45-second children's YouTube Short (ages 1-4), in the style of modern 3D nursery-rhyme channels (think Nunu TV / Cocomelon): a zoo animal, a super-catchy repeated chorus line built on a simple sound (like 'Roar roar roar!' or 'Stomp stomp stomp!'), and a tiny story (3 beats: hello, play, goodnight/goodbye). If the input data names an animal, use it; otherwise pick a toddler favorite. The hook must be singable and repetitive. facts should be 3 ultra-simple truths a 2-year-old can absorb.",
+    "Create a nursery-rhyme SONG EPISODE concept for a children's YouTube Short (ages 1-4) starring the Zoo Friends cast:\n" +
+      castSheet() +
+      "\n\nPick 2-3 cast members for this episode (Ellie leads unless the input names another animal). The episode needs: (1) a tiny relatable STORY from toddler life mapped onto the zoo — e.g. bath time, sharing a snack, hide-and-seek, learning colors, counting, bedtime, a little fear overcome (dark, first slide, loud noise); (2) a super-catchy repeated CHORUS hook built on a simple sound or action phrase ('Splish splash splash!', 'Share share share!'); (3) a 4-beat arc: setup → little problem → friends try together (one funny fail) → happy fix + gentle lesson. If the input data names an animal, feature the matching cast member or make that animal a guest friend. facts = 3 ultra-simple true things woven into the story. The hook must be singable, repetitive, and instantly clear to a 2-year-old.",
   );
   const zooScriptPromptId = await seedPrompt(
     "zoo-script",
     "Zoo Shorts: script",
-    "Write a 45-second NURSERY RHYME SONG (not narration) using the idea in the input data, in the style of modern toddler song channels. 6 scenes. Each scene's narration field = 2 short SUNG lines that rhyme and bounce (include the chorus sound-line at least every other scene, e.g. 'Roar roar roar!'), with one interactive moment ('Can YOU roar too?'). Each scene's visual field = the SAME main character in a new pose/action: describe the character identically every time (e.g. 'Louie, a chubby adorable baby lion with a fluffy round mane, huge sparkly eyes, tiny paws') plus what happens in that scene. outro = one soft goodbye line. Simple words only. No scary content, no brands.",
+    "Write a 60-75 second NURSERY RHYME SONG with a story, using the idea in the input data. Cast reference:\n" +
+      castSheet() +
+      "\n\nProduce 7-8 scenes alternating verse and chorus (chorus appears 3 times: scenes 2, 5, and 7-or-8, IDENTICAL lyrics each time — repetition is what makes toddlers replay). Each scene: type = 'verse' or 'chorus'; lyrics = 2-4 short sung lines, bouncy AABB rhyme, ultra-simple words, chorus built on the hook sound; narration = same text as lyrics; characters = array of cast names appearing (2-3 per scene, they interact: hand things, hug, chase, help); visual = what happens in that scene told as one clear picture — name each character present and their exact action and emotion, plus one interactive beat somewhere in the song ('Can YOU stomp too?'). The story must follow the arc from the idea (setup → problem → funny try → happy fix + lesson). outro = one soft goodbye line inviting them back ('See you next time, zoo friends!'). No scary content, no brands.",
   );
   const zooMetadataPromptId = await seedPrompt(
     "zoo-metadata",
     "Zoo Shorts: YouTube metadata",
-    "Create YouTube metadata for this children's nursery-rhyme Short. Title format like toddler song channels: '[Sound] [Sound] [Sound]! Baby [Animal] Song 🦁 | Zoo Friends Nursery Rhymes' — under 90 characters. 2-3 sentence description for parents mentioning sing-along and learning. 10-12 tags including 'nursery rhymes', 'kids songs', 'baby songs', 'toddler learning'. This is 'made for kids' content under COPPA.",
+    "Create SEO-optimized YouTube metadata for this children's nursery-rhyme Short. TITLE (under 85 chars): front-load the search phrase parents type, then the hook — format: '[Topic] Song for Kids 🐘 [Hook Sound]! | Zoo Friends Nursery Rhymes' (e.g. 'Bath Time Song for Kids 🛁 Splish Splash! | Zoo Friends Nursery Rhymes'). DESCRIPTION: first line repeats the title phrase + promises the lesson ('Sing along as Ellie learns to love bath time!'); second paragraph 2-3 sentences for parents (sing-along, learning, calm colors); end with hashtag line '#nurseryrhymes #kidssongs #babysongs #toddlersongs #shorts'. TAGS: 12-15 covering: nursery rhymes, kids songs, baby songs, toddler songs, [topic] song for kids, [animal] song, songs for babies, educational videos for toddlers, bedtime songs, sing along. This is 'made for kids' content under COPPA — honest, no clickbait.",
   );
   const zooSafetyPromptId = await seedPrompt(
     "zoo-safety",
@@ -767,7 +772,7 @@ async function main(): Promise<void> {
     role: "creative",
     description: "Picks the animal and hook for each episode.",
     instructions:
-      "You create nursery-rhyme song concepts for toddlers (ages 1-4), like modern 3D nursery-rhyme YouTube channels. Everything must be singable, repetitive, and joyful. Facts must be true and ultra-simple. Never scary.",
+      "You create story-driven nursery-rhyme song concepts for toddlers (ages 1-4) starring the recurring Zoo Friends cast, like modern 3D nursery-rhyme YouTube channels. Every episode is a tiny relatable story from toddler life with a catchy repeated hook. Everything must be singable, repetitive, and joyful. Facts must be true and ultra-simple. Never scary.",
     promptId: zooIdeaPromptId,
     inputSchema: { type: "object", properties: { animal: { type: "string" } } },
     outputSchema: {
@@ -785,9 +790,9 @@ async function main(): Promise<void> {
     key: "zoo-script-agent",
     name: "Zoo Script Agent",
     role: "writer",
-    description: "Writes the scene-by-scene narration script.",
+    description: "Writes the story-driven song script (lyrics, cast, visuals).",
     instructions:
-      "You write sing-along nursery-rhyme lyrics for toddlers, with bouncy rhythm, heavy repetition, and one consistent adorable main character in every scene. Never scary, never brands.",
+      "You write story-driven sing-along nursery-rhyme SONGS for toddlers starring the recurring Zoo Friends cast (Ellie the elephant, Milo the monkey, Gigi the giraffe, Pip the penguin). Bouncy rhythm, heavy repetition, an identical chorus repeated 3 times, characters interacting, and a tiny story arc with a gentle lesson. Never scary, never brands.",
     promptId: zooScriptPromptId,
     inputSchema: {
       type: "object",
@@ -799,11 +804,17 @@ async function main(): Promise<void> {
       properties: {
         scenes: {
           type: "array",
-          minItems: 4,
+          minItems: 5,
           items: {
             type: "object",
-            properties: { narration: { type: "string" }, visual: { type: "string" } },
-            required: ["narration", "visual"],
+            properties: {
+              type: { type: "string", enum: ["verse", "chorus"] },
+              lyrics: { type: "string" },
+              narration: { type: "string" },
+              characters: { type: "array", items: { type: "string" }, minItems: 1 },
+              visual: { type: "string" },
+            },
+            required: ["type", "lyrics", "narration", "characters", "visual"],
           },
         },
         outro: { type: "string" },
@@ -817,7 +828,7 @@ async function main(): Promise<void> {
     role: "publisher",
     description: "Writes the YouTube title, description, and tags.",
     instructions:
-      "You write YouTube metadata for made-for-kids nursery-rhyme content in the style of top toddler song channels. Honest, appealing to parents, COPPA-compliant.",
+      "You write SEO-optimized YouTube metadata for made-for-kids nursery-rhyme content in the style of top toddler song channels: search-phrase-first titles, keyword-rich honest descriptions with hashtags, and comprehensive tags. Appealing to parents, COPPA-compliant, never clickbait.",
     promptId: zooMetadataPromptId,
     inputSchema: {
       type: "object",

@@ -6,3 +6,4 @@ export * from "./module-contract";
 export * from "./json";
 export * from "./untrusted";
 export * from "./signed-url";
+export * from "./zoo-cast";
