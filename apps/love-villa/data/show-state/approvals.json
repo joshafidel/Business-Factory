@@ -1,0 +1,86 @@
+{
+  "characters": {
+    "status": "approved",
+    "at": "2026-07-27T17:12:47.547Z",
+    "note": "Reviewed cast — approved for production",
+    "locked": true
+  },
+  "season": {
+    "status": "approved",
+    "at": "2026-07-27T17:12:48.654Z",
+    "note": "Season 1 arc approved",
+    "locked": true
+  },
+  "script:1": {
+    "status": "approved",
+    "at": "2026-07-27T17:19:53.170Z",
+    "note": "",
+    "locked": true
+  },
+  "visual-prompts:1": {
+    "status": "approved",
+    "at": "2026-07-27T17:19:53.954Z",
+    "note": "",
+    "locked": true
+  },
+  "rough-cut:1": {
+    "status": "approved",
+    "at": "2026-07-27T17:43:26.096Z",
+    "note": "",
+    "locked": true
+  },
+  "script:2": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:42.816Z",
+    "note": "Review data/episodes/episode-002/script.md",
+    "locked": false
+  },
+  "visual-prompts:2": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:42.816Z",
+    "note": "Review data/episodes/episode-002/shot-list.json",
+    "locked": false
+  },
+  "script:3": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:43.641Z",
+    "note": "Review data/episodes/episode-003/script.md",
+    "locked": false
+  },
+  "visual-prompts:3": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:43.642Z",
+    "note": "Review data/episodes/episode-003/shot-list.json",
+    "locked": false
+  },
+  "script:4": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:44.424Z",
+    "note": "Review data/episodes/episode-004/script.md",
+    "locked": false
+  },
+  "visual-prompts:4": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:44.424Z",
+    "note": "Review data/episodes/episode-004/shot-list.json",
+    "locked": false
+  },
+  "script:5": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:45.282Z",
+    "note": "Review data/episodes/episode-005/script.md",
+    "locked": false
+  },
+  "visual-prompts:5": {
+    "status": "pending",
+    "at": "2026-07-27T17:19:45.282Z",
+    "note": "Review data/episodes/episode-005/shot-list.json",
+    "locked": false
+  },
+  "final-export:1": {
+    "status": "approved",
+    "at": "2026-07-27T17:21:56.508Z",
+    "note": "Episode 1 verified: 71.1s, 1080x1920, validation passed",
+    "locked": true
+  }
+}

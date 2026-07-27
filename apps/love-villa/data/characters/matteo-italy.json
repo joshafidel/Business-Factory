@@ -1,0 +1,58 @@
+{
+  "id": "matteo-italy",
+  "fullName": "Matteo Fiorelli",
+  "country": "Italy",
+  "age": 28,
+  "gender": "man",
+  "physicalDescription": "Dark curls, dramatic eyebrows, talks with both hands, always slightly windswept as if in a perfume ad.",
+  "clothingStyle": "Linen shirt unbuttoned exactly two buttons, gold chain, apron appears from nowhere when he cooks.",
+  "voiceDescription": "Rich, operatic, emotional; whispers and then suddenly declaims to the heavens.",
+  "accentDirection": "Melodic Italian accent, warm and theatrical, fully intelligible.",
+  "personality": "Grand romantic who experiences every emotion at full volume. Cooks when stressed, which is always.",
+  "datingStrategy": "Seduction via eight-course tasting menu and devastating eye contact.",
+  "strength": "Sincere grand gestures — when Matteo shows up for someone, he really shows up.",
+  "fatalFlaw": "Operatic jealousy: a borrowed sun-lounger can become a Shakespearean betrayal by dinner.",
+  "secret": "He is lactose intolerant. The mozzarella devotion is a beautiful, painful lie.",
+  "romanticPreference": "Élodie (France) — 'She insulted my risotto. I must marry her.'",
+  "rival": "rohan-india",
+  "initialAttraction": "elodie-france",
+  "recurringJoke": "Compares every person and crisis to a dish ('You are gnocchi: soft, but you sink').",
+  "signaturePhrase": "My heart is al dente — firm, but ready.",
+  "imagePrompt": "Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, unbuttoned linen shirt, gold chain, gesturing passionately with both hands, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands",
+  "imageSeed": 11003,
+  "palette": {
+    "skin": "#d9a06a",
+    "hair": "#2e2119",
+    "outfit": "#efe6d3",
+    "accent": "#c9a441"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.3,
+    "similarityBoost": 0.8,
+    "styleNotes": "Operatic dynamics: intimate whisper to full declamation within one sentence.",
+    "mock": {
+      "baseHz": 110,
+      "lilt": 0.6,
+      "rate": 5
+    }
+  },
+  "voicePatterns": {
+    "exclamations": ["Mamma mia, no!", "This is a tragedy in three acts!", "Perfetto. PERFETTO!"],
+    "flirts": [
+      "I will cook for you until time ends.",
+      "Your eyes — like good olive oil. Rare. Expensive."
+    ],
+    "conflicts": [
+      "You have insulted my risotto AND my honor!",
+      "We are enemies now. Pass the parmesan."
+    ],
+    "confessionals": [
+      "I am calm. I am serene. I have chopped forty onions.",
+      "Love is like pasta water. You must salt it with tears."
+    ]
+  }
+}

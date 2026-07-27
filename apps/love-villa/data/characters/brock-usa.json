@@ -1,0 +1,52 @@
+{
+  "id": "brock-usa",
+  "fullName": "Brock Calloway Jr.",
+  "country": "United States",
+  "age": 26,
+  "gender": "man",
+  "physicalDescription": "Tall, gym-sculpted, permanent megawatt grin, spray-tan one shade too orange, blindingly white teeth.",
+  "clothingStyle": "Stars-and-stripes swim shorts, backwards cap, sleeveless everything, shaker bottle always in hand.",
+  "voiceDescription": "Booming, upbeat frat-bro energy; every sentence sounds like a locker-room pep talk.",
+  "accentDirection": "Light all-American broadcast accent with surfer-bro inflection. Keep fully intelligible.",
+  "personality": "Relentlessly optimistic hype-man who treats romance like a startup pitch. Loud, generous, zero volume control.",
+  "datingStrategy": "Go big immediately: grand declarations on day one, protein smoothies as love language.",
+  "strength": "Genuinely kind cheerleader — he hypes up even his rivals, and means it.",
+  "fatalFlaw": "Cannot read a room; mistakes politeness for love and silence for 'playing hard to get'.",
+  "secret": "His 'seven-figure startup' is a lemonade-stand LLC with $43 in the bank.",
+  "romanticPreference": "Élodie (France) — he calls her 'the most premium woman I've ever met'.",
+  "rival": "poppy-uk",
+  "initialAttraction": "elodie-france",
+  "recurringJoke": "Pitches everything as a business ('Us? We'd be a great merger, babe').",
+  "signaturePhrase": "Full send on the heart, baby!",
+  "imagePrompt": "Confident athletic American man in his mid twenties, orange-ish tan, backwards cap, stars-and-stripes swim shorts, holding a protein shaker, huge grin, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin",
+  "imageSeed": 11001,
+  "palette": {
+    "skin": "#e8a26f",
+    "hair": "#6b4a2b",
+    "outfit": "#d63b3b",
+    "accent": "#2b4c9b"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.35,
+    "similarityBoost": 0.8,
+    "styleNotes": "Booming, enthusiastic, gym-bro pep-talk delivery, always slightly too loud.",
+    "mock": {
+      "baseHz": 120,
+      "lilt": 0.25,
+      "rate": 5.6
+    }
+  },
+  "voicePatterns": {
+    "exclamations": ["Let's GO!", "That's a win, baby!", "Huge. HUGE."],
+    "flirts": ["You and me? Great merger.", "I'd invest everything in you, babe."],
+    "conflicts": ["Bro, that was NOT the play.", "I hyped you up, man. I HYPED you."],
+    "confessionals": [
+      "I'm not worried. Confidence is my cardio.",
+      "Day one and I'm already all-in. That's just good business."
+    ]
+  }
+}

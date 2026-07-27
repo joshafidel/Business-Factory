@@ -1,0 +1,15 @@
+# local env + secrets
+.env
+data/tiktok-tokens.json
+
+# generated binary assets (regenerate with produce-episode / setup-show)
+assets/episodes/
+output/
+
+# generated art & audio are reproducible; keep reference art out of git except sfx
+assets/characters/
+assets/locations/
+assets/sfx/
+
+# build
+dist/

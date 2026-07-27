@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { prisma } from "@bf/database";
 import { requireOrgContext } from "@/lib/session";
+import { ensureLoveVillaModule } from "@/lib/love-villa";
 import { Badge, Card, CardContent, PageHeader, StatusBadge } from "@/components/ui";
 
 export const metadata = { title: "My Apps" };
 
 const APP_EMOJI: Record<string, string> = {
   "kids-shorts": "🦁",
+  "love-villa": "🌹",
   "dating-parody": "💘",
   "amazon-reviews": "📦",
   "smb-websites": "🌐",
@@ -20,6 +22,8 @@ const APP_EMOJI: Record<string, string> = {
 export default async function MyAppsPage() {
   const ctx = await requireOrgContext();
   const orgId = ctx.organizationId;
+  // Register the Love Villa app on deployments whose seed predates it.
+  await ensureLoveVillaModule(orgId);
   const [modules, pendingApprovals] = await Promise.all([
     prisma.businessModule.findMany({
       where: { organizationId: orgId },

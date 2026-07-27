@@ -18,6 +18,7 @@ import {
   StatusBadge,
 } from "@/components/ui";
 import { CreateVideoForm } from "./create-video-form";
+import { LoveVillaApp } from "./love-villa-app";
 
 export const metadata = { title: "App" };
 export const maxDuration = 300;
@@ -44,6 +45,12 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
         />
       </>
     );
+  }
+
+  // Love Villa is produced by the standalone apps/love-villa pipeline —
+  // its app page is a control-room view rather than a workflow dashboard.
+  if (key === "love-villa") {
+    return <LoveVillaApp description={mod.description} />;
   }
 
   const orgId = ctx.organizationId;

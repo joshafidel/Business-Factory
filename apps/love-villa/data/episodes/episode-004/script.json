@@ -1,0 +1,211 @@
+{
+  "episode": 4,
+  "title": "Dinner at Eight, Feelings at Nine",
+  "logline": "The prize dinner: Greta arrives with an agenda; Matteo arrives with eight courses and unresolved Élodie feelings.",
+  "scenes": [
+    {
+      "index": 0,
+      "slot": "hook",
+      "kind": "scene",
+      "locationId": "bedroom",
+      "characters": ["greta-germany", "matteo-italy"],
+      "visual": "Greta scheduled a 90-minute date. Matteo cooked for six hours. Nobody's ready. — caught mid-moment: The prize dinner: Greta arrives with an agenda; Matteo arrives with eight courses and unresolved Élodie feelin",
+      "lines": [
+        {
+          "speaker": "greta-germany",
+          "text": "Item four: eye contact. Beginning now.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "Perfetto. PERFETTO!",
+          "delivery": "",
+          "emphasize": ["PERFETTO"]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": ["heartbeat"],
+      "textMessages": []
+    },
+    {
+      "index": 1,
+      "slot": "setup",
+      "kind": "scene",
+      "locationId": "bedroom",
+      "characters": ["greta-germany", "matteo-italy", "elodie-france"],
+      "visual": "Setup: Greta and Matteo's chaotic-perfect prize dinner",
+      "lines": [
+        {
+          "speaker": "matteo-italy",
+          "text": "You minuted our dinner?... Read it to me slowly.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "We are enemies now. Pass the parmesan.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "greta-germany",
+          "text": "You are scheduled: one sunset, with me.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "pan-right",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 2,
+      "slot": "escalation",
+      "kind": "argument",
+      "locationId": "kitchen",
+      "characters": ["greta-germany", "matteo-italy"],
+      "visual": "Argument erupts: Matteo eats cheese to impress Greta; suffers heroically and confesses nothing",
+      "lines": [
+        {
+          "speaker": "greta-germany",
+          "text": "I have minuted your betrayal.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "You have insulted my risotto AND my honor!",
+          "delivery": "",
+          "emphasize": ["AND"]
+        },
+        {
+          "speaker": "greta-germany",
+          "text": "Unacceptable. Continue.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "parallax",
+      "sfx": ["whoosh"],
+      "textMessages": []
+    },
+    {
+      "index": 3,
+      "slot": "escalation",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": ["elodie-france"],
+      "visual": "elodie-france in the Spill Room, processing the chaos",
+      "lines": [
+        {
+          "speaker": "elodie-france",
+          "text": "Everyone asks who I like. Even I am not allowed to know.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 4,
+      "slot": "escalation",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": ["brock-usa", "matteo-italy"],
+      "visual": "Villa reaction: Élodie interrogates Alejandro; his mask slips into a genuine laugh",
+      "lines": [
+        {
+          "speaker": "brock-usa",
+          "text": "Huge. HUGE.",
+          "delivery": "",
+          "emphasize": ["HUGE"]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "I will cook for you until time ends.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "pan-left",
+      "sfx": ["pop"],
+      "textMessages": []
+    },
+    {
+      "index": 5,
+      "slot": "escalation",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": ["greta-germany"],
+      "visual": "greta-germany in the Spill Room, pretending to be fine",
+      "lines": [
+        {
+          "speaker": "greta-germany",
+          "text": "Feelings arrived today at 14:20, outside the scheduled window. I am investigating.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 6,
+      "slot": "twist",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": ["elodie-france", "greta-germany"],
+      "visual": "TWIST: Matteo realizes mid-tiramisu that he didn't think about Élodie once all night.",
+      "lines": [
+        {
+          "speaker": "elodie-france",
+          "text": "He laughed like a person. Alarming. Six point five.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "greta-germany",
+          "text": "This is chaos. I have logged it.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "shake",
+      "sfx": ["sting"],
+      "textMessages": []
+    },
+    {
+      "index": 7,
+      "slot": "engagement",
+      "kind": "endcard",
+      "locationId": "firepit",
+      "characters": [],
+      "visual": "End card: Greta+Matteo or Élodie+Alejandro — which date won the night? 🗳️",
+      "lines": [],
+      "motion": "zoom-out",
+      "sfx": ["ding"],
+      "textMessages": []
+    }
+  ],
+  "caption": "Greta scheduled a 90-minute date. Matteo cooked for six hours. Nobody's ready. 🇩🇪🇮🇹🇫🇷🇪🇸 Greta+Matteo or Élodie+Alejandro — which date won the night? 🗳️ — Love Villa: Nations, episode 4 🌍❤️",
+  "hashtags": [
+    "#LoveVillaNations",
+    "#realitytv",
+    "#datingshow",
+    "#comedy",
+    "#animation",
+    "#episode4",
+    "#fyp",
+    "#drama"
+  ],
+  "musicDirection": "Upbeat tropical-pop bed; heartbeat under the hook; dramatic sting on the twist.",
+  "continuityNotes": [
+    "Matteo's pivot from Élodie to Greta",
+    "Matteo's dairy secret ticking",
+    "The ep3 challenge prize plays out; Élodie continues testing Alejandro from ep2."
+  ]
+}

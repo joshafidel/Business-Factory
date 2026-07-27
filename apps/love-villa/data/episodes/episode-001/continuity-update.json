@@ -1,0 +1,31 @@
+{
+  "episode": 1,
+  "summary": "Brock and Matteo simultaneously discover they are both pursuing Élodie. Smoothie diplomacy and an eight-course revenge risotto escalate into the villa's first international incident, while Élodie rates both suitors a five. A torch-lit twist ends day one: Spain has entered the villa — for Élodie.",
+  "newCouples": [],
+  "brokenCouples": [],
+  "attractionChanges": [],
+  "newRivalries": [
+    {
+      "a": "brock-usa",
+      "b": "matteo-italy",
+      "reason": "Both pursuing Élodie"
+    },
+    {
+      "a": "lucas-brazil",
+      "b": "alejandro-spain",
+      "reason": "Villa sunshine-king contest"
+    }
+  ],
+  "newAlliances": [],
+  "secretsRevealed": [],
+  "arrivals": ["alejandro-spain"],
+  "eliminations": [],
+  "unresolvedStorylines": [
+    "Who will Élodie actually rate above a five?",
+    "Matteo vs Brock rivalry is now open",
+    "Alejandro's real intentions unknown"
+  ],
+  "continuityNotes": [
+    "Series premiere — plants the triangle, the rivalry, and Alejandro's arrival."
+  ]
+}

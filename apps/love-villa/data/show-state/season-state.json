@@ -1,0 +1,84 @@
+{
+  "season": 1,
+  "currentEpisode": 5,
+  "cast": [
+    "brock-usa",
+    "poppy-uk",
+    "matteo-italy",
+    "elodie-france",
+    "lucas-brazil",
+    "sienna-australia",
+    "rohan-india",
+    "greta-germany",
+    "alejandro-spain"
+  ],
+  "eliminated": [],
+  "couples": [],
+  "attraction": {
+    "brock-usa->elodie-france": 6,
+    "poppy-uk->lucas-brazil": 6,
+    "matteo-italy->elodie-france": 6,
+    "lucas-brazil->poppy-uk": 6,
+    "sienna-australia->rohan-india": 6,
+    "rohan-india->sienna-australia": 6,
+    "greta-germany->matteo-italy": 6,
+    "alejandro-spain->elodie-france": 6
+  },
+  "rivalries": [
+    {
+      "a": "brock-usa",
+      "b": "matteo-italy",
+      "reason": "Both pursuing Élodie"
+    },
+    {
+      "a": "lucas-brazil",
+      "b": "alejandro-spain",
+      "reason": "Villa sunshine-king contest"
+    }
+  ],
+  "alliances": [],
+  "secretsRevealed": ["brock-usa: the seven-figure startup is a $43 lemonade stand"],
+  "secretsUnrevealed": [
+    "poppy-uk: Keeps a notebook of embarrassingly sincere romantic poetry under her mattress.",
+    "matteo-italy: He is lactose intolerant. The mozzarella devotion is a beautiful, painful lie.",
+    "elodie-france: Owns every cheesy American rom-com ever made and cries at all of them.",
+    "lucas-brazil: He cannot really swim. Beach volleyball champion, yes. Deep end of the pool: terror.",
+    "sienna-australia: Was engaged once — for 48 hours — to a man she met at a jet-ski rental.",
+    "rohan-india: His famous 'compatibility algorithm' is just astrology with a spreadsheet skin.",
+    "greta-germany: Cries at dog videos every single night, on schedule, 22:15.",
+    "alejandro-spain: He applied to the show four times. The smolder took years of practice in a mirror."
+  ],
+  "previousEpisodeSummary": "Rohan's innocent networking question unravels Brock's startup story in front of everyone. The villa braces to laugh — and Poppy, of all people, torches the pile-on instead. Brock's honest firepit speech about being broke and hopeful becomes his most genuinely liked moment ever.",
+  "unresolvedStorylines": [
+    "Who will Élodie actually rate above a five?",
+    "Matteo vs Brock rivalry is now open",
+    "Alejandro's real intentions unknown",
+    "Brock's confidence wobble",
+    "Lucas vs Alejandro cold war begins",
+    "Rohan-Sienna almost-moment",
+    "Greta-Matteo prize dinner pending",
+    "Matteo's pivot from Élodie to Greta",
+    "Matteo's dairy secret ticking",
+    "Poppy's accidental sincerity",
+    "Is Brock-Poppy a thing?? (they insist: no)"
+  ],
+  "viewerDecisions": [],
+  "popularity": {
+    "brock-usa": 50,
+    "poppy-uk": 50,
+    "matteo-italy": 50,
+    "elodie-france": 50,
+    "lucas-brazil": 50,
+    "sienna-australia": 50,
+    "rohan-india": 50,
+    "greta-germany": 50,
+    "alejandro-spain": 50
+  },
+  "continuityNotes": [
+    "Series premiere — plants the triangle, the rivalry, and Alejandro's arrival.",
+    "Direct continuation of Alejandro's episode 1 arrival.",
+    "Sienna's ep2 teasing of Rohan escalates into the challenge dare.",
+    "The ep3 challenge prize plays out; Élodie continues testing Alejandro from ep2.",
+    "Brock's ep2 confidence crack finally splits open; Rohan's rivalry with flair over data."
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "episode": 1,
+  "title": "Two Kings, One Croissant",
+  "logline": "Brock and Matteo discover they're chasing the same woman; Élodie rates the entire war a five — until Spain walks in.",
+  "scenes": [
+    {
+      "index": 0,
+      "slot": "hook",
+      "kind": "scene",
+      "locationId": "pool",
+      "characters": ["brock-usa", "matteo-italy"],
+      "visual": "Brock and Matteo nose to nose at the pool edge, shocked, a smoothie and a risotto pan between them",
+      "lines": [
+        {
+          "speaker": "brock-usa",
+          "text": "Bro. We're both all-in on the same girl?!",
+          "delivery": "",
+          "emphasize": ["same", "girl"]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "Not a girl. A vision. MY vision!",
+          "delivery": "operatic outrage",
+          "emphasize": ["MY"]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": ["heartbeat"],
+      "textMessages": []
+    },
+    {
+      "index": 1,
+      "slot": "setup",
+      "kind": "scene",
+      "locationId": "pool",
+      "characters": ["brock-usa", "elodie-france", "matteo-italy"],
+      "visual": "Élodie on a pink lounger, unimpressed; Brock offers a smoothie while Matteo presents a steaming pan",
+      "lines": [
+        {
+          "speaker": "brock-usa",
+          "text": "Élodie! Fresh mango protein. Premium, like you.",
+          "delivery": "",
+          "emphasize": ["Premium"]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "A smoothie. At ten a.m. ...Five.",
+          "delivery": "bored verdict",
+          "emphasize": ["Five"]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "Move the smoothie. Risotto of my ancestors, for the lady.",
+          "delivery": "",
+          "emphasize": ["ancestors"]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "Also five.",
+          "delivery": "flat",
+          "emphasize": ["five"]
+        }
+      ],
+      "motion": "pan-right",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 2,
+      "slot": "escalation",
+      "kind": "argument",
+      "locationId": "kitchen",
+      "characters": ["matteo-italy", "brock-usa"],
+      "visual": "Split-screen kitchen standoff: Matteo brandishing a wooden spoon, Brock cradling his blender like a baby",
+      "lines": [
+        {
+          "speaker": "matteo-italy",
+          "text": "You made her a smoothie. I made her a promise.",
+          "delivery": "",
+          "emphasize": ["promise"]
+        },
+        {
+          "speaker": "brock-usa",
+          "text": "My smoothie has eighteen grams of commitment, bro!",
+          "delivery": "",
+          "emphasize": ["eighteen", "commitment"]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "You cannot blend your way into a French heart!",
+          "delivery": "",
+          "emphasize": ["blend"]
+        },
+        {
+          "speaker": "brock-usa",
+          "text": "Watch me. I'll blend DESTINY.",
+          "delivery": "deadly serious",
+          "emphasize": ["DESTINY"]
+        }
+      ],
+      "motion": "parallax",
+      "sfx": ["whoosh"],
+      "textMessages": []
+    },
+    {
+      "index": 3,
+      "slot": "escalation",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": ["poppy-uk"],
+      "visual": "Poppy in the neon Spill Room armchair, tea in hand, profoundly entertained",
+      "lines": [
+        {
+          "speaker": "poppy-uk",
+          "text": "Day one, and two grown men are dueling with kitchen appliances.",
+          "delivery": "",
+          "emphasize": ["dueling"]
+        },
+        {
+          "speaker": "poppy-uk",
+          "text": "My money's on the blender. Only one here with a clear plan.",
+          "delivery": "deadpan",
+          "emphasize": ["blender"]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 4,
+      "slot": "escalation",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": ["greta-germany", "sienna-australia", "lucas-brazil"],
+      "visual": "Greta writing on her clipboard while Sienna grins and Lucas does a celebratory samba step",
+      "lines": [
+        {
+          "speaker": "greta-germany",
+          "text": "Fourteen hundred hours: America and Italy declared war. Logged.",
+          "delivery": "",
+          "emphasize": ["war"]
+        },
+        {
+          "speaker": "sienna-australia",
+          "text": "Best. Day. EVER.",
+          "delivery": "gleeful",
+          "emphasize": ["EVER"]
+        },
+        {
+          "speaker": "lucas-brazil",
+          "text": "This dance is called: International Emotional Damage!",
+          "delivery": "",
+          "emphasize": ["Emotional", "Damage"]
+        }
+      ],
+      "motion": "pan-left",
+      "sfx": ["pop"],
+      "textMessages": []
+    },
+    {
+      "index": 5,
+      "slot": "escalation",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": ["elodie-france"],
+      "visual": "Élodie in the Spill Room, examining her nails, betraying the faintest smile",
+      "lines": [
+        {
+          "speaker": "elodie-france",
+          "text": "The smoothie? Five. The risotto? Five. The drama? ...Seven.",
+          "delivery": "reluctantly delighted",
+          "emphasize": ["Seven"]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 6,
+      "slot": "twist",
+      "kind": "arrival",
+      "locationId": "walkway",
+      "characters": ["alejandro-spain", "sienna-australia", "brock-usa"],
+      "visual": "Torch-lit walkway at night: Alejandro strides in slow motion, crimson shirt glowing, villa gawking",
+      "lines": [
+        {
+          "speaker": "sienna-australia",
+          "text": "GUYS. Walkway alert. This one's got SLOW MOTION.",
+          "delivery": "",
+          "emphasize": ["SLOW", "MOTION"]
+        },
+        {
+          "speaker": "alejandro-spain",
+          "text": "I heard someone here rates men out of ten. I am the ten.",
+          "delivery": "velvet calm",
+          "emphasize": ["ten"]
+        },
+        {
+          "speaker": "brock-usa",
+          "text": "...Who invited SPAIN?!",
+          "delivery": "betrayed",
+          "emphasize": ["SPAIN"]
+        }
+      ],
+      "motion": "shake",
+      "sfx": ["sting"],
+      "textMessages": []
+    },
+    {
+      "index": 7,
+      "slot": "engagement",
+      "kind": "endcard",
+      "locationId": "firepit",
+      "characters": [],
+      "visual": "End card: Who should Élodie pick? 🇺🇸 🇮🇹 🇪🇸 Vote in the comments!",
+      "lines": [],
+      "motion": "zoom-out",
+      "sfx": ["ding"],
+      "textMessages": []
+    }
+  ],
+  "caption": "America and Italy declared war over France… and then SPAIN walked in 💀 Who should Élodie pick? Episode 1 of Love Villa: Nations 🌍❤️",
+  "hashtags": [
+    "#LoveVillaNations",
+    "#realitytv",
+    "#datingshow",
+    "#comedy",
+    "#animation",
+    "#loveTriangle",
+    "#episode1",
+    "#fyp"
+  ],
+  "musicDirection": "Upbeat tropical-pop bed; heartbeat under the hook; dramatic sting on the arrival.",
+  "continuityNotes": [
+    "Brock and Matteo rivalry over Élodie is now open",
+    "Élodie's rating system established (everything is a five; drama is a seven)",
+    "Alejandro arrived for Élodie — villa destabilized",
+    "Greta logs events; Poppy provides commentary; these are recurring devices"
+  ]
+}
