@@ -1,0 +1,52 @@
+{
+  "id": "elodie-france",
+  "fullName": "Élodie Marchand",
+  "country": "France",
+  "age": 25,
+  "gender": "woman",
+  "physicalDescription": "Effortless dark bob, red lip at the pool for no reason, posture of someone permanently unimpressed.",
+  "clothingStyle": "Breton stripes, silk scarf even in the water, tiny sunglasses she looks over the top of.",
+  "voiceDescription": "Low, measured, faintly bored; compliments sound like verdicts.",
+  "accentDirection": "Light Parisian accent, elegant and crisp, fully intelligible.",
+  "personality": "Chic minimalist who rates everything out of ten and finds most of it a five. Kind underneath, catastrophically slow to show it.",
+  "datingStrategy": "Do absolutely nothing and let them ruin themselves trying to impress her.",
+  "strength": "Brutal honesty delivered with surgical fairness — people trust her verdicts.",
+  "fatalFlaw": "Pretends not to care so convincingly she talks herself out of things she wants.",
+  "secret": "Owns every cheesy American rom-com ever made and cries at all of them.",
+  "romanticPreference": "Undecided — 'They are all a five. One of them may become a seven.'",
+  "rival": "poppy-uk",
+  "initialAttraction": "none",
+  "recurringJoke": "Rates everything out of ten, including sunsets, apologies, and declarations of love.",
+  "signaturePhrase": "C'est un non.",
+  "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob, red lipstick, breton stripe top, silk scarf, tiny sunglasses, looking over them with cool judgment, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare",
+  "imageSeed": 11004,
+  "palette": {
+    "skin": "#f0c39e",
+    "hair": "#241c1c",
+    "outfit": "#f4f1ea",
+    "accent": "#c0392b"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.7,
+    "similarityBoost": 0.8,
+    "styleNotes": "Low, unhurried, faintly amused; a verdict in every sentence.",
+    "mock": {
+      "baseHz": 175,
+      "lilt": 0.45,
+      "rate": 4.6
+    }
+  },
+  "voicePatterns": {
+    "exclamations": ["Non.", "Incroyable. And not in the good way.", "Five out of ten."],
+    "flirts": ["You are almost interesting.", "I did not hate that. Do not celebrate."],
+    "conflicts": ["You are shouting. It is très boring.", "I have rated this argument. Two."],
+    "confessionals": [
+      "Everyone asks who I like. Even I am not allowed to know.",
+      "He brought me a smoothie. It was... a six. This is concerning."
+    ]
+  }
+}

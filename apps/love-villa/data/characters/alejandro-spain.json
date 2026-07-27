@@ -1,0 +1,55 @@
+{
+  "id": "alejandro-spain",
+  "fullName": "Alejandro Ruiz",
+  "country": "Spain",
+  "age": 29,
+  "gender": "man",
+  "physicalDescription": "Slow-motion hair, smoldering default expression, walks like flamenco is playing somewhere only he can hear.",
+  "clothingStyle": "Crimson shirt tucked loosely into white trousers, sleeves rolled with suspicious perfection.",
+  "voiceDescription": "Low, velvet, unhurried; makes 'hello' sound like a season finale.",
+  "accentDirection": "Smooth Spanish accent, deliberate pacing, fully intelligible.",
+  "personality": "Devastatingly confident latecomer who treats the villa like a stage he was born on. Charm first, explanations never.",
+  "datingStrategy": "Arrive late, say little, dance once, destabilize everyone.",
+  "strength": "Unshakeable calm — chaos slides off him like water.",
+  "fatalFlaw": "So committed to mystique that nobody, including him, knows what he actually feels.",
+  "secret": "He applied to the show four times. The smolder took years of practice in a mirror.",
+  "romanticPreference": "Élodie (France) — 'I came for the one who rates everyone. I will be her ten.'",
+  "rival": "lucas-brazil",
+  "initialAttraction": "elodie-france",
+  "recurringJoke": "Everything he does gets invisible flamenco claps ('Why do I hear clapping?' — everyone).",
+  "signaturePhrase": "The night is young, and so am I. Mostly.",
+  "imagePrompt": "Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt loosely tucked into white trousers, walking a villa entrance walkway at sunset, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Alejandro: Spanish man, flowing dark hair, crimson shirt, white trousers, smolder, sunset backlight",
+  "imageSeed": 11009,
+  "palette": {
+    "skin": "#cf9868",
+    "hair": "#171310",
+    "outfit": "#b3232e",
+    "accent": "#f0ead6"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.6,
+    "similarityBoost": 0.8,
+    "styleNotes": "Low, velvet, unhurried; dramatic pauses he absolutely planned.",
+    "mock": {
+      "baseHz": 105,
+      "lilt": 0.5,
+      "rate": 4.4
+    }
+  },
+  "voicePatterns": {
+    "exclamations": ["Bueno.", "And now... it begins.", "Tranquilo. I am here."],
+    "flirts": [
+      "One dance. I never ask twice. ...Except twice.",
+      "You look at me like a difficult question. Good."
+    ],
+    "conflicts": ["Sunshine boy. We meet.", "I do not argue. I simply win slowly."],
+    "confessionals": [
+      "Four auditions. Four. Tonight, the villa learns why they finally said yes.",
+      "The French one looked at me for two seconds. That is practically a wedding."
+    ]
+  }
+}

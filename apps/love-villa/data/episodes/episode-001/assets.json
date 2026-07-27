@@ -1,0 +1,139 @@
+{
+  "episode": 1,
+  "characters": {
+    "brock-usa": "characters/brock-usa.svg",
+    "matteo-italy": "characters/matteo-italy.svg",
+    "elodie-france": "characters/elodie-france.svg",
+    "poppy-uk": "characters/poppy-uk.svg",
+    "greta-germany": "characters/greta-germany.svg",
+    "sienna-australia": "characters/sienna-australia.svg",
+    "lucas-brazil": "characters/lucas-brazil.svg",
+    "alejandro-spain": "characters/alejandro-spain.svg"
+  },
+  "locations": {
+    "pool": "locations/pool.svg",
+    "kitchen": "locations/kitchen.svg",
+    "confessional": "locations/confessional.svg",
+    "firepit": "locations/firepit.svg",
+    "walkway": "locations/walkway.svg"
+  },
+  "lines": [
+    {
+      "scene": 0,
+      "line": 0,
+      "file": "episodes/episode-001/audio/s0-l0.wav",
+      "seconds": 2.3143083900226755
+    },
+    {
+      "scene": 0,
+      "line": 1,
+      "file": "episodes/episode-001/audio/s0-l1.wav",
+      "seconds": 2.15
+    },
+    {
+      "scene": 1,
+      "line": 0,
+      "file": "episodes/episode-001/audio/s1-l0.wav",
+      "seconds": 2.6714512471655327
+    },
+    {
+      "scene": 1,
+      "line": 1,
+      "file": "episodes/episode-001/audio/s1-l1.wav",
+      "seconds": 2.306530612244898
+    },
+    {
+      "scene": 1,
+      "line": 2,
+      "file": "episodes/episode-001/audio/s1-l2.wav",
+      "seconds": 3.7500226757369615
+    },
+    {
+      "scene": 1,
+      "line": 3,
+      "file": "episodes/episode-001/audio/s1-l3.wav",
+      "seconds": 1.2195691609977324
+    },
+    {
+      "scene": 2,
+      "line": 0,
+      "file": "episodes/episode-001/audio/s2-l0.wav",
+      "seconds": 3.35
+    },
+    {
+      "scene": 2,
+      "line": 1,
+      "file": "episodes/episode-001/audio/s2-l1.wav",
+      "seconds": 2.492857142857143
+    },
+    {
+      "scene": 2,
+      "line": 2,
+      "file": "episodes/episode-001/audio/s2-l2.wav",
+      "seconds": 2.5500226757369613
+    },
+    {
+      "scene": 2,
+      "line": 3,
+      "file": "episodes/episode-001/audio/s2-l3.wav",
+      "seconds": 1.6
+    },
+    {
+      "scene": 3,
+      "line": 0,
+      "file": "episodes/episode-001/audio/s3-l0.wav",
+      "seconds": 3.4981632653061223
+    },
+    {
+      "scene": 3,
+      "line": 1,
+      "file": "episodes/episode-001/audio/s3-l1.wav",
+      "seconds": 3.4981632653061223
+    },
+    {
+      "scene": 4,
+      "line": 0,
+      "file": "episodes/episode-001/audio/s4-l0.wav",
+      "seconds": 4.150022675736961
+    },
+    {
+      "scene": 4,
+      "line": 1,
+      "file": "episodes/episode-001/audio/s4-l1.wav",
+      "seconds": 1.0166666666666666
+    },
+    {
+      "scene": 4,
+      "line": 2,
+      "file": "episodes/episode-001/audio/s4-l2.wav",
+      "seconds": 3.453469387755102
+    },
+    {
+      "scene": 5,
+      "line": 0,
+      "file": "episodes/episode-001/audio/s5-l0.wav",
+      "seconds": 3.8282766439909297
+    },
+    {
+      "scene": 6,
+      "line": 0,
+      "file": "episodes/episode-001/audio/s6-l0.wav",
+      "seconds": 2.35
+    },
+    {
+      "scene": 6,
+      "line": 1,
+      "file": "episodes/episode-001/audio/s6-l1.wav",
+      "seconds": 4.213650793650793
+    },
+    {
+      "scene": 6,
+      "line": 2,
+      "file": "episodes/episode-001/audio/s6-l2.wav",
+      "seconds": 1.2428571428571429
+    }
+  ],
+  "music": "episodes/episode-001/music-bed.wav",
+  "failures": [],
+  "regenerated": []
+}

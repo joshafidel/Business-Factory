@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { hydrateEnvFromDotfile } from "@bf/config";
-import { castSheet } from "@bf/shared";
+import { castSheet, LOVE_VILLA_MODULE } from "@bf/shared";
 import bcrypt from "bcryptjs";
 import { PrismaClient, type Prisma } from "../src/generated/client";
 
@@ -1028,6 +1028,28 @@ async function main(): Promise<void> {
       data: { costLimitMicroUsd: zooCostLimit },
     });
   }
+
+  // ── Love Villa: Nations: the second installed business ────────────────────
+  // The production pipeline is the standalone Remotion app in apps/love-villa;
+  // this row makes it a clickable app on the dashboard.
+  await prisma.businessModule.upsert({
+    where: { organizationId_key: { organizationId: org.id, key: LOVE_VILLA_MODULE.key } },
+    create: {
+      organizationId: org.id,
+      key: LOVE_VILLA_MODULE.key,
+      name: LOVE_VILLA_MODULE.name,
+      description: LOVE_VILLA_MODULE.description,
+      status: "INSTALLED",
+      manifest: LOVE_VILLA_MODULE.manifest as unknown as Prisma.InputJsonValue,
+    },
+    update: {
+      name: LOVE_VILLA_MODULE.name,
+      description: LOVE_VILLA_MODULE.description,
+      status: "INSTALLED",
+      manifest: LOVE_VILLA_MODULE.manifest as unknown as Prisma.InputJsonValue,
+    },
+  });
+  console.log("✓ Love Villa: Nations module (INSTALLED)");
 
   console.log("\nSeed complete. Sign in at http://localhost:3000 with owner@factory.local");
 }

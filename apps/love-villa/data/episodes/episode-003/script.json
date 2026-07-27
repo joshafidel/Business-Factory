@@ -1,0 +1,211 @@
+{
+  "episode": 3,
+  "title": "Heartquake",
+  "logline": "First villa challenge: 'Heartquake' — couples answer questions about each other while standing on a wobble platform over the pool.",
+  "scenes": [
+    {
+      "index": 0,
+      "slot": "hook",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": ["sienna-australia", "rohan-india"],
+      "visual": "One quiz question just ended two friendships and started a romance. — caught mid-moment: First villa challenge: 'Heartquake' — couples answer questions about each other while standing on a wobble pla",
+      "lines": [
+        {
+          "speaker": "sienna-australia",
+          "text": "Drop the spreadsheet and SAY it, Kapoor!",
+          "delivery": "",
+          "emphasize": ["SAY"]
+        },
+        {
+          "speaker": "sienna-australia",
+          "text": "Let's send it!",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "push-in",
+      "sfx": ["heartbeat"],
+      "textMessages": []
+    },
+    {
+      "index": 1,
+      "slot": "setup",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": ["rohan-india", "sienna-australia", "greta-germany"],
+      "visual": "Setup: Original challenge: Heartquake wobble-platform quiz",
+      "lines": [
+        {
+          "speaker": "rohan-india",
+          "text": "Fine! She's... category five. And I'm not evacuating.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "sienna-australia",
+          "text": "Mate, you fumbled that so hard the ocean felt it.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "rohan-india",
+          "text": "My algorithm says 87.3%. I say more.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "pan-right",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 2,
+      "slot": "escalation",
+      "kind": "argument",
+      "locationId": "pool",
+      "characters": ["rohan-india", "sienna-australia"],
+      "visual": "Argument erupts: Rohan freezes; Sienna dares him to answer with feelings instead of data",
+      "lines": [
+        {
+          "speaker": "rohan-india",
+          "text": "I planned for this argument. Point one—",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "sienna-australia",
+          "text": "Settle it with a dare. Winner's right.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "rohan-india",
+          "text": "This was NOT in the projections!",
+          "delivery": "",
+          "emphasize": ["NOT"]
+        }
+      ],
+      "motion": "parallax",
+      "sfx": ["whoosh"],
+      "textMessages": []
+    },
+    {
+      "index": 3,
+      "slot": "escalation",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": ["greta-germany"],
+      "visual": "greta-germany in the Spill Room, processing the chaos",
+      "lines": [
+        {
+          "speaker": "greta-germany",
+          "text": "He cooked for six hours. Inefficient. I ate everything. Also inefficient. Interesting.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 4,
+      "slot": "escalation",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": ["alejandro-spain", "sienna-australia"],
+      "visual": "Villa reaction: Greta and Matteo win the challenge as a chaos pairing",
+      "lines": [
+        {
+          "speaker": "alejandro-spain",
+          "text": "Tranquilo. I am here.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "sienna-australia",
+          "text": "You're cute when you're terrified.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "pan-left",
+      "sfx": ["pop"],
+      "textMessages": []
+    },
+    {
+      "index": 5,
+      "slot": "escalation",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": ["rohan-india"],
+      "visual": "rohan-india in the Spill Room, pretending to be fine",
+      "lines": [
+        {
+          "speaker": "rohan-india",
+          "text": "The algorithm is science. The stars are... consultants.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [],
+      "textMessages": []
+    },
+    {
+      "index": 6,
+      "slot": "twist",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": ["greta-germany", "rohan-india"],
+      "visual": "TWIST: Challenge result: the algorithm loses, the chaos couple wins — Greta chooses Matteo for the prize dinner.",
+      "lines": [
+        {
+          "speaker": "greta-germany",
+          "text": "We won. This was not scheduled. I am thrilled. Confusing.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "rohan-india",
+          "text": "As predicted.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "shake",
+      "sfx": ["sting"],
+      "textMessages": []
+    },
+    {
+      "index": 7,
+      "slot": "engagement",
+      "kind": "endcard",
+      "locationId": "firepit",
+      "characters": [],
+      "visual": "End card: Greta + Matteo dinner date... what could go wrong? 🍝📋",
+      "lines": [],
+      "motion": "zoom-out",
+      "sfx": ["ding"],
+      "textMessages": []
+    }
+  ],
+  "caption": "One quiz question just ended two friendships and started a romance. 🇮🇳🇦🇺🇩🇪🇮🇹🇺🇸 Greta + Matteo dinner date... what could go wrong? 🍝📋 — Love Villa: Nations, episode 3 🌍❤️",
+  "hashtags": [
+    "#LoveVillaNations",
+    "#realitytv",
+    "#datingshow",
+    "#comedy",
+    "#animation",
+    "#episode3",
+    "#fyp",
+    "#drama"
+  ],
+  "musicDirection": "Upbeat tropical-pop bed; heartbeat under the hook; dramatic sting on the twist.",
+  "continuityNotes": [
+    "Rohan-Sienna almost-moment",
+    "Greta-Matteo prize dinner pending",
+    "Sienna's ep2 teasing of Rohan escalates into the challenge dare."
+  ]
+}

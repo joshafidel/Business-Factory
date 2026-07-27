@@ -1,0 +1,251 @@
+{
+  "scope": "show-setup",
+  "entries": [
+    {
+      "provider": "anthropic",
+      "item": "cast-refinement",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.460Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:brock-usa",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.464Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:poppy-uk",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.465Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:matteo-italy",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.466Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:elodie-france",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.466Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.467Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:sienna-australia",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.467Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:rohan-india",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.467Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:greta-germany",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.468Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:alejandro-spain",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.468Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:pool",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.469Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:firepit",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.469Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:kitchen",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.470Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:bedroom",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.470Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:confessional",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.470Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:terrace",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.471Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:walkway",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:41.471Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "season-arc-10ep",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:12:48.137Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "cast-refinement",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.828Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:brock-usa",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.835Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:poppy-uk",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.836Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:matteo-italy",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.837Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:elodie-france",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.837Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.838Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:sienna-australia",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.838Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:rohan-india",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.839Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:greta-germany",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.840Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "character:alejandro-spain",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.840Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:pool",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.841Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:firepit",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.842Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:kitchen",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.843Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:bedroom",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.843Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:confessional",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.844Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:terrace",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.845Z"
+    },
+    {
+      "provider": "mock-svg",
+      "item": "location:walkway",
+      "estimatedUsd": 0,
+      "mode": "mock",
+      "at": "2026-07-27T17:19:08.845Z"
+    }
+  ],
+  "totalUsd": 0
+}

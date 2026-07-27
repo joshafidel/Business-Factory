@@ -1,0 +1,62 @@
+{
+  "id": "rohan-india",
+  "fullName": "Rohan Kapoor",
+  "country": "India",
+  "age": 26,
+  "gender": "man",
+  "physicalDescription": "Immaculate hair with one rebellious curl, warm knowing smile, carries a small notebook he denies having.",
+  "clothingStyle": "Pastel polo tucked into tailored shorts, expensive watch, sandals with — controversially — socks.",
+  "voiceDescription": "Smooth, charming, precise; the voice of a man who has rehearsed being spontaneous.",
+  "accentDirection": "Polished Indian English accent, warm and articulate, fully intelligible.",
+  "personality": "Romantic strategist. Has a compatibility framework, a five-date plan, and a backup plan for the plan.",
+  "datingStrategy": "Data-driven wooing: remember everything, anticipate everything, confess... eventually. Eventually.",
+  "strength": "Remembers every detail anyone has ever said — the villa's most thoughtful man.",
+  "fatalFlaw": "Plans the perfect confession so long the moment dies of old age.",
+  "secret": "His famous 'compatibility algorithm' is just astrology with a spreadsheet skin.",
+  "romanticPreference": "Sienna (Australia) — 'She is a category five storm. My spreadsheet says run. I stay.'",
+  "rival": "matteo-italy",
+  "initialAttraction": "sienna-australia",
+  "recurringJoke": "Quotes his 'algorithm' with fake precision ('We are 87.3% compatible. The .3 is her smile').",
+  "signaturePhrase": "Love is a plan you make twice.",
+  "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook",
+  "imageSeed": 11007,
+  "palette": {
+    "skin": "#b97e4f",
+    "hair": "#1d1712",
+    "outfit": "#b9a5e3",
+    "accent": "#e0b13e"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.55,
+    "similarityBoost": 0.8,
+    "styleNotes": "Smooth, precise, gently amused; rehearsed spontaneity with real warmth underneath.",
+    "mock": {
+      "baseHz": 125,
+      "lilt": 0.4,
+      "rate": 5.2
+    }
+  },
+  "voicePatterns": {
+    "exclamations": [
+      "As predicted.",
+      "Fascinating data point.",
+      "This was NOT in the projections!"
+    ],
+    "flirts": [
+      "I remembered you hate cilantro. I remember everything about you.",
+      "My algorithm says 87.3%. I say more."
+    ],
+    "conflicts": [
+      "Your strategy has one flaw: all of it.",
+      "I planned for this argument. Point one—"
+    ],
+    "confessionals": [
+      "Tonight I will tell her how I feel. Right after I finish the flowchart.",
+      "The algorithm is science. The stars are... consultants."
+    ]
+  }
+}

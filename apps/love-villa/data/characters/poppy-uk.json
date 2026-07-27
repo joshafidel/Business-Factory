@@ -1,0 +1,55 @@
+{
+  "id": "poppy-uk",
+  "fullName": "Poppy Whitcombe",
+  "country": "United Kingdom",
+  "age": 24,
+  "gender": "woman",
+  "physicalDescription": "Petite with a sharp blonde bob, permanent unimpressed eyebrow, sunburn developing in real time.",
+  "clothingStyle": "Chic high-street co-ords, giant sunglasses pushed up, always holding a mug of tea by the pool.",
+  "voiceDescription": "Dry, quick, deadpan; delivers devastating one-liners at conversational volume.",
+  "accentDirection": "Soft London accent, playful and clear. No heavy slang walls — keep it understandable.",
+  "personality": "The villa's sarcastic narrator-in-residence. Allergic to sincerity, weaponizes banter, secretly the most loyal.",
+  "datingStrategy": "Mock them until one of them turns out to be worth it; never text first; deny everything.",
+  "strength": "Fiercely loyal — first to defend anyone being dogpiled, even a rival.",
+  "fatalFlaw": "Deflects every real feeling with a joke until the moment has completely passed.",
+  "secret": "Keeps a notebook of embarrassingly sincere romantic poetry under her mattress.",
+  "romanticPreference": "Lucas (Brazil) — she'd rather be sunburnt again than admit it.",
+  "rival": "brock-usa",
+  "initialAttraction": "lucas-brazil",
+  "recurringJoke": "Rates every romantic moment out of ten like a grumpy judge ('That kiss? Four. Generous four.').",
+  "signaturePhrase": "Sun's out, standards up.",
+  "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk",
+  "imageSeed": 11002,
+  "palette": {
+    "skin": "#f3c6a5",
+    "hair": "#e8d48b",
+    "outfit": "#e777a8",
+    "accent": "#7db5e0"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.6,
+    "similarityBoost": 0.8,
+    "styleNotes": "Dry, deadpan, quick; the joke lands harder because she never raises her voice.",
+    "mock": {
+      "baseHz": 195,
+      "lilt": 0.35,
+      "rate": 5.4
+    }
+  },
+  "voicePatterns": {
+    "exclamations": ["Obviously.", "I cannot cope with this villa.", "Riveting."],
+    "flirts": ["You're a solid six. Fine. Seven.", "Don't make me like you. I'm busy."],
+    "conflicts": [
+      "Say that again but slower, so you can hear it.",
+      "Bless. He thinks he's subtle."
+    ],
+    "confessionals": [
+      "Am I bothered? No. Am I taking notes? ...No comment.",
+      "Everyone here is unwell and I am the only journalist covering it."
+    ]
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "title": "Love Villa: Nations",
+  "logline": "Eight gloriously exaggerated singles from around the world share one luxury villa, one pool, and zero chill — a fictional international dating competition where the real language barrier is feelings.",
+  "tone": [
+    "funny",
+    "dramatic",
+    "fast-paced",
+    "absurd",
+    "addictive",
+    "serialized",
+    "playful never mean"
+  ],
+  "visualStyle": "Glossy, exaggerated, semi-realistic animation. Colorful, attractive, slightly cartoonish, expressive, high-energy. Designed for vertical mobile viewing. Consistent character designs across episodes. Never photorealistic, never deepfakes.",
+  "format": {
+    "durationSeconds": {
+      "min": 60,
+      "max": 90
+    },
+    "structure": [
+      {
+        "beat": "hook",
+        "window": "0-3s",
+        "rule": "Open mid-conflict/surprise. Never an intro, logo, or explanation."
+      },
+      {
+        "beat": "setup",
+        "window": "3-15s",
+        "rule": "Establish what happened and who is involved."
+      },
+      {
+        "beat": "escalation",
+        "window": "15-50s",
+        "rule": "Quick dialogue, reactions, confessionals, misunderstandings."
+      },
+      {
+        "beat": "twist",
+        "window": "50-70s",
+        "rule": "Secret, arrival, betrayal, text, result, or romantic decision."
+      },
+      {
+        "beat": "engagement",
+        "window": "final seconds",
+        "rule": "Cliffhanger, vote, question, or next-episode preview."
+      }
+    ]
+  },
+  "writingRules": [
+    "Dialogue is short, natural, memorable; most lines under 15 words. No speeches.",
+    "Every episode: ≥1 joke, ≥1 romantic tension beat, ≥1 conflict, ≥1 reaction shot, ≥1 confessional, ≥1 unanswered question.",
+    "Every episode connects to a previous or future episode; characters remember everything.",
+    "Humor is bold but character-driven: we laugh at their choices, never at their nationality's worth.",
+    "Accents are seasoning, not the joke — always fully intelligible."
+  ],
+  "safetyRules": [
+    "All characters are fictional adults aged 21+. No real celebrities, influencers, politicians, or private individuals.",
+    "No racial slurs, no dehumanizing language, no stereotypes of a nationality as stupid, criminal, dirty, violent, inferior, or untrustworthy.",
+    "Every country gets approximately equal comedic treatment; every character has positives, flaws, motivations, vulnerabilities.",
+    "No explicit sexual content; flirty and chaotic, PG-13 always."
+  ],
+  "brandSafetyRules": [
+    "Original property: never copy Love Island branding, logo, music, narration, catchphrases, character names, villa design, games, or plots.",
+    "No narrator character (avoids the signature narrated format of existing shows).",
+    "Only royalty-free, generated, or originally licensed music and SFX."
+  ],
+  "bannedPhrases": [
+    "love island",
+    "i've got a text",
+    "i got a text",
+    "casa amor",
+    "mugged off",
+    "grafting",
+    "the hideaway",
+    "islanders",
+    "crack on",
+    "my type on paper",
+    "stick or twist",
+    "coupled up ceremony"
+  ],
+  "villa": {
+    "name": "Villa Solana",
+    "island": "Isla Corazón (fictional)",
+    "description": "A candy-bright clifftop villa on a fictional island: curved terracotta arches, a turquoise infinity pool, neon heart sculptures, and one suspiciously well-lit confessional called The Spill Room.",
+    "locations": [
+      {
+        "id": "pool",
+        "name": "Infinity Pool",
+        "description": "Turquoise infinity pool with pink loungers and a swim-up heart-shaped bar.",
+        "imagePrompt": "Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+        "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+        "imageSeed": 21001,
+        "palette": {
+          "sky": "#8fd8f2",
+          "mid": "#35b6c9",
+          "ground": "#f2d8a7",
+          "accent": "#f27ba4"
+        },
+        "timeOfDay": "day"
+      },
+      {
+        "id": "firepit",
+        "name": "Firepit Lounge",
+        "description": "Sunken circular firepit with amber cushions — where the serious conversations combust.",
+        "imagePrompt": "Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+        "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+        "imageSeed": 21002,
+        "palette": {
+          "sky": "#3b2a55",
+          "mid": "#8c4a2f",
+          "ground": "#5a3a2a",
+          "accent": "#f2a03d"
+        },
+        "timeOfDay": "sunset"
+      },
+      {
+        "id": "kitchen",
+        "name": "Open Kitchen",
+        "description": "Marble island kitchen with copper pans — Matteo's kingdom and Rohan's laboratory.",
+        "imagePrompt": "Bright luxury open villa kitchen, marble island, hanging copper pans, bowls of lemons, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+        "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+        "imageSeed": 21003,
+        "palette": {
+          "sky": "#f7ecd9",
+          "mid": "#e0e5e8",
+          "ground": "#c9a684",
+          "accent": "#c96f3b"
+        },
+        "timeOfDay": "day"
+      },
+      {
+        "id": "bedroom",
+        "name": "Shared Bedroom",
+        "description": "One giant room, eight beds, zero privacy — where whispers travel at the speed of gossip.",
+        "imagePrompt": "Luxury shared bedroom with rows of neat double beds, soft lamps, pastel bedding, moonlight through windows, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+        "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+        "imageSeed": 21004,
+        "palette": {
+          "sky": "#2c2a4a",
+          "mid": "#6c63a8",
+          "ground": "#cbb8de",
+          "accent": "#f2c6de"
+        },
+        "timeOfDay": "night"
+      },
+      {
+        "id": "confessional",
+        "name": "The Spill Room",
+        "description": "A neon-lit velvet confessional booth where contestants tell the camera the truth-ish.",
+        "imagePrompt": "Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+        "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+        "imageSeed": 21005,
+        "palette": {
+          "sky": "#1d1030",
+          "mid": "#4a1d5e",
+          "ground": "#2a1240",
+          "accent": "#ff5fa2"
+        },
+        "timeOfDay": "night"
+      },
+      {
+        "id": "terrace",
+        "name": "Sunset Terrace",
+        "description": "A bougainvillea-draped rooftop terrace — the villa's official overthinking zone.",
+        "imagePrompt": "Rooftop villa terrace at golden hour, bougainvillea flowers, wicker chairs, ocean view, warm sunset glow, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+        "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+        "imageSeed": 21006,
+        "palette": {
+          "sky": "#f2a65e",
+          "mid": "#e26d5a",
+          "ground": "#8c4a3c",
+          "accent": "#d94f8a"
+        },
+        "timeOfDay": "sunset"
+      },
+      {
+        "id": "walkway",
+        "name": "Entrance Walkway",
+        "description": "A torch-lit palm walkway where new arrivals strut in — nobody good ever walks in quietly.",
+        "imagePrompt": "Dramatic torch-lit palm tree walkway leading to villa entrance at night, flame torches, stone path, stars, glossy exaggerated semi-realistic animated reality-show background, colorful, slightly cartoonish, high-energy, vibrant saturated palette, vertical 9:16 composition, no people, no text",
+        "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+        "imageSeed": 21007,
+        "palette": {
+          "sky": "#141c3a",
+          "mid": "#27407a",
+          "ground": "#7a6248",
+          "accent": "#f2b13d"
+        },
+        "timeOfDay": "night"
+      }
+    ]
+  }
+}

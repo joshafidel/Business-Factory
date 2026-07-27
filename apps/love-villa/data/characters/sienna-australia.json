@@ -1,0 +1,58 @@
+{
+  "id": "sienna-australia",
+  "fullName": "Sienna Blake",
+  "country": "Australia",
+  "age": 23,
+  "gender": "woman",
+  "physicalDescription": "Sun-bleached ponytail, zinc stripe on her nose, permanently barefoot, a band-aid somewhere at all times.",
+  "clothingStyle": "Surf bikini top with boardshorts, shark-tooth necklace, sunnies with a leash.",
+  "voiceDescription": "Bright, fast, gleeful; sounds like she's daring you even when she's saying good morning.",
+  "accentDirection": "Cheerful Australian accent, energetic, fully intelligible.",
+  "personality": "Chaotic adventure gremlin. Turns everything into a challenge, including feelings, which she avoids via challenges.",
+  "datingStrategy": "If he survives the dares, he's a keeper. No man has yet survived the dares.",
+  "strength": "Makes everyone braver — the villa's confidence dealer.",
+  "fatalFlaw": "Converts every vulnerable moment into a dare before it can become real.",
+  "secret": "Was engaged once — for 48 hours — to a man she met at a jet-ski rental.",
+  "romanticPreference": "Rohan (India) — 'He plans everything. I want to see him plan for ME.'",
+  "rival": "greta-germany",
+  "initialAttraction": "rohan-india",
+  "recurringJoke": "'In Australia this would be legal' about increasingly unhinged activities.",
+  "signaturePhrase": "Scared money don't find love!",
+  "imagePrompt": "Adventurous Australian woman in her early twenties, sun-bleached ponytail, zinc stripe on nose, surf bikini top and boardshorts, shark tooth necklace, mischievous grin, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
+  "visualReference": "Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin",
+  "imageSeed": 11006,
+  "palette": {
+    "skin": "#eab183",
+    "hair": "#f2e3b3",
+    "outfit": "#f28c38",
+    "accent": "#31b5c4"
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": null,
+    "stability": 0.35,
+    "similarityBoost": 0.8,
+    "styleNotes": "Fast, bright, daring; everything sounds like a challenge or a prank reveal.",
+    "mock": {
+      "baseHz": 205,
+      "lilt": 0.5,
+      "rate": 6
+    }
+  },
+  "voicePatterns": {
+    "exclamations": ["Let's send it!", "Oh this is about to get GOOD.", "Absolute scenes!"],
+    "flirts": [
+      "Race you to the firepit. Loser buys feelings.",
+      "You're cute when you're terrified."
+    ],
+    "conflicts": [
+      "Settle it with a dare. Winner's right.",
+      "Mate, you fumbled that so hard the ocean felt it."
+    ],
+    "confessionals": [
+      "Feelings? Hard. Backflips? Easy. Guess which one I'm doing.",
+      "He said 'let's talk about us' and I heard 'let's jump off the terrace'. Honest mistake."
+    ]
+  }
+}
