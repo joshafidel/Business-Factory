@@ -5,26 +5,19 @@ import { PlatformError, toErrorRecord } from "@bf/shared";
 import { isSafePhotoUrl } from "@bf/shared";
 import {
   LIMITS,
-  RENDER_WORKFLOW_KEY,
-  estimateRenderCostMicroUsd,
   extractListingData,
   generateListingScript,
   generateSocialPackage,
-  getTemplate,
   listingOptionsSchema,
   listingPropertySchema,
   listingScriptSchema,
   recommendOrder,
   renderOverlaySchema,
-  renderSettingsSchema,
-  startWorkflowRun,
-  syncActiveRenders,
   trackEvent,
   validateScript,
 } from "@bf/workflows";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { dispatchAdvance } from "@/lib/execution";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { assertPermission, type OrgContext } from "@/lib/session";
 
@@ -499,89 +492,16 @@ export async function startRenderAction(
       return { error: "Slow down a little — try again in a minute." };
     }
     const { kind, overlays } = startRenderSchema.parse(payload);
-    const project = await requireProject(ctx, projectId);
-    if (!project.rightsConfirmedAt) {
-      return { error: "Confirm photo & listing usage rights first (Property details section)." };
-    }
-    if (!project.script) return { error: "Generate the script first." };
-
-    const photos = await prisma.listingPhoto.findMany({
-      where: { projectId: project.id, isExcluded: false },
-      orderBy: { order: "asc" },
-      take: LIMITS.maxRenderScenes,
-    });
-    if (photos.length === 0) return { error: "Upload at least one photo first." };
-
-    // Only overlay assets belonging to this org can be composited.
-    const overlayIds = overlays.map((o) => o.assetId);
-    const ownedOverlays = await prisma.asset.count({
-      where: { id: { in: overlayIds }, organizationId: ctx.organizationId },
-    });
-    if (ownedOverlays !== overlayIds.length) return { error: "Overlay upload incomplete — retry." };
-
-    // One active render of each kind per project.
-    await syncActiveRenders(project.id);
-    const active = await prisma.listingRender.findFirst({
-      where: { projectId: project.id, kind: kind.toUpperCase() as "PREVIEW" | "FINAL", status: { in: ["QUEUED", "RUNNING"] } },
-    });
-    if (active) return { error: `A ${kind} render is already running for this project.` };
-
-    const settings = renderSettingsSchema.parse({
+    const { startListingRender } = await import("@/lib/lvf-render");
+    const { renderId } = await startListingRender({
+      organizationId: ctx.organizationId,
+      userId: ctx.userId,
+      projectId,
       kind,
-      format: project.format,
-      style: project.style,
-      options: listingOptionsSchema.parse(project.options ?? {}),
-      property: listingPropertySchema.parse(project.property),
-      script: listingScriptSchema.parse(project.script),
-      photoIds: photos.map((p) => p.id),
       overlays,
     });
-    const template = getTemplate(settings.style);
-    const estimate = estimateRenderCostMicroUsd(
-      settings.script,
-      settings.options.voiceover && template.voiceover,
-    );
-    if (estimate > LIMITS.maxRenderCostMicroUsd) {
-      return { error: "Estimated cost exceeds the per-render limit — shorten the script." };
-    }
-
-    const render = await prisma.listingRender.create({
-      data: {
-        organizationId: ctx.organizationId,
-        projectId: project.id,
-        kind: kind.toUpperCase() as "PREVIEW" | "FINAL",
-        settings: settings as unknown as Prisma.InputJsonValue,
-      },
-    });
-    try {
-      const run = await startWorkflowRun({
-        organizationId: ctx.organizationId,
-        workflowKey: RENDER_WORKFLOW_KEY,
-        input: { renderId: render.id, projectId: project.id },
-        triggeredBy: { kind: "user", id: ctx.userId },
-        enqueueAdvance: dispatchAdvance,
-      });
-      await prisma.listingRender.update({
-        where: { id: render.id },
-        data: { workflowRunId: run.id },
-      });
-    } catch (err) {
-      await prisma.listingRender.update({
-        where: { id: render.id },
-        data: { status: "FAILED", error: (err as Error).message?.slice(0, 500) },
-      });
-      throw err;
-    }
-    await prisma.listingProject.update({
-      where: { id: project.id },
-      data: { status: "RENDERING" },
-    });
-    await trackEvent(
-      ctx.organizationId,
-      kind === "final" ? "lvf_final_renders_started" : "lvf_preview_renders_started",
-    );
     revalidatePath(`${BASE}/${projectId}`);
-    return { renderId: render.id };
+    return { renderId };
   } catch (err) {
     return asError(err);
   }

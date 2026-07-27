@@ -3,6 +3,7 @@ import { getStorage } from "@bf/storage";
 import { can, parsePhotoUrls } from "@bf/shared";
 import { MODULE_KEY } from "@bf/workflows";
 import { NextResponse, type NextRequest } from "next/server";
+import { z } from "zod";
 import {
   attachListingPhotos,
   downloadListingPhotos,
@@ -107,4 +108,40 @@ export async function POST(
 
   const { created, skipped } = await attachListingPhotos(ctx.organizationId, project, incoming);
   return NextResponse.json({ created, skipped });
+}
+
+const patchSchema = z.object({
+  photoId: z.string(),
+  roomLabel: z.string().max(60).nullable().optional(),
+  category: z.string().max(30).optional(),
+  note: z.string().max(300).nullable().optional(),
+  isExcluded: z.boolean().optional(),
+  isStaged: z.boolean().optional(),
+  isAiEnhanced: z.boolean().optional(),
+});
+
+/** Update a photo's organizer fields (room label, category, flags) via API. */
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ projectId: string }> },
+): Promise<NextResponse> {
+  const ctx = await getOrgContext();
+  if (!ctx) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!can(ctx.role, "workflows:execute")) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  const { projectId } = await params;
+  let body: z.infer<typeof patchSchema>;
+  try {
+    body = patchSchema.parse(await request.json());
+  } catch {
+    return NextResponse.json({ error: "Invalid body" }, { status: 400 });
+  }
+  const photo = await prisma.listingPhoto.findFirst({
+    where: { id: body.photoId, projectId, organizationId: ctx.organizationId },
+  });
+  if (!photo) return NextResponse.json({ error: "Photo not found" }, { status: 404 });
+  const { photoId: _photoId, ...patch } = body;
+  await prisma.listingPhoto.update({ where: { id: photo.id }, data: patch });
+  return NextResponse.json({ ok: true });
 }
