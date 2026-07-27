@@ -45,7 +45,7 @@ try {
   const bustSql =
     "SELECT pg_terminate_backend(l.pid) FROM pg_locks l " +
     "WHERE l.locktype='advisory' AND l.objid=72707369 AND l.pid <> pg_backend_pid();";
-  execSync(`pnpm --filter @bf/database exec prisma db execute --stdin`, {
+  execSync(`pnpm --filter @bf/database exec prisma db execute --stdin --schema prisma/schema.prisma`, {
     cwd: root,
     env: migrateEnv,
     input: bustSql,
