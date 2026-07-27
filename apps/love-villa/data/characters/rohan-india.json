@@ -4,19 +4,19 @@
   "country": "India",
   "age": 26,
   "gender": "man",
-  "physicalDescription": "Immaculate hair with one rebellious curl, warm knowing smile, carries a small notebook he denies having.",
-  "clothingStyle": "Pastel polo tucked into tailored shorts, expensive watch, sandals with — controversially — socks.",
-  "voiceDescription": "Smooth, charming, precise; the voice of a man who has rehearsed being spontaneous.",
+  "physicalDescription": "Immaculate hair with one rebellious curl he blames on humidity, warm knowing smile, and a tiny notebook he insists is not a notebook.",
+  "clothingStyle": "Pastel polo tucked into tailored shorts, watch worth more than the sun-loungers, sandals worn with socks — a stance he will defend in writing.",
+  "voiceDescription": "Smooth, charming and precise: the voice of a man who has rehearsed being spontaneous in a mirror.",
   "accentDirection": "Polished Indian English accent, warm and articulate, fully intelligible.",
-  "personality": "Romantic strategist. Has a compatibility framework, a five-date plan, and a backup plan for the plan.",
-  "datingStrategy": "Data-driven wooing: remember everything, anticipate everything, confess... eventually. Eventually.",
-  "strength": "Remembers every detail anyone has ever said — the villa's most thoughtful man.",
-  "fatalFlaw": "Plans the perfect confession so long the moment dies of old age.",
-  "secret": "His famous 'compatibility algorithm' is just astrology with a spreadsheet skin.",
-  "romanticPreference": "Sienna (Australia) — 'She is a category five storm. My spreadsheet says run. I stay.'",
+  "personality": "Romantic strategist with a compatibility framework, a five-date plan, and a contingency plan for the plan's feelings.",
+  "datingStrategy": "Remember every detail, anticipate every need, confess eventually — where 'eventually' is a moving target.",
+  "strength": "He remembers everything anyone has ever mentioned, which makes him the most quietly thoughtful person in the villa.",
+  "fatalFlaw": "Polishes the perfect confession for so long that the moment dies of natural causes.",
+  "secret": "The famous 'compatibility algorithm' is horoscopes in a spreadsheet with three impressive-looking charts.",
+  "romanticPreference": "Sienna (Australia) — 'She is a category five storm. The data says run. I have brought an umbrella.'",
   "rival": "matteo-italy",
   "initialAttraction": "sienna-australia",
-  "recurringJoke": "Quotes his 'algorithm' with fake precision ('We are 87.3% compatible. The .3 is her smile').",
+  "recurringJoke": "Cites his algorithm with fake decimal precision ('We are 87.3 percent compatible. The point-three is her laugh.').",
   "signaturePhrase": "Love is a plan you make twice.",
   "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
@@ -47,16 +47,19 @@
       "This was NOT in the projections!"
     ],
     "flirts": [
-      "I remembered you hate cilantro. I remember everything about you.",
-      "My algorithm says 87.3%. I say more."
+      "You hate cilantro. I remember everything about you.",
+      "My algorithm says 87.3 percent. I say higher.",
+      "I planned tonight in advance. Please act surprised."
     ],
     "conflicts": [
-      "Your strategy has one flaw: all of it.",
-      "I planned for this argument. Point one—"
+      "Your strategy has one flaw. All of it.",
+      "I anticipated this argument. Point one—",
+      "I don't shout. I file complaints beautifully."
     ],
     "confessionals": [
-      "Tonight I will tell her how I feel. Right after I finish the flowchart.",
-      "The algorithm is science. The stars are... consultants."
+      "Tonight I tell her how I feel. Right after the flowchart.",
+      "The algorithm is science. The stars are merely consultants.",
+      "She dared me off a roof. I said yes. My spreadsheet is furious."
     ]
   }
 }

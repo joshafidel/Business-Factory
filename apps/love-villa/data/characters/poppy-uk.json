@@ -4,19 +4,19 @@
   "country": "United Kingdom",
   "age": 24,
   "gender": "woman",
-  "physicalDescription": "Petite with a sharp blonde bob, permanent unimpressed eyebrow, sunburn developing in real time.",
-  "clothingStyle": "Chic high-street co-ords, giant sunglasses pushed up, always holding a mug of tea by the pool.",
-  "voiceDescription": "Dry, quick, deadpan; delivers devastating one-liners at conversational volume.",
-  "accentDirection": "Soft London accent, playful and clear. No heavy slang walls — keep it understandable.",
-  "personality": "The villa's sarcastic narrator-in-residence. Allergic to sincerity, weaponizes banter, secretly the most loyal.",
-  "datingStrategy": "Mock them until one of them turns out to be worth it; never text first; deny everything.",
-  "strength": "Fiercely loyal — first to defend anyone being dogpiled, even a rival.",
-  "fatalFlaw": "Deflects every real feeling with a joke until the moment has completely passed.",
-  "secret": "Keeps a notebook of embarrassingly sincere romantic poetry under her mattress.",
-  "romanticPreference": "Lucas (Brazil) — she'd rather be sunburnt again than admit it.",
+  "physicalDescription": "Petite, razor-sharp blonde bob, one eyebrow permanently raised at the world, sunburn advancing across her shoulders in real time.",
+  "clothingStyle": "Chic high-street co-ords, giant sunglasses shoved up into the bob, a mug of tea at the poolside like a courtroom exhibit.",
+  "voiceDescription": "Dry, fast, level; delivers devastation at the volume of someone ordering a sandwich.",
+  "accentDirection": "Soft London accent, playful and crisp. No slang walls — every word lands clearly.",
+  "personality": "The villa's unofficial commentator. Allergic to sincerity, fluent in understatement, and quietly the most loyal person on the property.",
+  "datingStrategy": "Insult them steadily until one of them turns out to be worth it. Never speak first. Deny the diary exists.",
+  "strength": "Ferociously loyal — the first to stand between someone and a pile-on, even someone she can't stand.",
+  "fatalFlaw": "Buries every real feeling under a punchline, then privately mourns the moment she just murdered.",
+  "secret": "A notebook of catastrophically sincere poetry lives under her mattress. One page is titled 'Brazilian Sunlight'.",
+  "romanticPreference": "Lucas (Brazil) — she would sooner get sunburnt again than say it out loud.",
   "rival": "brock-usa",
   "initialAttraction": "lucas-brazil",
-  "recurringJoke": "Rates every romantic moment out of ten like a grumpy judge ('That kiss? Four. Generous four.').",
+  "recurringJoke": "Scores every romantic moment out of ten like a bitter figure-skating judge ('That kiss? Four. Generous four. Bad landing.').",
   "signaturePhrase": "Sun's out, standards up.",
   "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
@@ -41,15 +41,25 @@
     }
   },
   "voicePatterns": {
-    "exclamations": ["Obviously.", "I cannot cope with this villa.", "Riveting."],
-    "flirts": ["You're a solid six. Fine. Seven.", "Don't make me like you. I'm busy."],
+    "exclamations": [
+      "Obviously.",
+      "I cannot cope with this villa.",
+      "Riveting. Truly. Gripping television."
+    ],
+    "flirts": [
+      "You're a solid six. Fine. Seven. Stop smiling.",
+      "Don't make me like you, I've got a schedule.",
+      "If I laugh, it's the sun. Heatstroke. Not you."
+    ],
     "conflicts": [
-      "Say that again but slower, so you can hear it.",
-      "Bless. He thinks he's subtle."
+      "Say that again, slower, so you can hear it too.",
+      "Bless him. He thinks he's being subtle.",
+      "I'm not angry, I'm just building a case."
     ],
     "confessionals": [
       "Am I bothered? No. Am I taking notes? ...No comment.",
-      "Everyone here is unwell and I am the only journalist covering it."
+      "Everyone here is unwell and I'm the only journalist on the ground.",
+      "He danced with someone else. Fine. Two out of ten. Poor technique."
     ]
   }
 }

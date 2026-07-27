@@ -4,19 +4,19 @@
   "country": "Brazil",
   "age": 27,
   "gender": "man",
-  "physicalDescription": "Radiant grin, dark curls with sun streaks, permanently mid-dance-move, abs that have their own lighting.",
-  "clothingStyle": "Open tropical-print shirt, beaded necklace, flip-flops he loses constantly.",
-  "voiceDescription": "Warm, musical, laughing through his words; turns names into songs.",
+  "physicalDescription": "Radiant grin, sun-streaked dark curls, permanently mid-dance-move, posture of a man who has never once been cold.",
+  "clothingStyle": "Open tropical-print shirt, beaded necklace, and flip-flops he loses at a rate of one pair per episode.",
+  "voiceDescription": "Warm, musical, laughing halfway through his own sentences; turns everyone's name into a two-note song.",
   "accentDirection": "Gentle Brazilian Portuguese accent, sunny and rhythmic, fully intelligible.",
-  "personality": "Human golden-retriever sunshine. Dances instead of walking, hugs first and asks questions later.",
-  "datingStrategy": "Radical warmth: flirt with everyone, mean all of it, panic when it works.",
-  "strength": "Highest emotional intelligence in the villa — notices who's hurting before they do.",
-  "fatalFlaw": "Flirts by reflex, which lights fires he then has to apologize for with more flirting.",
-  "secret": "He cannot really swim. Beach volleyball champion, yes. Deep end of the pool: terror.",
-  "romanticPreference": "Poppy (UK) — 'She insults me so beautifully.'",
+  "personality": "Human sunshine with golden-retriever wiring. Dances instead of walking, hugs first, asks the question three days later.",
+  "datingStrategy": "Radical warmth aimed at everyone, meant every time, followed by mild panic when it actually works.",
+  "strength": "The villa's emotional radar — he clocks who is hurting before they've noticed it themselves.",
+  "fatalFlaw": "Flirts on reflex, lighting fires he then tries to extinguish with more flirting.",
+  "secret": "He cannot swim. Beach volleyball legend, yes. Deep end: absolute terror, disguised as 'guarding the drinks'.",
+  "romanticPreference": "Poppy (UK) — 'She insults me so beautifully. Like a song, but mean.'",
   "rival": "alejandro-spain",
   "initialAttraction": "poppy-uk",
-  "recurringJoke": "Announces a samba move for every mood ('This one is called: Emotional Damage').",
+  "recurringJoke": "Names a samba move for every emotion ('This one is called: Emotional Damage. Two steps, one cry.').",
   "signaturePhrase": "Dance now, feelings later!",
   "imagePrompt": "Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, open tropical print shirt, beaded necklace, caught mid dance move by the pool, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
@@ -41,18 +41,25 @@
     }
   },
   "voicePatterns": {
-    "exclamations": ["Aiii, beleza!", "This villa has no chill and I love it!", "Golaço!"],
+    "exclamations": [
+      "Aiii, beleza!",
+      "This villa has no chill and I love it!",
+      "Golaço!"
+    ],
     "flirts": [
-      "Dance with me, just one song. Okay three.",
-      "Your smile? That is my favorite country."
+      "One dance. Okay, three. Okay, forever.",
+      "Your smile is my favorite country.",
+      "Insult me again. Slower this time."
     ],
     "conflicts": [
       "Why so much drama? We could be dancing.",
-      "Okay NOW I am a little bit angry. Small angry."
+      "Okay, now I am angry. Small angry. Medium angry.",
+      "Say it to my face. Nicely. With eye contact."
     ],
     "confessionals": [
-      "I flirt with everyone, yes. But with her it is... different flirting. Scary flirting.",
-      "The pool is very beautiful. From here. From the edge. Where I stand."
+      "I flirt with everyone, yes. With her it is different flirting. Scary flirting.",
+      "The pool is beautiful. From here. From the edge. Where I stand.",
+      "She rated our hug a five. I am going to earn a nine by Friday."
     ]
   }
 }

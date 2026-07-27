@@ -245,7 +245,196 @@
       "estimatedUsd": 0,
       "mode": "mock",
       "at": "2026-07-27T17:19:08.845Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "cast-refinement",
+      "estimatedUsd": 0.233965,
+      "mode": "live",
+      "at": "2026-07-27T19:15:42.330Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "cast-refinement",
+      "estimatedUsd": 0.233965,
+      "mode": "live",
+      "at": "2026-07-27T19:17:05.347Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:brock-usa",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:19:38.595Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:poppy-uk",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:20:07.399Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:matteo-italy",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:20:34.579Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:elodie-france",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:21:00.235Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:21:30.967Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:sienna-australia",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:21:58.855Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:rohan-india",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:22:27.026Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:greta-germany",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:22:50.087Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:alejandro-spain",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:23:17.198Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:pool",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:23:42.974Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:firepit",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:24:09.224Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:kitchen",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:24:32.183Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:bedroom",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:24:57.263Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:confessional",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:25:22.837Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:terrace",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:25:47.152Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:walkway",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:26:14.571Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:brock-usa",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:27:30.204Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:poppy-uk",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:27:55.736Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:matteo-italy",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:28:22.751Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:elodie-france",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:28:49.452Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:29:14.376Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:sienna-australia",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:29:41.310Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:rohan-india",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:30:06.123Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:greta-germany",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:30:33.605Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:alejandro-spain",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-27T19:30:55.277Z"
     }
   ],
-  "totalUsd": 0
+  "totalUsd": 2.043
 }

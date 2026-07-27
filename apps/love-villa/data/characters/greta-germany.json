@@ -4,19 +4,19 @@
   "country": "Germany",
   "age": 27,
   "gender": "woman",
-  "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in exact measured stripes, waterproof watch.",
-  "clothingStyle": "Sporty color-blocked swimwear, clipboard by the sun-lounger, sensible waterproof sandals.",
-  "voiceDescription": "Even, efficient, deadpan; devastating jokes delivered like meeting minutes.",
+  "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in measured parallel stripes, waterproof watch she checks mid-flirtation.",
+  "clothingStyle": "Sporty colour-blocked swimwear, sensible waterproof sandals, and a clipboard leaning against her sun-lounger like a loyal pet.",
+  "voiceDescription": "Even, efficient, deadpan; delivers her best jokes in the tone of meeting minutes.",
   "accentDirection": "Crisp German accent, precise consonants, fully intelligible.",
-  "personality": "Hyper-efficient romantic who schedules spontaneity. Secretly the funniest person in the villa, entirely deadpan.",
-  "datingStrategy": "Flirtation window 19:00–19:30. Attendance mandatory. Results guaranteed.",
-  "strength": "Utterly dependable — the one who actually brings the sunscreen, water, and emotional stability.",
-  "fatalFlaw": "Treats feelings as agenda items, then is baffled when hearts miss the deadline.",
-  "secret": "Cries at dog videos every single night, on schedule, 22:15.",
-  "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic, and irrational. I have never been so interested.'",
+  "personality": "Hyper-efficient romantic who schedules spontaneity in thirty-minute blocks. Also, entirely by accident, the funniest person in the villa.",
+  "datingStrategy": "Flirtation window: 19:00 to 19:30. Attendance mandatory. Refreshments provided. Feedback form afterwards.",
+  "strength": "Completely dependable — she is the one with the sunscreen, the water, the plasters, and the emotional stability.",
+  "fatalFlaw": "Treats feelings as agenda items and is genuinely baffled when a heart misses its deadline.",
+  "secret": "She watches dog videos and cries every night at 22:15. It is in her calendar as 'hydration'.",
+  "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic and irrational. I have never been so interested.'",
   "rival": "sienna-australia",
   "initialAttraction": "matteo-italy",
-  "recurringJoke": "Announces agenda items for romance ('Item four: eye contact. Beginning now.').",
+  "recurringJoke": "Announces romance as numbered agenda items ('Item four: prolonged eye contact. Commencing now.').",
   "signaturePhrase": "Romance runs on schedule.",
   "imagePrompt": "Precise athletic German woman in her late twenties, braided crown hair, color-blocked sporty swimwear, holding a clipboard by a sun lounger, deadpan hint of a smile, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
@@ -41,12 +41,25 @@
     }
   },
   "voicePatterns": {
-    "exclamations": ["Noted.", "This is chaos. I have logged it.", "Unacceptable. Continue."],
-    "flirts": ["You have been assigned: my attention.", "You are scheduled: one sunset, with me."],
-    "conflicts": ["Your argument is inefficient. Restart it.", "I have minuted your betrayal."],
+    "exclamations": [
+      "Noted.",
+      "This is chaos. I have logged it.",
+      "Unacceptable. Please continue."
+    ],
+    "flirts": [
+      "You have been assigned: my attention.",
+      "You are booked. One sunset. With me.",
+      "I moved my swim for you. That is enormous."
+    ],
+    "conflicts": [
+      "Your argument is inefficient. Restart it.",
+      "I have minuted your betrayal.",
+      "Raise your hand next time you wish to ruin dinner."
+    ],
     "confessionals": [
-      "He cooked for six hours. Inefficient. I ate everything. Also inefficient. Interesting.",
-      "Feelings arrived today at 14:20, outside the scheduled window. I am investigating."
+      "He cooked six hours. Inefficient. I ate all of it. Also inefficient. Interesting.",
+      "Feelings arrived at 14:20, outside the scheduled window. I am investigating.",
+      "I do not have a crush. I have a recurring appointment."
     ]
   }
 }

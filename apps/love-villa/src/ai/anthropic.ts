@@ -35,7 +35,7 @@ export interface GenerateOptions<T> {
   /** What is being generated — used for logs and the cost ledger. */
   item: string;
   prompt: string;
-  schema: z.ZodType<T, z.ZodTypeDef, unknown>;
+  schema: z.ZodType<T, unknown>;
   /** Deterministic fixture used when no ANTHROPIC_API_KEY is configured. */
   mock: () => T;
   tracker: CostTracker;

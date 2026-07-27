@@ -4,19 +4,19 @@
   "country": "France",
   "age": 25,
   "gender": "woman",
-  "physicalDescription": "Effortless dark bob, red lip at the pool for no reason, posture of someone permanently unimpressed.",
-  "clothingStyle": "Breton stripes, silk scarf even in the water, tiny sunglasses she looks over the top of.",
-  "voiceDescription": "Low, measured, faintly bored; compliments sound like verdicts.",
+  "physicalDescription": "Effortless dark bob, a red lip applied for a pool day nobody asked her to attend, posture of a woman waiting for the world to improve.",
+  "clothingStyle": "Breton stripes, a silk scarf she refuses to remove even in water, tiny sunglasses she looks over rather than through.",
+  "voiceDescription": "Low, measured, faintly bored; her compliments arrive with the weight of a verdict.",
   "accentDirection": "Light Parisian accent, elegant and crisp, fully intelligible.",
-  "personality": "Chic minimalist who rates everything out of ten and finds most of it a five. Kind underneath, catastrophically slow to show it.",
-  "datingStrategy": "Do absolutely nothing and let them ruin themselves trying to impress her.",
-  "strength": "Brutal honesty delivered with surgical fairness — people trust her verdicts.",
-  "fatalFlaw": "Pretends not to care so convincingly she talks herself out of things she wants.",
-  "secret": "Owns every cheesy American rom-com ever made and cries at all of them.",
-  "romanticPreference": "Undecided — 'They are all a five. One of them may become a seven.'",
+  "personality": "Chic minimalist who scores the entire world out of ten and finds most of it a five. Warm underneath, catastrophically slow to admit it.",
+  "datingStrategy": "Do absolutely nothing. Sit beautifully. Let them dismantle themselves attempting to impress her.",
+  "strength": "Brutal honesty applied with surgical fairness — even the people she wounds trust her judgment.",
+  "fatalFlaw": "Performs indifference so convincingly that she talks herself out of everything she actually wants.",
+  "secret": "She owns every cheesy American rom-com ever made and sobs at all of them, including the trailers.",
+  "romanticPreference": "Undecided — 'They are all a five. One of them is threatening to become a seven.'",
   "rival": "poppy-uk",
   "initialAttraction": "none",
-  "recurringJoke": "Rates everything out of ten, including sunsets, apologies, and declarations of love.",
+  "recurringJoke": "Scores everything out of ten: sunsets, apologies, declarations of love, other people's arguments.",
   "signaturePhrase": "C'est un non.",
   "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob, red lipstick, breton stripe top, silk scarf, tiny sunglasses, looking over them with cool judgment, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
@@ -41,12 +41,25 @@
     }
   },
   "voicePatterns": {
-    "exclamations": ["Non.", "Incroyable. And not in the good way.", "Five out of ten."],
-    "flirts": ["You are almost interesting.", "I did not hate that. Do not celebrate."],
-    "conflicts": ["You are shouting. It is très boring.", "I have rated this argument. Two."],
+    "exclamations": [
+      "Non.",
+      "Incroyable. And not in the good way.",
+      "Five out of ten. Be proud."
+    ],
+    "flirts": [
+      "You are almost interesting. Continue.",
+      "I did not hate that. Do not celebrate.",
+      "Sit closer. Not that close. There."
+    ],
+    "conflicts": [
+      "You are shouting. It is très boring.",
+      "I have rated this argument. Two.",
+      "I do not fight. I simply stop being impressed."
+    ],
     "confessionals": [
-      "Everyone asks who I like. Even I am not allowed to know.",
-      "He brought me a smoothie. It was... a six. This is concerning."
+      "Everyone asks who I like. Even I am not permitted to know.",
+      "He brought me a smoothie. It was a six. This is deeply concerning.",
+      "I cried at a film last night. If anyone asks, it was the onions. Matteo's onions."
     ]
   }
 }
