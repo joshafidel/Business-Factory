@@ -154,7 +154,7 @@ export function RenderPanel(props: {
               Preview is fast, half-resolution, and watermarked. Final renders{" "}
               {VIDEO_FORMATS[props.format].width}×{VIDEO_FORMATS[props.format].height}.{" "}
               {estimate > 0
-                ? `Estimated voice cost ≈ $${estimate.toFixed(3)} (re-used lines are free).`
+                ? `Estimated final-render cost ≈ $${estimate.toFixed(2)} (AI walkthrough motion + voice; previews are free, re-used voice lines are free).`
                 : "No paid APIs needed for this render."}
             </p>
             {warningsBlocking ? (

@@ -10,7 +10,7 @@ const log = createLogger("lvf-install");
  * module, agents, prompts, and render workflow without any manual step.
  * A version marker on the module manifest makes the happy path one query.
  */
-const INSTALL_VERSION = 3;
+const INSTALL_VERSION = 4;
 
 export async function ensureListingFactoryInstalled(organizationId: string): Promise<void> {
   // Legacy placeholder from the original roadmap seed → becomes this module.
@@ -339,12 +339,31 @@ async function ensureAgent(params: {
 }
 
 async function ensureRenderWorkflow(organizationId: string, moduleId: string): Promise<void> {
-  const steps: { key: string; name: string; type: "CODE_FUNCTION" | "NOTIFICATION"; config: Prisma.InputJsonValue }[] = [
+  const steps: {
+    key: string;
+    name: string;
+    type: "CODE_FUNCTION" | "NOTIFICATION" | "CONDITION" | "DELAY";
+    config: Prisma.InputJsonValue;
+  }[] = [
     {
       key: "prepare",
-      name: "Generate voice-over & prepare assets",
+      name: "Voice-over & AI walkthrough motion",
       type: "CODE_FUNCTION",
       config: { functionKey: "listing_factory_prepare", args: {} },
+    },
+    {
+      // AI motion jobs need ~3-4 minutes; skip the wait entirely when none
+      // were submitted (deterministic-only renders stay fast).
+      key: "branch",
+      name: "Animation submitted?",
+      type: "CONDITION",
+      config: { path: "$.steps.prepare.hasAnimation", op: "eq", value: true, elseGoTo: "assemble" },
+    },
+    {
+      key: "wait",
+      name: "Let the motion clips render",
+      type: "DELAY",
+      config: { delayMs: 60_000 },
     },
     {
       key: "assemble",
@@ -424,6 +443,6 @@ async function ensureRenderWorkflow(organizationId: string, moduleId: string): P
   }
   await prisma.workflow.update({
     where: { id: wf!.id },
-    data: { activeVersionId: version.id },
+    data: { activeVersionId: version.id, costLimitMicroUsd: LIMITS.maxRenderCostMicroUsd },
   });
 }

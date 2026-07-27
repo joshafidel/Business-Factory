@@ -125,15 +125,23 @@ export async function generateSocialPackage(params: {
 }
 
 /** Micro-USD estimate shown before starting a render. */
-export function estimateRenderCostMicroUsd(script: ListingScript, voiceover: boolean): bigint {
-  if (!voiceover) return 0n;
-  const providers = getMediaProviders();
-  if (!providers.real) return 0n; // mock voice is free
-  const chars = [script.hook, ...script.scenes.map((s) => s.narration), script.outro, script.cta]
-    .join(" ")
-    .length;
-  // gpt-4o-mini-tts ≈ $12 per 1M input characters.
-  return BigInt(Math.ceil(chars * 12));
+export function estimateRenderCostMicroUsd(
+  script: ListingScript,
+  voiceover: boolean,
+  aiMotionScenes = 0,
+): bigint {
+  let total = 550_000n * BigInt(Math.max(0, aiMotionScenes)); // Higgsfield ≈ $0.55/clip
+  if (voiceover) {
+    const providers = getMediaProviders();
+    if (providers.real) {
+      const chars = [script.hook, ...script.scenes.map((s) => s.narration), script.outro, script.cta]
+        .join(" ")
+        .length;
+      // gpt-4o-mini-tts ≈ $12 per 1M input characters.
+      total += BigInt(Math.ceil(chars * 12));
+    }
+  }
+  return total;
 }
 
 /**

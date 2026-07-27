@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@bf/database";
+import { higgsfieldConfigured, picsartConfigured } from "@bf/providers";
 import { can } from "@bf/shared";
 import {
+  LIMITS,
   estimateRenderCostMicroUsd,
   getTemplate,
   listingOptionsSchema,
@@ -69,8 +71,13 @@ export default async function ListingProjectPage({
     packagesByRender.set(meta.renderId, entry);
   }
 
+  const includedPhotos = project.photos.filter((p) => !p.isExcluded);
+  const aiMotionScenes =
+    options.aiMotion && (higgsfieldConfigured() || picsartConfigured())
+      ? Math.min(includedPhotos.length, LIMITS.maxAiMotionScenes)
+      : 0;
   const estimate = script
-    ? estimateRenderCostMicroUsd(script, options.voiceover && template.voiceover)
+    ? estimateRenderCostMicroUsd(script, options.voiceover && template.voiceover, aiMotionScenes)
     : 0n;
 
   return (

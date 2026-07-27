@@ -1,6 +1,11 @@
 import { prisma, type Prisma } from "@bf/database";
 import { can } from "@bf/shared";
-import { listingOptionsSchema, listingPropertySchema, trackEvent } from "@bf/workflows";
+import {
+  ensureListingFactoryInstalled,
+  listingOptionsSchema,
+  listingPropertySchema,
+  trackEvent,
+} from "@bf/workflows";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { checkRateLimit } from "@/lib/rate-limit";
@@ -40,6 +45,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       { status: 400 },
     );
   }
+  // API-first orgs may never have loaded the dashboard page — make sure the
+  // module, agents, and render workflow exist before the first project.
+  await ensureListingFactoryInstalled(ctx.organizationId);
   const property = listingPropertySchema.parse(body.property);
   const project = await prisma.listingProject.create({
     data: {

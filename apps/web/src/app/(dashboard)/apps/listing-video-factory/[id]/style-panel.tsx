@@ -14,6 +14,7 @@ const TOGGLES: { key: keyof ListingOptions; label: string }[] = [
   { key: "voiceover", label: "Voice-over" },
   { key: "captions", label: "Captions" },
   { key: "music", label: "Music" },
+  { key: "aiMotion", label: "AI walkthrough motion (final, ~$0.55/scene)" },
   { key: "showPrice", label: "Show price" },
   { key: "showAddress", label: "Show address" },
   { key: "agentOutro", label: "Agent outro card" },
