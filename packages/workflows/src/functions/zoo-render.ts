@@ -1,13 +1,5 @@
 import { execFileSync } from "node:child_process";
-import {
-  chmodSync,
-  existsSync,
-  mkdtempSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { recordCost } from "@bf/agents";
@@ -24,6 +16,7 @@ import {
 import { getStorage } from "@bf/storage";
 import { castLooks, createLogger, PlatformError, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
+import { mp3DurationSeconds, pcmToWav, resolveFfmpeg } from "./media-utils";
 
 const log = createLogger("zoo-render");
 
@@ -451,56 +444,6 @@ async function saveVideoAsset(
   return asset.id;
 }
 
-/** Read MP3 duration; falls back to a speech-rate estimate on parse failure. */
-async function mp3DurationSeconds(data: Buffer, chars: number): Promise<number> {
-  try {
-    const { parseBuffer } = await import("music-metadata");
-    const meta = await parseBuffer(new Uint8Array(data), { mimeType: "audio/mpeg" });
-    if (meta.format.duration && meta.format.duration > 1) return meta.format.duration;
-  } catch (err) {
-    log.warn({ err }, "mp3 duration parse failed; estimating");
-  }
-  return Math.max(10, chars / 15); // ~15 chars/second of narration
-}
-
-/**
- * Locate the ffmpeg binary without importing @ffmpeg-installer/ffmpeg —
- * its index.js throws at import time when bundled, so we resolve the traced
- * platform binary from the filesystem (pnpm store layouts, local + Vercel).
- */
-function resolveFfmpeg(): string {
-  if (process.env.FFMPEG_PATH && existsSync(process.env.FFMPEG_PATH)) {
-    return process.env.FFMPEG_PATH;
-  }
-  const suffix = "node_modules/ffmpeg-static/ffmpeg";
-  const roots = [process.cwd(), path.join(process.cwd(), "../.."), "/var/task"];
-  const candidates: string[] = [];
-  for (const root of roots) {
-    candidates.push(path.join(root, suffix));
-    const pnpmDir = path.join(root, "node_modules/.pnpm");
-    try {
-      for (const entry of readdirSync(pnpmDir)) {
-        if (entry.startsWith("ffmpeg-static@")) {
-          candidates.push(path.join(pnpmDir, entry, suffix));
-        }
-      }
-    } catch {
-      // root has no pnpm store — skip
-    }
-  }
-  for (const candidate of candidates) {
-    if (existsSync(candidate)) {
-      try {
-        chmodSync(candidate, 0o755);
-      } catch {
-        // already executable
-      }
-      return candidate;
-    }
-  }
-  throw new Error(`ffmpeg binary not found; searched ${candidates.length} locations`);
-}
-
 /**
  * Nursery-rhyme assembly. Animated scenes use their Higgsfield clip (scaled
  * and cropped to 1080x1920, gently time-stretched to the scene length);
@@ -660,20 +603,5 @@ function synthMusicBoxWav(seconds: number): Buffer {
       0.5;
     pcm[s2] = Math.max(-32768, Math.min(32767, Math.round(sample * 32767)));
   }
-  const dataSize = pcm.length * 2;
-  const header = Buffer.alloc(44);
-  header.write("RIFF", 0);
-  header.writeUInt32LE(36 + dataSize, 4);
-  header.write("WAVE", 8);
-  header.write("fmt ", 12);
-  header.writeUInt32LE(16, 16);
-  header.writeUInt16LE(1, 20); // PCM
-  header.writeUInt16LE(1, 22); // mono
-  header.writeUInt32LE(rate, 24);
-  header.writeUInt32LE(rate * 2, 28);
-  header.writeUInt16LE(2, 32);
-  header.writeUInt16LE(16, 34);
-  header.write("data", 36);
-  header.writeUInt32LE(dataSize, 40);
-  return Buffer.concat([header, Buffer.from(pcm.buffer)]);
+  return pcmToWav(pcm, rate);
 }

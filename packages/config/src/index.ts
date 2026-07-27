@@ -85,6 +85,11 @@ const envSchema = z.object({
   ELEVENLABS_API_KEY: z.string().optional(),
   ELEVENLABS_VOICE_ID: z.string().optional(),
 
+  // Picsart (Listing Video Factory, optional): image enhancement and
+  // conservative AI image-to-video motion. Absent key = deterministic
+  // motion only; nothing breaks.
+  PICSART_API_KEY: z.string().optional(),
+
   STORAGE_DRIVER: z.enum(["local", "s3", "db"]).default("local"),
   STORAGE_LOCAL_ROOT: z.string().default(".data/storage"),
   S3_ENDPOINT: z.string().optional(),

@@ -12,7 +12,7 @@ const APP_EMOJI: Record<string, string> = {
   "dating-parody": "💘",
   "amazon-reviews": "📦",
   "smb-websites": "🌐",
-  "realestate-videos": "🏠",
+  "listing-video-factory": "🎬",
 };
 
 /**

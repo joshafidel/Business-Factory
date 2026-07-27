@@ -103,6 +103,8 @@ export const publishConfigSchema = z.object({
   /** Publish target key; every target requires approval upstream. */
   target: z.string(),
   payloadPath: z.string().default("$"),
+  /** COPPA flag for YouTube uploads — set true only for children's content. */
+  madeForKids: z.boolean().default(false),
 });
 
 export const STEP_CONFIG_SCHEMAS = {

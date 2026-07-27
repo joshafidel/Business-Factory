@@ -190,7 +190,7 @@ export async function executePublish(
         note: "This video was rendered with the placeholder provider. Connect real media generation before publishing to YouTube.",
       };
     }
-    const metadata = readPath(ctx.context, "$.steps.metadata") as {
+    const metadata = readPath(ctx.context, config.payloadPath) as {
       title?: string;
       description?: string;
       tags?: string[];
@@ -201,7 +201,7 @@ export async function executePublish(
       title: metadata?.title ?? videoAsset.name,
       description: metadata?.description ?? "",
       tags: metadata?.tags ?? [],
-      madeForKids: true,
+      madeForKids: config.madeForKids,
       videoData: data,
       mimeType: videoAsset.mimeType,
       privacyStatus: "private",
