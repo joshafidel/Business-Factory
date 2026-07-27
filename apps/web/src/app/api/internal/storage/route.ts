@@ -150,6 +150,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     );
     for (const blob of keys) {
       if (referenced.has(blob.key)) continue;
+      // Zoo pipeline resume caches are intentionally asset-less and are
+      // cleaned up by their own runs — pruning them mid-run destroys the
+      // resumable-encode progress and strands the run.
+      if (blob.key.includes("/scene-render-")) continue;
       await prisma.storageBlob.delete({ where: { key: blob.key } }).catch(() => undefined);
       freedBytes += blob.sizeBytes;
       deleted += 1;
