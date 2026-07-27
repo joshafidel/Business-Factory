@@ -22,7 +22,7 @@ import {
   HIGGSFIELD_CLIP_COST_MICRO_USD,
 } from "@bf/providers";
 import { getStorage } from "@bf/storage";
-import { castLooks, createLogger, signAssetToken } from "@bf/shared";
+import { castLooks, createLogger, PlatformError, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
 
 const log = createLogger("zoo-render");
@@ -331,6 +331,24 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       }
     }
     log.info({ animated: clips.size, total: imageBuffers.length }, "higgsfield clips ready");
+
+    // Generation sometimes outlasts this attempt's polling window. The jobs
+    // are already paid for and still rendering server-side, so rather than
+    // shipping a stills-only video, fail retryable: the engine re-runs this
+    // step (fresh invocation, fresh polling budget) and the retry finds the
+    // clips finished. The final attempt ships whatever is ready.
+    if (clips.size < animationJobs.length) {
+      const attempt = await prisma.stepRun.count({
+        where: { workflowRunId, stepKey: "assemble" },
+      });
+      if (attempt <= 2) {
+        throw new PlatformError(
+          "PROVIDER_ERROR",
+          `Only ${clips.size}/${animationJobs.length} animation clips ready; retrying to collect the rest`,
+          { retryable: true },
+        );
+      }
+    }
   }
 
   // Songs are a complete soundtrack; the synth music-box bed is only for
