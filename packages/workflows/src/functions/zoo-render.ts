@@ -197,13 +197,33 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
 
   // Submit Higgsfield image-to-video jobs (the next step polls + assembles).
   // Requires a public base URL so their fetcher can download the images.
+  //
+  // The account allows only 4 concurrent generations — submitting more
+  // bounces with a 400 and stacks nothing. So animate the 4 highest-impact
+  // scenes (opening hook, choruses, finale) and let the rest use Ken Burns;
+  // it also halves the per-video animation cost.
+  const MAX_ANIMATED_SCENES = 4;
   const animationJobs: { sceneIndex: number; jobSetId: string }[] = [];
+  let submissionsFailed = 0;
   const base = publicBaseUrl();
   if (providers.real && higgsfieldConfigured() && base && imageAssetIds.length > 0) {
+    const priority: number[] = [];
+    const addIdx = (i: number): void => {
+      if (i >= 0 && i < imageAssetIds.length && !priority.includes(i)) priority.push(i);
+    };
+    addIdx(0);
+    scenes.forEach((s, i) => {
+      if (s?.type === "chorus") addIdx(i);
+    });
+    addIdx(imageAssetIds.length - 1);
+    scenes.forEach((_, i) => addIdx(i));
+    const toAnimate = priority.slice(0, MAX_ANIMATED_SCENES);
+
     const env = loadEnv();
     const exp = Math.floor(Date.now() / 1000) + 2 * 60 * 60;
     const submissions = await Promise.allSettled(
-      imageAssetIds.map(async (assetId, i) => {
+      toAnimate.map(async (i) => {
+        const assetId = imageAssetIds[i] as string;
         const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, assetId, exp);
         const imageUrl = `${base}/api/assets/public?id=${assetId}&exp=${exp}&sig=${sig}`;
         const motion = (scenes[i]?.visual ?? "a happy baby zoo animal").slice(0, 300);
@@ -220,10 +240,13 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     );
     for (const s of submissions) {
       if (s.status === "fulfilled") animationJobs.push(s.value);
-      else log.warn({ err: s.reason }, "higgsfield submission failed; scene will use Ken Burns");
+      else {
+        submissionsFailed++;
+        log.warn({ err: s.reason }, "higgsfield submission failed; scene will use Ken Burns");
+      }
     }
     log.info(
-      { submitted: animationJobs.length, scenes: imageAssetIds.length },
+      { submitted: animationJobs.length, failed: submissionsFailed, scenes: imageAssetIds.length },
       "higgsfield jobs submitted",
     );
   }
@@ -246,6 +269,7 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     audioKind,
     audioSeconds,
     animationJobs,
+    submissionsFailed,
     assetIds,
     sceneCount: scenes.length,
     isReal: providers.real && imageAssetIds.length > 0,
