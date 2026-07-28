@@ -1,69 +1,36 @@
-# Session registry & coordination protocol
+# Active workstreams ledger
 
-Several Claude sessions build this repo **at the same time** on separate
-branches, sharing one production deployment. This file is the contract that
-lets them piggyback off each other instead of competing. Every session must
-read it before touching code, and update it when it claims new territory.
+One row per Claude session/workstream. **Add your row when you start; update Status when you
+land or stop.** Keep rows append-only (edit only your own row) — this file is how simultaneous
+sessions avoid stepping on each other. See CLAUDE.md for the full collaboration protocol.
 
-## Registry
+| Workstream                                                                            | Branch                               | Owns (paths)                                                                                                          | Status                                                            |
+| ------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Love Villa: Nations (AI TikTok show: pipeline, dashboard app page, TikTok publishing) | `claude/ai-video-tiktok-app-2e3voe`  | `apps/love-villa/**`, `apps/web/**/love-villa*`, `apps/web/public/love-villa/**`, `packages/shared/src/love-villa.ts` | Active — episode 1 shipped (narrator format); episodes 2+ pending |
+| Zoo Shorts / kids-shorts (platform's first business)                                  | (various, pre-dates ledger)          | `packages/workflows/src/functions/zoo-*`, kids-shorts dashboard surfaces, `packages/shared/src/zoo-cast.ts`           | Active                                                            |
+| Listing factory (real-estate videos)                                                  | (see recent merges on deploy branch) | `packages/workflows/src/listing-factory/**`                                                                           | Active                                                            |
+| Mobile & shared UI (responsive shell, branding/icons, video download UX)              | `claude/factory-mobile-redesign-kkq0qa` | `apps/web/src/components/dashboard-shell.tsx` + `logo.tsx` + `media-actions.tsx` + `asset-preview.tsx`, `(dashboard)/layout.tsx`, app icons/manifest, `scripts/sync-sessions.mjs` | Active — mobile shell, PWA branding, video downloads shipped |
 
-| Session | Branch | Owns (exclusive write access) |
-| --- | --- | --- |
-| Platform + Zoo Shorts | `claude/ai-business-factory-platform-12estn` | `packages/workflows/src/functions/zoo-render.ts`, zoo pipeline workflow defs, platform plumbing |
-| Love Villa | `claude/ai-video-tiktok-app-2e3voe` | `apps/love-villa/**`, `apps/web/public/love-villa/**` |
-| Listing Video Factory | `claude/ai-business-factory-real-estate-3gkuep` | `packages/workflows/src/listing-factory/**`, `apps/web/src/app/(dashboard)/apps/listing-video-factory/**`, `apps/web/src/app/api/listing-factory/**` |
-| Mobile & shared UI | `claude/factory-mobile-redesign-kkq0qa` | `apps/web/src/components/dashboard-shell.tsx`, `logo.tsx`, `media-actions.tsx`, `asset-preview.tsx`, app icons/manifest, `(dashboard)/layout.tsx` |
+Shared surfaces (seed, prisma schema, dashboard home page, shared UI): additive-only edits per
+CLAUDE.md — no single owner.
 
-Everything not listed is **shared surface**: change it additively, never
-rewrite it out from under a sibling. New sessions: add a row here (via your
-own branch) before claiming files.
+## Converging with siblings (the one-command habit)
 
-## The protocol (all sessions)
+```
+node scripts/sync-sessions.mjs             # start of session: merge every sibling claude/* tip into HEAD
+node scripts/sync-sessions.mjs --check     # pre-push/deploy gate: exit 1 if behind any sibling
+node scripts/sync-sessions.mjs --push-back # optional: fast-forward siblings to the merged head
+```
 
-1. **Start of every work session**
-   `node scripts/sync-sessions.mjs` — merges every sibling `claude/*`
-   branch into yours. You now build on everyone's latest work.
+Landing on the deploy branch itself is `scripts/sync-deploy.mjs` / deploying is
+`scripts/vercel-redeploy.mjs` (see CLAUDE.md).
 
-2. **Before every push that can reach production**
-   Run the sync again (siblings may have pushed while you worked). The
-   shared Vercel project deploys whole branches — a push that lacks a
-   sibling's latest work silently reverts their production fixes.
-   `node scripts/sync-sessions.mjs --check` exits non-zero if you're behind
-   (useful as a pre-deploy gate).
+**Merge conflicts resolve by ownership, not preference:**
 
-3. **After merging, optionally share history back**
-   `node scripts/sync-sessions.mjs --push-back` fast-forwards each sibling
-   branch to the merged head so everyone's next sync is trivial. Skip it if
-   your branch carries risky work-in-progress you don't want deployed by a
-   sibling yet.
+- file owned by the other session → take **their** side, then re-apply your intent additively;
+- file owned by you → keep **yours**, but read their diff and fold in what they were doing;
+- shared file → keep **both** (shared-surface edits are additive by rule);
+- generated/artifact file → regenerate or delete, never hand-merge.
 
-4. **Merge conflicts** are resolved by ownership, not by preference:
-   - file owned by the other session → take **their** side, then re-apply
-     your intent additively;
-   - file owned by you → keep **yours**, but read their diff and fold in
-     what they were trying to achieve;
-   - shared file → keep **both** changes (these should be additive by rule).
-
-5. **Never** edit another session's owned paths directly — ask via a TODO
-   comment or an addition in a shared file instead. Exception: mechanical,
-   behavior-preserving fixes needed to keep the build green (typecheck/lint),
-   kept as small as possible.
-
-## Shared-surface rules (unchanged from CLAUDE.md, restated)
-
-- `packages/shared`, `packages/config`, `packages/database` are
-  append-friendly: add exports/models, don't rewrite or remove.
-- Database migrations & seeds are shared; seeds must stay idempotent;
-  always go through `scripts/deploy-db.mjs` (advisory-lock buster).
-- Never delete `scene-render-` blobs (Zoo resumable-encode progress).
-- `AUTH_DISABLED=1` must keep working (middleware + `getOrgContext`).
-- Cost limits: $15/day, $100/month hard stops.
-- The mobile shell (`dashboard-shell.tsx`) wraps every dashboard page —
-  test your pages at 390 px width; don't reintroduce fixed-width layouts.
-
-## Why merge-based (not rebase)
-
-Merges keep every session's commits intact so `--is-ancestor` checks work
-and no session ever force-pushes over another's history. Never rebase or
-force-push a shared `claude/*` branch (`--force-with-lease` included),
-except the documented restart-after-PR-merge case.
+Never rebase or force-push a shared `claude/*` branch — merges keep every session's history
+intact so ancestor checks (and each other's in-flight work) survive.

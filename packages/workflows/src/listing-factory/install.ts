@@ -1,6 +1,12 @@
 import { prisma, type Prisma } from "@bf/database";
 import { createLogger } from "@bf/shared";
-import { LIMITS, MODULE_KEY, RENDER_WORKFLOW_KEY, SCRIPT_AGENT_KEY, SOCIAL_AGENT_KEY } from "./types";
+import {
+  LIMITS,
+  MODULE_KEY,
+  RENDER_WORKFLOW_KEY,
+  SCRIPT_AGENT_KEY,
+  SOCIAL_AGENT_KEY,
+} from "./types";
 
 const log = createLogger("lvf-install");
 
@@ -26,7 +32,10 @@ export async function ensureListingFactoryInstalled(organizationId: string): Pro
   if (existing?.status === "INSTALLED" && manifest?.installedVersion === INSTALL_VERSION) {
     return;
   }
-  log.info({ organizationId, from: manifest?.installedVersion }, "installing listing video factory");
+  log.info(
+    { organizationId, from: manifest?.installedVersion },
+    "installing listing video factory",
+  );
 
   const moduleManifest = {
     key: MODULE_KEY,

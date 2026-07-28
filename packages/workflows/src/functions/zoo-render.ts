@@ -6,16 +6,17 @@ import { recordCost } from "@bf/agents";
 import { loadEnv } from "@bf/config";
 import { prisma, type Prisma } from "@bf/database";
 import {
-  awaitJobSets,
-  downloadClip,
   getMediaProviders,
-  higgsfieldConfigured,
-  submitImageToVideo,
-  HIGGSFIELD_CLIP_COST_MICRO_USD,
+  getMotionProvider,
+  awaitMotionJobs,
+  withMotionGuardrails,
+  type MediaResult,
 } from "@bf/providers";
 import { getStorage } from "@bf/storage";
 import { castLooks, createLogger, PlatformError, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
+import { analyzeBeats, beatAlignedDurations } from "./beat-map";
+import { ensureCastRefs, refsFor, type CastRefs } from "./zoo-cast-refs";
 import { mp3DurationSeconds, pcmToWav, publicBaseUrl, resolveFfmpeg } from "./media-utils";
 
 const log = createLogger("zoo-render");
@@ -37,9 +38,6 @@ const log = createLogger("zoo-render");
  * flagged placeholder (never uploaded).
  */
 
-/** Nominal Higgsfield clip length (dop-lite produces ~5.3-5.4s). */
-const HF_CLIP_SECONDS = 5.3;
-
 interface ZooScene {
   /** Sung lyric lines for this scene (song episodes). */
   lyrics?: string;
@@ -50,6 +48,40 @@ interface ZooScene {
   characters?: string[];
   /** "verse" | "chorus" — used to structure the song. */
   type?: string;
+  /** Choreography (Animation 2.0): one clear action per scene. */
+  action?: {
+    /** Small windup before the action ("Ellie crouches slightly"). */
+    anticipation?: string;
+    /** The main readable action ("she jumps into the puddle with a splash"). */
+    main?: string;
+    /** Follow-through / settle ("she giggles and wiggles her ears"). */
+    settle?: string;
+    /** What the characters look at ("each other", "the red bucket"). */
+    gaze?: string;
+  };
+}
+
+/** Compile a scene's choreography into a motion prompt for the i2v model. */
+function motionPrompt(scene: ZooScene | undefined): string {
+  const a = scene?.action;
+  if (a?.main) {
+    const parts = [
+      a.anticipation ? `First ${a.anticipation}.` : "",
+      `Then ${a.main}.`,
+      a.settle ? `Finally ${a.settle}.` : "",
+      a.gaze ? `The characters look at ${a.gaze}.` : "",
+    ].filter(Boolean);
+    return withMotionGuardrails(
+      `Toddler-cartoon animation, slow clear movements with gentle anticipation and settle: ${parts.join(" ")} ` +
+        "Soft secondary motion (ears, tails). Slow smooth cinematic camera.",
+    );
+  }
+  const motion = (scene?.visual ?? "a happy baby zoo animal").slice(0, 300);
+  return withMotionGuardrails(
+    `Gentle toddler-cartoon animation: ${motion}. The cute baby animals move softly and ` +
+      "expressively — they blink, bounce to the music, wiggle ears, smile at each other. " +
+      "Slow smooth cinematic camera, subtle motion.",
+  );
 }
 
 registerCodeFunction("render_zoo_short", async (args, context) => {
@@ -96,9 +128,24 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     return asset.id;
   };
 
-  // Scene images — parallel; serverless wall-clock matters. Injecting each
-  // character's verbatim look-line keeps the recurring cast visually
-  // consistent across scenes and episodes (the heart of a kids' "show").
+  // Canonical character references (Animation 2.0): generated once, stored
+  // versioned, and used to CONDITION every scene still via image edits so
+  // the cast stays pixel-consistent across shots and episodes.
+  let castRefs: CastRefs | null = null;
+  const imageWithEdit = providers.image as typeof providers.image & {
+    editImage?: (p: { prompt: string; references: Buffer[] }) => Promise<MediaResult>;
+  };
+  if (providers.real && typeof imageWithEdit.editImage === "function") {
+    try {
+      castRefs = await ensureCastRefs(organizationId, storage, providers.image);
+      totalCost += castRefs.costMicroUsd;
+    } catch (err) {
+      log.warn({ err }, "cast reference generation failed; falling back to text-only stills");
+    }
+  }
+
+  // Scene images — parallel; serverless wall-clock matters. Reference-
+  // conditioned edits when available; verbatim look-lines as belt & braces.
   const style =
     "Soft rounded shapes, pastel rainbow colors, glossy 3D toddler-animation style like modern " +
     "nursery rhyme cartoons, huge sparkly eyes, soft cinematic lighting, cheerful sunny zoo " +
@@ -108,9 +155,18 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
       const looks = castLooks(scene?.characters ?? []);
       const castLine =
         looks.length > 0 ? ` Characters (keep these exact designs): ${looks.join("; ")}.` : "";
-      return providers.image
-        .generateImage({ prompt: `${scene?.visual ?? "happy zoo animal"}.${castLine} ${style}` })
-        .then((r) => ({ i, r }));
+      const prompt = `${scene?.visual ?? "happy zoo animal"}.${castLine} ${style}`;
+      const refs = castRefs ? refsFor(castRefs, scene?.characters ?? []) : [];
+      const gen =
+        refs.length > 0 && imageWithEdit.editImage
+          ? imageWithEdit.editImage({
+              prompt:
+                `Compose this scene using the EXACT characters from the reference images — ` +
+                `identical designs, colors and proportions: ${prompt}`,
+              references: refs,
+            })
+          : providers.image.generateImage({ prompt });
+      return gen.then((r) => ({ i, r }));
     }),
   );
   const imageAssetIds: string[] = [];
@@ -190,7 +246,8 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
   const animationJobs: { sceneIndex: number; jobSetId: string }[] = [];
   let submissionsFailed = 0;
   const base = publicBaseUrl();
-  if (providers.real && higgsfieldConfigured() && base && imageAssetIds.length > 0) {
+  const motion = getMotionProvider();
+  if (providers.real && motion && base && imageAssetIds.length > 0) {
     const priority: number[] = [];
     const addIdx = (i: number): void => {
       if (i >= 0 && i < imageAssetIds.length && !priority.includes(i)) priority.push(i);
@@ -210,14 +267,9 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
         const assetId = imageAssetIds[i] as string;
         const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, assetId, exp);
         const imageUrl = `${base}/api/assets/public?id=${assetId}&exp=${exp}&sig=${sig}`;
-        const motion = (scenes[i]?.visual ?? "a happy baby zoo animal").slice(0, 300);
-        const jobSetId = await submitImageToVideo({
+        const jobSetId = await motion.submit({
           imageUrl,
-          prompt:
-            `Gentle toddler-cartoon animation: ${motion}. The cute baby animals move softly and ` +
-            "expressively — they blink, bounce to the music, wiggle ears, smile at each other. " +
-            "Slow smooth cinematic camera, subtle motion, keep the exact 3D nursery-rhyme art " +
-            "style of the image. No text.",
+          prompt: motionPrompt(scenes[i]),
         });
         return { sceneIndex: i, jobSetId };
       }),
@@ -230,8 +282,13 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
       }
     }
     log.info(
-      { submitted: animationJobs.length, failed: submissionsFailed, scenes: imageAssetIds.length },
-      "higgsfield jobs submitted",
+      {
+        provider: motion.key,
+        submitted: animationJobs.length,
+        failed: submissionsFailed,
+        scenes: imageAssetIds.length,
+      },
+      "motion jobs submitted",
     );
   }
 
@@ -253,6 +310,7 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     audioKind,
     audioSeconds,
     animationJobs,
+    motionProvider: motion?.key ?? null,
     submissionsFailed,
     assetIds,
     sceneCount: scenes.length,
@@ -307,29 +365,45 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       ? render.audioSeconds
       : await mp3DurationSeconds(audioBuffer, 600);
 
+  // Musical cut timing (Animation 2.0): analyze the song's beat grid and
+  // size scenes so every cut lands on a beat. Deterministic per run (the
+  // audio is fixed), so the resumable scene cache stays valid across
+  // attempts. "-v3" invalidates uniform-slot cache entries.
+  const totalSeconds = audioSeconds + 1.2;
+  const beatMap = analyzeBeats(audioBuffer);
+  const sceneDurations = beatAlignedDurations(totalSeconds, imageAssetIds.length, beatMap);
+  log.info(
+    {
+      bpm: beatMap.bpm,
+      confidence: beatMap.confidence,
+      durations: sceneDurations.map((d) => Number(d.toFixed(2))),
+    },
+    "beat-aligned scene durations",
+  );
+
   // Probe the per-scene render cache (existence only — bytes are fetched
   // lazily at stitch time so probing costs nothing): scenes already rendered
-  // by a previous attempt need neither their Higgsfield clip nor a
-  // re-encode, so polling and downloads are skipped for them entirely.
-  // "-v2" invalidates pre-fade cache entries.
-  const sceneCachePrefix = `${organizationId}/${workflowRunId}/scene-render-v2-`;
+  // by a previous attempt need neither their motion clip nor a re-encode,
+  // so polling and downloads are skipped for them entirely.
+  const sceneCachePrefix = `${organizationId}/${workflowRunId}/scene-render-v3-`;
   const cachedScenes = new Set<number>();
   for (let i = 0; i < imageAssetIds.length; i++) {
     if (await storage.exists(`${sceneCachePrefix}${i}.mp4`)) cachedScenes.add(i);
   }
 
-  // Wait for Higgsfield clips — bounded so this invocation stays inside its
+  // Wait for motion clips — bounded so this invocation stays inside its
   // serverless limit. Scenes whose clip isn't ready fall back to Ken Burns.
+  const motion = getMotionProvider();
   const clips = new Map<number, Buffer>();
   let clipCost = 0n;
-  if (animationJobs.length > 0) {
+  if (animationJobs.length > 0 && motion) {
     // 150s polling cap keeps poll + download + ffmpeg safely inside the
-    // 300s invocation limit (attempt 1 previously timed out at 205s). Jobs
-    // were submitted ~65s ago (render end + the 60s DELAY step), so this
-    // still covers dop-lite's observed 180-216s generation time.
+    // 300s invocation limit. Jobs were submitted before the DELAY step, so
+    // this usually covers the provider's happy-path generation time.
     const deadline = Date.now() + 150_000;
     const jobsNeeded = animationJobs.filter((j) => !cachedScenes.has(j.sceneIndex));
-    const results = await awaitJobSets(
+    const results = await awaitMotionJobs(
+      motion,
       jobsNeeded.map((j) => j.jobSetId),
       deadline,
     );
@@ -339,28 +413,31 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
         if (r?.status !== "completed" || !r.videoUrl) {
           throw new Error(`clip not ready (${r?.status ?? "missing"})`);
         }
-        return { sceneIndex: job.sceneIndex, data: await downloadClip(r.videoUrl) };
+        return { sceneIndex: job.sceneIndex, data: await motion.download(r.videoUrl) };
       }),
     );
     for (const d of downloads) {
       if (d.status === "fulfilled") {
         clips.set(d.value.sceneIndex, d.value.data);
-        clipCost += HIGGSFIELD_CLIP_COST_MICRO_USD;
+        clipCost += motion.clipCostMicroUsd;
       } else {
         log.warn({ err: d.reason }, "scene falls back to Ken Burns");
       }
     }
-    log.info({ animated: clips.size, total: imageBuffers.length }, "higgsfield clips ready");
+    log.info(
+      { provider: motion.key, animated: clips.size, total: imageBuffers.length },
+      "motion clips ready",
+    );
 
-    // Generation regularly outlasts one polling window: Higgsfield caps
-    // per-account concurrency, so 8 jobs serialize into batches (~3.5min
-    // each). The jobs are already paid for and still rendering server-side,
-    // so rather than shipping a stills-only video, fail retryable while any
-    // job is genuinely still pending — each retry is a fresh invocation with
-    // a fresh polling budget. Jobs that terminally failed (nsfw/canceled)
-    // don't count as pending; the final attempt ships whatever is ready.
+    // Generation regularly outlasts one polling window: providers cap
+    // per-account concurrency and their global queues back up. The jobs are
+    // already paid for and still rendering server-side, so rather than
+    // shipping a stills-only video, fail retryable while any job is
+    // genuinely still pending — each retry is a fresh invocation with a
+    // fresh polling budget. Terminal failures don't count as pending; the
+    // final attempt ships whatever is ready.
     const stillPending = jobsNeeded.filter(
-      (j) => (results.get(j.jobSetId)?.status ?? "unknown") === "unknown",
+      (j) => (results.get(j.jobSetId)?.status ?? "pending") === "pending",
     ).length;
     if (stillPending > 0) {
       const attempt = await prisma.stepRun.count({
@@ -384,8 +461,9 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   // Per-scene renders are persisted to storage so an invocation that dies
   // mid-encode (serverless CPU is slow; the ceiling is real) resumes where
   // it left off instead of starting over.
-  const videoData = await assembleNurseryVideo(imageBuffers, clips, audioBuffer, audioSeconds, {
+  const videoData = await assembleNurseryVideo(imageBuffers, clips, audioBuffer, sceneDurations, {
     withMusicBed,
+    clipSeconds: motion?.clipSeconds ?? 5.3,
     cached: cachedScenes,
     cacheGet: (i) => storage.get(`${sceneCachePrefix}${i}.mp4`),
     cachePut: async (i, data) => {
@@ -397,11 +475,12 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     imageBuffers.map((_, i) => storage.delete(`${sceneCachePrefix}${i}.mp4`)),
   );
   const videoAssetId = await saveVideoAsset(organizationId, workflowRunId, title, videoData, {
-    provider: clips.size > 0 ? "higgsfield+ffmpeg" : "ffmpeg-kenburns-music",
+    provider: clips.size > 0 ? `${motion?.key ?? "motion"}+ffmpeg` : "ffmpeg-kenburns-music",
     placeholder: false,
     audioKind: render.audioKind ?? "narration",
     sceneCount: imageBuffers.length,
     animatedScenes: clips.size,
+    bpm: beatMap.bpm,
     durationSeconds: Math.round(audioSeconds),
   });
 
@@ -412,8 +491,8 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       costMicroUsd: clipCost,
       moduleKey: "kids-shorts",
       workflowRunId,
-      providerKey: "higgsfield",
-      description: `Animated ${clips.size} scene(s) for "${title.slice(0, 60)}" (dop-lite)`,
+      providerKey: motion?.key ?? "motion",
+      description: `Animated ${clips.size} scene(s) for "${title.slice(0, 60)}"`,
     });
   }
 
@@ -468,9 +547,11 @@ async function assembleNurseryVideo(
   images: Buffer[],
   clips: Map<number, Buffer>,
   audio: Buffer,
-  audioSeconds: number,
+  sceneDurations: number[],
   opts: {
     withMusicBed: boolean;
+    /** Nominal motion-clip length the provider produces (seconds). */
+    clipSeconds: number;
     /** Scene indexes already rendered by a previous attempt (storage-backed). */
     cached: Set<number>;
     cacheGet: (i: number) => Promise<Buffer>;
@@ -482,55 +563,47 @@ async function assembleNurseryVideo(
   const dir = mkdtempSync(path.join(os.tmpdir(), "zoo-"));
   try {
     const n = images.length;
-    const total = audioSeconds + 1.2;
-    // Hard-cut concat: every scene is exactly total/n long.
-    const clipLen = total / n;
+    const total = sceneDurations.reduce((a, b) => a + b, 0);
     const fps = 24;
-    const frames = Math.ceil(clipLen * fps);
 
     const audioFile = path.join(dir, "voice.mp3");
     writeFileSync(audioFile, audio);
     const outFile = path.join(dir, "out.mp4");
 
     // Pass 1 — render each scene to its own normalized file, one ffmpeg
-    // process at a time. A single graph with several video decoders plus
-    // zoompan upscales peaks past the serverless memory limit and kills the
-    // invocation mid-encode; sequential per-scene renders keep peak memory
-    // to a single small pipeline.
+    // process at a time (sequential keeps peak memory to one small
+    // pipeline; a mega filter graph OOMs the invocation). Scene lengths
+    // come from the beat map so every cut lands on a beat.
     const t0 = Date.now();
     const elapsed = (): string => `${((Date.now() - t0) / 1000).toFixed(1)}s`;
-    // Soft dip between scenes, baked into each scene file so the stitch
-    // never re-encodes video.
-    const edgeFade =
-      `,fade=t=in:d=0.25,fade=t=out:st=${Math.max(0, clipLen - 0.25).toFixed(2)}:d=0.25`;
-    // NEW work first: render every un-cached scene before touching cached
-    // bytes, so each attempt's budget goes entirely into forward progress.
-    // Cached scenes are only downloaded once everything is rendered.
     const sceneFile = (i: number): string => path.join(dir, `scene${i}.mp4`);
     const order = [...Array(n).keys()];
     for (const i of order.filter((x) => !opts.cached.has(x))) {
       const sceneOut = sceneFile(i);
+      const sceneLen = sceneDurations[i] as number;
+      // Soft dip between scenes, baked in so the stitch never re-encodes.
+      const edgeFade = `,fade=t=in:d=0.25,fade=t=out:st=${Math.max(0, sceneLen - 0.25).toFixed(2)}:d=0.25`;
       let input: string;
       let filter: string;
       const clip = clips.get(i);
       if (clip) {
         input = path.join(dir, `clip${i}.mp4`);
         writeFileSync(input, clip);
-        // Gentle time-stretch so the ~5.3s clip fills the scene slot, then
-        // clone-pad as a safety net and trim to the exact length. fps must
-        // come last: xfade requires CFR inputs and tpad/trim drop the rate.
-        // Cap 2.2x: a dreamy half-speed motion still reads better for
-        // toddlers than a frozen frame.
-        const stretch = Math.min(2.2, Math.max(0.75, clipLen / HF_CLIP_SECONDS));
+        // Gentle time-stretch caps at 1.35x — anything slower reads as
+        // floaty slow-motion (the old 2.2x cap was a major "AI feel"
+        // culprit). Clone-pad covers any remainder; fps must come last
+        // (tpad/trim drop the rate metadata concat relies on).
+        const stretch = Math.min(1.35, Math.max(0.75, sceneLen / opts.clipSeconds));
         filter =
           `setpts=${stretch.toFixed(4)}*PTS,` +
           `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
-          `tpad=stop_mode=clone:stop_duration=10,trim=duration=${clipLen.toFixed(2)},` +
+          `tpad=stop_mode=clone:stop_duration=10,trim=duration=${sceneLen.toFixed(2)},` +
           `setpts=PTS-STARTPTS,fps=${fps}${edgeFade}`;
       } else {
         input = path.join(dir, `img${i}.png`);
         writeFileSync(input, images[i] as Buffer);
         // Ken Burns per still: gentle zoom-in, alternating with zoom-out.
+        const frames = Math.ceil(sceneLen * fps);
         const zoomExpr =
           i % 2 === 0
             ? `min(1+0.0018*on,1.14)` // zoom in
@@ -542,9 +615,20 @@ async function assembleNurseryVideo(
       execFileSync(
         ffmpegPath,
         [
-          "-y", "-i", input, "-vf", filter,
-          "-t", clipLen.toFixed(2), "-an",
-          "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p",
+          "-y",
+          "-i",
+          input,
+          "-vf",
+          filter,
+          "-t",
+          sceneLen.toFixed(2),
+          "-an",
+          "-c:v",
+          "libx264",
+          "-preset",
+          "ultrafast",
+          "-pix_fmt",
+          "yuv420p",
           sceneOut,
         ],
         { stdio: ["ignore", "ignore", "pipe"], timeout: 90_000 },
@@ -587,17 +671,31 @@ async function assembleNurseryVideo(
       ffmpegPath,
       [
         "-y",
-        "-f", "concat", "-safe", "0", "-i", listFile,
-        "-i", audioFile,
+        "-f",
+        "concat",
+        "-safe",
+        "0",
+        "-i",
+        listFile,
+        "-i",
+        audioFile,
         ...audioInputs,
-        "-filter_complex", filters.join(";"),
-        "-map", "0:v",
-        "-map", "[aout]",
-        "-c:v", "copy",
-        "-t", total.toFixed(2),
-        "-c:a", "aac",
-        "-b:a", "128k",
-        "-movflags", "+faststart",
+        "-filter_complex",
+        filters.join(";"),
+        "-map",
+        "0:v",
+        "-map",
+        "[aout]",
+        "-c:v",
+        "copy",
+        "-t",
+        total.toFixed(2),
+        "-c:a",
+        "aac",
+        "-b:a",
+        "128k",
+        "-movflags",
+        "+faststart",
         outFile,
       ],
       { stdio: ["ignore", "ignore", "pipe"], timeout: 120_000 },

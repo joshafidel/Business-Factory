@@ -1,5 +1,6 @@
 import path from "node:path";
 import { existsSync } from "node:fs";
+import { isNarrator, NARRATOR } from "../ai/narrator";
 import { type Character, type EpisodeScript, type ShowBible } from "../ai/schemas";
 import { ASSETS_DIR } from "../config";
 import { episodeId, readJsonIfExists } from "../utils/fs";
@@ -38,9 +39,9 @@ export interface LineAudioInfo {
   seconds: number;
 }
 
-const LEAD_IN_S = 0.55;
-const LINE_GAP_S = 0.3;
-const TAIL_S = 0.7;
+const LEAD_IN_S = 0.35;
+const LINE_GAP_S = 0.16;
+const TAIL_S = 0.45;
 
 export function assetRel(...parts: string[]): string {
   return parts.join("/");
@@ -80,11 +81,15 @@ export function buildRenderPlan(params: {
     let offset = Math.round(LEAD_IN_S * FPS);
     const lines: PlanLine[] = scene.lines.map((l, li) => {
       const audio = audioOf(scene.index, li);
-      const c = byId.get(l.speaker);
+      const c = isNarrator(l.speaker) ? NARRATOR : byId.get(l.speaker);
       const durationFrames = Math.ceil(audio.seconds * FPS);
       const planLine: PlanLine = {
         speaker: l.speaker,
-        speakerName: c ? (c.fullName.split(" ")[0] ?? l.speaker) : l.speaker,
+        speakerName: isNarrator(l.speaker)
+          ? "Narrator"
+          : c
+            ? (c.fullName.split(" ")[0] ?? l.speaker)
+            : l.speaker,
         color: c?.palette.accent ?? "#ffffff",
         text: l.text,
         emphasize: l.emphasize,
@@ -96,7 +101,7 @@ export function buildRenderPlan(params: {
       return planLine;
     });
     const isEndcard = scene.kind === "endcard";
-    const bodyFrames = isEndcard ? Math.round(4.6 * FPS) : offset + Math.round(TAIL_S * FPS);
+    const bodyFrames = isEndcard ? Math.round(3.6 * FPS) : offset + Math.round(TAIL_S * FPS);
     const durationFrames = Math.max(Math.round(2.2 * FPS), bodyFrames);
 
     const loc = bible.villa.locations.find((l) => l.id === scene.locationId);
@@ -146,7 +151,7 @@ export function buildRenderPlan(params: {
     width: WIDTH,
     height: HEIGHT,
     durationFrames: cursor,
-    music: { file: musicFile, volume: 0.22 },
+    music: { file: musicFile, volume: 0.26 },
     scenes,
   };
 }

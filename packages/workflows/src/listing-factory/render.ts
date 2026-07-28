@@ -189,7 +189,10 @@ registerCodeFunction("listing_factory_prepare", async (_args, context) => {
   }
   const closing = [script.outro, script.cta].filter(Boolean).join(" ").trim();
   if (closing) {
-    texts.push({ sceneIndex: settings.options.agentOutro ? sceneCount : sceneCount - 1, text: closing });
+    texts.push({
+      sceneIndex: settings.options.agentOutro ? sceneCount : sceneCount - 1,
+      text: closing,
+    });
   }
 
   const segments: VoiceSegment[] = [];
@@ -212,7 +215,9 @@ registerCodeFunction("listing_factory_prepare", async (_args, context) => {
       segments.push({
         sceneIndex,
         assetId: reusable.id,
-        seconds: meta?.seconds ?? (await mp3DurationSeconds(await storage.get(reusable.storageKey), text.length)),
+        seconds:
+          meta?.seconds ??
+          (await mp3DurationSeconds(await storage.get(reusable.storageKey), text.length)),
         chars: text.length,
       });
       continue;
@@ -324,7 +329,10 @@ async function submitAnimationJobs(
     if (s.status === "fulfilled") jobs.push(s.value);
     else log.warn({ err: s.reason }, "higgsfield submission failed; scene will use Ken Burns");
   }
-  log.info({ submitted: jobs.length, scenes: settings.photoIds.length }, "walkthrough jobs submitted");
+  log.info(
+    { submitted: jobs.length, scenes: settings.photoIds.length },
+    "walkthrough jobs submitted",
+  );
   return jobs;
 }
 
@@ -357,7 +365,9 @@ registerCodeFunction("listing_factory_assemble", async (args, context) => {
     if (orderedPhotos.length === 0) {
       throw new PlatformError("STEP_FAILED", "No photos available for this render");
     }
-    const photoBuffers = await Promise.all(orderedPhotos.map((p) => storage.get(p.asset.storageKey)));
+    const photoBuffers = await Promise.all(
+      orderedPhotos.map((p) => storage.get(p.asset.storageKey)),
+    );
 
     // ── Overlays (client-rasterized PNGs) ────────────────────────────────
     const overlayAssets = new Map<string, Buffer>();
@@ -389,7 +399,11 @@ registerCodeFunction("listing_factory_assemble", async (args, context) => {
     const segmentBuffers: { sceneIndex: number; data: Buffer }[] = [];
     for (const seg of segments) {
       const asset = await prisma.asset.findFirst({ where: { id: seg.assetId, organizationId } });
-      if (asset) segmentBuffers.push({ sceneIndex: seg.sceneIndex, data: await storage.get(asset.storageKey) });
+      if (asset)
+        segmentBuffers.push({
+          sceneIndex: seg.sceneIndex,
+          data: await storage.get(asset.storageKey),
+        });
     }
 
     // ── AI walkthrough clips: bounded polling; missing scenes fall back to
@@ -421,7 +435,9 @@ registerCodeFunction("listing_factory_assemble", async (args, context) => {
       const downloads = await Promise.allSettled(
         animationJobs.map(async (job) => {
           const r =
-            job.provider === "higgsfield" ? hfResults.get(job.jobSetId) : psResults.get(job.jobSetId);
+            job.provider === "higgsfield"
+              ? hfResults.get(job.jobSetId)
+              : psResults.get(job.jobSetId);
           if (r?.status !== "completed" || !r.videoUrl) {
             throw new Error(`clip not ready (${r?.status ?? "missing"})`);
           }
@@ -568,7 +584,12 @@ registerCodeFunction("listing_factory_assemble", async (args, context) => {
     };
     for (const [name, content, mime, type] of [
       [`Captions (SRT): ${project?.name ?? "listing"}`, srt, "text/plain", "TEXT"],
-      [`Generation report: ${project?.name ?? "listing"}`, JSON.stringify(report, null, 2), "application/json", "JSON"],
+      [
+        `Generation report: ${project?.name ?? "listing"}`,
+        JSON.stringify(report, null, 2),
+        "application/json",
+        "JSON",
+      ],
     ] as const) {
       if (!content) continue;
       const key = `${organizationId}/${render.projectId}/render-${render.id}-${type === "TEXT" ? "captions.srt" : "report.json"}`;
@@ -687,7 +708,12 @@ function assembleVideo(params: {
   try {
     const inputs: string[] = [];
     let inputIndex = 0;
-    const idx = { photos: [] as number[], overlays: new Map<string, number>(), audio: [] as { sceneIndex: number; index: number }[], music: -1 };
+    const idx = {
+      photos: [] as number[],
+      overlays: new Map<string, number>(),
+      audio: [] as { sceneIndex: number; index: number }[],
+      music: -1,
+    };
 
     // Scene inputs — an AI walkthrough clip when one is ready, the still
     // photo otherwise. The outro card reuses the final photo as backdrop.
@@ -767,7 +793,7 @@ function assembleVideo(params: {
     for (let i = 1; i < sceneBuffers.length; i++) {
       const out = i === sceneBuffers.length - 1 ? "vseq" : `x${i}`;
       const transition = template.transitions[(i - 1) % template.transitions.length]!;
-      const offset = Math.max(0, (timings[i]?.start ?? 0)).toFixed(3);
+      const offset = Math.max(0, timings[i]?.start ?? 0).toFixed(3);
       filters.push(
         `[${last}][v${i}]xfade=transition=${transition}:duration=${fade}:offset=${offset}[${out}]`,
       );

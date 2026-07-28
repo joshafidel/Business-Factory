@@ -77,7 +77,13 @@ const envSchema = z.object({
   // fetch scene images) are required to enable animated clips.
   HIGGSFIELD_API_KEY: z.string().optional(),
   HIGGSFIELD_SECRET: z.string().optional(),
+  /** Higgsfield model tier: dop-lite (cheap living-photo) | dop-preview | dop-turbo. */
+  HIGGSFIELD_MODEL: z.string().optional(),
   APP_BASE_URL: z.string().url().optional(),
+
+  // fal.ai (optional): higher-quality image-to-video motion (Kling tier).
+  // When set, the zoo pipeline prefers it over Higgsfield for scene motion.
+  FAL_KEY: z.string().optional(),
 
   // ElevenLabs: expressive narration voices + Eleven Music (real sung songs
   // with custom lyrics, commercially licensed). Set the API key to upgrade

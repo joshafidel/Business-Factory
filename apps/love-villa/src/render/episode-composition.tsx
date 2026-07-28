@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
 import { Subtitles } from "./captions/Subtitles";
 import { EndCard } from "./scenes/EndCard";
 import { SceneShot } from "./scenes/SceneShot";
@@ -39,7 +39,6 @@ const SceneBlock: React.FC<{ scene: PlanScene; plan: RenderPlan }> = ({ scene, p
           {scene.kind === "text-message" ? <TextMessageOverlay scene={scene} /> : null}
           {plan.cleanPlate ? null : (
             <>
-              {scene.slot === "hook" ? <HookTitle text={plan.hookText} /> : null}
               <ShowChip episode={plan.episode} />
               <Subtitles scene={scene} />
             </>
@@ -57,42 +56,6 @@ const SceneBlock: React.FC<{ scene: PlanScene; plan: RenderPlan }> = ({ scene, p
         </Sequence>
       ))}
     </AbsoluteFill>
-  );
-};
-
-/** Big top-of-screen hook headline for the cold open. */
-const HookTitle: React.FC<{ text: string }> = ({ text }) => {
-  const frame = useCurrentFrame();
-  const pop = Math.min(1, frame / 7);
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 240,
-        left: 48,
-        right: 48,
-        textAlign: "center",
-        transform: `scale(${0.8 + 0.2 * pop})`,
-        opacity: pop,
-      }}
-    >
-      <div
-        style={{
-          display: "inline-block",
-          background: "rgba(18, 8, 31, 0.82)",
-          border: "5px solid #ff5fa2",
-          borderRadius: 32,
-          padding: "26px 34px",
-          color: "#ffffff",
-          fontSize: 62,
-          fontWeight: 900,
-          lineHeight: 1.15,
-          textShadow: "0 4px 0 rgba(0,0,0,0.4)",
-        }}
-      >
-        {text}
-      </div>
-    </div>
   );
 };
 

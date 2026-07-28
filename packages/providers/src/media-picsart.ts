@@ -31,7 +31,10 @@ async function proxyDispatcher(): Promise<unknown> {
   return new ProxyAgent(proxy);
 }
 
-async function picsartFetch(path: string, init?: { method?: string; body?: string }): Promise<Response> {
+async function picsartFetch(
+  path: string,
+  init?: { method?: string; body?: string },
+): Promise<Response> {
   const env = loadEnv();
   return fetch(`${PICSART_GENAI_BASE}${path}`, {
     method: init?.method ?? "GET",

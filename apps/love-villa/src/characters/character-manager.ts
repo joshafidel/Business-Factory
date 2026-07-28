@@ -1,4 +1,5 @@
 import path from "node:path";
+import { isNarrator, NARRATOR } from "../ai/narrator";
 import { castSchema, type Character } from "../ai/schemas";
 import { DATA_DIR } from "../config";
 import { readJsonIfExists, writeJson, writeText } from "../utils/fs";
@@ -28,6 +29,7 @@ export function saveCast(cast: Character[]): void {
 }
 
 export function characterById(cast: Character[], id: string): Character {
+  if (isNarrator(id)) return NARRATOR;
   const c = cast.find((x) => x.id === id);
   if (!c) throw new Error(`Unknown character id: ${id}`);
   return c;

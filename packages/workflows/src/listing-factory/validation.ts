@@ -33,7 +33,8 @@ const FAIR_HOUSING_RULES: PhraseRule[] = [
     message: "Describes who should live here — describe the property instead.",
   },
   {
-    pattern: /\b(family|couple|single|professional|student|retiree|senior)[- ]?(friendly|oriented)\b/i,
+    pattern:
+      /\b(family|couple|single|professional|student|retiree|senior)[- ]?(friendly|oriented)\b/i,
     message: "Buyer-profile phrasing — prefer property features (e.g. “flexible bedroom layout”).",
   },
   {
@@ -42,11 +43,13 @@ const FAIR_HOUSING_RULES: PhraseRule[] = [
     message: "References religion — protected class under the Fair Housing Act.",
   },
   {
-    pattern: /\b(ethnic|hispanic|latino|asian|black|white|integrated)\s+(neighborhood|community|area)\b/i,
+    pattern:
+      /\b(ethnic|hispanic|latino|asian|black|white|integrated)\s+(neighborhood|community|area)\b/i,
     message: "References race or national origin — protected class.",
   },
   {
-    pattern: /\bsafe\s+(neighborhood|area|community|street)|\bsafe\s+for\s+(kids|children|families)\b/i,
+    pattern:
+      /\bsafe\s+(neighborhood|area|community|street)|\bsafe\s+for\s+(kids|children|families)\b/i,
     message: "Safety claims imply demographics and can’t be substantiated — remove.",
   },
   {
@@ -93,7 +96,8 @@ const CLAIM_RULES: ClaimRule[] = [
   {
     pattern: /\b(newly|recently|fully|just)\s+(renovated|remodeled|updated|rebuilt)\b/i,
     message: "Renovation claims need confirmation in the listing details you provided.",
-    supported: (p) => /(renovat|remodel|updated|rebuil|new\s+(kitchen|bath|roof|floor))/i.test(factsBlob(p)),
+    supported: (p) =>
+      /(renovat|remodel|updated|rebuil|new\s+(kitchen|bath|roof|floor))/i.test(factsBlob(p)),
   },
   {
     pattern: /\b\d{2,4}(\.\d+)?\s*(sq\.?\s?(ft|feet)|square\s+feet)\b/i,
@@ -107,11 +111,7 @@ const CLAIM_RULES: ClaimRule[] = [
   },
 ];
 
-function checkText(
-  text: string,
-  sceneIndex: number,
-  property: ListingProperty,
-): ContentWarning[] {
+function checkText(text: string, sceneIndex: number, property: ListingProperty): ContentWarning[] {
   const warnings: ContentWarning[] = [];
   if (!text) return warnings;
   for (const rule of FAIR_HOUSING_RULES) {
@@ -123,17 +123,19 @@ function checkText(
   for (const rule of CLAIM_RULES) {
     const m = text.match(rule.pattern);
     if (m && !(rule.supported?.(property, text) ?? false)) {
-      warnings.push({ kind: "unsupported-claim", sceneIndex, matched: m[0], message: rule.message });
+      warnings.push({
+        kind: "unsupported-claim",
+        sceneIndex,
+        matched: m[0],
+        message: rule.message,
+      });
     }
   }
   return warnings;
 }
 
 /** Validate a whole script against the property facts. */
-export function validateScript(
-  script: ListingScript,
-  property: ListingProperty,
-): ContentWarning[] {
+export function validateScript(script: ListingScript, property: ListingProperty): ContentWarning[] {
   const warnings: ContentWarning[] = [
     ...checkText(script.hook, -1, property),
     ...checkText(script.outro, -1, property),

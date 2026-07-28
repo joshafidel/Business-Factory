@@ -77,14 +77,21 @@ export function ScriptPanel({
             </span>
           </h2>
           {canExecute ? (
-            <Button size="sm" variant={script ? "outline" : "default"} disabled={pending || photoCount === 0} onClick={generate}>
+            <Button
+              size="sm"
+              variant={script ? "outline" : "default"}
+              disabled={pending || photoCount === 0}
+              onClick={generate}
+            >
               {pending ? "Working…" : script ? "Regenerate" : "Generate script"}
             </Button>
           ) : null}
         </div>
 
         {photoCount === 0 ? (
-          <p className="text-sm text-muted-foreground">Upload photos first — one scene per photo.</p>
+          <p className="text-sm text-muted-foreground">
+            Upload photos first — one scene per photo.
+          </p>
         ) : !current ? (
           <p className="text-sm text-muted-foreground">
             The script generator writes one scene per photo using only your property facts, room
@@ -95,8 +102,8 @@ export function ScriptPanel({
             {warnings.length > 0 ? (
               <div className="rounded-md border border-warning/40 bg-warning/10 p-2.5 text-xs">
                 <p className="mb-1 font-semibold">
-                  {warnings.length} content warning{warnings.length === 1 ? "" : "s"} — review before
-                  rendering
+                  {warnings.length} content warning{warnings.length === 1 ? "" : "s"} — review
+                  before rendering
                 </p>
                 <ul className="space-y-0.5">
                   {warnings.slice(0, 6).map((w, i) => (

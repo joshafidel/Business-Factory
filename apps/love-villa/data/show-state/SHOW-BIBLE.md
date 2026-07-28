@@ -16,9 +16,12 @@
 
 ## Writing rules
 
-- Dialogue is short, natural, memorable; most lines under 15 words. No speeches.
-- Every episode: ≥1 joke, ≥1 romantic tension beat, ≥1 conflict, ≥1 reaction shot, ≥1 confessional, ≥1 unanswered question.
-- Every episode connects to a previous or future episode; characters remember everything.
+- NARRATOR-LED: an off-screen sassy omniscient narrator tells the story in fast, punchy, present-tense gossip. ~60-70% of lines are narrator; contestants get short reaction quotes.
+- Narrator sentences are SHORT (3-10 words), present tense, half-addressed to the audience ('This is Brock.' 'Watch his face.' 'She said no. Twice.').
+- First line must be an irresistible hook naming a character and an imminent disaster. Never an intro, never scene-setting.
+- Beats every 2-4 seconds: statement → reaction → escalation. No speeches, no filler, no dead air.
+- Every episode: ≥1 laugh-out-loud beat, ≥1 romantic gasp, ≥1 betrayal-grade conflict, ≥1 face-reaction beat, ≥1 confessional quote, ≥1 unanswered question.
+- Every episode connects to a previous or future episode; characters and narrator remember everything.
 - Humor is bold but character-driven: we laugh at their choices, never at their nationality's worth.
 - Accents are seasoning, not the joke — always fully intelligible.
 
@@ -32,7 +35,7 @@
 ## Brand safety (original property)
 
 - Original property: never copy Love Island branding, logo, music, narration, catchphrases, character names, villa design, games, or plots.
-- No narrator character (avoids the signature narrated format of existing shows).
+- The narrator persona is ORIGINAL — never imitate any real show's narrator voice, cadence, or catchphrases.
 - Only royalty-free, generated, or originally licensed music and SFX.
 
 Banned phrases (validated on every script): "love island", "i've got a text", "i got a text", "casa amor", "mugged off", "grafting", "the hideaway", "islanders", "crack on", "my type on paper", "stick or twist", "coupled up ceremony"

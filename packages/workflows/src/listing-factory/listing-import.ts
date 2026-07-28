@@ -76,7 +76,13 @@ const LISTING_TYPES = new Set([
   "Offer",
   "Place",
 ]);
-const AGENT_TYPES = new Set(["RealEstateAgent", "Agent", "Person", "Organization", "LocalBusiness"]);
+const AGENT_TYPES = new Set([
+  "RealEstateAgent",
+  "Agent",
+  "Person",
+  "Organization",
+  "LocalBusiness",
+]);
 
 function str(v: unknown): string | undefined {
   if (typeof v === "string" && v.trim()) return v.trim();
@@ -85,7 +91,11 @@ function str(v: unknown): string | undefined {
 }
 
 function stripTags(v: string | undefined): string | undefined {
-  return v?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 4000);
+  return v
+    ?.replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 4000);
 }
 
 function addressOf(node: JsonNode): string | undefined {
@@ -109,7 +119,8 @@ function priceOf(node: JsonNode): string | undefined {
   const num = Number(raw.replace(/[,\s]/g, ""));
   const currency = str(offers.priceCurrency) ?? "USD";
   if (!Number.isFinite(num) || num <= 0) return raw;
-  const symbol = currency === "USD" ? "$" : currency === "EUR" ? "€" : currency === "GBP" ? "£" : `${currency} `;
+  const symbol =
+    currency === "USD" ? "$" : currency === "EUR" ? "€" : currency === "GBP" ? "£" : `${currency} `;
   return `${symbol}${num.toLocaleString("en-US")}`;
 }
 
@@ -146,7 +157,8 @@ function agentOf(nodes: JsonNode[]): {
   for (const c of candidates) {
     const name = str(c.name);
     if (!name) continue;
-    const worksFor = c.worksFor && typeof c.worksFor === "object" ? (c.worksFor as JsonNode) : undefined;
+    const worksFor =
+      c.worksFor && typeof c.worksFor === "object" ? (c.worksFor as JsonNode) : undefined;
     const isOrg = typeOf(c).includes("Organization") || typeOf(c).includes("LocalBusiness");
     return {
       agentName: isOrg ? undefined : name,
@@ -207,7 +219,10 @@ export function extractListingData(html: string, pageUrl: string): ExtractedList
     const ogDesc = metaContent(html, "og:description")[0];
     if (ogDesc) property.description = stripTags(decodeEntities(ogDesc));
   }
-  photoCandidates.push(...metaContent(html, "og:image"), ...metaContent(html, "og:image:secure_url"));
+  photoCandidates.push(
+    ...metaContent(html, "og:image"),
+    ...metaContent(html, "og:image:secure_url"),
+  );
 
   // Resolve, filter (https-only public hosts), dedupe, cap.
   const photoUrls: string[] = [];

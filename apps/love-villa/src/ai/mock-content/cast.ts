@@ -15,9 +15,10 @@ import { type Character } from "../schemas";
  */
 
 const STYLE =
-  "glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, " +
-  "expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset " +
-  "colors, attractive stylized adult character, consistent character design";
+  "ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive " +
+  "adult character in their twenties, expressive big eyes, polished modern-animation adult " +
+  "proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, " +
+  "vertical 9:16 framing, consistent character design";
 
 const NEG =
   "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, " +

@@ -25,11 +25,7 @@ export const metadata = { title: "Listing project" };
 // Script generation + render kickoff run through this segment's actions.
 export const maxDuration = 300;
 
-export default async function ListingProjectPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ListingProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const ctx = await requireOrgContext();
   const { id } = await params;
   const project = await prisma.listingProject.findFirst({

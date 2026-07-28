@@ -4,21 +4,21 @@
   "country": "Germany",
   "age": 27,
   "gender": "woman",
-  "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in measured parallel stripes, waterproof watch she checks mid-flirtation.",
-  "clothingStyle": "Sporty colour-blocked swimwear, sensible waterproof sandals, and a clipboard leaning against her sun-lounger like a loyal pet.",
-  "voiceDescription": "Even, efficient, deadpan; delivers her best jokes in the tone of meeting minutes.",
+  "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in measured parallel stripes, waterproof watch she checks during kisses.",
+  "clothingStyle": "Sporty colour-blocked swimwear, clipboard stationed beside the sun-lounger, sensible waterproof sandals with strong opinions.",
+  "voiceDescription": "Even, efficient, deadpan; delivers devastating punchlines in the tone of approved meeting minutes.",
   "accentDirection": "Crisp German accent, precise consonants, fully intelligible.",
-  "personality": "Hyper-efficient romantic who schedules spontaneity in thirty-minute blocks. Also, entirely by accident, the funniest person in the villa.",
-  "datingStrategy": "Flirtation window: 19:00 to 19:30. Attendance mandatory. Refreshments provided. Feedback form afterwards.",
-  "strength": "Completely dependable — she is the one with the sunscreen, the water, the plasters, and the emotional stability.",
-  "fatalFlaw": "Treats feelings as agenda items and is genuinely baffled when a heart misses its deadline.",
-  "secret": "She watches dog videos and cries every night at 22:15. It is in her calendar as 'hydration'.",
-  "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic and irrational. I have never been so interested.'",
+  "personality": "Hyper-efficient romantic who schedules spontaneity in fifteen-minute blocks. Secretly the funniest person in the villa and the only one who never smiles at her own jokes. Has already labelled the fridge shelves.",
+  "datingStrategy": "Flirtation window 19:00–19:30. Attendance mandatory. Late arrivals move to the waiting list.",
+  "strength": "Completely dependable — she brings the sunscreen, the water, the plasters, and the emotional stability nobody else packed.",
+  "fatalFlaw": "Treats feelings as agenda items and is genuinely baffled when hearts miss the deadline without an apology email.",
+  "secret": "Cries at videos of dogs being reunited with their owners. Every night. 22:15. Non-negotiable.",
+  "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic and irrational. I have never been so interested in anything.'",
   "rival": "sienna-australia",
   "initialAttraction": "matteo-italy",
-  "recurringJoke": "Announces romance as numbered agenda items ('Item four: prolonged eye contact. Commencing now.').",
+  "recurringJoke": "Announces romance as numbered agenda items ('Item four: prolonged eye contact. Beginning now.').",
   "signaturePhrase": "Romance runs on schedule.",
-  "imagePrompt": "Precise athletic German woman in her late twenties, braided crown hair, color-blocked sporty swimwear, holding a clipboard by a sun lounger, deadpan hint of a smile, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "imagePrompt": "Precise athletic German woman in her late twenties, braided crown hair, color-blocked sporty swimwear, holding a clipboard by a sun lounger, deadpan hint of a smile, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
   "visualReference": "Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan",
   "imageSeed": 11008,
@@ -44,22 +44,23 @@
     "exclamations": [
       "Noted.",
       "This is chaos. I have logged it.",
-      "Unacceptable. Please continue."
+      "Unacceptable. Continue.",
+      "Hm. Interesting. Terrible."
     ],
     "flirts": [
       "You have been assigned: my attention.",
-      "You are booked. One sunset. With me.",
-      "I moved my swim for you. That is enormous."
+      "You are scheduled. One sunset. Bring nothing but yourself.",
+      "I have moved you to the top of my list. There is no list. There is now."
     ],
     "conflicts": [
       "Your argument is inefficient. Restart it.",
-      "I have minuted your betrayal.",
-      "Raise your hand next time you wish to ruin dinner."
+      "I have minuted your betrayal. With timestamps.",
+      "You dared him to jump. I had booked that man for 19:00."
     ],
     "confessionals": [
-      "He cooked six hours. Inefficient. I ate all of it. Also inefficient. Interesting.",
-      "Feelings arrived at 14:20, outside the scheduled window. I am investigating.",
-      "I do not have a crush. I have a recurring appointment."
+      "He cooked for six hours. Inefficient. I ate all of it. Also inefficient. Interesting.",
+      "Feelings arrived today at 14:20, outside the scheduled window. I am investigating.",
+      "At 22:15 I watch dogs greeting their owners. This is unrelated to anything. Next question."
     ]
   }
 }

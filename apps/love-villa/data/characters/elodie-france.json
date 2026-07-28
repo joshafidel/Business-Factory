@@ -4,21 +4,21 @@
   "country": "France",
   "age": 25,
   "gender": "woman",
-  "physicalDescription": "Effortless dark bob, a red lip applied for a pool day nobody asked her to attend, posture of a woman waiting for the world to improve.",
-  "clothingStyle": "Breton stripes, a silk scarf she refuses to remove even in water, tiny sunglasses she looks over rather than through.",
-  "voiceDescription": "Low, measured, faintly bored; her compliments arrive with the weight of a verdict.",
+  "physicalDescription": "Effortless dark bob, a red lip worn at the pool for no reason anyone can explain, the posture of a woman reviewing a restaurant she already dislikes.",
+  "clothingStyle": "Breton stripes, silk scarf that survives the water, tiny sunglasses she looks over the top of instead of speaking.",
+  "voiceDescription": "Low, measured, faintly bored; her compliments arrive with the tone of a verdict and the pacing of a sentencing.",
   "accentDirection": "Light Parisian accent, elegant and crisp, fully intelligible.",
-  "personality": "Chic minimalist who scores the entire world out of ten and finds most of it a five. Warm underneath, catastrophically slow to admit it.",
-  "datingStrategy": "Do absolutely nothing. Sit beautifully. Let them dismantle themselves attempting to impress her.",
-  "strength": "Brutal honesty applied with surgical fairness — even the people she wounds trust her judgment.",
-  "fatalFlaw": "Performs indifference so convincingly that she talks herself out of everything she actually wants.",
-  "secret": "She owns every cheesy American rom-com ever made and sobs at all of them, including the trailers.",
-  "romanticPreference": "Undecided — 'They are all a five. One of them is threatening to become a seven.'",
+  "personality": "Chic minimalist who scores everything out of ten and finds most of the world a five. Warm underneath, catastrophically slow to prove it. Refuses to run, even for a boat.",
+  "datingStrategy": "Do absolutely nothing, magnificently, and let them dismantle themselves trying to reach a six.",
+  "strength": "Brutally honest with surgical fairness — when she says something is good, the whole villa believes it.",
+  "fatalFlaw": "Performs indifference so convincingly that she talks herself out of the things she actually wants.",
+  "secret": "Owns every cheesy American rom-com ever released and sobs at all of them, especially the one with the bakery.",
+  "romanticPreference": "Undecided — 'They are all a five. One of them may become a seven. I am watching.'",
   "rival": "poppy-uk",
   "initialAttraction": "none",
-  "recurringJoke": "Scores everything out of ten: sunsets, apologies, declarations of love, other people's arguments.",
+  "recurringJoke": "Scores everything out of ten — sunsets, apologies, kisses, declarations of love, the ice.",
   "signaturePhrase": "C'est un non.",
-  "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob, red lipstick, breton stripe top, silk scarf, tiny sunglasses, looking over them with cool judgment, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob, red lipstick, breton stripe top, silk scarf, tiny sunglasses, looking over them with cool judgment, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
   "visualReference": "Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare",
   "imageSeed": 11004,
@@ -44,22 +44,23 @@
     "exclamations": [
       "Non.",
       "Incroyable. And not in the good way.",
-      "Five out of ten. Be proud."
+      "Five out of ten.",
+      "Bof."
     ],
     "flirts": [
       "You are almost interesting. Continue.",
       "I did not hate that. Do not celebrate.",
-      "Sit closer. Not that close. There."
+      "If you were a dessert, I would order you again. Once."
     ],
     "conflicts": [
       "You are shouting. It is très boring.",
-      "I have rated this argument. Two.",
-      "I do not fight. I simply stop being impressed."
+      "I have rated this argument. Two. I was generous.",
+      "Poppy. We cannot both be the mean one. Choose another personality."
     ],
     "confessionals": [
-      "Everyone asks who I like. Even I am not permitted to know.",
-      "He brought me a smoothie. It was a six. This is deeply concerning.",
-      "I cried at a film last night. If anyone asks, it was the onions. Matteo's onions."
+      "Everyone asks who I like. Even I am not authorised to know.",
+      "He brought me a smoothie. It was a six. This is a crisis.",
+      "Last night I watched a film about a widower and a bakery and I wept. Nobody must ever know."
     ]
   }
 }
