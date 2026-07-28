@@ -152,6 +152,12 @@ never around it.** Concretely:
   video, a session must read the run's `stillQa`/`clipQa` outputs AND extract frames from
   the final video and apply the checklist itself; any visible critical defect → reject the
   approval and rerun until clean. Owner mandate (2026-07-28): no video ships that "looks AI".
+- **Every scene must be truly animated (owner mandate 2026-07-28, "never do that again")**:
+  static Ken Burns scenes and freeze-hold padding are BANNED as quality degradation. A
+  QA-rejected or failed clip is REGENERATED (defects fed back into the motion prompt, up to
+  3 tries/scene, 10 submissions/run) — never silently replaced by a still. `animationFallbacks`
+  in the assemble output lists any scene that exhausted its budget; a non-empty list means
+  the video needs extra scrutiny before approval, and more than one fallback scene → reject.
 
 ## Quality gates before any push
 

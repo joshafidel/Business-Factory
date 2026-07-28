@@ -17,6 +17,7 @@ const PUBLIC_PATHS = [
   // Public by nature: OAuth landing page + legal pages required by
   // third-party developer platforms (TikTok app review).
   "/tiktok/callback",
+  "/tiktok/connect",
   "/terms",
   "/privacy",
 ];

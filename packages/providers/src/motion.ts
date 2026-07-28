@@ -1,6 +1,7 @@
 import { loadEnv } from "@bf/config";
 import { createLogger } from "@bf/shared";
 import {
+  higgsfieldClipCostMicroUsd,
   higgsfieldConfigured,
   pollJobSet,
   submitImageToVideo,
@@ -60,7 +61,7 @@ export function withMotionGuardrails(prompt: string): string {
 
 class HiggsfieldMotionProvider implements MotionProvider {
   readonly key = "higgsfield";
-  readonly clipCostMicroUsd = 550_000n; // ~$0.10/s × ~5.4s
+  readonly clipCostMicroUsd = higgsfieldClipCostMicroUsd();
   readonly clipSeconds = 5.3;
 
   async submit(job: MotionJob): Promise<string> {

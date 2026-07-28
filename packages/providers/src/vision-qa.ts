@@ -23,7 +23,7 @@ CHECK EVERY FRAME FOR:
 2. OBJECT PERMANENCE (multi-frame clips) — every prop visible in one frame must exist in the others unless it plausibly moved off-screen: buckets, brushes, toys, food must NOT vanish, appear from nowhere, teleport, or morph into different objects. Characters must not appear/disappear mid-clip.
 3. GEOMETRY & PHYSICS — no melting or smearing shapes, no body parts passing through objects or each other, no floating detached objects, no impossible bends, water/bubbles behave plausibly for a cartoon.
 4. IDENTITY — the same character keeps identical colors, proportions and design in every frame (no color shifts, no turning into a different animal).
-5. RENDERING ARTIFACTS — no garbled text or pseudo-letters anywhere (signs, arches, labels), no watermarks, no ghosting/double exposure, no random noise patches, no severed cropping of a main character's face.
+5. RENDERING ARTIFACTS — no garbled text or pseudo-letters ANYWHERE, including background signage: zoo gates and arches with lettering or numbers (e.g. "ZOO", "200") are ALWAYS defects even when blurry or far away. No watermarks, no ghosting/double exposure, no random noise patches, no severed cropping of a main character's face.
 6. COMPOSITION — main characters fully in frame and readable; no unintended horror-adjacent look (dead eyes, unsettling grins).
 
 Respond ONLY with JSON:
