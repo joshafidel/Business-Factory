@@ -249,8 +249,11 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
       .map((s, i) => `[${s?.type === "chorus" ? "chorus" : `verse ${i + 1}`}]\n${s?.lyrics ?? ""}`)
       .concat(script?.outro ? [`[outro]\n${script.outro}`] : [])
       .join("\n\n");
-    // ~8.5s of song per scene keeps scenes long enough for the animation.
-    const lengthMs = Math.max(45_000, Math.min(120_000, scenes.length * 8_500 + 6_000));
+    // ~7s of song per scene: animated scenes can only stretch to ~7.25s
+    // (1.35x cap) before the settle-hold kicks in, so longer songs would
+    // spend seconds on static holds. Eleven Music over-delivers length
+    // sometimes; the stitch's -t cap and per-scene targets absorb it.
+    const lengthMs = Math.max(40_000, Math.min(120_000, scenes.length * 7_000 + 4_000));
     const song = await providers.music.generateMusic({
       prompt:
         "A joyful children's nursery rhyme song for toddlers (ages 1-4), sung by a warm, sweet, " +
@@ -494,7 +497,9 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       [...clips.entries()].map(async ([sceneIndex, data]) => {
         try {
           const qa = await critiqueFrames({
-            frames: extractQaFrames(data, 4),
+            // 6 samples: a Gigi muzzle-morph once slipped through 4-frame
+            // sampling — denser coverage catches mid-clip morphs.
+            frames: extractQaFrames(data, 6),
             kind: "clip",
             sceneDescription: script?.scenes?.[sceneIndex]?.visual ?? "animated zoo scene",
             characters: script?.scenes?.[sceneIndex]?.characters,
@@ -686,13 +691,17 @@ async function assembleNurseryVideo(
         writeFileSync(input, clip);
         // Gentle time-stretch caps at 1.35x — anything slower reads as
         // floaty slow-motion (the old 2.2x cap was a major "AI feel"
-        // culprit). Clone-pad covers any remainder; fps must come last
+        // culprit). Clone-pad covers any remainder as a settle-pose hold.
+        // ORDER MATTERS: tpad must run BEFORE setpts — after a stretch the
+        // pad frames keep original-timeline PTS and get dropped, which
+        // silently shorted every animated scene by ~2.4s (video ended
+        // before the song → frozen tail on YouTube). fps must come last
         // (tpad/trim drop the rate metadata concat relies on).
         const stretch = Math.min(1.35, Math.max(0.75, sceneLen / opts.clipSeconds));
         filter =
-          `setpts=${stretch.toFixed(4)}*PTS,` +
           `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
-          `tpad=stop_mode=clone:stop_duration=10,trim=duration=${sceneLen.toFixed(2)},` +
+          `tpad=stop_mode=clone:stop_duration=15,setpts=${stretch.toFixed(4)}*PTS,` +
+          `trim=duration=${sceneLen.toFixed(2)},` +
           `setpts=PTS-STARTPTS,fps=${fps}${edgeFade}`;
       } else {
         input = path.join(dir, `img${i}.png`);
