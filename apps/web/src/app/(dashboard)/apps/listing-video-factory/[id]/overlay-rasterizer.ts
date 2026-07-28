@@ -120,7 +120,10 @@ function drawFactsCard(
   const cardW = width * 0.84;
   const lineHeights = [base * 1.1, base * 1.9, base * 1.4];
   const cardH =
-    base * 1.6 + (rows[0] ? lineHeights[0]! + base * 0.5 : 0) + (rows[1] ? lineHeights[1]! : 0) + (chips.length ? lineHeights[2]! : 0);
+    base * 1.6 +
+    (rows[0] ? lineHeights[0]! + base * 0.5 : 0) +
+    (rows[1] ? lineHeights[1]! : 0) +
+    (chips.length ? lineHeights[2]! : 0);
   const x = (width - cardW) / 2;
   const y = height * 0.34 - cardH / 2;
   ctx.fillStyle = "rgba(12, 14, 18, 0.68)";
@@ -165,16 +168,42 @@ function drawOutroCard(
   ctx.textBaseline = "middle";
   const lines: { text: string; font: string; color: string; gap: number }[] = [];
   const cta = script.cta || property.callToAction;
-  if (cta) lines.push({ text: cta, font: `700 ${base * 1.15}px ${FONT}`, color: "#ffffff", gap: base * 2.2 });
+  if (cta)
+    lines.push({
+      text: cta,
+      font: `700 ${base * 1.15}px ${FONT}`,
+      color: "#ffffff",
+      gap: base * 2.2,
+    });
   if (property.agentName)
-    lines.push({ text: property.agentName, font: `700 ${base}px ${FONT}`, color: "#ffffff", gap: base * 1.6 });
+    lines.push({
+      text: property.agentName,
+      font: `700 ${base}px ${FONT}`,
+      color: "#ffffff",
+      gap: base * 1.6,
+    });
   if (property.brokerage)
-    lines.push({ text: property.brokerage, font: `500 ${base * 0.8}px ${FONT}`, color: "rgba(255,255,255,0.8)", gap: base * 1.3 });
+    lines.push({
+      text: property.brokerage,
+      font: `500 ${base * 0.8}px ${FONT}`,
+      color: "rgba(255,255,255,0.8)",
+      gap: base * 1.3,
+    });
   const contact = [property.agentPhone, property.agentEmail].filter(Boolean).join("  ·  ");
   if (contact)
-    lines.push({ text: contact, font: `500 ${base * 0.75}px ${FONT}`, color: "rgba(255,255,255,0.85)", gap: base * 1.5 });
+    lines.push({
+      text: contact,
+      font: `500 ${base * 0.75}px ${FONT}`,
+      color: "rgba(255,255,255,0.85)",
+      gap: base * 1.5,
+    });
   if (property.address)
-    lines.push({ text: property.address, font: `400 ${base * 0.65}px ${FONT}`, color: "rgba(255,255,255,0.6)", gap: base * 1.2 });
+    lines.push({
+      text: property.address,
+      font: `400 ${base * 0.65}px ${FONT}`,
+      color: "rgba(255,255,255,0.6)",
+      gap: base * 1.2,
+    });
   const totalH = lines.reduce((acc, l) => acc + l.gap, 0);
   let cursor = height / 2 - totalH / 2;
   for (const line of lines) {
@@ -219,9 +248,14 @@ export async function rasterizeOverlays(params: {
   const overlays: RasterizedOverlay[] = [];
   if (options.captions) {
     for (let i = 0; i < script.scenes.length; i++) {
-      const caption = i === 0 && !script.scenes[0]?.caption ? script.hook : script.scenes[i]?.caption;
+      const caption =
+        i === 0 && !script.scenes[0]?.caption ? script.hook : script.scenes[i]?.caption;
       if (!caption?.trim()) continue;
-      overlays.push({ role: "caption", sceneIndex: i, blob: await toBlob(drawCaption(width, height, caption)) });
+      overlays.push({
+        role: "caption",
+        sceneIndex: i,
+        blob: await toBlob(drawCaption(width, height, caption)),
+      });
     }
   }
   if (options.showPrice || options.showAddress) {
@@ -229,7 +263,10 @@ export async function rasterizeOverlays(params: {
     if (card) overlays.push({ role: "facts", blob: await toBlob(card) });
   }
   if (options.agentOutro) {
-    overlays.push({ role: "outro", blob: await toBlob(drawOutroCard(width, height, property, script)) });
+    overlays.push({
+      role: "outro",
+      blob: await toBlob(drawOutroCard(width, height, property, script)),
+    });
   }
   if (params.isPreview) {
     overlays.push({ role: "watermark", blob: await toBlob(drawWatermark(width, height)) });

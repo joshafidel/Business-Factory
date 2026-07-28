@@ -681,7 +681,7 @@ async function main(): Promise<void> {
     "Zoo Shorts: script",
     "Write a 40-55 second NURSERY RHYME SONG with a story, using the idea in the input data (short = high completion rate = the Shorts algorithm rewards it). Cast reference:\n" +
       castSheet() +
-      "\n\nProduce EXACTLY 6 scenes alternating verse and chorus (chorus at scenes 2 and 5, IDENTICAL lyrics both times — repetition is what makes toddlers replay). Each scene: type = 'verse' or 'chorus'; lyrics = 2-3 short sung lines, bouncy AABB rhyme, ultra-simple words, chorus built on the hook sound; narration = same text as lyrics; characters = array of cast names appearing (2-3 per scene, they interact: hand things, hug, chase, help); visual = what happens in that scene told as one clear picture — name each character present and their exact action and emotion, plus one interactive beat somewhere in the song ('Can YOU stomp too?'). The story must follow the arc from the idea (setup → problem → funny try → happy fix + lesson). outro = one soft goodbye line inviting them back ('See you next time, zoo friends!'). No scary content, no brands.",
+      "\n\nProduce EXACTLY 6 scenes alternating verse and chorus (chorus at scenes 2 and 5, IDENTICAL lyrics both times — repetition is what makes toddlers replay). Each scene: type = 'verse' or 'chorus'; lyrics = 2-3 short sung lines, bouncy AABB rhyme, ultra-simple words, chorus built on the hook sound; narration = same text as lyrics; characters = array of cast names appearing (2-3 per scene, they interact: hand things, hug, chase, help); visual = what happens in that scene told as one clear picture — name each character present and their exact action and emotion, plus one interactive beat somewhere in the song ('Can YOU stomp too?'); action = choreography for the animator with EXACTLY ONE clear readable physical action per scene: {anticipation: a small windup ('Ellie crouches a little'), main: the action itself ('she hops into the puddle with a big splash'), settle: the follow-through ('she giggles as water drips off her ears'), gaze: what the characters look at ('each other' / 'the red bucket')}. Keep actions slow, exaggerated and toddler-readable. The story must follow the arc from the idea (setup → problem → funny try → happy fix + lesson). outro = one soft goodbye line inviting them back ('See you next time, zoo friends!'). No scary content, no brands.",
   );
   const zooMetadataPromptId = await seedPrompt(
     "zoo-metadata",
@@ -806,7 +806,7 @@ async function main(): Promise<void> {
     role: "writer",
     description: "Writes the story-driven song script (lyrics, cast, visuals).",
     instructions:
-      "You write story-driven sing-along nursery-rhyme SONGS for toddlers starring the recurring Zoo Friends cast (Ellie the elephant, Milo the monkey, Gigi the giraffe, Pip the penguin). Bouncy rhythm, heavy repetition, an identical chorus repeated 3 times, characters interacting, and a tiny story arc with a gentle lesson. Never scary, never brands.",
+      "You write story-driven sing-along nursery-rhyme SONGS for toddlers starring the recurring Zoo Friends cast (Ellie the elephant, Milo the monkey, Gigi the giraffe, Pip the penguin), plus per-scene animation choreography (one clear anticipation-action-settle beat per scene with a gaze target). Bouncy rhythm, heavy repetition, an identical chorus repeated at scenes 2 and 5, characters interacting, and a tiny story arc with a gentle lesson. Never scary, never brands.",
     promptId: zooScriptPromptId,
     inputSchema: {
       type: "object",
@@ -827,6 +827,16 @@ async function main(): Promise<void> {
               narration: { type: "string" },
               characters: { type: "array", items: { type: "string" }, minItems: 1 },
               visual: { type: "string" },
+              action: {
+                type: "object",
+                properties: {
+                  anticipation: { type: "string" },
+                  main: { type: "string" },
+                  settle: { type: "string" },
+                  gaze: { type: "string" },
+                },
+                required: ["main"],
+              },
             },
             required: ["type", "lyrics", "narration", "characters", "visual"],
           },
@@ -1021,9 +1031,7 @@ async function main(): Promise<void> {
         workflowId: zooWf!.id,
         version: (latest?.version ?? 0) + 1,
         inputSchema: { type: "object", properties: { animal: { type: "string" } } },
-        changelog: latest
-          ? "Updated by seed"
-          : "Initial version",
+        changelog: latest ? "Updated by seed" : "Initial version",
       },
     });
     let zooOrder = 0;

@@ -42,12 +42,16 @@
       }
     },
     "voicePatterns": {
+<<<<<<< HEAD
       "exclamations": [
         "Let's GO!",
         "That's a win, baby!",
         "Huge. HUGE.",
         "No notes! Zero notes!"
       ],
+=======
+      "exclamations": ["Let's GO!", "That's a win, baby!", "Huge. HUGE. Colossal."],
+>>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
       "flirts": [
         "You and me? Vertical integration, babe.",
         "I'd invest everything in you. Everything. All forty-three— all of it.",
@@ -306,12 +310,16 @@
       }
     },
     "voicePatterns": {
+<<<<<<< HEAD
       "exclamations": [
         "Aiii, beleza!",
         "This villa has no chill and I love it!",
         "Golaço!",
         "No no no — okay, yes."
       ],
+=======
+      "exclamations": ["Aiii, beleza!", "This villa has no chill and I love it!", "Golaço!"],
+>>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
       "flirts": [
         "One dance. Okay, three. Okay, until the music dies.",
         "Your smile? That is my favourite country.",
@@ -372,12 +380,16 @@
       }
     },
     "voicePatterns": {
+<<<<<<< HEAD
       "exclamations": [
         "Let's send it!",
         "Oh this is about to get GOOD.",
         "Absolute scenes!",
         "Nobody panic — I've got a plan and it's bad."
       ],
+=======
+      "exclamations": ["Let's send it!", "Oh, this is about to get GOOD.", "Absolute scenes!"],
+>>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
       "flirts": [
         "Race you to the firepit. Loser buys feelings.",
         "You're cute when you're terrified.",
@@ -570,12 +582,16 @@
       }
     },
     "voicePatterns": {
+<<<<<<< HEAD
       "exclamations": [
         "Bueno.",
         "And now... it begins.",
         "Tranquilo. I am here.",
         "Ah. The clapping again."
       ],
+=======
+      "exclamations": ["Bueno.", "And now... it begins.", "Tranquilo. I am here."],
+>>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
       "flirts": [
         "One dance. I never ask twice. ...Except twice.",
         "You look at me like a difficult question. Good.",

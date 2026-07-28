@@ -60,7 +60,12 @@ export function computeSceneTimings(params: {
   for (let i = 0; i < sceneCount; i++) {
     const voice = params.narrationSeconds?.[i] ?? 0;
     if (voice > 0.2) {
-      durations.push(Math.max(template.minSceneSeconds, Math.min(voice + 0.9, Math.max(template.maxSceneSeconds, voice + 0.5))));
+      durations.push(
+        Math.max(
+          template.minSceneSeconds,
+          Math.min(voice + 0.9, Math.max(template.maxSceneSeconds, voice + 0.5)),
+        ),
+      );
     } else {
       const share = params.targetSeconds / sceneCount;
       durations.push(Math.max(template.minSceneSeconds, Math.min(template.maxSceneSeconds, share)));

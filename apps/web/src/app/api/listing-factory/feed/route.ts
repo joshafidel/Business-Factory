@@ -65,7 +65,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
   const feed = getListingFeed();
   const listing = await feed.getListing(mlsId);
-  if (!listing) return NextResponse.json({ error: "Listing not found in the feed" }, { status: 404 });
+  if (!listing)
+    return NextResponse.json({ error: "Listing not found in the feed" }, { status: 404 });
   const property = listingPropertySchema.parse({
     address: [listing.address, listing.city, listing.state].filter(Boolean).join(", "),
     city: listing.city,

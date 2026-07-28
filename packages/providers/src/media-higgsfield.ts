@@ -13,8 +13,14 @@ import { createLogger } from "@bf/shared";
  */
 const HF_BASE = "https://platform.higgsfield.ai";
 
-/** dop-lite: cheapest tier; one clip takes ~3-4 minutes, jobs run in parallel. */
-const HF_MODEL = "dop-lite";
+/**
+ * Model tier (HIGGSFIELD_MODEL): dop-lite (default, cheap living-photo
+ * motion), dop-preview, dop-turbo. One clip takes ~3-4 minutes on a quiet
+ * queue; the account allows 4 concurrent jobs.
+ */
+function hfModel(): string {
+  return loadEnv().HIGGSFIELD_MODEL ?? "dop-lite";
+}
 
 /** ~$0.10/s × ~5.4s clip. */
 export const HIGGSFIELD_CLIP_COST_MICRO_USD = 550_000n;
@@ -62,7 +68,7 @@ export async function submitImageToVideo(params: {
     method: "POST",
     body: JSON.stringify({
       params: {
-        model: HF_MODEL,
+        model: hfModel(),
         prompt: params.prompt,
         input_images: [{ type: "image_url", image_url: params.imageUrl }],
       },

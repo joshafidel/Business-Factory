@@ -66,7 +66,14 @@ export async function GET(
     where: { projectId, organizationId: ctx.organizationId },
     orderBy: { createdAt: "desc" },
     take: 20,
-    select: { id: true, kind: true, status: true, error: true, videoAssetId: true, createdAt: true },
+    select: {
+      id: true,
+      kind: true,
+      status: true,
+      error: true,
+      videoAssetId: true,
+      createdAt: true,
+    },
   });
   return NextResponse.json({ renders });
 }

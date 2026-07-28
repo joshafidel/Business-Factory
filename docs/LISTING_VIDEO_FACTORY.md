@@ -17,10 +17,10 @@ the My Apps home).
    content hash. Bytes live in the platform `Asset` table via the standard
    storage driver (local FS / Postgres-blob on Vercel / S3) and are served
    through the org-scoped `/api/assets/raw` streamer.
-3. **Organize** — drag into tour order, or click *Apply recommended tour
-   order* (exterior hero → living → kitchen → bedrooms → outdoor →
+3. **Organize** — drag into tour order, or click _Apply recommended tour
+   order_ (exterior hero → living → kitchen → bedrooms → outdoor →
    amenities → floor plan, with a closing hero shot). Per photo: room label,
-   type, factual note, exclude, cover, *virtually staged* / *AI-enhanced*
+   type, factual note, exclude, cover, _virtually staged_ / _AI-enhanced_
    flags.
 4. **Property details** — all facts are optional except the address; the
    script generator is only allowed to use what you enter here plus photo
@@ -39,7 +39,7 @@ the My Apps home).
    safety/steering claims) and **unsupported claims** (renovations, views,
    square footage, "walking distance"… that the entered facts don't back
    up) and shows warnings inline before render.
-7. **Render** — *preview* (fast, half-res, watermarked) or *final*. Renders
+7. **Render** — _preview_ (fast, half-res, watermarked) or _final_. Renders
    run through the workflow engine — BullMQ background jobs in queue mode,
    per-step serverless invocations on Vercel inline mode — never inside a
    request. Two steps:
@@ -94,8 +94,8 @@ OUT=/tmp/sample.mp4 pnpm --filter @bf/database exec tsx ../workflows/scripts/sam
 
 ## API keys
 
-| Works without any keys | With `ANTHROPIC_API_KEY` | With `OPENAI_API_KEY` | With `ELEVENLABS_API_KEY` | With `HIGGSFIELD_*` or `PICSART_API_KEY` |
-| --- | --- | --- | --- | --- |
+| Works without any keys                                                                                   | With `ANTHROPIC_API_KEY`                     | With `OPENAI_API_KEY`                           | With `ELEVENLABS_API_KEY`  | With `HIGGSFIELD_*` or `PICSART_API_KEY`                                                                                                                                                                                                                                   |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Whole flow end-to-end: mock script, silent voice-over track, full render with music, captions, downloads | Real fact-grounded scripts + social packages | Real narration (gpt-4o-mini-tts, ≈$12/1M chars) | Upgraded expressive voices | **AI walkthrough motion** (~$0.55/scene, final renders): each photo becomes a moving steadicam-style shot via image-to-video (Higgsfield preferred; Picsart GenAI image2video otherwise), with conservative preserve-the-property prompts and per-scene Ken Burns fallback |
 
 Estimated cost per video with real providers: script + social ≈ $0.01–0.05
@@ -110,11 +110,11 @@ from MLSs, retired its public listing API years ago, and its terms prohibit
 scraping; listing photos are copyrighted by agents/photographers. The lawful
 sources for real active listings with photos are **licensed MLS/IDX feeds**:
 
-| Source | What it is | How to get access |
-| --- | --- | --- |
-| **SimplyRETS** (integrated) | Any MLS feed, clean REST API, ~days to set up | An agent/broker authorizes their MLS feed at simplyrets.com → set `SIMPLYRETS_USERNAME`/`SIMPLYRETS_PASSWORD` |
-| **Bridge Interactive** | Zillow Group's own data-licensing platform | Apply at bridgeinteractive.com; requires MLS affiliation approval |
-| **MLS Grid / Trestle (CoreLogic) / Spark (FBS)** | RESO-standard MLS aggregators | Vendor agreements per MLS |
+| Source                                           | What it is                                    | How to get access                                                                                             |
+| ------------------------------------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **SimplyRETS** (integrated)                      | Any MLS feed, clean REST API, ~days to set up | An agent/broker authorizes their MLS feed at simplyrets.com → set `SIMPLYRETS_USERNAME`/`SIMPLYRETS_PASSWORD` |
+| **Bridge Interactive**                           | Zillow Group's own data-licensing platform    | Apply at bridgeinteractive.com; requires MLS affiliation approval                                             |
+| **MLS Grid / Trestle (CoreLogic) / Spark (FBS)** | RESO-standard MLS aggregators                 | Vendor agreements per MLS                                                                                     |
 
 The **MLS feed** tab on the subapp dashboard browses the connected feed and
 creates a ready-to-render project (facts, listing agent, photos) in one

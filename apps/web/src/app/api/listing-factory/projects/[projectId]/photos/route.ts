@@ -36,7 +36,10 @@ export async function POST(
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
   if (!(await checkRateLimit(`lvf-upload:${ctx.userId}`, 30, 60))) {
-    return NextResponse.json({ error: "Too many uploads — try again in a minute" }, { status: 429 });
+    return NextResponse.json(
+      { error: "Too many uploads — try again in a minute" },
+      { status: 429 },
+    );
   }
   const { projectId } = await params;
   const project = await prisma.listingProject.findFirst({
@@ -100,7 +103,10 @@ export async function POST(
         moduleKey: MODULE_KEY,
         source: "upload:listing-factory:overlay",
         approvalStatus: "PENDING_REVIEW",
-        metadata: { projectId: project.id, role: overlayRole || "overlay" } as Prisma.InputJsonValue,
+        metadata: {
+          projectId: project.id,
+          role: overlayRole || "overlay",
+        } as Prisma.InputJsonValue,
       },
     });
     return NextResponse.json({ assetId: asset.id });

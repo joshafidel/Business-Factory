@@ -41,12 +41,16 @@
     }
   },
   "voicePatterns": {
+<<<<<<< HEAD
     "exclamations": [
       "Bueno.",
       "And now... it begins.",
       "Tranquilo. I am here.",
       "Ah. The clapping again."
     ],
+=======
+    "exclamations": ["Bueno.", "And now... it begins.", "Tranquilo. I am here."],
+>>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
     "flirts": [
       "One dance. I never ask twice. ...Except twice.",
       "You look at me like a difficult question. Good.",

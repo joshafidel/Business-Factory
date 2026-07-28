@@ -46,7 +46,9 @@ export function NewProjectForm() {
             type="button"
             onClick={() => setMode(key)}
             className={`flex-1 rounded px-2 py-1.5 font-medium transition-colors ${
-              mode === key ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
+              mode === key
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-muted"
             }`}
           >
             {label}
@@ -60,7 +62,13 @@ export function NewProjectForm() {
         <form action={importAction} className="space-y-3">
           <div className="space-y-1.5">
             <Label htmlFor="lvf-url">Listing page URL</Label>
-            <Input id="lvf-url" name="url" type="url" placeholder="https://…/listings/12-maple-st" required />
+            <Input
+              id="lvf-url"
+              name="url"
+              type="url"
+              placeholder="https://…/listings/12-maple-st"
+              required
+            />
             <p className="text-xs text-muted-foreground">
               We read the page once and pull the realtor (name, phone, brokerage), property facts,
               and photos from its listing data — then everything is editable.
@@ -68,13 +76,19 @@ export function NewProjectForm() {
           </div>
           <label className="flex items-start gap-2 text-xs">
             <input type="checkbox" name="rightsConfirmed" className="mt-0.5" required />
-            <span>I confirm that I own or have permission to use this page’s photographs and listing materials.</span>
+            <span>
+              I confirm that I own or have permission to use this page’s photographs and listing
+              materials.
+            </span>
           </label>
-          {importState.error ? <p className="text-xs text-destructive">{importState.error}</p> : null}
+          {importState.error ? (
+            <p className="text-xs text-destructive">{importState.error}</p>
+          ) : null}
           {importState.projectId ? (
             <p className="text-xs text-success">
               Imported {importState.photoCount ?? 0} photo{importState.photoCount === 1 ? "" : "s"}
-              {importState.agentName ? ` · agent: ${importState.agentName}` : ""} — opening the editor…
+              {importState.agentName ? ` · agent: ${importState.agentName}` : ""} — opening the
+              editor…
             </p>
           ) : null}
           <Button type="submit" disabled={importPending} className="w-full">
@@ -91,14 +105,22 @@ export function NewProjectForm() {
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="lvf-address">Property address</Label>
-            <Input id="lvf-address" name="address" placeholder="12 Maple St, Pittsburgh, PA" required />
+            <Input
+              id="lvf-address"
+              name="address"
+              placeholder="12 Maple St, Pittsburgh, PA"
+              required
+            />
           </div>
-          {manualState.error ? <p className="text-xs text-destructive">{manualState.error}</p> : null}
+          {manualState.error ? (
+            <p className="text-xs text-destructive">{manualState.error}</p>
+          ) : null}
           <Button type="submit" disabled={manualPending} className="w-full">
             {manualPending ? "Creating…" : "Create project"}
           </Button>
           <p className="text-xs text-muted-foreground">
-            Everything else — photos, details, style — is added in the editor. Drafts save as you go.
+            Everything else — photos, details, style — is added in the editor. Drafts save as you
+            go.
           </p>
         </form>
       ) : null}
@@ -155,8 +177,8 @@ function FeedBrowser() {
       {isDemo ? (
         <p className="rounded-md border border-warning/40 bg-warning/10 p-2 text-xs">
           <span className="font-semibold">Sample MLS feed.</span> Add licensed feed credentials
-          (SIMPLYRETS_USERNAME / SIMPLYRETS_PASSWORD in Vercel) to browse real active listings —
-          the docs explain how to get a feed.
+          (SIMPLYRETS_USERNAME / SIMPLYRETS_PASSWORD in Vercel) to browse real active listings — the
+          docs explain how to get a feed.
         </p>
       ) : null}
       <div className="flex gap-2">
@@ -173,7 +195,10 @@ function FeedBrowser() {
       {error ? <p className="text-xs text-destructive">{error}</p> : null}
       <div className="max-h-80 space-y-1.5 overflow-y-auto pr-1">
         {rows?.map((row) => (
-          <div key={row.mlsId} className="flex items-center gap-2 rounded-md border border-border p-2">
+          <div
+            key={row.mlsId}
+            className="flex items-center gap-2 rounded-md border border-border p-2"
+          >
             {row.coverPhoto ? (
               <img
                 src={row.coverPhoto}
@@ -201,7 +226,11 @@ function FeedBrowser() {
                 </p>
               ) : null}
             </div>
-            <Button size="sm" disabled={importing !== null} onClick={() => importListing(row.mlsId)}>
+            <Button
+              size="sm"
+              disabled={importing !== null}
+              onClick={() => importListing(row.mlsId)}
+            >
               {importing === row.mlsId ? "Importing…" : "Make video"}
             </Button>
           </div>

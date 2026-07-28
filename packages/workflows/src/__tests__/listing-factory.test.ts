@@ -20,7 +20,15 @@ const property = listingPropertySchema.parse({
   description: "Renovated kitchen with quartz counters.",
 });
 
-const script = (overrides: Partial<{ hook: string; narration: string; caption: string; outro: string; cta: string }> = {}) =>
+const script = (
+  overrides: Partial<{
+    hook: string;
+    narration: string;
+    caption: string;
+    outro: string;
+    cta: string;
+  }> = {},
+) =>
   listingScriptSchema.parse({
     hook: overrides.hook ?? "Here is what $459,000 gets you in Pittsburgh.",
     scenes: [
@@ -77,7 +85,10 @@ describe("unsupported-claim validation", () => {
 
   it("flags renovation claims without support", () => {
     const bare = listingPropertySchema.parse({ address: "1 Elm St" });
-    const warnings = validateScript(script({ narration: "Recently renovated top to bottom." }), bare);
+    const warnings = validateScript(
+      script({ narration: "Recently renovated top to bottom." }),
+      bare,
+    );
     expect(warnings.some((w) => w.kind === "unsupported-claim")).toBe(true);
   });
 

@@ -13,9 +13,12 @@ other instead of competing. Follow them in every session.
   deploy branch — it only receives merges.
 - **Never force-push or rewrite history on the deploy branch.** Merge commits are expected and
   fine.
-- **Converge before you deploy.** Before any production deployment, merge the other active
-  session branches into yours so a deploy never silently reverts a sibling's production fixes
-  or strands their in-flight workflow runs. Active branches:
+- **Deploy ONLY via `node scripts/vercel-redeploy.mjs`.** It converges the active session
+  branches (merges all tips, pushes the converged commit back to every branch) and only then
+  creates the production deployment. On merge conflict it ABORTS — resolve the cross-session
+  merge first, then rerun. Never call the Vercel deployments API directly: a deploy from a
+  branch that lacks a sibling's work silently reverts their production fixes and can strand
+  their in-flight workflow runs. Active branches:
   - `claude/ai-business-factory-platform-12estn` (platform + Zoo Shorts; also the deploy branch)
   - `claude/ai-business-factory-real-estate-3gkuep` (Listing Video Factory)
   - `claude/ai-video-tiktok-app-2e3voe` (Love Villa: Nations)

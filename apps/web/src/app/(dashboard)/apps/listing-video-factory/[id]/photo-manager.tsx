@@ -2,11 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
-import {
-  LIMITS,
-  PHOTO_CATEGORIES,
-  ROOM_LABELS,
-} from "@bf/workflows/src/listing-factory/types";
+import { LIMITS, PHOTO_CATEGORIES, ROOM_LABELS } from "@bf/workflows/src/listing-factory/types";
 import { Button, Card, CardContent, Select, Textarea } from "@/components/ui";
 import {
   applyRecommendedOrderAction,
@@ -82,7 +78,10 @@ export function PhotoManager({
   const fileInput = useRef<HTMLInputElement>(null);
 
   const uploadOne = async (file: File): Promise<void> => {
-    setUploads((u) => [...u.filter((x) => x.name !== file.name), { name: file.name, status: "uploading", file }]);
+    setUploads((u) => [
+      ...u.filter((x) => x.name !== file.name),
+      { name: file.name, status: "uploading", file },
+    ]);
     try {
       const blob = await downscale(file);
       const form = new FormData();
@@ -106,9 +105,7 @@ export function PhotoManager({
     } catch (err) {
       setUploads((u) =>
         u.map((x) =>
-          x.name === file.name
-            ? { ...x, status: "failed", error: (err as Error).message }
-            : x,
+          x.name === file.name ? { ...x, status: "failed", error: (err as Error).message } : x,
         ),
       );
     }
@@ -243,7 +240,9 @@ export function PhotoManager({
               value={urls}
               onChange={(e) => setUrls(e.target.value)}
               rows={3}
-              placeholder={"https://…/photo-1.jpg\nhttps://…/photo-2.jpg  (one per line, https only)"}
+              placeholder={
+                "https://…/photo-1.jpg\nhttps://…/photo-2.jpg  (one per line, https only)"
+              }
             />
             <Button size="sm" onClick={() => void importUrls()}>
               Import photos
@@ -340,7 +339,9 @@ export function PhotoManager({
                 <span className="text-muted-foreground">Room label</span>
                 <Select
                   value={selectedPhoto.roomLabel ?? ""}
-                  onChange={(e) => patchPhoto(selectedPhoto.id, { roomLabel: e.target.value || null })}
+                  onChange={(e) =>
+                    patchPhoto(selectedPhoto.id, { roomLabel: e.target.value || null })
+                  }
                 >
                   <option value="">— none —</option>
                   {ROOM_LABELS.map((label) => (

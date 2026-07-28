@@ -56,11 +56,22 @@ export function PropertyForm({
         <form action={formAction} className="space-y-3">
           <div className="space-y-1.5">
             <Label htmlFor="projectName">Project name</Label>
-            <Input id="projectName" name="projectName" defaultValue={projectName} disabled={!canExecute} />
+            <Input
+              id="projectName"
+              name="projectName"
+              defaultValue={projectName}
+              disabled={!canExecute}
+            />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="address">Address *</Label>
-            <Input id="address" name="address" defaultValue={property.address} required disabled={!canExecute} />
+            <Input
+              id="address"
+              name="address"
+              defaultValue={property.address}
+              required
+              disabled={!canExecute}
+            />
           </div>
           <div className="grid grid-cols-2 gap-2">
             {FIELDS.map((f) => (

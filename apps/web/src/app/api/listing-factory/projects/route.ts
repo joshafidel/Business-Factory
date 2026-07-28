@@ -41,7 +41,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     body = createSchema.parse(await request.json());
   } catch (err) {
     return NextResponse.json(
-      { error: err instanceof z.ZodError ? err.issues.map((i) => i.message).join("; ") : "Invalid body" },
+      {
+        error:
+          err instanceof z.ZodError ? err.issues.map((i) => i.message).join("; ") : "Invalid body",
+      },
       { status: 400 },
     );
   }
