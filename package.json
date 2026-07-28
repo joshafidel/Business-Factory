@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "turbo run dev --parallel",
+    "sync": "node scripts/sync-sessions.mjs",
     "vercel-build": "pnpm db:generate && node scripts/deploy-db.mjs && pnpm --filter @bf/web build",
     "dev:web": "pnpm --filter @bf/web dev",
     "dev:worker": "pnpm --filter @bf/worker dev",

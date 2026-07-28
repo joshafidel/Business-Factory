@@ -29,10 +29,12 @@ const sh = (cmd) => execSync(cmd, { encoding: "utf8" }).trim();
 // ── Converge all session branches ─────────────────────────────────────────
 let BRANCH = process.env.DEPLOY_BRANCH ?? sh("git rev-parse --abbrev-ref HEAD");
 if (process.env.SKIP_CONVERGE !== "1") {
-  // Session branches (see CLAUDE.md "Branch model") — includes Love Villa's
-  // differently-named branch, so match on the shared claude/ai- prefix.
-  sh("git fetch origin '+refs/heads/claude/ai-*:refs/remotes/origin/claude/ai-*'");
-  const branches = sh("git for-each-ref --format='%(refname:short)' refs/remotes/origin/claude/ai-*")
+  // Session branches (see docs/SESSIONS.md ledger) — session branch names
+  // only share the claude/ prefix (e.g. claude/factory-mobile-redesign-*),
+  // so converge every claude/* branch; a missed sibling means its
+  // production work silently ships reverted.
+  sh("git fetch origin '+refs/heads/claude/*:refs/remotes/origin/claude/*'");
+  const branches = sh("git for-each-ref --format='%(refname:short)' refs/remotes/origin/claude/")
     .split("\n")
     .map((b) => b.replace(/^'|'$/g, ""))
     .filter(Boolean);

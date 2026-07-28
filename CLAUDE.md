@@ -23,6 +23,12 @@ other instead of competing. Follow them in every session.
   - `claude/ai-business-factory-real-estate-3gkuep` (Listing Video Factory)
   - `claude/ai-video-tiktok-app-2e3voe` (Love Villa: Nations)
 
+**Owner directive: always deploy to production.** Finished work doesn't sit
+on a branch — after your quality gates pass, run
+`node scripts/vercel-redeploy.mjs` (it converges all session branches first)
+so the owner sees the work live. Then smoke-check the other apps' pages
+(rule 10 below).
+
 ## Landing work on the deploy branch (the safe dance)
 
 Use `node scripts/sync-deploy.mjs` (does all of this), or by hand:
@@ -39,6 +45,11 @@ Use `node scripts/sync-deploy.mjs` (does all of this), or by hand:
 
 - **Check the ledger first**: `docs/SESSIONS.md` lists active workstreams and which paths they
   own. Add/update your row when you start or finish a workstream.
+- **Converge at session start**: `node scripts/sync-sessions.mjs` (or `pnpm sync`) fetches and
+  merges every sibling `claude/*` branch into your branch so you build on everyone's latest
+  work; `--check` exits non-zero if you're behind (pre-push/pre-deploy gate), `--push-back`
+  fast-forwards the siblings to the merged head. Complementary to `scripts/sync-deploy.mjs`,
+  which lands your branch on the deploy branch.
 - **Own your lane.** Prefer creating new files/modules over editing shared ones. Don't edit
   another session's pipeline code except via merges. Current lanes:
   - `apps/love-villa/**` — Love Villa: Nations pipeline
@@ -94,6 +105,12 @@ never around it.** Concretely:
      adapter, cost tables. Extend the registry; don't fork per app.
    - `recordCost` + workflow `costLimitMicroUsd` — every paid call goes
      through the ledger so the shared $15/day cap actually protects everyone.
+   - Mobile shell & media UI — every dashboard page renders inside
+     `apps/web/src/components/dashboard-shell.tsx` (drawer sidebar + bottom
+     tabs on phones; fixed rail on lg+). Reuse `MediaActions` (download +
+     save-to-camera-roll via Web Share) and `AssetPreview` (inline
+     video/image player + actions) instead of hand-rolling media links;
+     `/api/assets/raw?id=…&download=1` serves attachment downloads.
 8. **Announce new shared capabilities here.** If you build something another
    session could use, add one line to the toolbox list above in the same PR.
 9. **Database is a shared 512MB Neon budget.** Media bytes live in Postgres
@@ -108,7 +125,15 @@ never around it.** Concretely:
     deploy broke them: fix forward immediately or redeploy the previous
     merged commit.
 
-## Env notes
+## UI conventions (owner uses the dashboard from a phone)
+
+- The site installs to home screens (PWA manifest + icons; branding source in
+  `apps/web/public/logo.svg`, inline mark in `apps/web/src/components/logo.tsx`).
+  Keep icon/manifest changes in the mobile session's lane.
+- Don't reintroduce fixed-width/desktop-only layouts; sanity-check new pages at
+  390px wide. Wide content (tables, JSON dumps) needs its own `overflow-x-auto`.
+- Every video surfaced in the UI must be downloadable (and savable to the
+  camera roll) — wire `MediaActions`/`AssetPreview` when you add media.
 
 ## Production invariants (don't "simplify" these away)
 
