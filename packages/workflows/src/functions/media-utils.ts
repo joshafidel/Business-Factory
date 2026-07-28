@@ -1,4 +1,6 @@
-import { chmodSync, existsSync, readdirSync } from "node:fs";
+import { chmodSync, existsSync, readdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import os from "node:os";
 import path from "node:path";
 import { loadEnv } from "@bf/config";
 import { createLogger } from "@bf/shared";
@@ -67,6 +69,64 @@ export async function mp3DurationSeconds(data: Buffer, chars: number): Promise<n
     log.warn({ err }, "mp3 duration parse failed; estimating");
   }
   return Math.max(10, chars / 15); // ~15 chars/second of narration
+}
+
+/**
+ * Downscale an image to QA size (~512px wide). Visual QA needs composition
+ * and anatomy, not pixels — smaller frames keep vision-token cost tiny.
+ */
+export function downscaleForQa(image: Buffer): Buffer {
+  const dir = mkdtempSync(path.join(os.tmpdir(), "qa-img-"));
+  try {
+    const inFile = path.join(dir, "in.png");
+    const outFile = path.join(dir, "out.png");
+    writeFileSync(inFile, image);
+    execFileSync(
+      resolveFfmpeg(),
+      ["-y", "-i", inFile, "-vf", "scale=512:-2", "-frames:v", "1", outFile],
+      { stdio: ["ignore", "ignore", "pipe"], timeout: 30_000 },
+    );
+    return readFileSync(outFile);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+/**
+ * Sample `count` evenly spaced frames from a video clip as small PNGs
+ * (~512px wide) for visual QA — first, interior, and last-ish frames so
+ * object-permanence breaks between frames are visible to the critic.
+ */
+export function extractQaFrames(video: Buffer, count = 4): Buffer[] {
+  const dir = mkdtempSync(path.join(os.tmpdir(), "qa-clip-"));
+  try {
+    const inFile = path.join(dir, "in.mp4");
+    writeFileSync(inFile, video);
+    // Probe duration via ffmpeg (no ffprobe in ffmpeg-static): parse stderr.
+    let durationSec = 5;
+    try {
+      execFileSync(resolveFfmpeg(), ["-i", inFile], { stdio: ["ignore", "ignore", "pipe"], timeout: 30_000 });
+    } catch (err) {
+      const stderr = String((err as { stderr?: Buffer }).stderr ?? "");
+      const m = stderr.match(/Duration: (\d+):(\d+):(\d+\.\d+)/);
+      if (m) durationSec = Number(m[1]) * 3600 + Number(m[2]) * 60 + Number(m[3]);
+    }
+    const frames: Buffer[] = [];
+    for (let i = 0; i < count; i++) {
+      // 5%..90% — avoid the fade-to-black edges baked into scene renders.
+      const t = durationSec * (0.05 + (0.85 * i) / Math.max(1, count - 1));
+      const outFile = path.join(dir, `f${i}.png`);
+      execFileSync(
+        resolveFfmpeg(),
+        ["-y", "-ss", t.toFixed(2), "-i", inFile, "-vf", "scale=512:-2", "-frames:v", "1", outFile],
+        { stdio: ["ignore", "ignore", "pipe"], timeout: 30_000 },
+      );
+      frames.push(readFileSync(outFile));
+    }
+    return frames;
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 }
 
 /** Wrap raw 16-bit mono PCM samples into a WAV container. */

@@ -10,3 +10,4 @@ export * from "./media-elevenlabs";
 export * from "./media-picsart";
 export * from "./motion";
 export * from "./registry";
+export * from "./vision-qa";

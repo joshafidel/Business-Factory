@@ -146,6 +146,12 @@ never around it.** Concretely:
   stuck runs self-heal via the runs API.
 - **`AUTH_DISABLED=1` (production)**: owner asked for no login page. Both the middleware and
   `getOrgContext` honor it — keep it working after merges.
+- **Visual QA gate (Zoo Shorts)**: every still and motion clip is machine-inspected for
+  AI-generation defects (extra limbs/trunks, vanishing props, garbled text) — see
+  `docs/animation/VISUAL-QA.md`. Never remove the gate. Before APPROVING any Zoo Shorts
+  video, a session must read the run's `stillQa`/`clipQa` outputs AND extract frames from
+  the final video and apply the checklist itself; any visible critical defect → reject the
+  approval and rerun until clean. Owner mandate (2026-07-28): no video ships that "looks AI".
 
 ## Quality gates before any push
 
