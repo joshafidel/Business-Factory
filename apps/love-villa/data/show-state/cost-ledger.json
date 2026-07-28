@@ -4,598 +4,73 @@
     {
       "provider": "anthropic",
       "item": "cast-refinement",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.460Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:brock-usa",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.464Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:poppy-uk",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.465Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:matteo-italy",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.466Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:elodie-france",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.466Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:lucas-brazil",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.467Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:sienna-australia",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.467Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:rohan-india",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.467Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:greta-germany",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.468Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:alejandro-spain",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.468Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:pool",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.469Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:firepit",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.469Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:kitchen",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.470Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:bedroom",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.470Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:confessional",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.470Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:terrace",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.471Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:walkway",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:41.471Z"
-    },
-    {
-      "provider": "anthropic",
-      "item": "season-arc-10ep",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:12:48.137Z"
+      "estimatedUsd": 0.23908000000000001,
+      "mode": "live",
+      "at": "2026-07-28T19:55:50.206Z"
     },
     {
       "provider": "anthropic",
       "item": "cast-refinement",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.828Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:brock-usa",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.835Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:poppy-uk",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.836Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:matteo-italy",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.837Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:elodie-france",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.837Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:lucas-brazil",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.838Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:sienna-australia",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.838Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:rohan-india",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.839Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:greta-germany",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.840Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "character:alejandro-spain",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.840Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:pool",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.841Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:firepit",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.842Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:kitchen",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.843Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:bedroom",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.843Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:confessional",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.844Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:terrace",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.845Z"
-    },
-    {
-      "provider": "mock-svg",
-      "item": "location:walkway",
-      "estimatedUsd": 0,
-      "mode": "mock",
-      "at": "2026-07-27T17:19:08.845Z"
-    },
-    {
-      "provider": "anthropic",
-      "item": "cast-refinement",
-      "estimatedUsd": 0.233965,
+      "estimatedUsd": 0.23908000000000001,
       "mode": "live",
-      "at": "2026-07-27T19:15:42.330Z"
-    },
-    {
-      "provider": "anthropic",
-      "item": "cast-refinement",
-      "estimatedUsd": 0.233965,
-      "mode": "live",
-      "at": "2026-07-27T19:17:05.347Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:brock-usa",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:19:38.595Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:poppy-uk",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:20:07.399Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:matteo-italy",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:20:34.579Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:elodie-france",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:21:00.235Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:lucas-brazil",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:21:30.967Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:sienna-australia",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:21:58.855Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:rohan-india",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:22:27.026Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:greta-germany",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:22:50.087Z"
+      "at": "2026-07-28T19:58:33.722Z"
     },
     {
       "provider": "openai",
       "item": "character:alejandro-spain",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:23:17.198Z"
+      "at": "2026-07-28T20:00:54.182Z"
     },
     {
       "provider": "openai",
       "item": "location:pool",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:23:42.974Z"
+      "at": "2026-07-28T20:01:26.383Z"
     },
     {
       "provider": "openai",
       "item": "location:firepit",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:24:09.224Z"
+      "at": "2026-07-28T20:01:54.136Z"
     },
     {
       "provider": "openai",
       "item": "location:kitchen",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:24:32.183Z"
+      "at": "2026-07-28T20:02:17.919Z"
     },
     {
       "provider": "openai",
       "item": "location:bedroom",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:24:57.263Z"
+      "at": "2026-07-28T20:02:47.927Z"
     },
     {
       "provider": "openai",
       "item": "location:confessional",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:25:22.837Z"
+      "at": "2026-07-28T20:03:13.968Z"
     },
     {
       "provider": "openai",
       "item": "location:terrace",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:25:47.152Z"
+      "at": "2026-07-28T20:03:35.996Z"
     },
     {
       "provider": "openai",
       "item": "location:walkway",
       "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-27T19:26:14.571Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:brock-usa",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:27:30.204Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:poppy-uk",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:27:55.736Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:matteo-italy",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:28:22.751Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:elodie-france",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:28:49.452Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:lucas-brazil",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:29:14.376Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:sienna-australia",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:29:41.310Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:rohan-india",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:30:06.123Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:greta-germany",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:30:33.605Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:alejandro-spain",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-27T19:30:55.277Z"
-    },
-    {
-      "provider": "anthropic",
-      "item": "cast-refinement",
-      "estimatedUsd": 0.23544500000000002,
-      "mode": "live",
-      "at": "2026-07-28T15:28:54.836Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:brock-usa",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:31:33.272Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:poppy-uk",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:32:01.767Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:matteo-italy",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:32:33.243Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:elodie-france",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:32:59.163Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:lucas-brazil",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:33:30.260Z"
-    },
-    {
-      "provider": "anthropic",
-      "item": "cast-refinement",
-      "estimatedUsd": 0.23539000000000002,
-      "mode": "live",
-      "at": "2026-07-28T15:34:37.097Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:brock-usa",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:37:20.388Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:poppy-uk",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:37:45.961Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:matteo-italy",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:38:11.033Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:elodie-france",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:38:35.325Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:lucas-brazil",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:39:03.807Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:sienna-australia",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:39:30.840Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:rohan-india",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:39:54.469Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:greta-germany",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:40:20.182Z"
-    },
-    {
-      "provider": "openai",
-      "item": "character:alejandro-spain",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:40:45.613Z"
-    },
-    {
-      "provider": "openai",
-      "item": "location:pool",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:41:10.879Z"
-    },
-    {
-      "provider": "openai",
-      "item": "location:firepit",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:41:34.993Z"
-    },
-    {
-      "provider": "openai",
-      "item": "location:kitchen",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:42:03.463Z"
-    },
-    {
-      "provider": "openai",
-      "item": "location:bedroom",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:42:31.931Z"
-    },
-    {
-      "provider": "openai",
-      "item": "location:confessional",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:42:59.650Z"
-    },
-    {
-      "provider": "openai",
-      "item": "location:terrace",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:43:25.790Z"
-    },
-    {
-      "provider": "openai",
-      "item": "location:walkway",
-      "estimatedUsd": 0.063,
-      "mode": "live",
-      "at": "2026-07-28T15:43:55.932Z"
+      "at": "2026-07-28T20:03:59.290Z"
     }
   ],
-  "totalUsd": 3.836
+  "totalUsd": 0.982
 }

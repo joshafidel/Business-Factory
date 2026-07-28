@@ -9,6 +9,7 @@ import { parseArgs } from "../utils/args";
 import { saveCast } from "../characters/character-manager";
 import { ASSETS_DIR, describeProviders, loadConfig } from "../config";
 import { characterImage, locationImage } from "../providers/images";
+import { findExistingAsset } from "../render/render-plan";
 import { CostTracker } from "../utils/cost";
 import { ensureDir, writeText } from "../utils/fs";
 import { log } from "../utils/log";
@@ -49,8 +50,14 @@ async function main(): Promise<void> {
   saveCast(cast);
   log.ok(`data/characters/cast.json (${cast.length} characters) + CAST.md`);
 
+  // Reference art is idempotent: existing files are kept (delete a PNG to
+  // force its regeneration) unless REUSE_EXISTING_ASSETS=false.
   log.step("Character reference art");
   for (const c of cast) {
+    if (env.REUSE_EXISTING_ASSETS && findExistingAsset(`characters/${c.id}`, ["png", "svg"])) {
+      log.info(`${c.fullName} — existing art kept`);
+      continue;
+    }
     const img = await characterImage(c, tracker, env.IMAGE_QUALITY);
     const file = path.join(ASSETS_DIR, "characters", `${c.id}.${img.ext}`);
     ensureDir(path.dirname(file));
@@ -60,6 +67,10 @@ async function main(): Promise<void> {
 
   log.step("Villa location references");
   for (const loc of bible.villa.locations) {
+    if (env.REUSE_EXISTING_ASSETS && findExistingAsset(`locations/${loc.id}`, ["png", "svg"])) {
+      log.info(`${loc.name} — existing art kept`);
+      continue;
+    }
     const img = await locationImage(loc, tracker, env.IMAGE_QUALITY);
     const file = path.join(ASSETS_DIR, "locations", `${loc.id}.${img.ext}`);
     ensureDir(path.dirname(file));

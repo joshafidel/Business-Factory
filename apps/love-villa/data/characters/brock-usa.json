@@ -4,23 +4,23 @@
   "country": "United States",
   "age": 26,
   "gender": "man",
-  "physicalDescription": "Tall, gym-sculpted, permanent megawatt grin, spray-tan one shade too orange, teeth so white they trigger the villa's motion lights.",
-  "clothingStyle": "Stars-and-stripes swim shorts, backwards cap, sleeveless everything, shaker bottle welded to his hand like a scepter.",
+  "physicalDescription": "Tall, gym-sculpted, permanent megawatt grin, spray-tan one shade too orange, teeth so white they show up on camera before he does.",
+  "clothingStyle": "American-flag tank top (stars on one side, stripes on the other), red backwards cap with a white star, star-spangled swim shorts, eagle belt buckle, shaker bottle always in hand — even in the pool, even asleep.",
   "voiceDescription": "Booming, upbeat frat-bro energy; every sentence sounds like a locker-room pep talk delivered through a megaphone made of hope.",
   "accentDirection": "Light all-American broadcast accent with surfer-bro inflection. Keep fully intelligible.",
-  "personality": "Relentlessly optimistic hype-man who treats romance like a funding round. Calls the villa 'the campus', high-fives people in the middle of their own breakups, and has never once used an indoor voice. Underneath the noise he is desperately afraid of being the guy nobody picks.",
-  "datingStrategy": "Go enormous immediately: day-one declarations, hand-blended protein smoothies as love language, a laminated 'vision board for us' by day three.",
-  "strength": "Genuinely kind cheerleader — he hypes up the men competing against him, remembers everyone's PRs and birthdays, and means every word.",
-  "fatalFlaw": "Cannot read a room to save his life; reads politeness as devotion, silence as flirting, and a restraining-order tone as 'she's warming up'.",
-  "secret": "His 'seven-figure startup' is a lemonade-stand LLC with forty-three dollars in the account and a logo his cousin made.",
-  "romanticPreference": "Élodie (France) — he calls her 'the most premium woman I've ever met, like, artisanal'.",
+  "personality": "Relentlessly optimistic hype-man who treats romance like a startup pitch and heartbreak like a Q3 setback. Loud, generous, zero volume control, hugs like a forklift.",
+  "datingStrategy": "Go big on day one: grand declarations before breakfast, protein smoothies as love language, a five-year plan for a girl he met four minutes ago.",
+  "strength": "Genuinely kind cheerleader — he hypes up even the man stealing his girl, and means every word of it.",
+  "fatalFlaw": "Cannot read a room with subtitles on; mistakes politeness for love, silence for chemistry, and a restraining-order tone for flirting.",
+  "secret": "His 'seven-figure startup' is a lemonade-stand LLC with $43 in the bank and one investor: his mom.",
+  "romanticPreference": "Élodie (France) — he calls her 'the most premium woman I've ever met', which she rates a four.",
   "rival": "poppy-uk",
   "initialAttraction": "elodie-france",
-  "recurringJoke": "Pitches every human interaction as a business deal ('Us? Vertical integration, babe').",
+  "recurringJoke": "Pitches every relationship as a business deal, complete with imaginary slide deck ('Us? Vertical integration, babe').",
   "signaturePhrase": "Full send on the heart, baby!",
-  "imagePrompt": "Confident athletic American man in his mid twenties, orange-ish tan, backwards cap, stars-and-stripes swim shorts, holding a protein shaker, huge grin, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Confident athletic American man in his mid twenties, orange-ish tan, red backwards cap with white star, American flag tank top with stars and stripes, star-spangled swim shorts, eagle belt buckle, holding a protein shaker, huge grin, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin",
+  "visualReference": "Brock: tall tan American man, American-flag tank top (stars and stripes), red backwards cap with white star, star-print shorts, shaker bottle, huge grin",
   "imageSeed": 11001,
   "palette": {
     "skin": "#e8a26f",
@@ -45,22 +45,22 @@
       "Let's GO!",
       "That's a win, baby!",
       "Huge. HUGE.",
-      "No notes! Zero notes!"
+      "Team meeting! Pool! Now!"
     ],
     "flirts": [
-      "You and me? Vertical integration, babe.",
-      "I'd invest everything in you. Everything. All forty-three— all of it.",
-      "You're not my type, you're my whole business model."
+      "You and me? Great merger. Zero red flags on the balance sheet.",
+      "I'd invest everything in you, babe. All forty— all of it.",
+      "I made you a smoothie AND a mission statement."
     ],
     "conflicts": [
       "Bro, that was NOT the play.",
-      "I hyped you up, man. I HYPED you. At the grill. In FRONT of people.",
-      "We had a handshake. A HANDSHAKE, dude."
+      "I hyped you up, man. I HYPED you. On camera!",
+      "We had a verbal agreement. Verbal! That's basically paperwork."
     ],
     "confessionals": [
       "I'm not worried. Confidence is my cardio.",
       "Day one and I'm already all-in. That's just good business.",
-      "She said she needs space. Space is a market, baby. I'm expanding into it."
+      "She rated me a five. Fives grow, baby. Fives scale."
     ]
   }
 }

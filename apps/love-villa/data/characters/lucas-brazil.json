@@ -4,29 +4,29 @@
   "country": "Brazil",
   "age": 27,
   "gender": "man",
-  "physicalDescription": "Radiant grin, dark curls with sun streaks, permanently mid-dance-move, abs that appear to have their own lighting rig.",
-  "clothingStyle": "Open tropical-print shirt, beaded necklace, flip-flops he loses at a rate of one per episode.",
-  "voiceDescription": "Warm, musical, laughing halfway through his own sentences; turns everyone's name into a two-second song.",
+  "physicalDescription": "Radiant grin, dark curls with sun streaks, permanently mid-dance-move, abs that appear to have their own lighting crew.",
+  "clothingStyle": "Canary-yellow Brazil football jersey with green trim worn open over green-yellow-blue swim shorts, green and yellow beaded necklace, flip-flops he loses roughly hourly.",
+  "voiceDescription": "Warm, musical, laughing through his words; turns everyone's name into a two-note song.",
   "accentDirection": "Gentle Brazilian Portuguese accent, sunny and rhythmic, fully intelligible.",
-  "personality": "Human sunshine with the emotional radar of a therapist and the impulse control of a puppy. Dances instead of walking, hugs first, asks questions somewhere around Thursday.",
-  "datingStrategy": "Radical warmth: flirt with everyone, mean every bit of it, then panic beautifully when it works.",
-  "strength": "The highest emotional intelligence in the villa — he clocks who's hurting before they've noticed themselves.",
-  "fatalFlaw": "Flirts by reflex, which starts fires he then apologises for with more flirting, which starts more fires.",
-  "secret": "He cannot swim. Beach volleyball champion, yes. The deep end: pure ancestral terror.",
-  "romanticPreference": "Poppy (UK) — 'She insults me so beautifully. Like poetry, but mean.'",
+  "personality": "Human sunshine with the boundaries of a golden retriever. Dances instead of walking, hugs first, asks questions three days later.",
+  "datingStrategy": "Radical warmth: flirt with everyone, mean all of it sincerely, then panic beautifully when it works.",
+  "strength": "Highest emotional intelligence in the villa — clocks who's hurting before they've noticed themselves.",
+  "fatalFlaw": "Flirts by reflex, starting fires he then tries to extinguish with more flirting.",
+  "secret": "He cannot swim. Beach volleyball champion, yes. Deep end: an unspoken horror he has been faking around for six days.",
+  "romanticPreference": "Poppy (UK) — 'She insults me so beautifully. I would like more, please.'",
   "rival": "alejandro-spain",
   "initialAttraction": "poppy-uk",
-  "recurringJoke": "Names a samba move for every emotional state ('This one is called: Emotional Damage').",
+  "recurringJoke": "Names a samba move for every emotional development ('This one is called: Emotional Damage. Two steps back.').",
   "signaturePhrase": "Dance now, feelings later!",
-  "imagePrompt": "Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, open tropical print shirt, beaded necklace, caught mid dance move by the pool, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, canary yellow Brazil football jersey with green trim worn open, swim shorts in Brazilian flag green yellow and blue, green and yellow beaded necklace, caught mid dance move by the pool, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open green tropical shirt, beaded necklace, mid-dance",
+  "visualReference": "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open canary-yellow Brazil jersey with green trim, green-yellow-blue shorts, beaded necklace, mid-dance",
   "imageSeed": 11005,
   "palette": {
     "skin": "#c98a5b",
     "hair": "#3a2a1a",
-    "outfit": "#2e9e6b",
-    "accent": "#f4c542"
+    "outfit": "#ffdf00",
+    "accent": "#009c3b"
   },
   "voice": {
     "provider": "elevenlabs",
@@ -45,22 +45,22 @@
       "Aiii, beleza!",
       "This villa has no chill and I love it!",
       "Golaço!",
-      "No no no — okay, yes."
+      "Everybody breathe! Including me!"
     ],
     "flirts": [
-      "One dance. Okay, three. Okay, until the music dies.",
-      "Your smile? That is my favourite country.",
-      "You call me an idiot and my whole day is fixed. What is that?"
+      "Dance with me, just one song. Okay, three. Okay, forever.",
+      "Your smile? That is my favorite country.",
+      "You insulted me again. Do it slower next time."
     ],
     "conflicts": [
       "Why so much drama? We could be dancing.",
-      "Okay NOW I am angry. Small angry. Medium angry.",
-      "You knew I liked her. You KNEW, and you still did the hair thing."
+      "Okay NOW I am a little bit angry. Small angry. Medium.",
+      "You danced with her to hurt me. That is not dancing, meu amigo."
     ],
     "confessionals": [
       "I flirt with everyone, yes. But with her it is different flirting. Scary flirting.",
-      "The pool is very beautiful. From here. From the edge. Where I stand.",
-      "They put me in the water challenge. I prayed in two languages and one was invented."
+      "The pool is very beautiful. From here. From the edge. Where I stand. Always.",
+      "She rated my hug an eight. Eight! I am going to think about this for a year."
     ]
   }
 }

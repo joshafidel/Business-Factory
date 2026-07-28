@@ -4,29 +4,29 @@
   "country": "United Kingdom",
   "age": 24,
   "gender": "woman",
-  "physicalDescription": "Petite with a sharp blonde bob, one permanently unimpressed eyebrow, a sunburn advancing across her shoulders in real time.",
-  "clothingStyle": "Chic high-street co-ords, giant sunglasses parked on her head, a mug of tea at the pool in thirty-degree heat.",
-  "voiceDescription": "Dry, quick, deadpan; delivers character assassinations at conversational volume and then sips.",
+  "physicalDescription": "Petite with a sharp blonde bob, one permanently unimpressed eyebrow, sunburn advancing across her shoulders in real time like a weather map.",
+  "clothingStyle": "Union Jack crop top with matching high-street co-ord skirt, giant sunglasses shoved up into her bob, Union-Jack-printed mug of tea poolside at all hours, tiny UK flag hair clip she claims is ironic.",
+  "voiceDescription": "Dry, quick, deadpan; devastating one-liners delivered at the volume of a weather forecast.",
   "accentDirection": "Soft London accent, playful and clear. No heavy slang walls — keep it understandable.",
-  "personality": "The villa's unofficial commentator. Allergic to sincerity, fluent in banter, and secretly the most loyal person on the property. Will roast you for eleven minutes and then quietly refill your water.",
-  "datingStrategy": "Insult them until one of them turns out to be worth it. Never message first. Deny all feelings, including under oath.",
-  "strength": "Fiercely loyal — the first to step in front of anyone being ganged up on, including people she's actively feuding with.",
-  "fatalFlaw": "Deflects every genuine feeling with a joke, then rehearses the sincere version alone at 3am when it's far too late.",
-  "secret": "Keeps a notebook of humiliatingly earnest love poetry under her mattress. Two of them rhyme 'Lucas' with 'ruckus'.",
-  "romanticPreference": "Lucas (Brazil) — she'd get sunburnt twice before admitting it out loud.",
+  "personality": "The villa's unofficial commentator. Allergic to sincerity, fluent in banter, and — under nine layers of sarcasm — the most loyal person in the building.",
+  "datingStrategy": "Insult them until one of them turns out to be worth it. Never speak first. Deny everything, including things she said on camera.",
+  "strength": "Fiercely loyal — first to step in front of anyone getting dogpiled, including the man she's been roasting for six days.",
+  "fatalFlaw": "Deflects every genuine feeling with a joke, then watches the moment leave the room without her.",
+  "secret": "Keeps a notebook of catastrophically sincere romantic poetry under her mattress. Two of the poems rhyme 'Lucas' with 'ruckus'.",
+  "romanticPreference": "Lucas (Brazil) — she'd get sunburnt again rather than say it out loud.",
   "rival": "brock-usa",
   "initialAttraction": "lucas-brazil",
-  "recurringJoke": "Scores every romantic moment out of ten like a bitter talent judge — which puts her in direct turf war with Élodie, who does the exact same bit in French.",
+  "recurringJoke": "Scores every romantic moment out of ten like a bitter Olympic judge ('That kiss? Four. Generous four. Deductions for the noise.').",
   "signaturePhrase": "Sun's out, standards up.",
-  "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, Union Jack crop top and chic matching skirt, holding a Union Jack printed tea mug by a pool, unimpressed smirk, slight sunburn, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk",
+  "visualReference": "Poppy: petite British woman, sharp blonde bob, big sunglasses on head, Union Jack crop top and skirt, Union Jack tea mug, smirk",
   "imageSeed": 11002,
   "palette": {
     "skin": "#f3c6a5",
     "hair": "#e8d48b",
-    "outfit": "#e777a8",
-    "accent": "#7db5e0"
+    "outfit": "#1b3d8f",
+    "accent": "#cf142b"
   },
   "voice": {
     "provider": "elevenlabs",
@@ -45,22 +45,22 @@
       "Obviously.",
       "I cannot cope with this villa.",
       "Riveting. Truly.",
-      "Right. Kettle."
+      "Oh, we're doing THIS before lunch."
     ],
     "flirts": [
-      "You're a solid six. Fine. Seven. Don't get greedy.",
-      "Don't make me like you, I've got a personality to maintain.",
-      "If you kiss me I'll deny it in the morning and then think about it forever."
+      "You're a solid six. Fine. Seven. Don't tell anyone.",
+      "Don't make me like you. I'm extremely busy being fine.",
+      "If you dance at me one more time I'll allow it."
     ],
     "conflicts": [
       "Say that again but slower, so you can hear it.",
-      "Bless him. He thinks he's subtle.",
-      "I defended you. Out loud. To their FACES. Never again."
+      "Bless. He thinks he's subtle.",
+      "I defended you yesterday. Refund, please."
     ],
     "confessionals": [
       "Am I bothered? No. Am I taking notes? ...No comment.",
-      "Everyone here is unwell and I am the only journalist covering it.",
-      "He called me beautiful and I said 'cheers, mate.' I should be studied by science."
+      "Everyone here is unwell and I'm the only journalist covering it.",
+      "I wrote a poem about him. It's terrible. It's four pages. Moving on."
     ]
   }
 }

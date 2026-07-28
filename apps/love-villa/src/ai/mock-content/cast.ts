@@ -499,7 +499,7 @@ export const ARRIVAL_SPAIN: Character = {
   physicalDescription:
     "Slow-motion hair, smoldering default expression, walks like flamenco is playing somewhere only he can hear.",
   clothingStyle:
-    "Crimson shirt with golden Spanish-flag trim and subtle matador embroidery, tucked loosely into " +
+    "Crimson shirt with golden Spanish-flag trim and subtle flamenco-style floral embroidery, tucked loosely into " +
     "white trousers, red-and-gold striped sash belt, red carnation in the pocket, sleeves rolled with " +
     "suspicious perfection.",
   voiceDescription: "Low, velvet, unhurried; makes 'hello' sound like a season finale.",
@@ -519,7 +519,7 @@ export const ARRIVAL_SPAIN: Character = {
   signaturePhrase: "The night is young, and so am I. Mostly.",
   imagePrompt:
     `Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt with ` +
-    `golden Spanish flag trim and subtle matador embroidery, red and gold striped sash belt, red ` +
+    `golden Spanish flag trim and subtle flamenco-style floral embroidery, red and gold striped sash belt, red ` +
     `carnation in pocket, white trousers, walking a villa entrance walkway at sunset, ${STYLE}`,
   negativeImagePrompt: NEG,
   visualReference:
