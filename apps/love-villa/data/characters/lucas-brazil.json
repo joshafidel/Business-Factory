@@ -41,16 +41,12 @@
     }
   },
   "voicePatterns": {
-<<<<<<< HEAD
     "exclamations": [
       "Aiii, beleza!",
       "This villa has no chill and I love it!",
       "Golaço!",
       "No no no — okay, yes."
     ],
-=======
-    "exclamations": ["Aiii, beleza!", "This villa has no chill and I love it!", "Golaço!"],
->>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
     "flirts": [
       "One dance. Okay, three. Okay, until the music dies.",
       "Your smile? That is my favourite country.",

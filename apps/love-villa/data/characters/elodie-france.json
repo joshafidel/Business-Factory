@@ -41,16 +41,12 @@
     }
   },
   "voicePatterns": {
-<<<<<<< HEAD
     "exclamations": [
       "Non.",
       "Incroyable. And not in the good way.",
       "Five out of ten.",
       "Bof."
     ],
-=======
-    "exclamations": ["Non.", "Incroyable. And not in the good way.", "Five out of ten. Be proud."],
->>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
     "flirts": [
       "You are almost interesting. Continue.",
       "I did not hate that. Do not celebrate.",

@@ -41,16 +41,12 @@
     }
   },
   "voicePatterns": {
-<<<<<<< HEAD
     "exclamations": [
       "Let's GO!",
       "That's a win, baby!",
       "Huge. HUGE.",
       "No notes! Zero notes!"
     ],
-=======
-    "exclamations": ["Let's GO!", "That's a win, baby!", "Huge. HUGE. Colossal."],
->>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
     "flirts": [
       "You and me? Vertical integration, babe.",
       "I'd invest everything in you. Everything. All forty-three— all of it.",

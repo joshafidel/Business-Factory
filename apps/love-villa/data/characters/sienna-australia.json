@@ -41,16 +41,12 @@
     }
   },
   "voicePatterns": {
-<<<<<<< HEAD
     "exclamations": [
       "Let's send it!",
       "Oh this is about to get GOOD.",
       "Absolute scenes!",
       "Nobody panic — I've got a plan and it's bad."
     ],
-=======
-    "exclamations": ["Let's send it!", "Oh, this is about to get GOOD.", "Absolute scenes!"],
->>>>>>> b981040 (Animation 2.0 Milestone 1: consistency, choreography, musical cuts)
     "flirts": [
       "Race you to the firepit. Loser buys feelings.",
       "You're cute when you're terrified.",
