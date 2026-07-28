@@ -5,7 +5,6 @@ import { can, formatMicroUsd } from "@bf/shared";
 import { requireOrgContext } from "@/lib/session";
 import { formatDate, formatDuration } from "@/lib/utils";
 import {
-  Badge,
   Button,
   Card,
   CardContent,
@@ -14,6 +13,7 @@ import {
   PageHeader,
   StatusBadge,
 } from "@/components/ui";
+import { AssetPreview } from "@/components/asset-preview";
 import { cancelRunAction } from "./actions";
 
 export const metadata = { title: "Run" };
@@ -187,14 +187,11 @@ export default async function RunDetailPage({ params }: { params: Promise<{ id: 
               {run.assets.length === 0 ? (
                 <p className="text-sm text-muted-foreground">None.</p>
               ) : (
-                <ul className="space-y-2 text-sm">
+                <div className="space-y-3">
                   {run.assets.map((asset) => (
-                    <li key={asset.id} className="flex items-center justify-between gap-2">
-                      <span className="truncate">{asset.name}</span>
-                      <Badge>{asset.approvalStatus.replaceAll("_", " ")}</Badge>
-                    </li>
+                    <AssetPreview key={asset.id} asset={asset} />
                   ))}
-                </ul>
+                </div>
               )}
             </CardContent>
           </Card>

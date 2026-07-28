@@ -4,15 +4,8 @@ import { prisma } from "@bf/database";
 import { can, formatMicroUsd } from "@bf/shared";
 import { requireOrgContext } from "@/lib/session";
 import { formatDate } from "@/lib/utils";
-import {
-  Badge,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  PageHeader,
-  StatusBadge,
-} from "@/components/ui";
+import { Card, CardContent, CardHeader, CardTitle, PageHeader, StatusBadge } from "@/components/ui";
+import { AssetPreview } from "@/components/asset-preview";
 import { DecisionForm } from "./decision-form";
 
 export const metadata = { title: "Approval" };
@@ -57,15 +50,10 @@ export default async function ApprovalDetailPage({ params }: { params: Promise<{
               <CardHeader>
                 <CardTitle>Related assets</CardTitle>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  {approval.assets.map((asset) => (
-                    <li key={asset.id} className="flex items-center justify-between">
-                      <span>{asset.name}</span>
-                      <Badge>{asset.approvalStatus.replaceAll("_", " ")}</Badge>
-                    </li>
-                  ))}
-                </ul>
+              <CardContent className="space-y-3">
+                {approval.assets.map((asset) => (
+                  <AssetPreview key={asset.id} asset={asset} />
+                ))}
               </CardContent>
             </Card>
           ) : null}

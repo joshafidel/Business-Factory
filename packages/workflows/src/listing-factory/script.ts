@@ -64,7 +64,10 @@ export async function generateListingScript(params: {
     },
   });
 
-  const script = normalizeScript(output, photos.map((p) => p.photoId));
+  const script = normalizeScript(
+    output,
+    photos.map((p) => p.photoId),
+  );
   const warnings = validateScript(script, property);
   await prisma.listingProject.update({
     where: { id: project.id },
@@ -134,9 +137,12 @@ export function estimateRenderCostMicroUsd(
   if (voiceover) {
     const providers = getMediaProviders();
     if (providers.real) {
-      const chars = [script.hook, ...script.scenes.map((s) => s.narration), script.outro, script.cta]
-        .join(" ")
-        .length;
+      const chars = [
+        script.hook,
+        ...script.scenes.map((s) => s.narration),
+        script.outro,
+        script.cta,
+      ].join(" ").length;
       // gpt-4o-mini-tts ≈ $12 per 1M input characters.
       total += BigInt(Math.ceil(chars * 12));
     }

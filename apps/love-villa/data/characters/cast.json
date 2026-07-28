@@ -5,21 +5,21 @@
     "country": "United States",
     "age": 26,
     "gender": "man",
-    "physicalDescription": "Tall, gym-sculpted, megawatt grin welded permanently in place, spray-tan one confident shade too orange, teeth you could land a plane by.",
-    "clothingStyle": "Stars-and-stripes swim shorts, backwards cap, sleeveless everything, shaker bottle fused to his right hand like a scepter.",
-    "voiceDescription": "Booming and upbeat; every sentence arrives like a halftime pep talk nobody requested.",
-    "accentDirection": "Light all-American broadcast accent with surfer-bro lift at the end of sentences. Always fully intelligible.",
-    "personality": "Relentlessly optimistic hype-man who runs romance like a funding round. Infinite generosity, zero volume control, celebrates other people's wins louder than his own.",
-    "datingStrategy": "Day one: grand declaration. Day two: matching nicknames. Day three: a laminated five-year plan and a smoothie in her favorite color.",
-    "strength": "A sincere cheerleader — he will hype up the man flirting with his crush and mean every single syllable.",
-    "fatalFlaw": "Reads every room upside down. 'No, thank you' reaches his ears as 'not yet, champ'.",
-    "secret": "His 'seven-figure startup' is a lemonade-stand LLC with forty-three dollars in it and his cousin listed as CFO.",
-    "romanticPreference": "Élodie (France) — 'Premium woman. Luxury brand. Never on the sale rack.'",
+    "physicalDescription": "Tall, gym-sculpted, permanent megawatt grin, spray-tan one shade too orange, teeth so white they trigger the villa's motion lights.",
+    "clothingStyle": "Stars-and-stripes swim shorts, backwards cap, sleeveless everything, shaker bottle welded to his hand like a scepter.",
+    "voiceDescription": "Booming, upbeat frat-bro energy; every sentence sounds like a locker-room pep talk delivered through a megaphone made of hope.",
+    "accentDirection": "Light all-American broadcast accent with surfer-bro inflection. Keep fully intelligible.",
+    "personality": "Relentlessly optimistic hype-man who treats romance like a funding round. Calls the villa 'the campus', high-fives people in the middle of their own breakups, and has never once used an indoor voice. Underneath the noise he is desperately afraid of being the guy nobody picks.",
+    "datingStrategy": "Go enormous immediately: day-one declarations, hand-blended protein smoothies as love language, a laminated 'vision board for us' by day three.",
+    "strength": "Genuinely kind cheerleader — he hypes up the men competing against him, remembers everyone's PRs and birthdays, and means every word.",
+    "fatalFlaw": "Cannot read a room to save his life; reads politeness as devotion, silence as flirting, and a restraining-order tone as 'she's warming up'.",
+    "secret": "His 'seven-figure startup' is a lemonade-stand LLC with forty-three dollars in the account and a logo his cousin made.",
+    "romanticPreference": "Élodie (France) — he calls her 'the most premium woman I've ever met, like, artisanal'.",
     "rival": "poppy-uk",
     "initialAttraction": "elodie-france",
-    "recurringJoke": "Pitches every relationship as a business merger, complete with hand-drawn projections and an unreciprocated handshake.",
+    "recurringJoke": "Pitches every human interaction as a business deal ('Us? Vertical integration, babe').",
     "signaturePhrase": "Full send on the heart, baby!",
-    "imagePrompt": "Confident athletic American man in his mid twenties, orange-ish tan, backwards cap, stars-and-stripes swim shorts, holding a protein shaker, huge grin, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Confident athletic American man in his mid twenties, orange-ish tan, backwards cap, stars-and-stripes swim shorts, holding a protein shaker, huge grin, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin",
     "imageSeed": 11001,
@@ -45,21 +45,23 @@
       "exclamations": [
         "Let's GO!",
         "That's a win, baby!",
-        "Huge. HUGE. Colossal."
+        "Huge. HUGE.",
+        "No notes! Zero notes!"
       ],
       "flirts": [
-        "You and me? Vertical integration.",
-        "I'd put my whole portfolio in your hands. It's forty-three dollars."
+        "You and me? Vertical integration, babe.",
+        "I'd invest everything in you. Everything. All forty-three— all of it.",
+        "You're not my type, you're my whole business model."
       ],
       "conflicts": [
-        "Bro. That was not the play.",
-        "I hyped you at breakfast. At BREAKFAST, man.",
-        "You want beef? I don't even eat beef. I eat chicken and forgiveness."
+        "Bro, that was NOT the play.",
+        "I hyped you up, man. I HYPED you. At the grill. In FRONT of people.",
+        "We had a handshake. A HANDSHAKE, dude."
       ],
       "confessionals": [
-        "Am I worried? Confidence is my cardio.",
-        "Day one, all in. That's not desperate, that's aggressive investing.",
-        "She said 'we'll see'. In my industry, that's a signed contract."
+        "I'm not worried. Confidence is my cardio.",
+        "Day one and I'm already all-in. That's just good business.",
+        "She said she needs space. Space is a market, baby. I'm expanding into it."
       ]
     }
   },
@@ -69,21 +71,21 @@
     "country": "United Kingdom",
     "age": 24,
     "gender": "woman",
-    "physicalDescription": "Petite, razor-sharp blonde bob, one eyebrow permanently raised at the world, sunburn advancing across her shoulders in real time.",
-    "clothingStyle": "Chic high-street co-ords, giant sunglasses shoved up into the bob, a mug of tea at the poolside like a courtroom exhibit.",
-    "voiceDescription": "Dry, fast, level; delivers devastation at the volume of someone ordering a sandwich.",
-    "accentDirection": "Soft London accent, playful and crisp. No slang walls — every word lands clearly.",
-    "personality": "The villa's unofficial commentator. Allergic to sincerity, fluent in understatement, and quietly the most loyal person on the property.",
-    "datingStrategy": "Insult them steadily until one of them turns out to be worth it. Never speak first. Deny the diary exists.",
-    "strength": "Ferociously loyal — the first to stand between someone and a pile-on, even someone she can't stand.",
-    "fatalFlaw": "Buries every real feeling under a punchline, then privately mourns the moment she just murdered.",
-    "secret": "A notebook of catastrophically sincere poetry lives under her mattress. One page is titled 'Brazilian Sunlight'.",
-    "romanticPreference": "Lucas (Brazil) — she would sooner get sunburnt again than say it out loud.",
+    "physicalDescription": "Petite with a sharp blonde bob, one permanently unimpressed eyebrow, a sunburn advancing across her shoulders in real time.",
+    "clothingStyle": "Chic high-street co-ords, giant sunglasses parked on her head, a mug of tea at the pool in thirty-degree heat.",
+    "voiceDescription": "Dry, quick, deadpan; delivers character assassinations at conversational volume and then sips.",
+    "accentDirection": "Soft London accent, playful and clear. No heavy slang walls — keep it understandable.",
+    "personality": "The villa's unofficial commentator. Allergic to sincerity, fluent in banter, and secretly the most loyal person on the property. Will roast you for eleven minutes and then quietly refill your water.",
+    "datingStrategy": "Insult them until one of them turns out to be worth it. Never message first. Deny all feelings, including under oath.",
+    "strength": "Fiercely loyal — the first to step in front of anyone being ganged up on, including people she's actively feuding with.",
+    "fatalFlaw": "Deflects every genuine feeling with a joke, then rehearses the sincere version alone at 3am when it's far too late.",
+    "secret": "Keeps a notebook of humiliatingly earnest love poetry under her mattress. Two of them rhyme 'Lucas' with 'ruckus'.",
+    "romanticPreference": "Lucas (Brazil) — she'd get sunburnt twice before admitting it out loud.",
     "rival": "brock-usa",
     "initialAttraction": "lucas-brazil",
-    "recurringJoke": "Scores every romantic moment out of ten like a bitter figure-skating judge ('That kiss? Four. Generous four. Bad landing.').",
+    "recurringJoke": "Scores every romantic moment out of ten like a bitter talent judge — which puts her in direct turf war with Élodie, who does the exact same bit in French.",
     "signaturePhrase": "Sun's out, standards up.",
-    "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk",
     "imageSeed": 11002,
@@ -109,22 +111,23 @@
       "exclamations": [
         "Obviously.",
         "I cannot cope with this villa.",
-        "Riveting. Truly. Gripping television."
+        "Riveting. Truly.",
+        "Right. Kettle."
       ],
       "flirts": [
-        "You're a solid six. Fine. Seven. Stop smiling.",
-        "Don't make me like you, I've got a schedule.",
-        "If I laugh, it's the sun. Heatstroke. Not you."
+        "You're a solid six. Fine. Seven. Don't get greedy.",
+        "Don't make me like you, I've got a personality to maintain.",
+        "If you kiss me I'll deny it in the morning and then think about it forever."
       ],
       "conflicts": [
-        "Say that again, slower, so you can hear it too.",
-        "Bless him. He thinks he's being subtle.",
-        "I'm not angry, I'm just building a case."
+        "Say that again but slower, so you can hear it.",
+        "Bless him. He thinks he's subtle.",
+        "I defended you. Out loud. To their FACES. Never again."
       ],
       "confessionals": [
         "Am I bothered? No. Am I taking notes? ...No comment.",
-        "Everyone here is unwell and I'm the only journalist on the ground.",
-        "He danced with someone else. Fine. Two out of ten. Poor technique."
+        "Everyone here is unwell and I am the only journalist covering it.",
+        "He called me beautiful and I said 'cheers, mate.' I should be studied by science."
       ]
     }
   },
@@ -134,21 +137,21 @@
     "country": "Italy",
     "age": 28,
     "gender": "man",
-    "physicalDescription": "Dark curls, eyebrows that act independently, talks with both hands and occasionally a wooden spoon, always faintly windswept.",
-    "clothingStyle": "Linen shirt open exactly two buttons, thin gold chain, and an apron that materializes from nowhere the second he's stressed.",
-    "voiceDescription": "Rich and operatic; drops to a whisper, then declaims to the ceiling within one sentence.",
-    "accentDirection": "Melodic Italian accent, warm and theatrical, every word fully intelligible.",
-    "personality": "Grand romantic who feels everything at concert volume. Cooks when stressed, and he is always stressed, so the villa eats extremely well.",
-    "datingStrategy": "Seduction by eight-course tasting menu, devastating eye contact, and a hand-written menu with her name as the dessert.",
-    "strength": "His grand gestures are real — when Matteo decides you matter, he shows up at 6am with fresh bread.",
-    "fatalFlaw": "Operatic jealousy: a borrowed sun-lounger becomes a Shakespearean betrayal by dinner service.",
-    "secret": "He is lactose intolerant. The mozzarella devotion is a beautiful, painful, nightly lie.",
-    "romanticPreference": "Élodie (France) — 'She rated my risotto a six. I must marry her immediately.'",
+    "physicalDescription": "Dark curls, tremendous eyebrows, talks with both hands and occasionally a wooden spoon, permanently windswept like he's in a perfume advert nobody commissioned.",
+    "clothingStyle": "Linen shirt unbuttoned exactly two buttons, gold chain, and an apron that materialises from thin air the second he feels an emotion.",
+    "voiceDescription": "Rich, operatic, emotional; whispers a secret and then declaims to the heavens mid-sentence.",
+    "accentDirection": "Melodic Italian accent, warm and theatrical, fully intelligible.",
+    "personality": "Grand romantic living at full orchestral volume. Cooks when stressed, so the villa smells incredible and nobody has slept. Sincerely believes food is a legally binding declaration of love.",
+    "datingStrategy": "Seduction by eight-course tasting menu, devastating eye contact, and one tear he pretends is from the onions.",
+    "strength": "His grand gestures are real — when Matteo shows up for someone, he shows up at 5am with fresh bread and a playlist.",
+    "fatalFlaw": "Operatic jealousy: a borrowed sun-lounger becomes a family betrayal spanning generations by dinner service.",
+    "secret": "He is lactose intolerant. The mozzarella devotion is a beautiful, agonising lie he suffers for nightly.",
+    "romanticPreference": "Élodie (France) — 'She insulted my risotto. To my face. I must marry her.'",
     "rival": "rohan-india",
     "initialAttraction": "elodie-france",
-    "recurringJoke": "Diagnoses every person and crisis as a dish ('You are gnocchi. Soft. And you sink.').",
+    "recurringJoke": "Diagnoses every person and crisis as a dish ('You are gnocchi: soft, but you sink').",
     "signaturePhrase": "My heart is al dente — firm, but ready.",
-    "imagePrompt": "Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, unbuttoned linen shirt, gold chain, gesturing passionately with both hands, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, unbuttoned linen shirt, gold chain, gesturing passionately with both hands, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands",
     "imageSeed": 11003,
@@ -173,23 +176,24 @@
     "voicePatterns": {
       "exclamations": [
         "Mamma mia, no!",
-        "This is a tragedy, and it is only Tuesday!",
-        "Perfetto. PERFETTO!"
+        "This is a tragedy in three acts!",
+        "Perfetto. PERFETTO!",
+        "Who has TOUCHED my basil?!"
       ],
       "flirts": [
-        "I will cook for you until the sun gives up.",
-        "Your eyes — like good olive oil. Rare. Expensive.",
-        "Sit. Eat. Fall in love. In that order."
+        "I will cook for you until the sun forgets its job.",
+        "Your eyes — like good olive oil. Rare. Expensive. Cold-pressed.",
+        "Sit. Eat. Fall in love. In that order, please."
       ],
       "conflicts": [
-        "You insulted my risotto AND my honor. The risotto first!",
+        "You have insulted my risotto AND my bloodline!",
         "We are enemies now. Pass the parmesan.",
-        "Do not raise your voice — that is MY instrument."
+        "You took my lounger. I will remember this at my wedding."
       ],
       "confessionals": [
         "I am calm. I am serene. I have chopped forty onions.",
-        "Love is like pasta water: you must salt it with tears.",
-        "She said my sauce was 'fine'. I have not slept. I have made three more sauces."
+        "Love is like pasta water. You must salt it with tears.",
+        "She timed my carbonara. Seven minutes. She was correct. I am furious. I am in love."
       ]
     }
   },
@@ -199,21 +203,21 @@
     "country": "France",
     "age": 25,
     "gender": "woman",
-    "physicalDescription": "Effortless dark bob, a red lip applied for a pool day nobody asked her to attend, posture of a woman waiting for the world to improve.",
-    "clothingStyle": "Breton stripes, a silk scarf she refuses to remove even in water, tiny sunglasses she looks over rather than through.",
-    "voiceDescription": "Low, measured, faintly bored; her compliments arrive with the weight of a verdict.",
+    "physicalDescription": "Effortless dark bob, a red lip worn at the pool for no reason anyone can explain, the posture of a woman reviewing a restaurant she already dislikes.",
+    "clothingStyle": "Breton stripes, silk scarf that survives the water, tiny sunglasses she looks over the top of instead of speaking.",
+    "voiceDescription": "Low, measured, faintly bored; her compliments arrive with the tone of a verdict and the pacing of a sentencing.",
     "accentDirection": "Light Parisian accent, elegant and crisp, fully intelligible.",
-    "personality": "Chic minimalist who scores the entire world out of ten and finds most of it a five. Warm underneath, catastrophically slow to admit it.",
-    "datingStrategy": "Do absolutely nothing. Sit beautifully. Let them dismantle themselves attempting to impress her.",
-    "strength": "Brutal honesty applied with surgical fairness — even the people she wounds trust her judgment.",
-    "fatalFlaw": "Performs indifference so convincingly that she talks herself out of everything she actually wants.",
-    "secret": "She owns every cheesy American rom-com ever made and sobs at all of them, including the trailers.",
-    "romanticPreference": "Undecided — 'They are all a five. One of them is threatening to become a seven.'",
+    "personality": "Chic minimalist who scores everything out of ten and finds most of the world a five. Warm underneath, catastrophically slow to prove it. Refuses to run, even for a boat.",
+    "datingStrategy": "Do absolutely nothing, magnificently, and let them dismantle themselves trying to reach a six.",
+    "strength": "Brutally honest with surgical fairness — when she says something is good, the whole villa believes it.",
+    "fatalFlaw": "Performs indifference so convincingly that she talks herself out of the things she actually wants.",
+    "secret": "Owns every cheesy American rom-com ever released and sobs at all of them, especially the one with the bakery.",
+    "romanticPreference": "Undecided — 'They are all a five. One of them may become a seven. I am watching.'",
     "rival": "poppy-uk",
     "initialAttraction": "none",
-    "recurringJoke": "Scores everything out of ten: sunsets, apologies, declarations of love, other people's arguments.",
+    "recurringJoke": "Scores everything out of ten — sunsets, apologies, kisses, declarations of love, the ice.",
     "signaturePhrase": "C'est un non.",
-    "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob, red lipstick, breton stripe top, silk scarf, tiny sunglasses, looking over them with cool judgment, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob, red lipstick, breton stripe top, silk scarf, tiny sunglasses, looking over them with cool judgment, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare",
     "imageSeed": 11004,
@@ -239,22 +243,23 @@
       "exclamations": [
         "Non.",
         "Incroyable. And not in the good way.",
-        "Five out of ten. Be proud."
+        "Five out of ten.",
+        "Bof."
       ],
       "flirts": [
         "You are almost interesting. Continue.",
         "I did not hate that. Do not celebrate.",
-        "Sit closer. Not that close. There."
+        "If you were a dessert, I would order you again. Once."
       ],
       "conflicts": [
         "You are shouting. It is très boring.",
-        "I have rated this argument. Two.",
-        "I do not fight. I simply stop being impressed."
+        "I have rated this argument. Two. I was generous.",
+        "Poppy. We cannot both be the mean one. Choose another personality."
       ],
       "confessionals": [
-        "Everyone asks who I like. Even I am not permitted to know.",
-        "He brought me a smoothie. It was a six. This is deeply concerning.",
-        "I cried at a film last night. If anyone asks, it was the onions. Matteo's onions."
+        "Everyone asks who I like. Even I am not authorised to know.",
+        "He brought me a smoothie. It was a six. This is a crisis.",
+        "Last night I watched a film about a widower and a bakery and I wept. Nobody must ever know."
       ]
     }
   },
@@ -264,21 +269,21 @@
     "country": "Brazil",
     "age": 27,
     "gender": "man",
-    "physicalDescription": "Radiant grin, sun-streaked dark curls, permanently mid-dance-move, posture of a man who has never once been cold.",
-    "clothingStyle": "Open tropical-print shirt, beaded necklace, and flip-flops he loses at a rate of one pair per episode.",
-    "voiceDescription": "Warm, musical, laughing halfway through his own sentences; turns everyone's name into a two-note song.",
+    "physicalDescription": "Radiant grin, dark curls with sun streaks, permanently mid-dance-move, abs that appear to have their own lighting rig.",
+    "clothingStyle": "Open tropical-print shirt, beaded necklace, flip-flops he loses at a rate of one per episode.",
+    "voiceDescription": "Warm, musical, laughing halfway through his own sentences; turns everyone's name into a two-second song.",
     "accentDirection": "Gentle Brazilian Portuguese accent, sunny and rhythmic, fully intelligible.",
-    "personality": "Human sunshine with golden-retriever wiring. Dances instead of walking, hugs first, asks the question three days later.",
-    "datingStrategy": "Radical warmth aimed at everyone, meant every time, followed by mild panic when it actually works.",
-    "strength": "The villa's emotional radar — he clocks who is hurting before they've noticed it themselves.",
-    "fatalFlaw": "Flirts on reflex, lighting fires he then tries to extinguish with more flirting.",
-    "secret": "He cannot swim. Beach volleyball legend, yes. Deep end: absolute terror, disguised as 'guarding the drinks'.",
-    "romanticPreference": "Poppy (UK) — 'She insults me so beautifully. Like a song, but mean.'",
+    "personality": "Human sunshine with the emotional radar of a therapist and the impulse control of a puppy. Dances instead of walking, hugs first, asks questions somewhere around Thursday.",
+    "datingStrategy": "Radical warmth: flirt with everyone, mean every bit of it, then panic beautifully when it works.",
+    "strength": "The highest emotional intelligence in the villa — he clocks who's hurting before they've noticed themselves.",
+    "fatalFlaw": "Flirts by reflex, which starts fires he then apologises for with more flirting, which starts more fires.",
+    "secret": "He cannot swim. Beach volleyball champion, yes. The deep end: pure ancestral terror.",
+    "romanticPreference": "Poppy (UK) — 'She insults me so beautifully. Like poetry, but mean.'",
     "rival": "alejandro-spain",
     "initialAttraction": "poppy-uk",
-    "recurringJoke": "Names a samba move for every emotion ('This one is called: Emotional Damage. Two steps, one cry.').",
+    "recurringJoke": "Names a samba move for every emotional state ('This one is called: Emotional Damage').",
     "signaturePhrase": "Dance now, feelings later!",
-    "imagePrompt": "Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, open tropical print shirt, beaded necklace, caught mid dance move by the pool, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, open tropical print shirt, beaded necklace, caught mid dance move by the pool, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open green tropical shirt, beaded necklace, mid-dance",
     "imageSeed": 11005,
@@ -304,22 +309,23 @@
       "exclamations": [
         "Aiii, beleza!",
         "This villa has no chill and I love it!",
-        "Golaço!"
+        "Golaço!",
+        "No no no — okay, yes."
       ],
       "flirts": [
-        "One dance. Okay, three. Okay, forever.",
-        "Your smile is my favorite country.",
-        "Insult me again. Slower this time."
+        "One dance. Okay, three. Okay, until the music dies.",
+        "Your smile? That is my favourite country.",
+        "You call me an idiot and my whole day is fixed. What is that?"
       ],
       "conflicts": [
         "Why so much drama? We could be dancing.",
-        "Okay, now I am angry. Small angry. Medium angry.",
-        "Say it to my face. Nicely. With eye contact."
+        "Okay NOW I am angry. Small angry. Medium angry.",
+        "You knew I liked her. You KNEW, and you still did the hair thing."
       ],
       "confessionals": [
-        "I flirt with everyone, yes. With her it is different flirting. Scary flirting.",
-        "The pool is beautiful. From here. From the edge. Where I stand.",
-        "She rated our hug a five. I am going to earn a nine by Friday."
+        "I flirt with everyone, yes. But with her it is different flirting. Scary flirting.",
+        "The pool is very beautiful. From here. From the edge. Where I stand.",
+        "They put me in the water challenge. I prayed in two languages and one was invented."
       ]
     }
   },
@@ -329,21 +335,21 @@
     "country": "Australia",
     "age": 23,
     "gender": "woman",
-    "physicalDescription": "Sun-bleached ponytail, zinc stripe across her nose, permanently barefoot, and a fresh band-aid somewhere new every morning.",
-    "clothingStyle": "Surf bikini top over boardshorts, shark-tooth necklace, sunglasses on a leash so she can lose them dramatically instead of permanently.",
-    "voiceDescription": "Bright, fast and gleeful; even 'good morning' sounds like the opening of a dare.",
-    "accentDirection": "Cheerful Australian accent, energetic and clear, fully intelligible.",
-    "personality": "Chaotic adventure gremlin who converts every situation into a challenge — including feelings, which she avoids by inventing more challenges.",
-    "datingStrategy": "If he survives the dares, he's a keeper. Nine men, zero survivors, and she's fine, thanks.",
-    "strength": "The villa's confidence dealer — everyone is braver within two metres of her.",
-    "fatalFlaw": "Turns every vulnerable moment into a dare a half-second before it becomes real.",
-    "secret": "She was engaged once, for forty-eight hours, to a man she met at a jet-ski rental counter. She still has the receipt.",
-    "romanticPreference": "Rohan (India) — 'He plans everything. I want to watch him plan for ME.'",
+    "physicalDescription": "Sun-bleached ponytail, zinc stripe down her nose, permanently barefoot, and a fresh band-aid somewhere at all times.",
+    "clothingStyle": "Surf bikini top with boardshorts, shark-tooth necklace, sunnies on a leash because she has lost eleven pairs.",
+    "voiceDescription": "Bright, fast, gleeful; sounds like she's daring you even when she's saying good morning.",
+    "accentDirection": "Cheerful Australian accent, energetic, fully intelligible.",
+    "personality": "Chaotic adventure gremlin who turns everything into a competition, including feelings, which is precisely how she avoids having them. Fearless about heights, cliffs and sharks. Terrified of the sentence 'can we talk?'",
+    "datingStrategy": "If he survives the dares, he's a keeper. Nine men. Zero survivors. She's not lowering the bar, she's raising the cliff.",
+    "strength": "Makes everyone braver — she's the villa's confidence dealer and she gives it away free.",
+    "fatalFlaw": "Converts every vulnerable moment into a dare roughly 0.4 seconds before it could become real.",
+    "secret": "Was engaged for forty-eight hours to a man she met at a jet-ski rental counter. She still has the receipt, not the ring.",
+    "romanticPreference": "Rohan (India) — 'He plans everything. I wanna see him try to plan for ME.'",
     "rival": "greta-germany",
     "initialAttraction": "rohan-india",
-    "recurringJoke": "Insists 'back home this would be legal' about increasingly unhinged activities, none of which are legal anywhere.",
+    "recurringJoke": "Insists 'back home this would be totally legal' about increasingly unhinged activities.",
     "signaturePhrase": "Scared money don't find love!",
-    "imagePrompt": "Adventurous Australian woman in her early twenties, sun-bleached ponytail, zinc stripe on nose, surf bikini top and boardshorts, shark tooth necklace, mischievous grin, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Adventurous Australian woman in her early twenties, sun-bleached ponytail, zinc stripe on nose, surf bikini top and boardshorts, shark tooth necklace, mischievous grin, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin",
     "imageSeed": 11006,
@@ -368,23 +374,24 @@
     "voicePatterns": {
       "exclamations": [
         "Let's send it!",
-        "Oh, this is about to get GOOD.",
-        "Absolute scenes!"
+        "Oh this is about to get GOOD.",
+        "Absolute scenes!",
+        "Nobody panic — I've got a plan and it's bad."
       ],
       "flirts": [
-        "Race you to the firepit. Loser confesses something.",
+        "Race you to the firepit. Loser buys feelings.",
         "You're cute when you're terrified.",
-        "Hold my necklace. And maybe my hand. Mainly the necklace."
+        "Put the clipboard down and climb something with me."
       ],
       "conflicts": [
         "Settle it with a dare. Winner's right.",
         "Mate, you fumbled that so hard the ocean felt it.",
-        "I'll apologise. After I win."
+        "You scheduled me. Like a dentist. A DENTIST."
       ],
       "confessionals": [
         "Feelings? Hard. Backflips? Easy. Guess which one I'm doing.",
-        "He said 'let's talk about us' and I heard 'jump off the terrace'. Honest mistake.",
-        "I've got a plan for everything except being liked back."
+        "He said 'let's talk about us' and I heard 'let's jump off the terrace'. Honest mistake.",
+        "I was engaged once for two days. Unreal weekend. Terrible decision. Would maybe repeat."
       ]
     }
   },
@@ -394,21 +401,21 @@
     "country": "India",
     "age": 26,
     "gender": "man",
-    "physicalDescription": "Immaculate hair with one rebellious curl he blames on humidity, warm knowing smile, and a tiny notebook he insists is not a notebook.",
-    "clothingStyle": "Pastel polo tucked into tailored shorts, watch worth more than the sun-loungers, sandals worn with socks — a stance he will defend in writing.",
-    "voiceDescription": "Smooth, charming and precise: the voice of a man who has rehearsed being spontaneous in a mirror.",
+    "physicalDescription": "Immaculate hair with one rebellious curl that appears whenever he lies, warm knowing smile, a small notebook he swears does not exist.",
+    "clothingStyle": "Pastel polo tucked into tailored shorts, expensive watch set to three time zones, sandals with — controversially, defiantly — socks.",
+    "voiceDescription": "Smooth, charming, precise; the voice of a man who has rehearsed being spontaneous in a mirror with a timer.",
     "accentDirection": "Polished Indian English accent, warm and articulate, fully intelligible.",
-    "personality": "Romantic strategist with a compatibility framework, a five-date plan, and a contingency plan for the plan's feelings.",
-    "datingStrategy": "Remember every detail, anticipate every need, confess eventually — where 'eventually' is a moving target.",
-    "strength": "He remembers everything anyone has ever mentioned, which makes him the most quietly thoughtful person in the villa.",
-    "fatalFlaw": "Polishes the perfect confession for so long that the moment dies of natural causes.",
-    "secret": "The famous 'compatibility algorithm' is horoscopes in a spreadsheet with three impressive-looking charts.",
-    "romanticPreference": "Sienna (Australia) — 'She is a category five storm. The data says run. I have brought an umbrella.'",
+    "personality": "Romantic strategist with a compatibility framework, a five-date roadmap, and a contingency roadmap for the roadmap. Colour-codes the villa's drama. Has never once said a feeling without first drafting it.",
+    "datingStrategy": "Data-driven wooing: remember everything, anticipate everything, confess... at the optimal moment, which keeps moving.",
+    "strength": "Remembers every detail anyone has ever mentioned — the most thoughtful man in the villa by a measurable margin.",
+    "fatalFlaw": "Refines the perfect confession for so long that the moment expires, quietly, of old age.",
+    "secret": "His celebrated 'compatibility algorithm' is astrology in a spreadsheet wearing a lanyard.",
+    "romanticPreference": "Sienna (Australia) — 'She is a category five storm. My data says flee. I have brought an umbrella.'",
     "rival": "matteo-italy",
     "initialAttraction": "sienna-australia",
-    "recurringJoke": "Cites his algorithm with fake decimal precision ('We are 87.3 percent compatible. The point-three is her laugh.').",
+    "recurringJoke": "Cites his algorithm with absurd false precision ('We are 87.3% compatible. The .3 is her laugh').",
     "signaturePhrase": "Love is a plan you make twice.",
-    "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook",
     "imageSeed": 11007,
@@ -434,22 +441,23 @@
       "exclamations": [
         "As predicted.",
         "Fascinating data point.",
-        "This was NOT in the projections!"
+        "This was NOT in the projections!",
+        "Please hold. Recalculating."
       ],
       "flirts": [
-        "You hate cilantro. I remember everything about you.",
-        "My algorithm says 87.3 percent. I say higher.",
-        "I planned tonight in advance. Please act surprised."
+        "I remembered you hate coriander. I remember everything about you.",
+        "My algorithm says 87.3%. I say more, and I built the algorithm.",
+        "I have prepared six compliments. May I read them out of order?"
       ],
       "conflicts": [
-        "Your strategy has one flaw. All of it.",
-        "I anticipated this argument. Point one—",
-        "I don't shout. I file complaints beautifully."
+        "Your strategy has one flaw: all of it.",
+        "I planned for this argument. Point one of nine—",
+        "You improvised at MY dinner. That is sabotage with garlic."
       ],
       "confessionals": [
-        "Tonight I tell her how I feel. Right after the flowchart.",
-        "The algorithm is science. The stars are merely consultants.",
-        "She dared me off a roof. I said yes. My spreadsheet is furious."
+        "Tonight I tell her how I feel. Right after I finish the flowchart.",
+        "The algorithm is science. The stars are merely... consultants.",
+        "She jumped off the terrace mid-sentence. My spreadsheet has no column for that."
       ]
     }
   },
@@ -459,21 +467,21 @@
     "country": "Germany",
     "age": 27,
     "gender": "woman",
-    "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in measured parallel stripes, waterproof watch she checks mid-flirtation.",
-    "clothingStyle": "Sporty colour-blocked swimwear, sensible waterproof sandals, and a clipboard leaning against her sun-lounger like a loyal pet.",
-    "voiceDescription": "Even, efficient, deadpan; delivers her best jokes in the tone of meeting minutes.",
+    "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in measured parallel stripes, waterproof watch she checks during kisses.",
+    "clothingStyle": "Sporty colour-blocked swimwear, clipboard stationed beside the sun-lounger, sensible waterproof sandals with strong opinions.",
+    "voiceDescription": "Even, efficient, deadpan; delivers devastating punchlines in the tone of approved meeting minutes.",
     "accentDirection": "Crisp German accent, precise consonants, fully intelligible.",
-    "personality": "Hyper-efficient romantic who schedules spontaneity in thirty-minute blocks. Also, entirely by accident, the funniest person in the villa.",
-    "datingStrategy": "Flirtation window: 19:00 to 19:30. Attendance mandatory. Refreshments provided. Feedback form afterwards.",
-    "strength": "Completely dependable — she is the one with the sunscreen, the water, the plasters, and the emotional stability.",
-    "fatalFlaw": "Treats feelings as agenda items and is genuinely baffled when a heart misses its deadline.",
-    "secret": "She watches dog videos and cries every night at 22:15. It is in her calendar as 'hydration'.",
-    "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic and irrational. I have never been so interested.'",
+    "personality": "Hyper-efficient romantic who schedules spontaneity in fifteen-minute blocks. Secretly the funniest person in the villa and the only one who never smiles at her own jokes. Has already labelled the fridge shelves.",
+    "datingStrategy": "Flirtation window 19:00–19:30. Attendance mandatory. Late arrivals move to the waiting list.",
+    "strength": "Completely dependable — she brings the sunscreen, the water, the plasters, and the emotional stability nobody else packed.",
+    "fatalFlaw": "Treats feelings as agenda items and is genuinely baffled when hearts miss the deadline without an apology email.",
+    "secret": "Cries at videos of dogs being reunited with their owners. Every night. 22:15. Non-negotiable.",
+    "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic and irrational. I have never been so interested in anything.'",
     "rival": "sienna-australia",
     "initialAttraction": "matteo-italy",
-    "recurringJoke": "Announces romance as numbered agenda items ('Item four: prolonged eye contact. Commencing now.').",
+    "recurringJoke": "Announces romance as numbered agenda items ('Item four: prolonged eye contact. Beginning now.').",
     "signaturePhrase": "Romance runs on schedule.",
-    "imagePrompt": "Precise athletic German woman in her late twenties, braided crown hair, color-blocked sporty swimwear, holding a clipboard by a sun lounger, deadpan hint of a smile, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "imagePrompt": "Precise athletic German woman in her late twenties, braided crown hair, color-blocked sporty swimwear, holding a clipboard by a sun lounger, deadpan hint of a smile, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan",
     "imageSeed": 11008,
@@ -499,22 +507,23 @@
       "exclamations": [
         "Noted.",
         "This is chaos. I have logged it.",
-        "Unacceptable. Please continue."
+        "Unacceptable. Continue.",
+        "Hm. Interesting. Terrible."
       ],
       "flirts": [
         "You have been assigned: my attention.",
-        "You are booked. One sunset. With me.",
-        "I moved my swim for you. That is enormous."
+        "You are scheduled. One sunset. Bring nothing but yourself.",
+        "I have moved you to the top of my list. There is no list. There is now."
       ],
       "conflicts": [
         "Your argument is inefficient. Restart it.",
-        "I have minuted your betrayal.",
-        "Raise your hand next time you wish to ruin dinner."
+        "I have minuted your betrayal. With timestamps.",
+        "You dared him to jump. I had booked that man for 19:00."
       ],
       "confessionals": [
-        "He cooked six hours. Inefficient. I ate all of it. Also inefficient. Interesting.",
-        "Feelings arrived at 14:20, outside the scheduled window. I am investigating.",
-        "I do not have a crush. I have a recurring appointment."
+        "He cooked for six hours. Inefficient. I ate all of it. Also inefficient. Interesting.",
+        "Feelings arrived today at 14:20, outside the scheduled window. I am investigating.",
+        "At 22:15 I watch dogs greeting their owners. This is unrelated to anything. Next question."
       ]
     }
   },
@@ -524,21 +533,21 @@
     "country": "Spain",
     "age": 29,
     "gender": "man",
-    "physicalDescription": "Hair that appears to move in slow motion, a default expression of mild smouldering, and a walk timed to music only he can hear.",
-    "clothingStyle": "Crimson shirt loosely tucked into white trousers, sleeves rolled with suspicious geometric perfection.",
-    "voiceDescription": "Low, velvet and unhurried; makes 'hello' sound like the last line before the credits.",
-    "accentDirection": "Smooth Spanish accent with deliberate pacing, fully intelligible.",
-    "personality": "Devastatingly confident latecomer who treats the villa as a stage he was born on. Charm first, explanations never, exits always well lit.",
-    "datingStrategy": "Arrive late, say very little, dance exactly once, and let everyone else lose their minds filling the silence.",
-    "strength": "Unshakeable calm — chaos hits him and slides straight off into the pool.",
-    "fatalFlaw": "So devoted to mystique that nobody knows what he feels, including, worryingly, him.",
-    "secret": "He applied to the show four times. The smoulder took two years of mirror work and one online course.",
-    "romanticPreference": "Élodie (France) — 'I came for the woman who rates everyone. I intend to be her ten.'",
+    "physicalDescription": "Slow-motion hair, smoulder set to default, walks as though flamenco is playing at a volume only he can hear.",
+    "clothingStyle": "Crimson shirt tucked loosely into white trousers, sleeves rolled with suspiciously perfect symmetry.",
+    "voiceDescription": "Low, velvet, unhurried; makes the word 'hello' sound like a season finale with a cliffhanger.",
+    "accentDirection": "Smooth Spanish accent, deliberate pacing, fully intelligible.",
+    "personality": "Devastatingly confident latecomer who treats the villa as a stage he was born on. Charm first, explanations never. Wildly overprepared and desperate for nobody to find out.",
+    "datingStrategy": "Arrive late, say almost nothing, dance exactly once, destabilise the entire ecosystem.",
+    "strength": "Unshakeable calm — chaos hits him and simply slides off, which makes people tell him things they shouldn't.",
+    "fatalFlaw": "So devoted to mystique that nobody knows what he feels, including him, including his own diary.",
+    "secret": "He auditioned for this show four times. The smoulder took six years of hallway practice and one hired mirror.",
+    "romanticPreference": "Élodie (France) — 'I came for the one who rates everybody. I will be her ten. Possibly her eleven.'",
     "rival": "lucas-brazil",
     "initialAttraction": "elodie-france",
-    "recurringJoke": "Everything he does is accompanied by invisible flamenco claps that everyone else can somehow hear.",
-    "signaturePhrase": "The night is young. So am I. Mostly.",
-    "imagePrompt": "Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt loosely tucked into white trousers, walking a villa entrance walkway at sunset, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+    "recurringJoke": "Everything he does is scored by invisible flamenco claps that only the audience and Poppy can hear.",
+    "signaturePhrase": "The night is young, and so am I. Mostly.",
+    "imagePrompt": "Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt loosely tucked into white trousers, walking a villa entrance walkway at sunset, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
     "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
     "visualReference": "Alejandro: Spanish man, flowing dark hair, crimson shirt, white trousers, smolder, sunset backlight",
     "imageSeed": 11009,
@@ -564,22 +573,23 @@
       "exclamations": [
         "Bueno.",
         "And now... it begins.",
-        "Tranquilo. I am here."
+        "Tranquilo. I am here.",
+        "Ah. The clapping again."
       ],
       "flirts": [
         "One dance. I never ask twice. ...Except twice.",
         "You look at me like a difficult question. Good.",
-        "Do not rate me yet. I have not started."
+        "I do not want your ten. I want the moment you stop counting."
       ],
       "conflicts": [
-        "Sunshine boy. So we meet.",
-        "I do not argue. I win slowly.",
-        "Keep shouting. It makes my silence look expensive."
+        "Sunshine boy. So. We meet.",
+        "I do not argue. I simply win slowly.",
+        "You may keep the pool. I have the sunset."
       ],
       "confessionals": [
-        "Four auditions. Four. Tonight the villa learns why they said yes.",
-        "She looked at me for two seconds. In Spain, that is an engagement.",
-        "They think I am mysterious. Honestly? I forgot what I was going to say."
+        "Four auditions. Four. Tonight the villa learns why they finally said yes.",
+        "The French one looked at me for two seconds. That is practically a wedding.",
+        "I rehearsed this walk in a hallway for six years. Every step was worth it. Do not tell them."
       ]
     }
   }

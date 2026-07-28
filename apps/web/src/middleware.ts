@@ -14,6 +14,11 @@ const PUBLIC_PATHS = [
   // URLs for external fetchers + the workflow self-dispatch endpoint.
   "/api/assets/public",
   "/api/internal/advance",
+  // Public by nature: OAuth landing page + legal pages required by
+  // third-party developer platforms (TikTok app review).
+  "/tiktok/callback",
+  "/terms",
+  "/privacy",
 ];
 
 export function middleware(request: NextRequest): NextResponse {

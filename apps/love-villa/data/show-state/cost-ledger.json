@@ -434,7 +434,168 @@
       "estimatedUsd": 0.063,
       "mode": "live",
       "at": "2026-07-27T19:30:55.277Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "cast-refinement",
+      "estimatedUsd": 0.23544500000000002,
+      "mode": "live",
+      "at": "2026-07-28T15:28:54.836Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:brock-usa",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:31:33.272Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:poppy-uk",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:32:01.767Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:matteo-italy",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:32:33.243Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:elodie-france",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:32:59.163Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:33:30.260Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "cast-refinement",
+      "estimatedUsd": 0.23539000000000002,
+      "mode": "live",
+      "at": "2026-07-28T15:34:37.097Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:brock-usa",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:37:20.388Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:poppy-uk",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:37:45.961Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:matteo-italy",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:38:11.033Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:elodie-france",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:38:35.325Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:39:03.807Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:sienna-australia",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:39:30.840Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:rohan-india",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:39:54.469Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:greta-germany",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:40:20.182Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:alejandro-spain",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:40:45.613Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:pool",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:41:10.879Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:firepit",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:41:34.993Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:kitchen",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:42:03.463Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:bedroom",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:42:31.931Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:confessional",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:42:59.650Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:terrace",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:43:25.790Z"
+    },
+    {
+      "provider": "openai",
+      "item": "location:walkway",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T15:43:55.932Z"
     }
   ],
-  "totalUsd": 2.043
+  "totalUsd": 3.836
 }

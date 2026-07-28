@@ -21,10 +21,15 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
   const d = scene.durationFrames;
   const p = Math.min(1, frame / Math.max(1, d));
 
-  const camera = cameraTransform(scene.motion, p, frame);
-  const activeSpeaker = scene.lines.find(
+  const activeLine = scene.lines.find(
     (l) => frame >= l.startFrame && frame < l.startFrame + l.durationFrames,
-  )?.speaker;
+  );
+  const activeSpeaker = activeLine?.speaker;
+  // Punch-in: a quick 5% zoom pop at the start of every line keeps the cut
+  // rhythm of viral shorts even inside a single scene.
+  const sinceLine = activeLine ? frame - activeLine.startFrame : 99;
+  const punch = 1 + 0.05 * Math.exp(-sinceLine / 5);
+  const camera = `${cameraTransform(scene.motion, p, frame)} scale(${punch.toFixed(4)})`;
 
   // True animated clip (image-to-video): the characters and set are baked into
   // the clip, so play it full-bleed (looped to cover the scene) with a very
@@ -32,7 +37,7 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
   if (scene.clipFile) {
     return (
       <AbsoluteFill style={{ overflow: "hidden" }}>
-        <AbsoluteFill style={{ transform: `scale(${1 + 0.04 * p})` }}>
+        <AbsoluteFill style={{ transform: `scale(${((1 + 0.04 * p) * punch).toFixed(4)})` }}>
           <Loop durationInFrames={Math.max(1, scene.clipDurationFrames ?? scene.durationFrames)}>
             <OffthreadVideo
               src={staticFile(scene.clipFile)}

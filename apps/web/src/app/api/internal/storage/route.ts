@@ -63,6 +63,13 @@ const pruneSchema = z.object({
   voiceCache: z.boolean().default(false),
   intermediates: z.boolean().default(false),
   orphans: z.boolean().default(false),
+  /**
+   * Delete kids-shorts FINAL videos created before this ISO date. YouTube is
+   * the system of record once a video is uploaded (and rejected drafts are
+   * dead weight), so old finals only burn DB quota. Explicit cutoff required
+   * so a careless call can't take out a video still awaiting publish.
+   */
+  videosBefore: z.string().datetime().optional(),
   /** Run VACUUM so deleted blob pages are returned to the size quota. */
   vacuum: z.boolean().default(false),
 });
@@ -141,6 +148,31 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       select: { id: true },
     });
     await deleteAssets(intermediates.map((i) => i.id));
+  }
+  if (opts.videosBefore) {
+    const cutoff = new Date(opts.videosBefore);
+    // Never touch a video whose run hasn't reached a terminal state — the
+    // publish step still needs its bytes.
+    const activeRuns = await prisma.workflowRun.findMany({
+      where: {
+        organizationId: ctx.organizationId,
+        status: { notIn: ["COMPLETED", "FAILED", "CANCELLED"] },
+      },
+      select: { id: true },
+    });
+    const activeIds = new Set(activeRuns.map((r) => r.id));
+    const finals = await prisma.asset.findMany({
+      where: {
+        organizationId: ctx.organizationId,
+        moduleKey: "kids-shorts",
+        type: "VIDEO",
+        createdAt: { lt: cutoff },
+      },
+      select: { id: true, workflowRunId: true },
+    });
+    await deleteAssets(
+      finals.filter((f) => !f.workflowRunId || !activeIds.has(f.workflowRunId)).map((f) => f.id),
+    );
   }
   if (opts.orphans && storage.driver === "db") {
     // Blobs no Asset references (crashed runs, superseded writes).

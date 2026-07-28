@@ -1,5 +1,8 @@
 # Supplying the APIs — complete setup guide
 
+> **Already have keys and just going live?** Follow the shorter, click-by-click
+> **[GO-LIVE-CHECKLIST.md](./GO-LIVE-CHECKLIST.md)** (key rotation + TikTok connection) instead.
+
 Every provider is optional and independent: add keys one at a time and the pipeline upgrades that
 layer only. All keys go in `apps/love-villa/.env` (copy from `.env.example`; the file is
 gitignored — **never commit keys**). After editing `.env`, run any command — the startup banner

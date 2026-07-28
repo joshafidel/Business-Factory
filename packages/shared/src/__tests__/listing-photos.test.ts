@@ -39,7 +39,10 @@ describe("parsePhotoUrls", () => {
   });
 
   it("caps at MAX_LISTING_PHOTOS", () => {
-    const input = Array.from({ length: MAX_LISTING_PHOTOS + 3 }, (_, i) => `https://x.example.com/${i}.jpg`).join("\n");
+    const input = Array.from(
+      { length: MAX_LISTING_PHOTOS + 3 },
+      (_, i) => `https://x.example.com/${i}.jpg`,
+    ).join("\n");
     const { urls, rejected } = parsePhotoUrls(input);
     expect(urls).toHaveLength(MAX_LISTING_PHOTOS);
     expect(rejected).toHaveLength(3);

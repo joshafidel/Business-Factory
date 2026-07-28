@@ -34,7 +34,12 @@ export default async function ListingFactoryPage() {
       orderBy: { updatedAt: "desc" },
       take: 50,
       include: {
-        photos: { where: { isExcluded: false }, select: { id: true, assetId: true }, orderBy: { order: "asc" }, take: 1 },
+        photos: {
+          where: { isExcluded: false },
+          select: { id: true, assetId: true },
+          orderBy: { order: "asc" },
+          take: 1,
+        },
         renders: { orderBy: { createdAt: "desc" }, take: 1 },
         _count: { select: { photos: true, renders: true } },
       },
@@ -63,7 +68,10 @@ export default async function ListingFactoryPage() {
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="Projects" value={projects.length} />
-        <Stat label="Rendering now" value={projects.filter((p) => p.status === "RENDERING").length} />
+        <Stat
+          label="Rendering now"
+          value={projects.filter((p) => p.status === "RENDERING").length}
+        />
         <Stat label="Videos rendered" value={videoCount} />
         <Stat label="Cost this month" value={formatMicroUsd(monthCost._sum.costMicroUsd ?? 0n)} />
       </div>
@@ -172,7 +180,9 @@ export default async function ListingFactoryPage() {
               <h2 className="mb-2 text-sm font-semibold text-foreground">How it works</h2>
               <p>1. Upload the listing photos and drag them into tour order.</p>
               <p>2. Enter the property facts — the script uses only what you provide.</p>
-              <p>3. Pick a style: Luxury Cinematic, Fast Social, Clean Professional, or Showcase.</p>
+              <p>
+                3. Pick a style: Luxury Cinematic, Fast Social, Clean Professional, or Showcase.
+              </p>
               <p>4. Generate the script and voice-over, render a preview, then the final MP4.</p>
               <p>5. Download the video, captions, and social posting package.</p>
             </CardContent>

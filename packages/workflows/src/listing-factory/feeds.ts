@@ -101,7 +101,9 @@ class SimplyRetsFeed implements ListingFeedProvider {
       ...(process.env.HTTPS_PROXY ? { dispatcher: await proxyDispatcher() } : {}),
     } as RequestInit);
     if (!res.ok) {
-      throw new Error(`SimplyRETS ${path} failed (${res.status}): ${(await res.text()).slice(0, 200)}`);
+      throw new Error(
+        `SimplyRETS ${path} failed (${res.status}): ${(await res.text()).slice(0, 200)}`,
+      );
     }
     return res.json();
   }

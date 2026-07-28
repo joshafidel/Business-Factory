@@ -17,6 +17,7 @@ import {
   Stat,
   StatusBadge,
 } from "@/components/ui";
+import { MediaActions } from "@/components/media-actions";
 import { CreateVideoForm } from "./create-video-form";
 import { LoveVillaApp } from "./love-villa-app";
 
@@ -63,6 +64,12 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
         stepRuns: {
           where: { stepKey: { in: ["idea", "publish"] }, status: "COMPLETED" },
           select: { stepKey: true, output: true },
+        },
+        assets: {
+          where: { type: "VIDEO" },
+          select: { id: true },
+          orderBy: { createdAt: "desc" },
+          take: 1,
         },
       },
       orderBy: { createdAt: "desc" },
@@ -162,10 +169,11 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
                   note?: string;
                 } | null;
                 const pendingApproval = run.approvals[0];
+                const videoAsset = run.assets[0];
                 return (
                   <div
                     key={run.id}
-                    className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card p-3"
+                    className="flex flex-col gap-2 rounded-lg border border-border bg-card p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
                   >
                     <div className="min-w-0">
                       <p className="truncate text-sm font-medium">
@@ -176,7 +184,14 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
                       </p>
                       <p className="text-xs text-muted-foreground">{formatDate(run.createdAt)}</p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
+                    <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-2 sm:justify-end">
+                      {videoAsset ? (
+                        <MediaActions
+                          variant="links"
+                          src={`/api/assets/raw?id=${videoAsset.id}`}
+                          filename={`${slugify(idea?.title ?? "zoo-short")}.mp4`}
+                        />
+                      ) : null}
                       {publish?.published && publish.url ? (
                         <a
                           href={publish.url}
@@ -240,6 +255,16 @@ export default async function AppPage({ params }: { params: Promise<{ key: strin
         </div>
       </div>
     </>
+  );
+}
+
+function slugify(text: string): string {
+  return (
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "video"
   );
 }
 
