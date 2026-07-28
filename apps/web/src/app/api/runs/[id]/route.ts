@@ -30,7 +30,7 @@ export async function GET(
       workflow: { select: { key: true, name: true } },
       stepRuns: {
         orderBy: { createdAt: "asc" },
-        select: { stepKey: true, status: true, startedAt: true, output: true },
+        select: { stepKey: true, status: true, startedAt: true, updatedAt: true, output: true },
       },
       approvals: { select: { id: true, status: true, title: true } },
       assets: { select: { id: true, name: true, approvalStatus: true } },
@@ -46,6 +46,21 @@ export async function GET(
     const startedAt = latest?.startedAt ? new Date(latest.startedAt).getTime() : 0;
     if (latest?.status === "RUNNING" && startedAt > 0 && Date.now() - startedAt > STUCK_STEP_MS) {
       log.warn({ runId: run.id, stepKey: latest.stepKey }, "stuck step detected; re-dispatching");
+      await dispatchAdvance(run.id, run.organizationId);
+    } else if (
+      latest &&
+      latest.status !== "RUNNING" &&
+      Date.now() - new Date(latest.updatedAt).getTime() > STUCK_STEP_MS
+    ) {
+      // The other death mode: the previous step finished (or an approval was
+      // granted) but the advance dispatch for the NEXT step was lost, so the
+      // run sits RUNNING with no live stepRun at all. The wait step's DELAY
+      // dispatch legitimately idles up to ~90s, so the same generous
+      // threshold applies before re-kicking.
+      log.warn(
+        { runId: run.id, lastStepKey: latest.stepKey },
+        "run idle with no live step; re-dispatching",
+      );
       await dispatchAdvance(run.id, run.organizationId);
     }
   }
