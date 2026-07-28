@@ -95,13 +95,22 @@ export default async function AssetsPage({
                 </TD>
                 <TD className="text-xs text-muted-foreground">{formatDate(asset.createdAt)}</TD>
                 <TD>
-                  <a
-                    href={`/api/assets/raw?id=${asset.id}`}
-                    className="text-xs text-primary hover:underline"
-                    target="_blank"
-                  >
-                    View
-                  </a>
+                  <span className="flex items-center gap-3 whitespace-nowrap">
+                    <a
+                      href={`/api/assets/raw?id=${asset.id}`}
+                      className="text-xs text-primary hover:underline"
+                      target="_blank"
+                    >
+                      View
+                    </a>
+                    <a
+                      href={`/api/assets/raw?id=${asset.id}&download=1`}
+                      download={asset.name}
+                      className="text-xs text-primary hover:underline"
+                    >
+                      Download
+                    </a>
+                  </span>
                 </TD>
               </TR>
             ))}

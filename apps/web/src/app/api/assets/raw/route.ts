@@ -3,6 +3,28 @@ import { getStorage } from "@bf/storage";
 import { NextResponse, type NextRequest } from "next/server";
 import { getOrgContext } from "@/lib/session";
 
+/** Common mime → extension map so downloads land with an openable filename. */
+const EXTENSION_BY_MIME: Record<string, string> = {
+  "video/mp4": "mp4",
+  "video/webm": "webm",
+  "video/quicktime": "mov",
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image/webp": "webp",
+  "audio/mpeg": "mp3",
+  "audio/wav": "wav",
+  "application/pdf": "pdf",
+  "application/json": "json",
+  "text/plain": "txt",
+};
+
+function fileNameWithExtension(name: string, mimeType: string): string {
+  const ext = EXTENSION_BY_MIME[mimeType];
+  if (!ext || name.toLowerCase().endsWith(`.${ext}`)) return name;
+  if (/\.[a-z0-9]{2,4}$/i.test(name)) return name; // already has some extension
+  return `${name}.${ext}`;
+}
+
 /**
  * Streams an asset's bytes after an auth + org check. Only assets belonging
  * to the caller's organization are served; the storage key itself is never
@@ -25,11 +47,17 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     // Asset was written by a different driver (e.g. s3) — redirect to a signed URL.
     return NextResponse.json({ error: "Asset stored in a different backend" }, { status: 409 });
   }
+  // ?download=1 flips the disposition to attachment so browsers save the
+  // file (with a proper extension) instead of playing it inline — this is
+  // what makes "Download MP4" work on phones.
+  const asAttachment = request.nextUrl.searchParams.get("download") === "1";
+  const disposition = asAttachment ? "attachment" : "inline";
+  const filename = fileNameWithExtension(asset.name, asset.mimeType);
   try {
     const data = await storage.get(asset.storageKey);
     const baseHeaders: Record<string, string> = {
       "content-type": asset.mimeType,
-      "content-disposition": `inline; filename="${encodeURIComponent(asset.name)}"`,
+      "content-disposition": `${disposition}; filename="${encodeURIComponent(filename)}"`,
       "cache-control": "private, max-age=300",
       "x-content-type-options": "nosniff",
       "accept-ranges": "bytes",
