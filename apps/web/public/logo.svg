@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4f46e5"/>
+      <stop offset="0.5" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#db2777"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.3" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde68a"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <!-- Factory silhouette with a play-button knockout -->
+    <mask id="factory-mask">
+      <rect width="512" height="512" fill="black"/>
+      <!-- chimney -->
+      <rect x="128" y="150" width="52" height="130" rx="10" fill="white"/>
+      <!-- sawtooth roof + body: three teeth rising left->right, flat body below -->
+      <path fill="white" d="
+        M116 262
+        L116 226 L200 186 L200 226 L284 186 L284 226 L368 186 L368 262
+        L396 262
+        Q412 262 412 278
+        L412 356
+        Q412 376 392 376
+        L120 376
+        Q100 376 100 356
+        L100 278
+        Q100 262 116 262 Z"/>
+      <!-- play-button knockout, centered on the body -->
+      <path fill="black" d="M225 264 Q225 250 238 257 L308 296 Q320 303 308 310 L238 349 Q225 356 225 342 Z"/>
+    </mask>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <rect width="512" height="512" fill="url(#glow)"/>
+
+  <!-- soft ground shadow -->
+  <ellipse cx="256" cy="396" rx="172" ry="26" fill="#1e1b4b" opacity="0.25"/>
+
+  <!-- the factory mark -->
+  <rect width="512" height="512" fill="#ffffff" mask="url(#factory-mask)"/>
+
+  <!-- energy bolt rising from the chimney -->
+  <path fill="url(#bolt)" d="M172 64 L128 138 L154 138 L134 196 L196 108 L166 108 L196 64 Z"/>
+
+  <!-- sparks -->
+  <circle cx="330" cy="106" r="9" fill="#ffffff" opacity="0.9"/>
+  <circle cx="374" cy="140" r="5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="94" cy="330" r="5" fill="#ffffff" opacity="0.35"/>
+</svg>
