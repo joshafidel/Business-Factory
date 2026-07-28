@@ -1,0 +1,21 @@
+{
+  "episode": 2,
+  "passed": false,
+  "issues": [
+    {
+      "check": "video-duration",
+      "severity": "warning",
+      "message": "Episode runs 103.1s (target 60–90s)"
+    },
+    {
+      "check": "final-export",
+      "severity": "info",
+      "message": "final.mp4 present (112.0 MB)"
+    },
+    {
+      "check": "quality-director",
+      "severity": "error",
+      "message": "critical quality findings — script pass (hook 8, engine 8, escalation 7, voice 7, pacing 7, ending 6; 1 draft(s)) · audio: 0 finding(s), 0 critical · visuals(3 imgs): 2 critical"
+    }
+  ]
+}

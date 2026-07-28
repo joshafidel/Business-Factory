@@ -1,0 +1,93 @@
+{
+  "episode": 2,
+  "updatedAt": "2026-07-28T21:53:06.060Z",
+  "script": {
+    "scores": {
+      "hook": 8,
+      "comedicEngine": 8,
+      "causalEscalation": 7,
+      "characterVoice": 7,
+      "comedicPacing": 7,
+      "ending": 6
+    },
+    "verdict": "pass",
+    "topProblems": [
+      "The endcard is narrator-only and generic — 'genuine, or just smooth?' is engagement-bait, not a punchline. The word-count gag deserves a joke button, and Brock/Matteo/Lucas all exit unresolved so the episode stops rather than lands.",
+      "Lucas's poolside 'cold war' is declared and then abandoned. It's the only escalation beat that causes nothing downstream — he isn't even in the terrace crowd shot when the six drops.",
+      "Scene 5 (no-music dance) doesn't causally follow Scene 4 (Brock's crack). Two beats sit in parallel instead of one triggering the next, softening the run-up to the record six.",
+      "Syntax uniformity flattens voice: nearly every line is a clipped 3-6 word fragment ('You made noise. I made brunch.' / 'That's a threat.' / 'He dances? That's my whole thing.'). Only Brock's bellow breaks rhythm. Poppy — the villa's designated commentator — gets two lines total.",
+      "Narrator does too much of the comic lifting in scenes 3 and 5 (four of seven lines), so the cast becomes reaction props in the middle third."
+    ],
+    "concreteFixes": [
+      "Scene 7 endcard: replace the third narrator line with a character button that pays the word count — Alejandro finally speaks and it's something devastatingly mundane ('Where is the blender?'), narrator: 'Three words left.' Keep 'Comment. Loudly.' as the fourth beat only if Brock is heard yelling it off-screen.",
+      "Scene 3: give Lucas a consequence, not just a reaction. Have him challenge Alejandro on the spot ('Dance-off. Sunset.') so the cold war becomes a scheduled event the audience waits for, then plant Sienna one line converting it into a dare to keep the thread live.",
+      "Chain scene 4 to scene 5: end Brock's confessional with him saying he'll 'go louder,' then open scene 5 with Brock's music cutting out (he blew the speaker) — which is WHY Alejandro dances with no music. Now the dance is caused, and Brock caused it.",
+      "Scene 6: bring Lucas onto the terrace and give him the fourth reaction after Brock and Matteo ('I've been dancing for eleven years. What did I get?' — Élodie: 'Five.') so the record six pays off three rivals instead of two.",
+      "Scene 2: break the fragment rhythm. Let Matteo run one operatic long sentence (12+ words, escalating clause on clause about the brunch) so his voice is structurally different from Poppy's and Élodie's clipped lines.",
+      "Scene 1: give Poppy a second line after Brock's 'Full send' so she gets a setup-and-topper instead of a single quip — e.g. she names the smoothie as evidence ('Pink. Chunky. Unsolicited.') before 'That's a threat,' letting the joke breathe."
+    ],
+    "iterations": 1
+  },
+  "audio": {
+    "findings": [],
+    "checkedAt": "2026-07-28T21:51:02.196Z"
+  },
+  "visuals": [
+    {
+      "images": [
+        {
+          "index": 0,
+          "aiDefects": [
+            "All four characters are hard-cropped at the frame bottom and read as flat cutouts pasted over the background rather than standing in the scene (no contact shadows, no occlusion by the fire-pit bench)",
+            "Italian character's hands on the pasta bowl are soft/fused — finger separation is mushy and the left thumb reads melted",
+            "US character's bottle-holding hand is partially cut by the frame edge and the grip does not wrap the bottle convincingly",
+            "Spanish character's right arm disappears behind his hip with no resolved hand",
+            "Scale/perspective mismatch: heads are far too large relative to the fire pit and seating ring directly behind them",
+            "Bonfire flame plane sits oddly between characters with no light spill onto their faces or bodies"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "critical",
+          "notes": "Glossy candy-bright grading, purple-to-orange sunset and lantern strings are on-model for the house style, and the wardrobe reads instantly (stars-and-stripes tank/cap, Italian tricolore apron, French beret + Breton stripes + tricolore neckerchief, Spanish red shirt with flag patch). However the foreground cast is composited rather than integrated: no contact shadows, no firelight rim, mismatched scale, and warped hands on the pasta bowl. A viewer would clock this as an AI/cutout composite."
+        },
+        {
+          "index": 1,
+          "aiDefects": [
+            "Foreground trio is again cut off at the bottom edge and floats over the pool with no reflection, no waterline interaction and no contact shadow",
+            "Floating buffet tray geometry is incoherent — the platter sits at an impossible angle, and several drinks/desserts on it are garbled, half-melted blobs rather than readable props",
+            "Fruit merges into the tray surface in places (tomatoes/peppers fused to the board)",
+            "Flamingo float head is malformed and its body is clipped awkwardly by the frame",
+            "Brazilian character's hands-on-hips arms show soft, undefined wrist/hand forms",
+            "Lighting mismatch: harsh midday sun on the villa vs. flat, soft key on the characters"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "critical",
+          "notes": "Background villa, bougainvillea and turquoise pool are perfectly on-style and the color grade matches the other frames. Nationality reads instantly (France: beret + Breton stripes; Brazil: yellow/green shirt and flag trunks; Spain: red shirt with flag patch). Downgraded to critical because the floating food tray is visibly garbled/impossible and the cast once more sits on the plate as a sticker layer with no water reflection or shadow."
+        },
+        {
+          "index": 2,
+          "aiDefects": [
+            "Four characters pasted as a cropped foreground band; the table, chairs and wine glasses behind them are not occluded logically and no character casts a shadow on the terrace",
+            "UK character's hand on the Union Jack mug has fused/indistinct fingers and the mug handle is not actually gripped",
+            "US character's bottle hand is clipped by the frame and the fingers blend into the bottle",
+            "Italian character's fingers under the pasta bowl are soft and partially merged with the ceramic",
+            "Candle flame and wine glasses are the strongest light source in-frame but throw no warm light on the nearby characters",
+            "Slight geometry oddity in the balustrade where the railing meets the right frame edge"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Best-integrated of the three: warm golden-hour grade, bougainvillea and sailboat backdrop match the house look, and character proportions (big heads, glossy skin, stylized eyes) are consistent with frames 0 and 1. Flag wardrobe is immediately legible — US stars-and-stripes tank, Union Jack crop set with matching mug, Italian tricolore apron, French beret with cockade plus Breton stripes. Remaining issues are soft hands on the mug/bottle and the usual cutout stacking, which is imperfect but shippable."
+        }
+      ],
+      "overallNotes": "The three stills share a coherent, glossy candy-bright 3D look — same saturated grade, same plush cartoon proportions, same character designs and costumes frame to frame — and every nationality reads at a glance from flag-colored wardrobe, which is the strongest part of the set. The systemic problem is compositing: in all three frames the cast is a hard-cropped foreground strip with no contact shadows, no environmental light spill (bonfire, candle, pool caustics all ignored) and inconsistent scale against their backgrounds, which is exactly the tell that makes a viewer say 'this is AI.' Secondary recurring defect is hands: every prop-holding hand (bottle, pasta bowl, mug) has fused or soft fingers. Frame 1 adds a genuinely broken prop — the floating pool buffet with melted drinks and an impossible tray angle. Recommended fixes before ship: re-render or paint in contact shadows and rim light from each scene's key source, nudge character scale down ~10-15% so head sizes agree with background architecture, clean up all three prop grips, and rebuild or blur the pool float tray.",
+      "labels": [
+        "still:s0.png",
+        "still:s3.png",
+        "still:s6.png"
+      ],
+      "checkedAt": "2026-07-28T21:53:06.060Z"
+    }
+  ]
+}

@@ -21,7 +21,1029 @@
       "estimatedUsd": 0.217165,
       "mode": "live",
       "at": "2026-07-28T20:05:21.366Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "episode-2-script",
+      "estimatedUsd": 0.217165,
+      "mode": "live",
+      "at": "2026-07-28T20:23:22.247Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:script-review:e2",
+      "estimatedUsd": 0.05058,
+      "mode": "live",
+      "at": "2026-07-28T20:24:51.924Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "episode-2-script",
+      "estimatedUsd": 0.217165,
+      "mode": "live",
+      "at": "2026-07-28T20:36:26.997Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:script-review:e2",
+      "estimatedUsd": 0.05031,
+      "mode": "live",
+      "at": "2026-07-28T20:37:56.468Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro has said eleven words ",
+      "estimatedUsd": 0.006,
+      "mode": "live",
+      "at": "2026-07-28T20:46:57.631Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:Dance with me. The song will fin",
+      "estimatedUsd": 0.005549999999999999,
+      "mode": "live",
+      "at": "2026-07-28T20:46:59.665Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That was seven.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-28T20:47:01.676Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Rewind. Breakfast. Now a weapon.",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-28T20:47:03.147Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Brock's weapon: a blender.",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-28T20:47:05.301Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Full send on the heart, baby!",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T20:47:07.230Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:That's not a smoothie. That's a ",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T20:47:09.133Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:You made noise. I made brunch.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-28T20:47:11.577Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:The eggs? A four.",
+      "estimatedUsd": 0.00255,
+      "mode": "live",
+      "at": "2026-07-28T20:47:13.546Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Nothing has ever beaten five.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T20:47:15.315Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro serves nothing.",
+      "estimatedUsd": 0.00375,
+      "mode": "live",
+      "at": "2026-07-28T20:47:16.974Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Élodie takes second helpings.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T20:47:18.412Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:He dances? That's my whole thing",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-28T20:47:20.285Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:A cold war, in swimwear.",
+      "estimatedUsd": 0.0036,
+      "mode": "live",
+      "at": "2026-07-28T20:47:21.993Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Spill Room. Smile working overti",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T20:47:23.600Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Maybe loud isn't the same as wan",
+      "estimatedUsd": 0.005399999999999999,
+      "mode": "live",
+      "at": "2026-07-28T20:47:25.727Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Oof.",
+      "estimatedUsd": 0.0006,
+      "mode": "live",
+      "at": "2026-07-28T20:47:27.399Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:No music. He dances anyway.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-28T20:47:28.560Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:...Oh.",
+      "estimatedUsd": 0.0009,
+      "mode": "live",
+      "at": "2026-07-28T20:47:30.283Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That 'oh' is a scandal.",
+      "estimatedUsd": 0.00345,
+      "mode": "live",
+      "at": "2026-07-28T20:47:31.784Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:Rate him. Out of ten.",
+      "estimatedUsd": 0.00315,
+      "mode": "live",
+      "at": "2026-07-28T20:47:33.596Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Six. ...I said that out loud. No",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T20:47:35.411Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Villa record.",
+      "estimatedUsd": 0.00195,
+      "mode": "live",
+      "at": "2026-07-28T20:47:37.869Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:A SIX? I've been grinding for a ",
+      "estimatedUsd": 0.00855,
+      "mode": "live",
+      "at": "2026-07-28T20:47:39.453Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:My lasagna got four!",
+      "estimatedUsd": 0.003,
+      "mode": "live",
+      "at": "2026-07-28T20:47:41.745Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Four words left. Nobody knows th",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T20:47:43.376Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:So: genuine, or just smooth?",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-28T20:47:45.348Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Comment. Loudly.",
+      "estimatedUsd": 0.0024,
+      "mode": "live",
+      "at": "2026-07-28T20:47:48.088Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-0",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T20:47:50.791Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-6",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T20:49:24.650Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-1",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T20:50:47.196Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-2",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T20:51:57.411Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T20:53:19.498Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T20:54:36.177Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-5",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T20:55:49.196Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e2",
+      "estimatedUsd": 0.100765,
+      "mode": "live",
+      "at": "2026-07-28T20:57:19.433Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro has said eleven words ",
+      "estimatedUsd": 0.006,
+      "mode": "live",
+      "at": "2026-07-28T21:03:16.087Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:Dance with me. The song will fin",
+      "estimatedUsd": 0.005549999999999999,
+      "mode": "live",
+      "at": "2026-07-28T21:03:18.141Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That was seven.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-28T21:03:19.938Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Rewind. Breakfast. Now a weapon.",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-28T21:03:21.564Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Brock's weapon: a blender.",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-28T21:03:23.884Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Full send on the heart, baby!",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:03:25.407Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:That's not a smoothie. That's a ",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T21:03:27.284Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:You made noise. I made brunch.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-28T21:03:29.314Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:The eggs? A four.",
+      "estimatedUsd": 0.00255,
+      "mode": "live",
+      "at": "2026-07-28T21:03:31.397Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Nothing has ever beaten five.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:03:33.097Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro serves nothing.",
+      "estimatedUsd": 0.00375,
+      "mode": "live",
+      "at": "2026-07-28T21:03:35.045Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Élodie takes second helpings.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:03:36.309Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:He dances? That's my whole thing",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-28T21:03:38.535Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:A cold war, in swimwear.",
+      "estimatedUsd": 0.0036,
+      "mode": "live",
+      "at": "2026-07-28T21:03:40.563Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Spill Room. Smile working overti",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T21:03:42.240Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Maybe loud isn't the same as wan",
+      "estimatedUsd": 0.005399999999999999,
+      "mode": "live",
+      "at": "2026-07-28T21:03:44.127Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Oof.",
+      "estimatedUsd": 0.0006,
+      "mode": "live",
+      "at": "2026-07-28T21:03:45.972Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:No music. He dances anyway.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-28T21:03:47.152Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:...Oh.",
+      "estimatedUsd": 0.0009,
+      "mode": "live",
+      "at": "2026-07-28T21:03:49.239Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That 'oh' is a scandal.",
+      "estimatedUsd": 0.00345,
+      "mode": "live",
+      "at": "2026-07-28T21:03:50.822Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:Rate him. Out of ten.",
+      "estimatedUsd": 0.00315,
+      "mode": "live",
+      "at": "2026-07-28T21:03:52.734Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Six. ...I said that out loud. No",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T21:03:54.531Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Villa record.",
+      "estimatedUsd": 0.00195,
+      "mode": "live",
+      "at": "2026-07-28T21:03:57.430Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:A SIX? I've been grinding for a ",
+      "estimatedUsd": 0.00855,
+      "mode": "live",
+      "at": "2026-07-28T21:03:58.918Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:My lasagna got four!",
+      "estimatedUsd": 0.003,
+      "mode": "live",
+      "at": "2026-07-28T21:04:01.800Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Four words left. Nobody knows th",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T21:04:03.653Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:So: genuine, or just smooth?",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-28T21:04:06.196Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Comment. Loudly.",
+      "estimatedUsd": 0.0024,
+      "mode": "live",
+      "at": "2026-07-28T21:04:08.357Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro has said eleven words ",
+      "estimatedUsd": 0.006,
+      "mode": "live",
+      "at": "2026-07-28T21:04:11.676Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:Dance with me. The song will fin",
+      "estimatedUsd": 0.005549999999999999,
+      "mode": "live",
+      "at": "2026-07-28T21:04:16.692Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That was seven.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-28T21:04:19.950Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Rewind. Breakfast. Now a weapon.",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-28T21:04:22.622Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Brock's weapon: a blender.",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-28T21:04:25.229Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Full send on the heart, baby!",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:04:28.063Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:That's not a smoothie. That's a ",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T21:04:30.837Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:You made noise. I made brunch.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-28T21:04:33.492Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:The eggs? A four.",
+      "estimatedUsd": 0.00255,
+      "mode": "live",
+      "at": "2026-07-28T21:04:36.397Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Nothing has ever beaten five.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:04:38.552Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro serves nothing.",
+      "estimatedUsd": 0.00375,
+      "mode": "live",
+      "at": "2026-07-28T21:04:40.393Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Élodie takes second helpings.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:04:41.835Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:He dances? That's my whole thing",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-28T21:04:46.924Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:A cold war, in swimwear.",
+      "estimatedUsd": 0.0036,
+      "mode": "live",
+      "at": "2026-07-28T21:04:48.595Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Spill Room. Smile working overti",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T21:04:50.527Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Maybe loud isn't the same as wan",
+      "estimatedUsd": 0.005399999999999999,
+      "mode": "live",
+      "at": "2026-07-28T21:04:53.920Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Oof.",
+      "estimatedUsd": 0.0006,
+      "mode": "live",
+      "at": "2026-07-28T21:04:55.706Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:No music. He dances anyway.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-28T21:04:56.935Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:No music. He dances anyway.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-28T21:05:07.428Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:...Oh.",
+      "estimatedUsd": 0.0009,
+      "mode": "live",
+      "at": "2026-07-28T21:05:09.271Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That 'oh' is a scandal.",
+      "estimatedUsd": 0.00345,
+      "mode": "live",
+      "at": "2026-07-28T21:05:11.576Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:Rate him. Out of ten.",
+      "estimatedUsd": 0.00315,
+      "mode": "live",
+      "at": "2026-07-28T21:05:13.360Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Six. ...I said that out loud. No",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T21:05:15.327Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Villa record.",
+      "estimatedUsd": 0.00195,
+      "mode": "live",
+      "at": "2026-07-28T21:05:17.933Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:A SIX? I've been grinding for a ",
+      "estimatedUsd": 0.00855,
+      "mode": "live",
+      "at": "2026-07-28T21:05:19.453Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:My lasagna got four!",
+      "estimatedUsd": 0.003,
+      "mode": "live",
+      "at": "2026-07-28T21:05:22.120Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Four words left. Nobody knows th",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T21:05:23.882Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:So: genuine, or just smooth?",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-28T21:05:25.905Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Comment. Loudly.",
+      "estimatedUsd": 0.0024,
+      "mode": "live",
+      "at": "2026-07-28T21:05:27.887Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-0",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:05:30.729Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-6",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:06:50.333Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:08:07.220Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e2",
+      "estimatedUsd": 0.100765,
+      "mode": "live",
+      "at": "2026-07-28T21:09:37.080Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro has said eleven words ",
+      "estimatedUsd": 0.006,
+      "mode": "live",
+      "at": "2026-07-28T21:11:34.571Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:Dance with me. The song will fin",
+      "estimatedUsd": 0.005549999999999999,
+      "mode": "live",
+      "at": "2026-07-28T21:11:37.133Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That was seven.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-28T21:11:39.191Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Rewind. Breakfast. Now a weapon.",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-28T21:11:40.793Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Brock's weapon: a blender.",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-28T21:11:42.972Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Full send on the heart, baby!",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:11:44.764Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:That's not a smoothie. That's a ",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T21:11:46.558Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:You made noise. I made brunch.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-28T21:11:48.866Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:The eggs? A four.",
+      "estimatedUsd": 0.00255,
+      "mode": "live",
+      "at": "2026-07-28T21:11:50.996Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Nothing has ever beaten five.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:11:52.615Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Alejandro serves nothing.",
+      "estimatedUsd": 0.00375,
+      "mode": "live",
+      "at": "2026-07-28T21:11:54.429Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Élodie takes second helpings.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-28T21:11:55.881Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:He dances? That's my whole thing",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-28T21:12:00.472Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:A cold war, in swimwear.",
+      "estimatedUsd": 0.0036,
+      "mode": "live",
+      "at": "2026-07-28T21:12:02.551Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Spill Room. Smile working overti",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T21:12:04.367Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:Maybe loud isn't the same as wan",
+      "estimatedUsd": 0.005399999999999999,
+      "mode": "live",
+      "at": "2026-07-28T21:12:06.553Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Oof.",
+      "estimatedUsd": 0.0006,
+      "mode": "live",
+      "at": "2026-07-28T21:12:08.463Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:No music. He dances anyway.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-28T21:12:09.957Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:...Oh.",
+      "estimatedUsd": 0.0009,
+      "mode": "live",
+      "at": "2026-07-28T21:12:11.994Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That 'oh' is a scandal.",
+      "estimatedUsd": 0.00345,
+      "mode": "live",
+      "at": "2026-07-28T21:12:13.525Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:Rate him. Out of ten.",
+      "estimatedUsd": 0.00315,
+      "mode": "live",
+      "at": "2026-07-28T21:12:18.495Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Six. ...I said that out loud. No",
+      "estimatedUsd": 0.00585,
+      "mode": "live",
+      "at": "2026-07-28T21:12:21.255Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Villa record.",
+      "estimatedUsd": 0.00195,
+      "mode": "live",
+      "at": "2026-07-28T21:12:23.807Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:brock-usa:A SIX? I've been grinding for a ",
+      "estimatedUsd": 0.00855,
+      "mode": "live",
+      "at": "2026-07-28T21:12:25.481Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:My lasagna got four!",
+      "estimatedUsd": 0.003,
+      "mode": "live",
+      "at": "2026-07-28T21:12:28.043Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Four words left. Nobody knows th",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-28T21:12:29.773Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:So: genuine, or just smooth?",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-28T21:12:34.199Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Comment. Loudly.",
+      "estimatedUsd": 0.0024,
+      "mode": "live",
+      "at": "2026-07-28T21:12:36.124Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e2",
+      "estimatedUsd": 0.15701500000000002,
+      "mode": "live",
+      "at": "2026-07-28T21:13:49.050Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-6",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:19:43.802Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:21:10.527Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e2",
+      "estimatedUsd": 0.15701500000000002,
+      "mode": "live",
+      "at": "2026-07-28T21:22:20.366Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:elodie-france",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T21:27:28.099Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:matteo-italy",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T21:27:52.153Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T21:28:21.008Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-0",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:28:45.647Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-6",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:30:36.790Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:32:05.540Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e2",
+      "estimatedUsd": 0.12493500000000002,
+      "mode": "live",
+      "at": "2026-07-28T21:33:47.377Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T21:47:11.221Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:47:58.779Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e2",
+      "estimatedUsd": 0.12493500000000002,
+      "mode": "live",
+      "at": "2026-07-28T21:49:16.683Z"
+    },
+    {
+      "provider": "openai",
+      "item": "character:lucas-brazil",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-28T21:50:38.738Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-28T21:51:03.173Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e2",
+      "estimatedUsd": 0.12493500000000002,
+      "mode": "live",
+      "at": "2026-07-28T21:52:21.218Z"
     }
   ],
-  "totalUsd": 0.217
+  "totalUsd": 8.372
 }

@@ -169,10 +169,10 @@ export const CAST: Character[] = [
     imagePrompt:
       `Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, white linen ` +
       `shirt with green-white-red Italian flag trim on the collar, Italian tricolore striped apron, ` +
-      `gold chain, gesturing passionately with both hands, ${STYLE}`,
+      `gold chain, proudly holding a large pasta bowl with both hands, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Matteo: Italian man, dark curls, thick eyebrows, white linen shirt with Italian tricolore collar trim, Italian-flag apron, gold chain, expressive hands",
+      "Matteo: Italian man, dark curls, thick eyebrows, white linen shirt with Italian tricolore collar trim, Italian-flag apron, gold chain, holding a pasta bowl with both hands",
     imageSeed: 11003,
     palette: { skin: "#d9a06a", hair: "#2e2119", outfit: "#efe6d3", accent: "#c9a441" },
     voice: {
@@ -227,10 +227,10 @@ export const CAST: Character[] = [
     imagePrompt:
       `Effortlessly chic French woman in her mid twenties, dark bob under a navy beret with a small ` +
       `blue-white-red cockade pin, red lipstick, breton stripe top, silk scarf in French tricolore ` +
-      `blue white red, tiny sunglasses, looking over them with cool judgment, ${STYLE}`,
+      `blue white red, tiny sunglasses, arms elegantly crossed, looking over them with cool judgment, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, cool stare",
+      "Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare",
     imageSeed: 11004,
     palette: { skin: "#f0c39e", hair: "#241c1c", outfit: "#f4f1ea", accent: "#c0392b" },
     voice: {
@@ -278,12 +278,12 @@ export const CAST: Character[] = [
       "Announces a samba move for every mood ('This one is called: Emotional Damage').",
     signaturePhrase: "Dance now, feelings later!",
     imagePrompt:
-      `Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, canary yellow ` +
-      `Brazil football jersey with green trim worn open, swim shorts in Brazilian flag green yellow and ` +
-      `blue, green and yellow beaded necklace, caught mid dance move by the pool, ${STYLE}`,
+      `Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, plain canary yellow ` +
+      `Brazil football jersey with green trim (no crest, no numbers, no lettering) worn open, swim shorts in Brazilian flag green yellow and ` +
+      `blue, green and yellow beaded necklace, standing confidently with both hands on his hips by the pool, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open canary-yellow Brazil jersey with green trim, green-yellow-blue shorts, beaded necklace, mid-dance",
+      "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open canary-yellow Brazil jersey with green trim, green-yellow-blue shorts, beaded necklace, hands on hips, huge grin",
     imageSeed: 11005,
     palette: { skin: "#c98a5b", hair: "#3a2a1a", outfit: "#ffdf00", accent: "#009c3b" },
     voice: {

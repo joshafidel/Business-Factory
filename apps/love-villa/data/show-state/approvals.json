@@ -30,16 +30,16 @@
     "locked": true
   },
   "script:2": {
-    "status": "pending",
-    "at": "2026-07-27T17:19:42.816Z",
-    "note": "Review data/episodes/episode-002/script.md",
-    "locked": false
+    "status": "approved",
+    "at": "2026-07-28T20:46:55.999Z",
+    "note": "",
+    "locked": true
   },
   "visual-prompts:2": {
-    "status": "pending",
-    "at": "2026-07-27T17:19:42.816Z",
-    "note": "Review data/episodes/episode-002/shot-list.json",
-    "locked": false
+    "status": "approved",
+    "at": "2026-07-28T20:46:56.532Z",
+    "note": "",
+    "locked": true
   },
   "script:3": {
     "status": "pending",
@@ -82,5 +82,17 @@
     "at": "2026-07-28T16:17:36.967Z",
     "note": "Narrator-format final approved",
     "locked": true
+  },
+  "rough-cut:2": {
+    "status": "approved",
+    "at": "2026-07-28T21:53:06.653Z",
+    "note": "",
+    "locked": true
+  },
+  "final-export:2": {
+    "status": "pending",
+    "at": "2026-07-28T21:59:39.981Z",
+    "note": "Review output/episodes/episode-002/final.mp4",
+    "locked": false
   }
 }

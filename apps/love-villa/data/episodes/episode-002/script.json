@@ -1,211 +1,411 @@
 {
   "episode": 2,
   "title": "The Spanish Inquisition of Hearts",
-  "logline": "Alejandro's first morning: he says eleven words total and destabilizes the entire villa.",
+  "logline": "Alejandro says eleven words on his first morning, and breakfast becomes open warfare — Brock brings volume, Matteo brings four courses, and Élodie accidentally awards the highest score in villa history.",
   "scenes": [
     {
       "index": 0,
       "slot": "hook",
       "kind": "scene",
-      "locationId": "terrace",
-      "characters": ["alejandro-spain", "elodie-france"],
-      "visual": "The new guy just asked Élodie to dance — in front of BOTH of them. — caught mid-moment: Alejandro's first morning: he says eleven words total and destabilizes the entire villa. Brock responds with a",
+      "locationId": "firepit",
+      "characters": [
+        "alejandro-spain",
+        "elodie-france",
+        "brock-usa",
+        "matteo-italy"
+      ],
+      "visual": "Night firepit: Alejandro in crimson shirt and red-gold sash extends one hand to Élodie in breton stripes and navy beret; behind them Brock in his American-flag tank clutches a shaker bottle and Matteo in his tricolore apron freezes mid-stir, both faces collapsing.",
       "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Alejandro has said eleven words all day.",
+          "delivery": "sassy whisper, delighted",
+          "emphasize": [
+            "eleven"
+          ]
+        },
         {
           "speaker": "alejandro-spain",
           "text": "Dance with me. The song will find us.",
-          "delivery": "",
-          "emphasize": []
+          "delivery": "low, unbothered smolder",
+          "emphasize": [
+            "Dance",
+            "find"
+          ]
         },
         {
-          "speaker": "elodie-france",
-          "text": "Five out of ten.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "narrator",
+          "text": "That was seven.",
+          "delivery": "deadpan, then a tiny giggle",
+          "emphasize": [
+            "seven"
+          ]
         }
       ],
       "motion": "push-in",
-      "sfx": ["heartbeat"],
+      "sfx": [
+        "sting",
+        "heartbeat"
+      ],
       "textMessages": []
     },
     {
       "index": 1,
       "slot": "setup",
       "kind": "scene",
-      "locationId": "terrace",
-      "characters": ["alejandro-spain", "elodie-france", "brock-usa"],
-      "visual": "Setup: Alejandro's dance with Élodie at the firepit",
+      "locationId": "kitchen",
+      "characters": [
+        "brock-usa",
+        "poppy-uk"
+      ],
+      "visual": "Bright morning kitchen: Brock in flag tank and red backwards cap holds a screaming blender overhead like a trophy while Poppy in her Union Jack crop top shields her tea mug, one eyebrow fully raised.",
       "lines": [
         {
-          "speaker": "elodie-france",
-          "text": "Six. ...I said that out loud. Non. NON.",
-          "delivery": "",
-          "emphasize": ["I", "NON"]
+          "speaker": "narrator",
+          "text": "Rewind. Breakfast. Now a weapon.",
+          "delivery": "conspiratorial, fast",
+          "emphasize": [
+            "weapon"
+          ]
         },
         {
-          "speaker": "elodie-france",
-          "text": "You are shouting. It is très boring.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "narrator",
+          "text": "Brock's weapon: a blender.",
+          "delivery": "flat, pitying",
+          "emphasize": [
+            "blender"
+          ]
         },
         {
-          "speaker": "alejandro-spain",
-          "text": "You look at me like a difficult question. Good.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "brock-usa",
+          "text": "Full send on the heart, baby!",
+          "delivery": "shouting over the blender, no volume control",
+          "emphasize": [
+            "Full send"
+          ]
+        },
+        {
+          "speaker": "poppy-uk",
+          "text": "That's not a smoothie. That's a threat.",
+          "delivery": "dry British deadpan, sipping tea",
+          "emphasize": [
+            "threat"
+          ]
         }
       ],
-      "motion": "pan-right",
-      "sfx": [],
+      "motion": "shake",
+      "sfx": [
+        "whoosh",
+        "pop"
+      ],
       "textMessages": []
     },
     {
       "index": 2,
       "slot": "escalation",
       "kind": "argument",
-      "locationId": "bedroom",
-      "characters": ["alejandro-spain", "elodie-france"],
-      "visual": "Argument erupts: Élodie awards a historic six out of ten",
+      "locationId": "kitchen",
+      "characters": [
+        "matteo-italy",
+        "brock-usa",
+        "elodie-france"
+      ],
+      "visual": "Matteo in Italian-flag apron slams down a four-course brunch spread, hands flying, glaring at Brock's lone pink smoothie; Élodie sits between them poking an egg with total indifference.",
       "lines": [
         {
-          "speaker": "alejandro-spain",
-          "text": "Sunshine boy. We meet.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "matteo-italy",
+          "text": "You made noise. I made brunch.",
+          "delivery": "operatic outrage, hands wide",
+          "emphasize": [
+            "brunch"
+          ]
         },
         {
           "speaker": "elodie-france",
-          "text": "I have rated this argument. Two.",
-          "delivery": "",
-          "emphasize": []
+          "text": "The eggs? A four.",
+          "delivery": "bored, surgical, not looking up",
+          "emphasize": [
+            "four"
+          ]
         },
         {
-          "speaker": "alejandro-spain",
-          "text": "Bueno.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "narrator",
+          "text": "Nothing has ever beaten five.",
+          "delivery": "grave, like historical record",
+          "emphasize": [
+            "five"
+          ]
         }
       ],
-      "motion": "parallax",
-      "sfx": ["whoosh"],
+      "motion": "pan-right",
+      "sfx": [
+        "sting"
+      ],
       "textMessages": []
     },
     {
       "index": 3,
       "slot": "escalation",
-      "kind": "confessional",
-      "locationId": "confessional",
-      "characters": ["brock-usa"],
-      "visual": "brock-usa in the Spill Room, processing the chaos",
+      "kind": "scene",
+      "locationId": "pool",
+      "characters": [
+        "alejandro-spain",
+        "elodie-france",
+        "lucas-brazil"
+      ],
+      "visual": "Poolside: Alejandro reclines with a red carnation and empty hands while Élodie leans in slightly; Lucas in his open canary-yellow Brazil jersey stops mid-dance, grin flatlining into a stare.",
       "lines": [
         {
-          "speaker": "brock-usa",
-          "text": "I'm not worried. Confidence is my cardio.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "narrator",
+          "text": "Alejandro serves nothing.",
+          "delivery": "amused whisper",
+          "emphasize": [
+            "nothing"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Élodie takes second helpings.",
+          "delivery": "scandalised gasp-laugh",
+          "emphasize": [
+            "second"
+          ]
+        },
+        {
+          "speaker": "lucas-brazil",
+          "text": "He dances? That's my whole thing.",
+          "delivery": "sunny voice cracking into betrayal",
+          "emphasize": [
+            "dances"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "A cold war, in swimwear.",
+          "delivery": "crisp punchline",
+          "emphasize": [
+            "cold war"
+          ]
         }
       ],
-      "motion": "push-in",
-      "sfx": [],
+      "motion": "parallax",
+      "sfx": [
+        "ding"
+      ],
       "textMessages": []
     },
     {
       "index": 4,
       "slot": "escalation",
-      "kind": "scene",
-      "locationId": "firepit",
-      "characters": ["greta-germany", "elodie-france"],
-      "visual": "Villa reaction: Brock's confidence shows its first crack in the Spill Room",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": [
+        "brock-usa"
+      ],
+      "visual": "Spill Room: Brock alone in his flag tank and star shorts, cap in his lap, smile too wide, shaker bottle sweating on his knee.",
       "lines": [
         {
-          "speaker": "greta-germany",
-          "text": "This is chaos. I have logged it.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "narrator",
+          "text": "Spill Room. Smile working overtime.",
+          "delivery": "soft, sympathetic gossip",
+          "emphasize": [
+            "overtime"
+          ]
         },
         {
-          "speaker": "elodie-france",
-          "text": "I did not hate that. Do not celebrate.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "brock-usa",
+          "text": "Maybe loud isn't the same as wanted.",
+          "delivery": "quiet, unguarded, first crack showing",
+          "emphasize": [
+            "loud",
+            "wanted"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Oof.",
+          "delivery": "one-word wince",
+          "emphasize": [
+            "Oof"
+          ]
         }
       ],
-      "motion": "pan-left",
-      "sfx": ["pop"],
+      "motion": "push-in",
+      "sfx": [
+        "heartbeat"
+      ],
       "textMessages": []
     },
     {
       "index": 5,
       "slot": "escalation",
-      "kind": "confessional",
-      "locationId": "confessional",
-      "characters": ["alejandro-spain"],
-      "visual": "alejandro-spain in the Spill Room, pretending to be fine",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": [
+        "alejandro-spain",
+        "elodie-france"
+      ],
+      "visual": "Firelight: Alejandro spins Élodie slowly with no music anywhere, her cool stare finally cracking, red lip parted, beret slipping.",
       "lines": [
         {
-          "speaker": "alejandro-spain",
-          "text": "Four auditions. Four. Tonight, the villa learns why they finally said yes.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "narrator",
+          "text": "No music. He dances anyway.",
+          "delivery": "hushed awe",
+          "emphasize": [
+            "anyway"
+          ]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "...Oh.",
+          "delivery": "tiny involuntary breath, defences gone",
+          "emphasize": [
+            "Oh"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "That 'oh' is a scandal.",
+          "delivery": "delighted whisper-shriek",
+          "emphasize": [
+            "scandal"
+          ]
         }
       ],
       "motion": "push-in",
-      "sfx": [],
+      "sfx": [
+        "heartbeat",
+        "ding"
+      ],
       "textMessages": []
     },
     {
       "index": 6,
       "slot": "twist",
       "kind": "scene",
-      "locationId": "firepit",
-      "characters": ["brock-usa", "alejandro-spain"],
-      "visual": "TWIST: Élodie rates Alejandro a six — a villa record — then immediately regrets revealing it.",
+      "locationId": "terrace",
+      "characters": [
+        "elodie-france",
+        "poppy-uk",
+        "brock-usa",
+        "matteo-italy"
+      ],
+      "visual": "Morning terrace: Poppy leans in grinning as Élodie's cool mask shatters mid-sentence; behind them Brock's smoothie tips over untouched and Matteo drops a serving spoon, mouth open.",
       "lines": [
+        {
+          "speaker": "poppy-uk",
+          "text": "Rate him. Out of ten.",
+          "delivery": "sing-song trap",
+          "emphasize": [
+            "ten"
+          ]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "Six. ...I said that out loud. Non. NON.",
+          "delivery": "blurted, then rising French horror",
+          "emphasize": [
+            "Six",
+            "NON"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Villa record.",
+          "delivery": "awed, two words, huge",
+          "emphasize": [
+            "record"
+          ]
+        },
         {
           "speaker": "brock-usa",
           "text": "A SIX? I've been grinding for a five-point-five all week!",
-          "delivery": "",
-          "emphasize": ["SIX"]
+          "delivery": "wounded American bellow",
+          "emphasize": [
+            "SIX",
+            "five-point-five"
+          ]
         },
         {
-          "speaker": "alejandro-spain",
-          "text": "And now... it begins.",
-          "delivery": "",
-          "emphasize": []
+          "speaker": "matteo-italy",
+          "text": "My lasagna got four!",
+          "delivery": "operatic devastation",
+          "emphasize": [
+            "four"
+          ]
         }
       ],
       "motion": "shake",
-      "sfx": ["sting"],
+      "sfx": [
+        "sting",
+        "pop"
+      ],
       "textMessages": []
     },
     {
       "index": 7,
       "slot": "engagement",
       "kind": "endcard",
-      "locationId": "firepit",
-      "characters": [],
-      "visual": "End card: Is Alejandro genuine or just smooth? 👀",
-      "lines": [],
+      "locationId": "walkway",
+      "characters": [
+        "alejandro-spain"
+      ],
+      "visual": "Walkway at dusk: Alejandro strolls away in crimson and white, red carnation between his teeth, saying absolutely nothing, four question marks glowing over his head.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Four words left. Nobody knows them.",
+          "delivery": "teasing cliffhanger whisper",
+          "emphasize": [
+            "Four"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "So: genuine, or just smooth?",
+          "delivery": "direct challenge to camera",
+          "emphasize": [
+            "genuine",
+            "smooth"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Comment. Loudly.",
+          "delivery": "snap command",
+          "emphasize": [
+            "Loudly"
+          ]
+        }
+      ],
       "motion": "zoom-out",
-      "sfx": ["ding"],
+      "sfx": [
+        "whoosh"
+      ],
       "textMessages": []
     }
   ],
-  "caption": "The new guy just asked Élodie to dance — in front of BOTH of them. 🇪🇸🇫🇷🇺🇸🇮🇹🇧🇷 Is Alejandro genuine or just smooth? 👀 — Love Villa: Nations, episode 2 🌍❤️",
+  "caption": "Élodie has never rated anything above a five. Then Alejandro danced with no music. 👀🇪🇸 Brock's blender will never recover. Is he genuine or just smooth?",
   "hashtags": [
     "#LoveVillaNations",
-    "#realitytv",
-    "#datingshow",
-    "#comedy",
-    "#animation",
-    "#episode2",
-    "#fyp",
-    "#drama"
+    "#SpanishInquisitionOfHearts",
+    "#SixOutOfTen",
+    "#BlenderVsBrunch",
+    "#VillaDrama",
+    "#AnimatedReality",
+    "#ElodieRates",
+    "#BrockCallowayJr",
+    "#TeamLucas",
+    "#GossipNarrator"
   ],
-  "musicDirection": "Upbeat tropical-pop bed; heartbeat under the hook; dramatic sting on the twist.",
+  "musicDirection": "Original royalty-free flamenco-adjacent guitar sting for Alejandro's entrances, comedic pizzicato under the blender-vs-brunch war, single warm nylon-string phrase for the no-music dance, and a distorted record-scratch bass drop on the historic six.",
   "continuityNotes": [
-    "Brock's confidence wobble",
-    "Lucas vs Alejandro cold war begins",
-    "Direct continuation of Alejandro's episode 1 arrival."
+    "Brock's $43 lemonade-stand secret from ep1 now fuels his confidence wobble — the volume is compensation.",
+    "Poppy defended Brock last episode; here she baits Élodie instead, still refusing sincerity.",
+    "Élodie's out-of-ten rating bit is formally established this episode (eggs: four) before the historic six.",
+    "Matteo's mozzarella suffering continues off-screen; dairy secret still ticking.",
+    "Lucas vs Alejandro sunshine-king cold war officially declared poolside.",
+    "Alejandro's remaining four unspoken words are a planted mystery for a later episode.",
+    "Greta-Matteo prize dinner still pending and unmentioned on screen."
   ]
 }

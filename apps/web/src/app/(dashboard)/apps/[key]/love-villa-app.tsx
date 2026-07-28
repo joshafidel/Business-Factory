@@ -78,7 +78,7 @@ const CAST = [
  * render-episode drops preview.mp4 + poster there automatically; add the
  * episode number here once the files are committed.
  */
-const WATCHABLE = [1];
+const WATCHABLE = [1, 2];
 
 const EPISODES = [
   { n: 1, title: "Two Kings, One Croissant", status: "rendered" },

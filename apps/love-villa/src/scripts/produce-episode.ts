@@ -27,6 +27,7 @@ import { parseArgs, intArg } from "../utils/args";
 import { CostTracker } from "../utils/cost";
 import { ensureDir, episodeId, writeJson } from "../utils/fs";
 import { log } from "../utils/log";
+import { wavDurationSeconds } from "../utils/wav";
 
 export interface AssetManifest {
   episode: number;
@@ -137,6 +138,25 @@ async function main(): Promise<void> {
       const line = scene.lines[li]!;
       const character = characterById(cast, line.speaker);
       const seed = episode * 100000 + scene.index * 100 + li;
+      // Voice lines are paid assets like clips: reuse existing takes instead
+      // of re-billing on every produce run (delete a file to re-record it).
+      const existingAudio = findExistingAsset(
+        assetRel("episodes", epId, "audio", `s${scene.index}-l${li}`),
+        ["mp3", "wav"],
+      );
+      if (env.REUSE_EXISTING_ASSETS && existingAudio) {
+        const buf = readFileSync(assetAbs(existingAudio));
+        let seconds: number;
+        if (existingAudio.endsWith(".wav")) {
+          seconds = wavDurationSeconds(buf);
+        } else {
+          const { parseBuffer } = await import("music-metadata");
+          const meta = await parseBuffer(new Uint8Array(buf), { mimeType: "audio/mpeg" });
+          seconds = meta.format.duration ?? line.text.length / 14;
+        }
+        manifest.lines.push({ scene: scene.index, line: li, file: existingAudio, seconds });
+        continue;
+      }
       let attempt = 0;
       let done = false;
       while (!done) {

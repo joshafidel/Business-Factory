@@ -112,7 +112,7 @@ export async function reviewScript(params: {
       concreteFixes: [],
     }),
     tracker,
-    maxTokens: 3000,
+    maxTokens: 8000,
   });
 }
 
@@ -225,7 +225,7 @@ export async function reviewVisuals(params: {
       overallNotes: "mock mode — no visual review performed",
     }),
     tracker,
-    maxTokens: 3500,
+    maxTokens: 8000,
     images: buffers,
   });
   return { ...result, labels: images.map((i) => i.label) };
