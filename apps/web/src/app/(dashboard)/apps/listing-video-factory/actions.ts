@@ -108,13 +108,18 @@ export async function importListingPageAction(
     const host = new URL(url).hostname.replace(/^www\./, "");
     const PORTAL_HOSTS = ["zillow.com", "redfin.com", "realtor.com", "trulia.com", "homes.com"];
     if (PORTAL_HOSTS.some((p) => host === p || host.endsWith(`.${p}`))) {
+      // The address lives in the URL slug itself — parse it, no page fetch.
+      const { parsePortalAddress } = await import("@bf/workflows");
+      const parsed = parsePortalAddress(url);
       const project = await prisma.listingProject.create({
         data: {
           organizationId: ctx.organizationId,
           createdById: ctx.userId,
-          name: `Listing from ${host}`,
+          name: (parsed?.address ?? `Listing from ${host}`).slice(0, 120),
           property: listingPropertySchema.parse({
-            address: "Address pending",
+            address: parsed?.address ?? "Address pending",
+            city: parsed?.city ?? "",
+            state: parsed?.state ?? "",
             listingUrl: url,
           }) as Prisma.InputJsonValue,
           options: listingOptionsSchema.parse({}) as Prisma.InputJsonValue,

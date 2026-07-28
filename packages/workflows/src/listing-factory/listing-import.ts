@@ -180,6 +180,59 @@ function decodeEntities(s: string): string {
     .replace(/&#0?39;|&apos;/g, "'");
 }
 
+/**
+ * Portal listing URLs carry the address in the URL itself — no page fetch
+ * needed. Parses Zillow (/homedetails/255-S-Rengstorff-Ave-APT-161-Mountain-
+ * View-CA-94040/…), Realtor.com (…-detail/Street_City_ST_ZIP_M…), and
+ * similar dash/underscore slugs. Returns null when no address-like slug is
+ * found.
+ */
+export function parsePortalAddress(
+  url: string,
+): { address: string; city: string; state: string } | null {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return null;
+  }
+  const segments = parsed.pathname.split("/").filter(Boolean);
+  // Zillow: the segment after /homedetails/; Realtor.com: segment after
+  // …-detail/; otherwise the longest dashed segment that starts with a number.
+  let slug =
+    segments[segments.indexOf("homedetails") + 1] ??
+    segments.find((s) => /-detail$/.test(segments[segments.indexOf(s) - 1] ?? ""));
+  if (!slug || segments.indexOf("homedetails") === -1) {
+    slug = segments
+      .filter((s) => /^\d+[-_]/.test(s) && (s.match(/[-_]/g)?.length ?? 0) >= 3)
+      .sort((a, b) => b.length - a.length)[0];
+  }
+  if (!slug) return null;
+  // Realtor.com uses underscores between address parts and a _M… suffix.
+  const words = slug
+    .replace(/_M\d[\d-]*$/i, "")
+    .replace(/_/g, "-")
+    .split("-")
+    .filter(Boolean);
+  if (words.length < 4) return null;
+  // Expect: … City… ST ZIP  (ST = 2-letter state, ZIP = 5 digits at the end).
+  let zip = "";
+  if (/^\d{5}(\d{4})?$/.test(words[words.length - 1]!)) zip = words.pop()!;
+  const stateWord = words[words.length - 1];
+  if (!stateWord || !/^[A-Za-z]{2}$/.test(stateWord)) return null;
+  const state = words.pop()!.toUpperCase();
+  if (words.length < 2) return null;
+  // Street/city boundary is ambiguous in a flat slug — keep the street as-is
+  // and take up to the last two words as a best-effort city for the form.
+  const city = words
+    .slice(-2)
+    .join(" ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const street = words.join(" ");
+  const address = `${street}, ${state}${zip ? ` ${zip}` : ""}`;
+  return { address, city, state };
+}
+
 export function extractListingData(html: string, pageUrl: string): ExtractedListing {
   const nodes = parseJsonLdBlocks(html);
   const listingNodes = nodes.filter((n) => typeOf(n).some((t) => LISTING_TYPES.has(t)));
