@@ -994,7 +994,7 @@ model ListingProject {
   /// "vertical" | "landscape" | "square"
   format         String               @default("vertical")
   /// Video template key, e.g. "fast-social" (see listing-factory/templates).
-  style          String               @default("fast-social")
+  style          String               @default("drone-flythrough")
   /// Render options: voiceover, captions, music, showPrice, showAddress…
   options        Json?
   /// Generated/edited script: { hook, scenes[], outro, cta }.
