@@ -23,6 +23,12 @@ other instead of competing. Follow them in every session.
   - `claude/ai-business-factory-real-estate-3gkuep` (Listing Video Factory)
   - `claude/ai-video-tiktok-app-2e3voe` (Love Villa: Nations)
 
+**Owner directive: always deploy to production.** Finished work doesn't sit
+on a branch — after your quality gates pass, run
+`node scripts/vercel-redeploy.mjs` (it converges all session branches first)
+so the owner sees the work live. Then smoke-check the other apps' pages
+(rule 10 below).
+
 ## Landing work on the deploy branch (the safe dance)
 
 Use `node scripts/sync-deploy.mjs` (does all of this), or by hand:
