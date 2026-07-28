@@ -2,8 +2,10 @@ import { type ShowBible } from "../schemas";
 
 const LOC_STYLE =
   "ultra-glossy 3D-render background in the style of viral animated reality-show shorts, " +
-  "candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful " +
-  "toy-like shapes, vertical 9:16 composition, no people, no text";
+  "candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, " +
+  "strong foreground-midground-background depth layers, rich set dressing and props that reward a " +
+  "second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, " +
+  "high detail, vertical 9:16 composition, no people, no text";
 
 const LOC_NEG =
   "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors";
@@ -104,7 +106,7 @@ export const SHOW_BIBLE: ShowBible = {
         id: "pool",
         name: "Infinity Pool",
         description: "Turquoise infinity pool with pink loungers and a swim-up heart-shaped bar.",
-        imagePrompt: `Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, ${LOC_STYLE}`,
+        imagePrompt: `Luxury villa turquoise infinity pool glittering with caustic light reflections, rows of hot-pink sun loungers with striped towels, heart shaped swim-up bar stacked with tropical drinks and fruit, inflatable flamingo and beach ball floating, terracotta arches draped in bougainvillea, palm trees, distant hills, bright midday sun with sparkling water highlights, ${LOC_STYLE}`,
         negativeImagePrompt: LOC_NEG,
         imageSeed: 21001,
         palette: { sky: "#8fd8f2", mid: "#35b6c9", ground: "#f2d8a7", accent: "#f27ba4" },
@@ -115,7 +117,7 @@ export const SHOW_BIBLE: ShowBible = {
         name: "Firepit Lounge",
         description:
           "Sunken circular firepit with amber cushions — where the serious conversations combust.",
-        imagePrompt: `Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, ${LOC_STYLE}`,
+        imagePrompt: `Sunken circular firepit lounge at dusk, plush amber and magenta cushions, crackling glowing fire casting warm flicker light on the stone, canopies of string lights and lanterns overhead, cocktails on a low table, purple-orange gradient sky over an ocean horizon with the first stars, ${LOC_STYLE}`,
         negativeImagePrompt: LOC_NEG,
         imageSeed: 21002,
         palette: { sky: "#3b2a55", mid: "#8c4a2f", ground: "#5a3a2a", accent: "#f2a03d" },
@@ -126,7 +128,7 @@ export const SHOW_BIBLE: ShowBible = {
         name: "Open Kitchen",
         description:
           "Marble island kitchen with copper pans — Matteo's kingdom and Rohan's laboratory.",
-        imagePrompt: `Bright luxury open villa kitchen, marble island, hanging copper pans, bowls of lemons, ${LOC_STYLE}`,
+        imagePrompt: `Bright luxury open villa kitchen, veined marble island with fresh pasta and flour mid-preparation, hanging copper pans catching the light, open shelves of colorful ceramics, bowls of lemons and tomatoes, herbs in pots on the windowsill, big windows with garden light streaming in, ${LOC_STYLE}`,
         negativeImagePrompt: LOC_NEG,
         imageSeed: 21003,
         palette: { sky: "#f7ecd9", mid: "#e0e5e8", ground: "#c9a684", accent: "#c96f3b" },
@@ -137,7 +139,7 @@ export const SHOW_BIBLE: ShowBible = {
         name: "Shared Bedroom",
         description:
           "One giant room, eight beds, zero privacy — where whispers travel at the speed of gossip.",
-        imagePrompt: `Luxury shared bedroom with rows of neat double beds, soft lamps, pastel bedding, moonlight through windows, ${LOC_STYLE}`,
+        imagePrompt: `Luxury shared villa bedroom with rows of neat double beds each with its own personality of pastel bedding and pillows, warm bedside lamps glowing, fairy lights along the headboards, moonlight pouring through tall arched windows, soft rugs and slippers, romantic blue-and-lavender night palette, ${LOC_STYLE}`,
         negativeImagePrompt: LOC_NEG,
         imageSeed: 21004,
         palette: { sky: "#2c2a4a", mid: "#6c63a8", ground: "#cbb8de", accent: "#f2c6de" },
@@ -148,7 +150,7 @@ export const SHOW_BIBLE: ShowBible = {
         name: "The Spill Room",
         description:
           "A neon-lit velvet confessional booth where contestants tell the camera the truth-ish.",
-        imagePrompt: `Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, ${LOC_STYLE}`,
+        imagePrompt: `Cozy velvet confessional booth wrapped in deep magenta drapes, glowing neon pink heart light on the wall, plush tufted armchair facing camera on a small stage, dramatic single spotlight with soft haze, scattered rose petals, gossip-ready intimacy, ${LOC_STYLE}`,
         negativeImagePrompt: LOC_NEG,
         imageSeed: 21005,
         palette: { sky: "#1d1030", mid: "#4a1d5e", ground: "#2a1240", accent: "#ff5fa2" },
@@ -159,7 +161,7 @@ export const SHOW_BIBLE: ShowBible = {
         name: "Sunset Terrace",
         description:
           "A bougainvillea-draped rooftop terrace — the villa's official overthinking zone.",
-        imagePrompt: `Rooftop villa terrace at golden hour, bougainvillea flowers, wicker chairs, ocean view, warm sunset glow, ${LOC_STYLE}`,
+        imagePrompt: `Rooftop villa terrace at golden hour, cascades of bougainvillea in full bloom, elegant wicker chairs around a candle-lit table with two glasses, ocean view with sailboats, sun flaring low over the water, warm honey-gold sunset glow with long soft shadows, ${LOC_STYLE}`,
         negativeImagePrompt: LOC_NEG,
         imageSeed: 21006,
         palette: { sky: "#f2a65e", mid: "#e26d5a", ground: "#8c4a3c", accent: "#d94f8a" },
@@ -170,7 +172,7 @@ export const SHOW_BIBLE: ShowBible = {
         name: "Entrance Walkway",
         description:
           "A torch-lit palm walkway where new arrivals strut in — nobody good ever walks in quietly.",
-        imagePrompt: `Dramatic torch-lit palm tree walkway leading to villa entrance at night, flame torches, stone path, stars, ${LOC_STYLE}`,
+        imagePrompt: `Dramatic torch-lit palm tree walkway leading to a grand villa entrance at night, flame torches with dancing light, polished stone path with petals scattered down the center, arched entry glowing warm from within, deep blue starry sky with a bright moon, red-carpet arrival energy, ${LOC_STYLE}`,
         negativeImagePrompt: LOC_NEG,
         imageSeed: 21007,
         palette: { sky: "#141c3a", mid: "#27407a", ground: "#7a6248", accent: "#f2b13d" },

@@ -109,7 +109,7 @@ export async function renderEpisodeVideo(params: {
 }
 
 /** Locate the static ffmpeg binary shipped by the workspace's ffmpeg-static dep. */
-function resolveFfmpeg(): string {
+export function resolveFfmpeg(): string {
   if (process.env.FFMPEG_PATH && existsSync(process.env.FFMPEG_PATH))
     return process.env.FFMPEG_PATH;
   const suffix = "node_modules/ffmpeg-static/ffmpeg";

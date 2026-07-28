@@ -3,36 +3,57 @@ import { useCurrentFrame } from "remotion";
 import { wrapWords, type PlanLine, type PlanScene } from "../plan-types";
 
 /**
- * Viral-short captions: huge bold text high-center (the object-love-island
- * look), word-by-word highlight as it's spoken, punch words in gold, heavy
- * outline for readability on any art. Narrator lines have no name chip (she's
- * the voice of the show); contestant quotes keep a small colored chip.
+ * Caption system (owner directives, 2026-07-28):
+ *  - Horizontal complete clauses, never a vertical stack of single words.
+ *  - At most two rows at a time, centered in the LOWER-middle third of the
+ *    frame, clear of faces and UI.
+ *  - Word-by-word highlight is color-only — no per-word scaling/rotation
+ *    jitter. Emphasized punch words are gold.
  */
 
-/** Split a wrapped block into chunks of ≤2 rows shown sequentially. */
-function activeChunk(rows: string[][], wordsSpoken: number): { rows: string[][]; offset: number } {
-  const chunks: string[][][] = [];
-  for (let i = 0; i < rows.length; i += 2) chunks.push(rows.slice(i, i + 2));
-  let offset = 0;
-  for (const chunk of chunks) {
-    const chunkWords = chunk.reduce((n, r) => n + r.length, 0);
-    if (wordsSpoken < offset + chunkWords) return { rows: chunk, offset };
-    offset += chunkWords;
+const GOLD = "#ffd54a";
+const TOP_NARRATOR = 1215;
+const TOP_SPEAKER = 1175;
+const FONT = 54;
+const FONT_EMPH = 62;
+const WRAP_CHARS = 20;
+const MAX_ROWS = 2;
+
+/** Split a line into clause-sized chunks (≤ ~2 rows each), never mid-clause. */
+function clauseChunks(words: string[]): string[][] {
+  const limit = WRAP_CHARS * MAX_ROWS;
+  const chunks: string[][] = [];
+  let current: string[] = [];
+  let len = 0;
+  for (const w of words) {
+    const wLen = w.length + 1;
+    const closesClause = /[.!?…]$/.test(w);
+    if (len + wLen > limit && current.length > 0) {
+      chunks.push(current);
+      current = [];
+      len = 0;
+    }
+    current.push(w);
+    len += wLen;
+    // Prefer breaking right after a finished clause once the chunk has body.
+    if (closesClause && len > WRAP_CHARS * 0.8) {
+      chunks.push(current);
+      current = [];
+      len = 0;
+    }
   }
-  const last = chunks[chunks.length - 1] ?? [[]];
-  return { rows: last, offset: Math.max(0, offset - last.reduce((n, r) => n + r.length, 0)) };
+  if (current.length > 0) chunks.push(current);
+  return chunks;
 }
 
 export const Subtitles: React.FC<{ scene: PlanScene }> = ({ scene }) => {
   const frame = useCurrentFrame();
   const line = scene.lines.find(
-    (l) => frame >= l.startFrame && frame < l.startFrame + l.durationFrames + 5,
+    (l) => frame >= l.startFrame && frame < l.startFrame + l.durationFrames + 8,
   );
   if (!line) return null;
   return <SubtitleBlock line={line} frame={frame} />;
 };
-
-const GOLD = "#ffd54a";
 
 const SubtitleBlock: React.FC<{ line: PlanLine; frame: number }> = ({ line, frame }) => {
   const isNarrator = line.speaker === "narrator";
@@ -50,23 +71,38 @@ const SubtitleBlock: React.FC<{ line: PlanLine; frame: number }> = ({ line, fram
     wordsSpoken++;
   }
 
-  const rows = wrapWords(words, 14);
-  const { rows: visible, offset } = activeChunk(rows, wordsSpoken);
+  // Pick the chunk containing the currently spoken word; the whole clause is
+  // visible at once so viewers read phrases, not flashing single words.
+  const chunks = clauseChunks(words);
+  let offset = 0;
+  let active: string[] | null = null;
+  for (const chunk of chunks) {
+    if (wordsSpoken < offset + chunk.length) {
+      active = chunk;
+      break;
+    }
+    offset += chunk.length;
+  }
+  if (!active) {
+    active = chunks[chunks.length - 1] ?? [];
+    offset = words.length - active.length;
+  }
+
+  const rows = wrapWords(active, WRAP_CHARS).slice(0, MAX_ROWS);
   const emphasize = new Set(line.emphasize.map((w) => w.toLowerCase().replace(/[^a-zà-ÿ']/gi, "")));
-  const pop = Math.min(1, (frame - line.startFrame) / 5);
+  const fadeIn = Math.min(1, (frame - line.startFrame) / 6);
 
   let wordIndex = offset;
   return (
     <div
       style={{
         position: "absolute",
-        top: isNarrator ? 300 : 270,
-        left: 40,
-        right: 40,
+        top: isNarrator ? TOP_NARRATOR : TOP_SPEAKER,
+        left: 56,
+        right: 56,
         textAlign: "center",
         pointerEvents: "none",
-        transform: `scale(${0.92 + 0.08 * pop})`,
-        opacity: Math.max(0.6, pop),
+        opacity: Math.max(0.5, fadeIn),
       }}
     >
       {!isNarrator ? (
@@ -75,24 +111,23 @@ const SubtitleBlock: React.FC<{ line: PlanLine; frame: number }> = ({ line, fram
             display: "inline-block",
             background: line.color,
             color: "#14081f",
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: 900,
             borderRadius: 999,
-            padding: "4px 24px",
-            marginBottom: 10,
+            padding: "3px 20px",
+            marginBottom: 8,
             letterSpacing: 2,
-            boxShadow: "0 4px 0 rgba(0,0,0,0.4)",
+            boxShadow: "0 3px 0 rgba(0,0,0,0.4)",
           }}
         >
           {line.speakerName.toUpperCase()}
         </div>
       ) : null}
-      {visible.map((row, ri) => (
-        <div key={ri} style={{ lineHeight: 1.08, whiteSpace: "nowrap" }}>
+      {rows.map((row, ri) => (
+        <div key={ri} style={{ lineHeight: 1.16, whiteSpace: "nowrap" }}>
           {row.map((w, wi) => {
             const idx = wordIndex++;
-            const spoken = idx < wordsSpoken;
-            const current = idx === wordsSpoken;
+            const spoken = idx <= wordsSpoken;
             const clean = w.toLowerCase().replace(/[^a-zà-ÿ']/gi, "");
             const isEmph = emphasize.has(clean);
             return (
@@ -100,19 +135,14 @@ const SubtitleBlock: React.FC<{ line: PlanLine; frame: number }> = ({ line, fram
                 key={wi}
                 style={{
                   display: "inline-block",
-                  margin: "0 7px",
-                  fontSize: isEmph ? 84 : 70,
+                  margin: "0 8px",
+                  fontSize: isEmph ? FONT_EMPH : FONT,
                   fontWeight: 900,
                   textTransform: "uppercase",
-                  color: isEmph ? GOLD : spoken || current ? "#ffffff" : "rgba(255,255,255,0.55)",
-                  transform: current
-                    ? "scale(1.14) rotate(-1.5deg)"
-                    : isEmph
-                      ? "rotate(1deg)"
-                      : "none",
+                  color: isEmph ? GOLD : spoken ? "#ffffff" : "rgba(255,255,255,0.45)",
                   textShadow:
-                    "0 5px 0 rgba(0,0,0,0.85), 0 0 26px rgba(0,0,0,0.55), 3px 3px 0 rgba(0,0,0,0.9)",
-                  WebkitTextStroke: "2.5px rgba(0,0,0,0.85)",
+                    "0 4px 0 rgba(0,0,0,0.85), 0 0 22px rgba(0,0,0,0.55), 2px 2px 0 rgba(0,0,0,0.9)",
+                  WebkitTextStroke: "2px rgba(0,0,0,0.85)",
                 }}
               >
                 {w}
