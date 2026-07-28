@@ -81,15 +81,19 @@ function motionPrompt(scene: ZooScene | undefined): string {
       a.gaze ? `The characters look at ${a.gaze}.` : "",
     ].filter(Boolean);
     return withMotionGuardrails(
-      `Toddler-cartoon animation, slow clear movements with gentle anticipation and settle: ${parts.join(" ")} ` +
-        "Soft secondary motion (ears, tails). Slow smooth cinematic camera.",
+      `Lively toddler-cartoon animation like a modern nursery-rhyme show, clear readable ` +
+        `movements with anticipation and settle: ${parts.join(" ")} ` +
+        "The characters keep moving the whole time — bouncing to the song's rhythm, blinking, " +
+        "smiling wide, ears and tails swaying. Continuous joyful energy, never a frozen pose. " +
+        "Smooth gentle camera.",
     );
   }
   const motion = (scene?.visual ?? "a happy baby zoo animal").slice(0, 300);
   return withMotionGuardrails(
-    `Gentle toddler-cartoon animation: ${motion}. The cute baby animals move softly and ` +
-      "expressively — they blink, bounce to the music, wiggle ears, smile at each other. " +
-      "Slow smooth cinematic camera, subtle motion.",
+    `Lively toddler-cartoon animation like a modern nursery-rhyme show: ${motion}. The cute baby ` +
+      "animals dance and bounce to the music the whole time — blinking, giggling, wiggling ears, " +
+      "clapping, swaying side to side. Continuous joyful energy, never a frozen pose. " +
+      "Smooth gentle camera.",
   );
 }
 
@@ -249,11 +253,11 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
       .map((s, i) => `[${s?.type === "chorus" ? "chorus" : `verse ${i + 1}`}]\n${s?.lyrics ?? ""}`)
       .concat(script?.outro ? [`[outro]\n${script.outro}`] : [])
       .join("\n\n");
-    // ~7s of song per scene: animated scenes can only stretch to ~7.25s
-    // (1.35x cap) before the settle-hold kicks in, so longer songs would
-    // spend seconds on static holds. Eleven Music over-delivers length
-    // sometimes; the stitch's -t cap and per-scene targets absorb it.
-    const lengthMs = Math.max(40_000, Math.min(120_000, scenes.length * 7_000 + 4_000));
+    // ~6.5s of song per scene: every scene is truly animated and clips
+    // stretch to at most ~7.25s (1.35x cap), so the song must fit inside
+    // n × 7.25s of real motion. Eleven Music over-delivers length sometimes;
+    // the assemble step fades the audio out at the animation capacity.
+    const lengthMs = Math.max(38_000, Math.min(120_000, scenes.length * 6_500 + 2_000));
     const song = await providers.music.generateMusic({
       prompt:
         "A joyful children's nursery rhyme song for toddlers (ages 1-4), sung by a warm, sweet, " +
@@ -293,10 +297,12 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
   // Submit Higgsfield image-to-video jobs (the next step polls + assembles).
   // Requires a public base URL so their fetcher can download the images.
   //
-  // The account allows only 4 concurrent generations — submitting more
-  // bounces with a 400 and stacks nothing. So animate the 4 highest-impact
-  // scenes (opening hook, choruses, finale) and let the rest use Ken Burns;
-  // it also halves the per-video animation cost.
+  // EVERY scene gets true animation (owner mandate: static Ken Burns scenes
+  // read as cheap — NunuTV/Cocomelon energy means every shot moves). The
+  // account allows only 4 concurrent generations, so the render step seeds
+  // the 4 highest-impact scenes (hook, choruses, finale) and the assemble
+  // step stages the remaining scenes — plus regenerations of QA-rejected
+  // clips — as slots free up.
   const MAX_ANIMATED_SCENES = 4;
   const animationJobs: { sceneIndex: number; jobSetId: string }[] = [];
   let submissionsFailed = 0;
@@ -425,14 +431,37 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   // size scenes so every cut lands on a beat. Deterministic per run (the
   // audio is fixed), so the resumable scene cache stays valid across
   // attempts. "-v3" invalidates uniform-slot cache entries.
-  const totalSeconds = audioSeconds + 1.2;
+  //
+  // Duration is capped by what real animation can cover: clips stretch to at
+  // most 1.35x, and freeze-hold padding is banned (owner mandate — a held
+  // frame reads as broken). When the song over-delivers, the audio is faded
+  // out at the cap instead.
+  const motionForCap = getMotionProvider();
+  const clipCapSeconds = 1.35 * (motionForCap?.clipSeconds ?? 5.3);
+  const totalSeconds = Math.min(audioSeconds + 1.2, imageAssetIds.length * clipCapSeconds);
+  const audioCapped = totalSeconds < audioSeconds + 1.19;
   const beatMap = analyzeBeats(audioBuffer);
   const sceneDurations = beatAlignedDurations(totalSeconds, imageAssetIds.length, beatMap);
+  // Hard per-scene clamp: beat snapping can push one scene past what its
+  // clip can cover — carry the excess forward rather than freeze-holding.
+  for (let i = 0; i < sceneDurations.length; i++) {
+    const d = sceneDurations[i] as number;
+    if (d > clipCapSeconds) {
+      const excess = d - clipCapSeconds;
+      sceneDurations[i] = clipCapSeconds;
+      if (i + 1 < sceneDurations.length) {
+        sceneDurations[i + 1] = (sceneDurations[i + 1] as number) + excess;
+      }
+    }
+  }
+  const videoSeconds = sceneDurations.reduce((a, b) => a + b, 0);
   log.info(
     {
       bpm: beatMap.bpm,
       confidence: beatMap.confidence,
       durations: sceneDurations.map((d) => Number(d.toFixed(2))),
+      videoSeconds: Number(videoSeconds.toFixed(2)),
+      audioCapped,
     },
     "beat-aligned scene durations",
   );
@@ -447,109 +476,182 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     if (await storage.exists(`${sceneCachePrefix}${i}.mp4`)) cachedScenes.add(i);
   }
 
-  // Wait for motion clips — bounded so this invocation stays inside its
-  // serverless limit. Scenes whose clip isn't ready fall back to Ken Burns.
+  // Motion manager: EVERY scene must ship with a clean animated clip.
+  // A persistent job map (storage blob, survives retries) tracks each
+  // scene's animation attempts. Per assemble attempt:
+  //   1. poll active jobs; download finished clips
+  //   2. QA each clip; a rejected or failed clip is RESUBMITTED with the
+  //      defects fed back into the motion prompt (never replaced by a
+  //      static zoom — owner mandate)
+  //   3. stage submissions for scenes that have no job yet, respecting the
+  //      provider's 4-concurrent cap
+  //   4. while any un-baked scene is still animating, throw retryable
+  // Ken Burns survives only as a terminal fallback when a scene exhausts
+  // its submission budget — logged loudly in `animationFallbacks`.
   const motion = getMotionProvider();
   const clips = new Map<number, Buffer>();
   const clipQa: { scene: number; rejected: boolean; defects: string[] }[] = [];
+  const animationFallbacks: number[] = [];
   let clipCost = 0n;
-  if (animationJobs.length > 0 && motion) {
-    // 150s polling cap keeps poll + download + ffmpeg safely inside the
-    // 300s invocation limit. Jobs were submitted before the DELAY step, so
-    // this usually covers the provider's happy-path generation time.
-    const deadline = Date.now() + 150_000;
-    const jobsNeeded = animationJobs.filter((j) => !cachedScenes.has(j.sceneIndex));
-    const results = await awaitMotionJobs(
-      motion,
-      jobsNeeded.map((j) => j.jobSetId),
-      deadline,
-    );
-    const downloads = await Promise.allSettled(
-      jobsNeeded.map(async (job) => {
-        const r = results.get(job.jobSetId);
-        if (r?.status !== "completed" || !r.videoUrl) {
-          throw new Error(`clip not ready (${r?.status ?? "missing"})`);
-        }
-        return { sceneIndex: job.sceneIndex, data: await motion.download(r.videoUrl) };
-      }),
-    );
-    for (const d of downloads) {
-      if (d.status === "fulfilled") {
-        clips.set(d.value.sceneIndex, d.value.data);
-        clipCost += motion.clipCostMicroUsd;
-      } else {
-        log.warn({ err: d.reason }, "scene falls back to Ken Burns");
+  const MAX_TRIES_PER_SCENE = 3;
+  const MAX_TOTAL_SUBMISSIONS = 10;
+  const MAX_CONCURRENT = 4;
+  const base = publicBaseUrl();
+  if (motion && providers.real && base) {
+    const script = readPath(context, "$.steps.script") as { scenes?: ZooScene[] } | undefined;
+    // QA-passed clips are persisted so an attempt that retries for OTHER
+    // scenes doesn't lose them (the key carries the protected
+    // "/scene-render-" marker so storage pruning can't destroy mid-run
+    // progress).
+    const clipOkKey = (i: number): string => `${sceneCachePrefix}clip-ok-${i}.mp4`;
+    interface JobEntry {
+      jobId: string;
+      tries: number;
+      /** Set when the scene's clip passed QA and was baked (or gave up). */
+      settled?: boolean;
+      avoid?: string[];
+    }
+    const jobMapKey = `${organizationId}/${workflowRunId}/motion-jobs-v1.json`;
+    let jobMap: Record<string, JobEntry> = {};
+    try {
+      jobMap = JSON.parse((await storage.get(jobMapKey)).toString("utf8")) as typeof jobMap;
+    } catch {
+      for (const j of animationJobs) jobMap[String(j.sceneIndex)] = { jobId: j.jobSetId, tries: 1 };
+    }
+    const totalSubmissions = (): number =>
+      Object.values(jobMap).reduce((a, e) => a + e.tries, 0);
+    const env = loadEnv();
+    const submitScene = async (i: number, avoid: string[]): Promise<string> => {
+      const assetId = imageAssetIds[i] as string;
+      const exp = Math.floor(Date.now() / 1000) + 2 * 60 * 60;
+      const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, assetId, exp);
+      const prompt =
+        motionPrompt(script?.scenes?.[i]) +
+        (avoid.length > 0
+          ? ` STRICTLY AVOID these defects a previous attempt had: ${avoid.join("; ")}.`
+          : "");
+      return motion.submit({
+        imageUrl: `${base}/api/assets/public?id=${assetId}&exp=${exp}&sig=${sig}`,
+        prompt,
+      });
+    };
+
+    const need = [...Array(imageAssetIds.length).keys()].filter((i) => !cachedScenes.has(i));
+    // Reload clips that already passed QA in earlier attempts.
+    for (const i of need) {
+      if (await storage.exists(clipOkKey(i))) {
+        clips.set(i, await storage.get(clipOkKey(i)));
+        const e = jobMap[String(i)];
+        if (e) e.settled = true;
       }
     }
-    log.info(
-      { provider: motion.key, animated: clips.size, total: imageBuffers.length },
-      "motion clips ready",
+    const active = need.filter((i) => {
+      const e = jobMap[String(i)];
+      return e && !e.settled && !clips.has(i);
+    });
+    // 1. Poll active jobs (bounded window; fresh budget every attempt).
+    const deadline = Date.now() + 150_000;
+    const results = await awaitMotionJobs(
+      motion,
+      active.map((i) => (jobMap[String(i)] as JobEntry).jobId),
+      deadline,
     );
-
-    // Visual QA gate on motion (see docs/animation/VISUAL-QA.md): image-to-
-    // video models add their own defects on top of clean stills — limbs that
-    // split or multiply mid-motion, props that vanish or teleport, melting
-    // geometry. Sample frames across each clip and reject any clip with a
-    // critical defect; a rejected scene ships as a clean Ken Burns move over
-    // its QA-passed still instead of as broken animation.
-    const script = readPath(context, "$.steps.script") as { scenes?: ZooScene[] } | undefined;
-    const clipVerdicts = await Promise.all(
-      [...clips.entries()].map(async ([sceneIndex, data]) => {
+    for (const i of active) {
+      const entry = jobMap[String(i)] as JobEntry;
+      const r = results.get(entry.jobId);
+      let needsResubmit = false;
+      if (r?.status === "completed" && r.videoUrl) {
+        // 2. Download + QA. Pass → persist + use; reject → resubmit with
+        // the defects fed back. A transient download/QA error resubmits
+        // nothing — the job URL stays valid for the next attempt.
         try {
+          const data = await motion.download(r.videoUrl);
+          clipCost += motion.clipCostMicroUsd;
           const qa = await critiqueFrames({
-            // 6 samples: a Gigi muzzle-morph once slipped through 4-frame
+            // 6 samples: a muzzle-morph once slipped through 4-frame
             // sampling — denser coverage catches mid-clip morphs.
             frames: extractQaFrames(data, 6),
             kind: "clip",
-            sceneDescription: script?.scenes?.[sceneIndex]?.visual ?? "animated zoo scene",
-            characters: script?.scenes?.[sceneIndex]?.characters,
+            sceneDescription: script?.scenes?.[i]?.visual ?? "animated zoo scene",
+            characters: script?.scenes?.[i]?.characters,
             // Motion always has some softness; only critical defects reject.
             minScore: 0,
           });
-          return { sceneIndex, qa };
+          clipCost += qa.costMicroUsd;
+          if (qa.pass) {
+            clips.set(i, data);
+            entry.settled = true;
+            clipQa.push({ scene: i, rejected: false, defects: [] });
+            await storage.put(clipOkKey(i), data, { contentType: "video/mp4" });
+          } else {
+            clipQa.push({ scene: i, rejected: true, defects: qa.criticalDefects });
+            entry.avoid = qa.criticalDefects.slice(0, 3);
+            needsResubmit = true;
+            log.warn({ scene: i, defects: qa.criticalDefects }, "clip rejected by visual QA");
+          }
         } catch (err) {
-          log.warn({ sceneIndex, err }, "clip QA errored; keeping clip");
-          return { sceneIndex, qa: null };
+          log.warn({ scene: i, err }, "clip download/QA errored; retrying same job next attempt");
         }
-      }),
-    );
-    for (const v of clipVerdicts) {
-      if (v.qa) clipCost += v.qa.costMicroUsd;
-      if (v.qa && !v.qa.pass) {
-        clips.delete(v.sceneIndex);
-        clipQa.push({ scene: v.sceneIndex, rejected: true, defects: v.qa.criticalDefects });
-        log.warn(
-          { sceneIndex: v.sceneIndex, defects: v.qa.criticalDefects },
-          "clip REJECTED by visual QA; scene falls back to Ken Burns",
-        );
-      } else if (v.qa) {
-        clipQa.push({ scene: v.sceneIndex, rejected: false, defects: [] });
+      } else if (r && ["failed", "nsfw", "canceled"].includes(r.status)) {
+        log.warn({ scene: i, status: r.status }, "motion job failed terminally");
+        needsResubmit = true;
+      }
+      if (needsResubmit && !entry.settled) {
+        if (entry.tries < MAX_TRIES_PER_SCENE && totalSubmissions() < MAX_TOTAL_SUBMISSIONS) {
+          try {
+            entry.jobId = await submitScene(i, entry.avoid ?? []);
+            entry.tries += 1;
+            log.info({ scene: i, tries: entry.tries }, "resubmitted motion for scene");
+          } catch (err) {
+            log.warn({ scene: i, err }, "motion resubmission failed");
+          }
+        } else {
+          entry.settled = true; // exhausted — terminal Ken Burns fallback
+          animationFallbacks.push(i);
+          log.warn({ scene: i }, "animation budget exhausted; Ken Burns fallback");
+        }
       }
     }
+    // 3. Stage scenes that never got a job while concurrency allows.
+    const activeCount = need.filter((i) => {
+      const e = jobMap[String(i)];
+      return e && !e.settled && !clips.has(i);
+    }).length;
+    let slots = Math.max(0, MAX_CONCURRENT - activeCount);
+    for (const i of need) {
+      if (jobMap[String(i)] || slots <= 0) continue;
+      if (totalSubmissions() >= MAX_TOTAL_SUBMISSIONS) break;
+      try {
+        jobMap[String(i)] = { jobId: await submitScene(i, []), tries: 1 };
+        slots -= 1;
+        log.info({ scene: i }, "staged motion submission");
+      } catch (err) {
+        log.warn({ scene: i, err }, "staged submission failed");
+      }
+    }
+    await storage.put(jobMapKey, Buffer.from(JSON.stringify(jobMap)), {
+      contentType: "application/json",
+    });
 
-    // Generation regularly outlasts one polling window: providers cap
-    // per-account concurrency and their global queues back up. The jobs are
-    // already paid for and still rendering server-side, so rather than
-    // shipping a stills-only video, fail retryable while any job is
-    // genuinely still pending — each retry is a fresh invocation with a
-    // fresh polling budget. Terminal failures don't count as pending; the
-    // final attempt ships whatever is ready.
-    const stillPending = jobsNeeded.filter(
-      (j) => (results.get(j.jobSetId)?.status ?? "pending") === "pending",
-    ).length;
-    if (stillPending > 0) {
+    // 4. Retry while any scene is neither baked, clipped, nor given up.
+    const unresolved = need.filter((i) => {
+      const e = jobMap[String(i)];
+      return !clips.has(i) && (!e || !e.settled);
+    });
+    if (unresolved.length > 0) {
       const attempt = await prisma.stepRun.count({
         where: { workflowRunId, stepKey: "assemble" },
       });
-      // ~45 minutes of total patience: Higgsfield's global queue sometimes
-      // backs up far beyond the happy-path 4 minutes.
+      // ~45 minutes of patience across attempts; the DELAY between retries
+      // gives Higgsfield's queue time to move.
       if (attempt <= 12) {
         throw new PlatformError(
           "PROVIDER_ERROR",
-          `${clips.size}/${animationJobs.length} animation clips ready, ${stillPending} still rendering; retrying to collect the rest`,
+          `${clips.size + cachedScenes.size}/${imageAssetIds.length} scenes animated; ${unresolved.length} still rendering or retrying`,
           { retryable: true },
         );
       }
+      animationFallbacks.push(...unresolved);
     }
   }
 
@@ -570,17 +672,21 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   });
   // Best-effort cache cleanup — blobs are per-run and no longer needed.
   await Promise.allSettled(
-    imageBuffers.map((_, i) => storage.delete(`${sceneCachePrefix}${i}.mp4`)),
+    imageBuffers.flatMap((_, i) => [
+      storage.delete(`${sceneCachePrefix}${i}.mp4`),
+      storage.delete(`${sceneCachePrefix}clip-ok-${i}.mp4`),
+    ]),
   );
   const videoAssetId = await saveVideoAsset(organizationId, workflowRunId, title, videoData, {
     provider: clips.size > 0 ? `${motion?.key ?? "motion"}+ffmpeg` : "ffmpeg-kenburns-music",
     placeholder: false,
     audioKind: render.audioKind ?? "narration",
     sceneCount: imageBuffers.length,
-    animatedScenes: clips.size,
+    animatedScenes: cachedScenes.size + clips.size,
+    animationFallbacks,
     clipQa,
     bpm: beatMap.bpm,
-    durationSeconds: Math.round(audioSeconds),
+    durationSeconds: Math.round(videoSeconds),
   });
 
   if (clipCost > 0n) {
@@ -598,7 +704,8 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   return {
     videoAssetId,
     isPlaceholder: false,
-    animatedScenes: clips.size,
+    animatedScenes: cachedScenes.size + clips.size,
+    animationFallbacks,
     clipQa,
     sceneCount: imageBuffers.length,
     _costMicroUsd: clipCost.toString(),
