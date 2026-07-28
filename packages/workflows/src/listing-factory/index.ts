@@ -8,4 +8,5 @@ export * from "./listing-import";
 export * from "./feeds";
 export * from "./script";
 export { synthMusic } from "./render";
+export * from "./vision-order";
 import "./render";

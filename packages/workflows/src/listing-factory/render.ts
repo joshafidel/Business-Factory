@@ -67,24 +67,51 @@ interface AnimationJob {
   provider: "higgsfield" | "picsart";
 }
 
+/** Honest-scale phrasing from the listed square footage. Motion models love
+ *  to stretch rooms into ballrooms; the prompt has to push back so the video
+ *  stays true to the property a buyer will actually tour. */
+export function scaleHint(sqft: string | null | undefined): string {
+  const n = Number.parseInt((sqft ?? "").replace(/[^0-9]/g, ""), 10);
+  const size =
+    !Number.isFinite(n) || n <= 0
+      ? "modest"
+      : n < 800
+        ? `compact (~${n} sq ft)`
+        : n < 1500
+          ? `modest (~${n} sq ft)`
+          : n < 2600
+            ? `mid-size (~${n} sq ft)`
+            : `spacious (~${n} sq ft)`;
+  return (
+    `This is a ${size} home: keep every room at its TRUE scale — short camera travel ` +
+    `distances, normal lens perspective, do not exaggerate depth, ceiling height, or room size.`
+  );
+}
+
+/** Low-blur pacing shared by both motion styles: crisp frames sell honestly. */
+const CALM_PACING =
+  "Move at a calm, slow walking pace with crisp, sharp frames throughout — no motion blur, " +
+  "no speed ramps, no whip pans, no fisheye or wide-angle distortion.";
+
 /** Camera brief per shot, always wrapped in the conservative guardrails. */
 function motionPrompt(
   roomLabel: string | null,
   category: string,
   motionStyle: "gimbal" | "drone" = "gimbal",
+  scale = scaleHint(null),
 ): string {
   const room = roomLabel?.toLowerCase() ?? "room";
   if (motionStyle === "drone") {
     const subject =
       category === "exterior" || category === "aerial"
-        ? `flying smoothly forward toward the home's ${roomLabel === "Backyard" ? "backyard" : "front entrance"}, as if about to fly inside`
-        : `flying smoothly forward through the ${room}, heading toward the doorway or opening on the far side as if continuing into the next room`;
+        ? `drifting smoothly forward toward the home's ${roomLabel === "Backyard" ? "backyard" : "front entrance"}, as if about to glide inside`
+        : `drifting smoothly forward through the ${room}, heading toward the doorway or opening on the far side as if continuing into the next room`;
     // First-person camera language only — naming a "drone" makes i2v models
     // render one into the shot.
     return (
-      `Cinematic first-person flying camera shot, one continuous forward flight: the camera is ${subject}. ` +
-      `Perfectly stable, constant gliding speed, slight forward momentum the whole time — never ` +
-      `stopping, never reversing. The camera itself is invisible: no drone, no aircraft, no ` +
+      `Cinematic first-person flying camera shot, one continuous forward glide: the camera is ${subject}. ` +
+      `Perfectly stable with steady forward momentum — never stopping, never reversing. ` +
+      `${CALM_PACING} ${scale} The camera itself is invisible: no drone, no aircraft, no ` +
       `camera equipment, and no camera shadow may appear anywhere in the frame. ` +
       `${CONSERVATIVE_MOTION_GUARDRAILS}`
     );
@@ -95,7 +122,7 @@ function motionPrompt(
       : `a smooth steadicam glide forward through the ${room}`;
   return (
     `Real-estate walkthrough shot: ${subject}, as if a videographer is walking through with a ` +
-    `gimbal. Gentle, constant speed. ${CONSERVATIVE_MOTION_GUARDRAILS}`
+    `gimbal. ${CALM_PACING} ${scale} ${CONSERVATIVE_MOTION_GUARDRAILS}`
   );
 }
 
@@ -315,11 +342,17 @@ async function submitAnimationJobs(
       Boolean(t.photo),
     );
   const motionStyle = getTemplate(settings.style).motionStyle ?? "gimbal";
+  const project = await prisma.listingProject.findUnique({
+    where: { id: render.projectId },
+    select: { property: true },
+  });
+  const sqft = (project?.property as { sqft?: string } | null)?.sqft ?? null;
+  const scale = scaleHint(sqft);
   const submissions = await Promise.allSettled(
     targets.map(async ({ photo, sceneIndex }): Promise<AnimationJob> => {
       const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, photo.assetId, exp);
       const imageUrl = `${base}/api/assets/public?id=${photo.assetId}&exp=${exp}&sig=${sig}`;
-      const prompt = motionPrompt(photo.roomLabel, photo.category, motionStyle);
+      const prompt = motionPrompt(photo.roomLabel, photo.category, motionStyle, scale);
       if (useHiggsfield) {
         const jobSetId = await submitImageToVideo({ imageUrl, prompt });
         return { sceneIndex, jobSetId, provider: "higgsfield" };

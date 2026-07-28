@@ -7,6 +7,7 @@ import {
   LIMITS,
   extractListingData,
   generateListingScript,
+  inferRoomOrder,
   generateSocialPackage,
   listingOptionsSchema,
   listingPropertySchema,
@@ -114,26 +115,72 @@ export async function importListingPageAction(
     const PORTAL_HOSTS = ["zillow.com", "redfin.com", "realtor.com", "trulia.com", "homes.com"];
     if (PORTAL_HOSTS.some((p) => host === p || host.endsWith(`.${p}`))) {
       // The address lives in the URL slug itself — parse it, no page fetch.
-      const { parsePortalAddress } = await import("@bf/workflows");
+      const { parsePortalAddress, getListingFeed } = await import("@bf/workflows");
       const parsed = parsePortalAddress(url);
+
+      // Licensed autofill: when a real MLS feed is connected, look the parsed
+      // address up there — the feed legally supplies the facts, the agent's
+      // contact info, and the photos. The sample feed is skipped (its data
+      // would mislabel a real listing).
+      let feedMatch: Awaited<ReturnType<ReturnType<typeof getListingFeed>["searchListings"]>>[number] | null =
+        null;
+      if (parsed?.address) {
+        try {
+          const feed = getListingFeed();
+          if (!feed.isDemo) {
+            const street = parsed.address.split(",")[0] ?? parsed.address;
+            const results = await feed.searchListings({ q: street, limit: 5 });
+            const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+            feedMatch =
+              results.find(
+                (l) =>
+                  norm(l.address).includes(norm(street)) || norm(street).includes(norm(l.address)),
+              ) ?? null;
+          }
+        } catch {
+          // Autofill is best-effort; the parsed address alone is still a project.
+        }
+      }
+
+      const property = listingPropertySchema.parse({
+        address: feedMatch?.address ?? parsed?.address ?? "Address pending",
+        city: feedMatch?.city ?? parsed?.city ?? "",
+        state: feedMatch?.state ?? parsed?.state ?? "",
+        price: feedMatch?.price ?? "",
+        beds: feedMatch?.beds ?? "",
+        baths: feedMatch?.baths ?? "",
+        sqft: feedMatch?.sqft ?? "",
+        mlsNumber: feedMatch?.listingId ?? "",
+        description: feedMatch?.description ?? "",
+        agentName: feedMatch?.agentName ?? "",
+        brokerage: feedMatch?.brokerage ?? "",
+        agentPhone: feedMatch?.agentPhone ?? "",
+        agentEmail: feedMatch?.agentEmail ?? "",
+        listingUrl: url,
+      });
       const project = await prisma.listingProject.create({
         data: {
           organizationId: ctx.organizationId,
           createdById: ctx.userId,
-          name: (parsed?.address ?? `Listing from ${host}`).slice(0, 120),
-          property: listingPropertySchema.parse({
-            address: parsed?.address ?? "Address pending",
-            city: parsed?.city ?? "",
-            state: parsed?.state ?? "",
-            listingUrl: url,
-          }) as Prisma.InputJsonValue,
+          name: (property.address !== "Address pending"
+            ? property.address
+            : `Listing from ${host}`
+          ).slice(0, 120),
+          property: property as Prisma.InputJsonValue,
           options: listingOptionsSchema.parse({}) as Prisma.InputJsonValue,
           rightsConfirmedAt: new Date(),
         },
       });
+      let photoCount = 0;
+      if (feedMatch && feedMatch.photos.length > 0) {
+        const { attachListingPhotos, downloadListingPhotos } = await import("@/lib/lvf-photos");
+        const incoming = await downloadListingPhotos(feedMatch.photos);
+        const { created } = await attachListingPhotos(ctx.organizationId, project, incoming);
+        photoCount = created.length;
+      }
       await trackEvent(ctx.organizationId, "lvf_projects_created");
       revalidatePath(BASE);
-      return { projectId: project.id, photoCount: 0, agentName: "" };
+      return { projectId: project.id, photoCount, agentName: property.agentName };
     }
     let html: string;
     try {
@@ -562,6 +609,50 @@ export async function generateSocialAction(projectId: string): Promise<ActionRes
 }
 
 // ─── Rendering ───────────────────────────────────────────────────────────────
+
+/**
+ * One-click walkthrough: AI-classifies the uploaded photos into rooms,
+ * reorders them into a natural tour, generates the script if none exists,
+ * and starts a final render. The user's only prerequisite is uploading
+ * photos and confirming usage rights.
+ */
+export async function quickWalkthroughAction(
+  projectId: string,
+): Promise<ActionResult<{ renderId: string; classified: number }>> {
+  try {
+    const ctx = await assertPermission("workflows:execute");
+    if (!(await checkRateLimit(`lvf-quick:${ctx.userId}`, 4, 60))) {
+      return { error: "Slow down a little — try again in a minute." };
+    }
+    const project = await requireProject(ctx, projectId);
+    const photoCount = await prisma.listingPhoto.count({
+      where: { projectId, isExcluded: false },
+    });
+    if (photoCount === 0) return { error: "Upload photos first." };
+
+    const { classified } = await inferRoomOrder({
+      organizationId: ctx.organizationId,
+      projectId,
+    });
+    if (!project.script) {
+      await generateListingScript({ organizationId: ctx.organizationId, projectId });
+      await trackEvent(ctx.organizationId, "lvf_scripts_generated");
+    }
+    const { startListingRender } = await import("@/lib/lvf-render");
+    const { renderId } = await startListingRender({
+      organizationId: ctx.organizationId,
+      userId: ctx.userId,
+      projectId,
+      kind: "final",
+      overlays: [],
+    });
+    await trackEvent(ctx.organizationId, "lvf_quick_walkthroughs");
+    revalidatePath(`${BASE}/${projectId}`);
+    return { renderId, classified };
+  } catch (err) {
+    return asError(err);
+  }
+}
 
 const startRenderSchema = z.object({
   kind: z.enum(["preview", "final"]),

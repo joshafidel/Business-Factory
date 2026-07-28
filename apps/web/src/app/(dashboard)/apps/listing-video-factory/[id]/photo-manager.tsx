@@ -7,6 +7,7 @@ import { Button, Card, CardContent, Select, Textarea } from "@/components/ui";
 import {
   applyRecommendedOrderAction,
   deletePhotoAction,
+  quickWalkthroughAction,
   reorderPhotosAction,
   setCoverPhotoAction,
   updatePhotoAction,
@@ -75,7 +76,25 @@ export function PhotoManager({
   const [urlsOpen, setUrlsOpen] = useState(false);
   const [urls, setUrls] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [quickStatus, setQuickStatus] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+
+  const startQuickWalkthrough = (): void => {
+    setError(null);
+    setQuickStatus("Reading rooms, writing the script, and starting the render…");
+    startTransition(async () => {
+      const res = await quickWalkthroughAction(projectId);
+      if (res.error) {
+        setError(res.error);
+        setQuickStatus(null);
+      } else {
+        setQuickStatus(
+          `Render started${res.classified ? ` — ${res.classified} photo${res.classified === 1 ? "" : "s"} auto-labeled` : ""}. Watch progress in the video card above.`,
+        );
+      }
+      router.refresh();
+    });
+  };
 
   const uploadOne = async (file: File): Promise<void> => {
     setUploads((u) => [
@@ -247,6 +266,18 @@ export function PhotoManager({
             <Button size="sm" onClick={() => void importUrls()}>
               Import photos
             </Button>
+          </div>
+        ) : null}
+
+        {canExecute && photos.length > 0 ? (
+          <div className="mb-4 flex flex-col items-center gap-1.5 rounded-lg border border-primary/30 bg-primary/5 p-3 text-center">
+            <Button disabled={pending} onClick={startQuickWalkthrough} className="w-full sm:w-auto">
+              {pending ? "Working…" : "▶ Generate walkthrough video"}
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              AI orders the rooms, writes the narration, and starts the render — one click.
+            </p>
+            {quickStatus ? <p className="text-xs text-primary">{quickStatus}</p> : null}
           </div>
         ) : null}
 
