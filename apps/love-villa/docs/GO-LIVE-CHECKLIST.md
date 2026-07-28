@@ -128,7 +128,10 @@ If you already created an app, skip to 2B.
 
 ### 2C. Put the credentials in `.env` (1 min)
 
-Add/replace these three lines in `apps/love-villa/.env` (the **Sandbox** pair from step 2B.7):
+**The pipeline (and its terminal) lives in the Claude session's environment, not on your
+machine** — so the easiest path is to give the sandbox credentials to Claude in chat and let it
+run every command below for you. Doing it yourself instead means adding these three lines to
+`apps/love-villa/.env` (the **Sandbox** pair from step 2B.7):
 
 ```env
 TIKTOK_CLIENT_KEY=<sandbox client key>
@@ -143,15 +146,15 @@ cd apps/love-villa
 npm run tiktok-auth
 ```
 
-1. The command prints a long `https://www.tiktok.com/v2/auth/authorize…` URL. Open it in a
-   browser.
+1. The command prints a long `https://www.tiktok.com/v2/auth/authorize…` URL (if Claude runs
+   it, it hands you the URL in chat). Open it in a browser.
 2. Log into the **posting** account (must be a sandbox target user, step 2B.6) and click
    **Authorize**.
-3. The browser lands on our callback page, which shows the exact command to run next with a
-   **Copy command** button. Paste it into the terminal and run it. (Do this within a few
-   minutes — the code expires quickly. If the page ever fails to load, the command is
-   `npm run tiktok-auth -- --code <value of code= from the address bar>`.)
-4. Confirm:
+3. The browser lands on our callback page, which shows the follow-up command with a **Copy
+   command** button. That command must run where the pipeline lives — paste it (or just the
+   code, or the whole callback URL) back into the Claude chat and Claude finishes the
+   handshake. Do this within a few minutes — the code expires quickly.
+4. Confirm (Claude runs this too):
    ```bash
    npm run tiktok-auth -- --status
    ```
