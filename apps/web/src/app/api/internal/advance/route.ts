@@ -11,7 +11,7 @@ export const maxDuration = 300;
 const log = createLogger("web:internal-advance");
 
 /** Max in-invocation sleep for DELAY steps dispatched through this route. */
-const MAX_DELAY_MS = 60_000;
+const MAX_DELAY_MS = 90_000;
 
 /**
  * Self-dispatch endpoint for inline workflow execution. Each step advance is

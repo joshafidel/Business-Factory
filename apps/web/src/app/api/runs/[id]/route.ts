@@ -30,7 +30,7 @@ export async function GET(
       workflow: { select: { key: true, name: true } },
       stepRuns: {
         orderBy: { createdAt: "asc" },
-        select: { stepKey: true, status: true, startedAt: true },
+        select: { stepKey: true, status: true, startedAt: true, output: true },
       },
       approvals: { select: { id: true, status: true, title: true } },
       assets: { select: { id: true, name: true, approvalStatus: true } },
@@ -56,7 +56,13 @@ export async function GET(
     status: run.status,
     currentStepKey: run.currentStepKey,
     costUsd: microToUsd(run.costMicroUsd),
-    steps: run.stepRuns.map((s) => ({ stepKey: s.stepKey, status: s.status })),
+    // Media step outputs are small and useful for diagnosis (animation job
+    // ids, asset ids); agent outputs stay omitted to keep responses lean.
+    steps: run.stepRuns.map((s) => ({
+      stepKey: s.stepKey,
+      status: s.status,
+      ...(["render", "assemble"].includes(s.stepKey) ? { output: s.output } : {}),
+    })),
     approvals: run.approvals,
     assets: run.assets,
     error: run.error,

@@ -153,28 +153,36 @@ async function main(): Promise<void> {
       ],
     },
     {
-      key: "realestate-videos",
-      name: "Real-Estate Listing Videos",
-      description: "Turns listing photos into narrated video walkthroughs.",
-      integrations: ["realestate-data", "video-gen", "voice-gen"],
+      key: "listing-video-factory",
+      name: "Listing Video Factory",
+      description:
+        "Turns listing photos into cinematic property-tour videos for TikTok, Reels, Shorts, and listing pages.",
+      integrations: ["voice-gen", "video-gen"],
       workflows: [
         {
-          key: "listing-video",
-          name: "Listing video",
-          description: "Photos → sequence → narration → review → deliver",
+          key: "listing-factory-render",
+          name: "Render listing video",
+          description: "Photos → script → voice → deterministic motion render",
         },
       ],
       agents: [
         {
-          key: "walkthrough-narrator",
-          name: "Walkthrough Narrator",
+          key: "lvf-script-agent",
+          name: "Listing Script Agent",
           role: "writer",
-          description: "Writes walkthrough narration",
+          description: "Writes fact-grounded tour scripts",
         },
       ],
-      metrics: [{ key: "videos_delivered", label: "Videos delivered", unit: "count" as const }],
+      metrics: [{ key: "lvf_videos_rendered", label: "Videos rendered", unit: "count" as const }],
     },
   ];
+
+  // Legacy key from the original roadmap — carries the row (and any linked
+  // data) over to the Listing Video Factory key before the upsert loop.
+  await prisma.businessModule.updateMany({
+    where: { organizationId: org.id, key: "realestate-videos" },
+    data: { key: "listing-video-factory" },
+  });
 
   for (const mod of modules) {
     const manifest = {
@@ -595,8 +603,11 @@ async function main(): Promise<void> {
     },
     update: {},
   });
+  // Owner-approved levels (July 2026: daily raised $10 → $15 at the
+  // owner's request to fit ~4-5 animated videos/day). Seed is authoritative
+  // for these two defaults.
   const costLimits = [
-    { scope: "DAILY" as const, limitMicroUsd: 10_000_000n },
+    { scope: "DAILY" as const, limitMicroUsd: 15_000_000n },
     { scope: "MONTHLY" as const, limitMicroUsd: 100_000_000n },
   ];
   for (const limit of costLimits) {
@@ -616,10 +627,10 @@ async function main(): Promise<void> {
         warnAtFraction: 0.8,
         isHardStop: true,
       },
-      update: {},
+      update: { limitMicroUsd: limit.limitMicroUsd },
     });
   }
-  console.log("✓ approval policy + default cost limits ($10/day, $100/month hard stops)");
+  console.log("✓ approval policy + default cost limits ($15/day, $100/month hard stops)");
 
   // ── Demo metrics (flagged) ────────────────────────────────────────────────
   const today = new Date();
@@ -668,9 +679,9 @@ async function main(): Promise<void> {
   const zooScriptPromptId = await seedPrompt(
     "zoo-script",
     "Zoo Shorts: script",
-    "Write a 60-75 second NURSERY RHYME SONG with a story, using the idea in the input data. Cast reference:\n" +
+    "Write a 40-55 second NURSERY RHYME SONG with a story, using the idea in the input data (short = high completion rate = the Shorts algorithm rewards it). Cast reference:\n" +
       castSheet() +
-      "\n\nProduce 7-8 scenes alternating verse and chorus (chorus appears 3 times: scenes 2, 5, and 7-or-8, IDENTICAL lyrics each time — repetition is what makes toddlers replay). Each scene: type = 'verse' or 'chorus'; lyrics = 2-4 short sung lines, bouncy AABB rhyme, ultra-simple words, chorus built on the hook sound; narration = same text as lyrics; characters = array of cast names appearing (2-3 per scene, they interact: hand things, hug, chase, help); visual = what happens in that scene told as one clear picture — name each character present and their exact action and emotion, plus one interactive beat somewhere in the song ('Can YOU stomp too?'). The story must follow the arc from the idea (setup → problem → funny try → happy fix + lesson). outro = one soft goodbye line inviting them back ('See you next time, zoo friends!'). No scary content, no brands.",
+      "\n\nProduce EXACTLY 6 scenes alternating verse and chorus (chorus at scenes 2 and 5, IDENTICAL lyrics both times — repetition is what makes toddlers replay). Each scene: type = 'verse' or 'chorus'; lyrics = 2-3 short sung lines, bouncy AABB rhyme, ultra-simple words, chorus built on the hook sound; narration = same text as lyrics; characters = array of cast names appearing (2-3 per scene, they interact: hand things, hug, chase, help); visual = what happens in that scene told as one clear picture — name each character present and their exact action and emotion, plus one interactive beat somewhere in the song ('Can YOU stomp too?'). The story must follow the arc from the idea (setup → problem → funny try → happy fix + lesson). outro = one soft goodbye line inviting them back ('See you next time, zoo friends!'). No scary content, no brands.",
   );
   const zooMetadataPromptId = await seedPrompt(
     "zoo-metadata",
@@ -683,7 +694,8 @@ async function main(): Promise<void> {
     "You are a strict children's-content safety reviewer. Check the script and metadata in the input data for: scary/violent content, unsafe imitable behavior, brands or real people, factual errors about the animal, and COPPA compliance. Score 0-100 and verdict pass/revise.",
   );
 
-  async function seedZooAgent(params: {
+  async function seedModuleAgent(params: {
+    moduleId: string;
     key: string;
     name: string;
     role: string;
@@ -734,7 +746,7 @@ async function main(): Promise<void> {
     const agent = await prisma.agent.create({
       data: {
         organizationId: org.id,
-        moduleId: zooModule.id,
+        moduleId: params.moduleId,
         key: params.key,
         name: params.name,
         description: params.description,
@@ -766,7 +778,8 @@ async function main(): Promise<void> {
     await prisma.agent.update({ where: { id: agent.id }, data: { activeVersionId: version.id } });
   }
 
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-idea-agent",
     name: "Zoo Idea Agent",
     role: "creative",
@@ -786,7 +799,8 @@ async function main(): Promise<void> {
       required: ["animal", "title", "hook", "facts"],
     },
   });
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-script-agent",
     name: "Zoo Script Agent",
     role: "writer",
@@ -822,7 +836,8 @@ async function main(): Promise<void> {
       required: ["scenes", "outro"],
     },
   });
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-metadata-agent",
     name: "Zoo Metadata Agent",
     role: "publisher",
@@ -845,7 +860,8 @@ async function main(): Promise<void> {
       required: ["title", "description", "tags"],
     },
   });
-  await seedZooAgent({
+  await seedModuleAgent({
+    moduleId: zooModule.id,
     key: "zoo-safety-agent",
     name: "Zoo Safety Agent",
     role: "reviewer",
@@ -879,6 +895,7 @@ async function main(): Promise<void> {
     name: string;
     type: "AGENT_TASK" | "CODE_FUNCTION" | "HUMAN_APPROVAL" | "PUBLISH" | "DELAY";
     config: Prisma.InputJsonValue;
+    retryLimit?: number;
   }[] = [
     {
       key: "idea",
@@ -930,13 +947,16 @@ async function main(): Promise<void> {
       key: "wait",
       name: "Let the animation studio work",
       type: "DELAY",
-      config: { delayMs: 60_000 },
+      config: { delayMs: 90_000 },
     },
     {
+      // Higgsfield serializes bulk jobs, so assemble may need several
+      // polling rounds — each retry is a fresh invocation (see renderer).
       key: "assemble",
       name: "Animate scenes & cut the video",
       type: "CODE_FUNCTION",
       config: { functionKey: "assemble_zoo_video", args: {} },
+      retryLimit: 12,
     },
     {
       key: "review",
@@ -955,7 +975,8 @@ async function main(): Promise<void> {
       key: "publish",
       name: "Publish to YouTube",
       type: "PUBLISH",
-      config: { target: "youtube", payloadPath: "$.steps.metadata" },
+      // madeForKids MUST stay true for this module (COPPA).
+      config: { target: "youtube", payloadPath: "$.steps.metadata", madeForKids: true },
     },
   ];
   // Create the workflow if missing; version-bump when the step list changed
@@ -987,6 +1008,7 @@ async function main(): Promise<void> {
       (s, i) =>
         s.key === zooSteps[i]!.key &&
         s.type === zooSteps[i]!.type &&
+        s.retryLimit === (zooSteps[i]!.retryLimit ?? 2) &&
         JSON.stringify(s.config) === JSON.stringify(zooSteps[i]!.config),
     );
   if (!stepsMatch) {
@@ -1000,7 +1022,7 @@ async function main(): Promise<void> {
         version: (latest?.version ?? 0) + 1,
         inputSchema: { type: "object", properties: { animal: { type: "string" } } },
         changelog: latest
-          ? "Higgsfield scene animation (render/wait/assemble split)"
+          ? "Updated by seed"
           : "Initial version",
       },
     });
@@ -1014,6 +1036,7 @@ async function main(): Promise<void> {
           type: step.type,
           order: zooOrder++,
           config: step.config,
+          ...(step.retryLimit !== undefined ? { retryLimit: step.retryLimit } : {}),
         },
       });
     }

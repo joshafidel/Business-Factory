@@ -64,6 +64,8 @@ model Organization {
   auditLogs        AuditLog[]
   metrics          Metric[]
   errorEvents      ErrorEvent[]
+  listingProjects  ListingProject[]
+  brandProfiles    BrandProfile[]
 }
 
 enum OrgRole {
@@ -364,6 +366,7 @@ model WorkflowRun {
   stepRuns        StepRun[]
   approvals       ApprovalRequest[]
   assets          Asset[]
+  listingRenders  ListingRender[]
 
   @@unique([organizationId, idempotencyKey])
   @@index([organizationId, status])
@@ -860,6 +863,7 @@ model Asset {
   organization    Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   workflowRun     WorkflowRun?     @relation(fields: [workflowRunId], references: [id], onDelete: SetNull)
   approvalRequest ApprovalRequest? @relation(fields: [approvalRequestId], references: [id], onDelete: SetNull)
+  listingPhotos   ListingPhoto[]
 
   @@index([organizationId, type])
   @@index([organizationId, createdAt])
@@ -967,6 +971,137 @@ model ErrorEvent {
 
   @@index([organizationId, createdAt])
   @@index([organizationId, fingerprint])
+}
+
+// ─── Listing Video Factory (realestate module) ──────────────────────────────
+
+enum ListingProjectStatus {
+  DRAFT
+  RENDERING
+  READY
+  FAILED
+}
+
+model ListingProject {
+  id             String               @id @default(cuid())
+  organizationId String
+  createdById    String?
+  name           String
+  status         ListingProjectStatus @default(DRAFT)
+  /// Property facts (address, price, beds, baths, sqft, agent…) —
+  /// validated with zod (listingPropertySchema) at every write.
+  property       Json
+  /// "vertical" | "landscape" | "square"
+  format         String               @default("vertical")
+  /// Video template key, e.g. "fast-social" (see listing-factory/templates).
+  style          String               @default("fast-social")
+  /// Render options: voiceover, captions, music, showPrice, showAddress…
+  options        Json?
+  /// Generated/edited script: { hook, scenes[], outro, cta }.
+  script         Json?
+  /// Warnings from the fair-housing / unsupported-claim validator.
+  scriptWarnings Json?
+  /// Social captions package (TikTok / Instagram / YouTube).
+  socialPackage  Json?
+  brandProfileId String?
+  coverPhotoId   String?
+  /// Set when the user confirms photo/listing usage rights.
+  rightsConfirmedAt DateTime?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  brandProfile BrandProfile?   @relation(fields: [brandProfileId], references: [id], onDelete: SetNull)
+  photos       ListingPhoto[]
+  renders      ListingRender[]
+
+  @@index([organizationId, updatedAt])
+}
+
+model ListingPhoto {
+  id             String   @id @default(cuid())
+  /// Denormalized for query scoping; integrity flows through the project.
+  organizationId String
+  projectId      String
+  /// Photo bytes live in the shared Asset table (existing storage + serving).
+  assetId        String
+  order          Int
+  /// exterior | interior | amenity | aerial | floor_plan | neighborhood | branding
+  category       String   @default("interior")
+  roomLabel      String?
+  /// Short factual note the script generator may use.
+  note           String?
+  isExcluded     Boolean  @default(false)
+  isStaged       Boolean  @default(false)
+  isAiEnhanced   Boolean  @default(false)
+  width          Int?
+  height         Int?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  project ListingProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  asset   Asset          @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, order])
+  @@index([assetId])
+}
+
+enum ListingRenderKind {
+  PREVIEW
+  FINAL
+}
+
+enum ListingRenderStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+model ListingRender {
+  id             String              @id @default(cuid())
+  organizationId String
+  projectId      String
+  kind           ListingRenderKind
+  status         ListingRenderStatus @default(QUEUED)
+  workflowRunId  String?
+  videoAssetId   String?
+  /// Snapshot of format/style/options/script/photo order at render time.
+  settings       Json
+  error          String?
+  costMicroUsd   BigInt              @default(0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  project     ListingProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  workflowRun WorkflowRun?   @relation(fields: [workflowRunId], references: [id], onDelete: SetNull)
+
+  @@index([projectId, createdAt])
+  @@index([organizationId, status])
+}
+
+model BrandProfile {
+  id              String   @id @default(cuid())
+  organizationId  String
+  name            String
+  agentName       String?
+  brokerage       String?
+  phone           String?
+  email           String?
+  website         String?
+  licenseNumber   String?
+  disclaimer      String?
+  callToAction    String?
+  primaryColor    String?
+  logoAssetId     String?
+  headshotAssetId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  projects     ListingProject[]
+
+  @@unique([organizationId, name])
 }
 
 /// Durable blob storage for serverless deployments without S3 (driver "db").

@@ -29,10 +29,46 @@ if (!process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-const run = (cmd) => execSync(cmd, { stdio: "inherit", cwd: root, env: process.env });
+const run = (cmd, env = process.env) => execSync(cmd, { stdio: "inherit", cwd: root, env });
+
+// Migrations must use a DIRECT connection: Prisma's advisory lock breaks
+// behind PgBouncer/Neon poolers (stranded locks → P1002 timeouts on the
+// next deploy). Retry a few times in case a concurrent build holds it.
+const migrateEnv = { ...process.env };
+if (process.env.POSTGRES_URL_NON_POOLING) {
+  migrateEnv.DATABASE_URL = process.env.POSTGRES_URL_NON_POOLING;
+}
+// Best-effort: terminate any zombie connection still holding Prisma's
+// migrate advisory lock (72707369) — killed builds strand it and every
+// subsequent migrate then times out with P1002.
+try {
+  const bustSql =
+    "SELECT pg_terminate_backend(l.pid) FROM pg_locks l " +
+    "WHERE l.locktype='advisory' AND l.objid=72707369 AND l.pid <> pg_backend_pid();";
+  execSync(`pnpm --filter @bf/database exec prisma db execute --stdin --schema prisma/schema.prisma`, {
+    cwd: root,
+    env: migrateEnv,
+    input: bustSql,
+    stdio: ["pipe", "inherit", "inherit"],
+  });
+  console.log("[deploy-db] cleared any stale migrate advisory locks.");
+} catch {
+  console.log("[deploy-db] advisory-lock cleanup skipped (non-fatal).");
+}
 
 console.log("[deploy-db] prisma migrate deploy…");
-run("pnpm --filter @bf/database db:migrate:deploy");
+let migrated = false;
+for (let attempt = 1; attempt <= 4 && !migrated; attempt++) {
+  try {
+    run("pnpm --filter @bf/database db:migrate:deploy", migrateEnv);
+    migrated = true;
+  } catch (err) {
+    if (attempt === 4) throw err;
+    const wait = attempt * 20;
+    console.log(`[deploy-db] migrate attempt ${attempt} failed; retrying in ${wait}s…`);
+    execSync(`sleep ${wait}`);
+  }
+}
 
 if (process.env.SEED_ON_BUILD === "1") {
   console.log("[deploy-db] SEED_ON_BUILD=1 — seeding database (idempotent)…");
