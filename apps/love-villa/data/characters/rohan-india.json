@@ -4,29 +4,29 @@
   "country": "India",
   "age": 26,
   "gender": "man",
-  "physicalDescription": "Immaculate hair with one rebellious curl that appears whenever he lies, warm knowing smile, a small notebook he swears does not exist.",
-  "clothingStyle": "Pastel polo tucked into tailored shorts, expensive watch set to three time zones, sandals with — controversially, defiantly — socks.",
-  "voiceDescription": "Smooth, charming, precise; the voice of a man who has rehearsed being spontaneous in a mirror with a timer.",
+  "physicalDescription": "Immaculate hair with one rebellious curl, warm knowing smile, carries a small notebook he loudly denies carrying.",
+  "clothingStyle": "Polo color-blocked in saffron, white and green with a navy chakra-wheel crest, tailored shorts, expensive watch, cricket sweater over the shoulders, sandals with — controversially, unrepentantly — socks.",
+  "voiceDescription": "Smooth, charming, precise; the voice of a man who has rehearsed being spontaneous in a mirror.",
   "accentDirection": "Polished Indian English accent, warm and articulate, fully intelligible.",
-  "personality": "Romantic strategist with a compatibility framework, a five-date roadmap, and a contingency roadmap for the roadmap. Colour-codes the villa's drama. Has never once said a feeling without first drafting it.",
-  "datingStrategy": "Data-driven wooing: remember everything, anticipate everything, confess... at the optimal moment, which keeps moving.",
-  "strength": "Remembers every detail anyone has ever mentioned — the most thoughtful man in the villa by a measurable margin.",
-  "fatalFlaw": "Refines the perfect confession for so long that the moment expires, quietly, of old age.",
-  "secret": "His celebrated 'compatibility algorithm' is astrology in a spreadsheet wearing a lanyard.",
-  "romanticPreference": "Sienna (Australia) — 'She is a category five storm. My data says flee. I have brought an umbrella.'",
+  "personality": "Romantic strategist with a compatibility framework, a five-date plan, and a contingency plan for the contingency plan. Deeply sincere, tragically over-prepared.",
+  "datingStrategy": "Data-driven wooing: remember everything, anticipate everything, confess... at the optimal moment, which has not yet arrived.",
+  "strength": "Remembers every detail anyone has ever mentioned — the most genuinely thoughtful person in the villa.",
+  "fatalFlaw": "Rehearses the perfect confession until the moment dies peacefully of old age.",
+  "secret": "His famous 'compatibility algorithm' is astrology in a spreadsheet wearing a lanyard.",
+  "romanticPreference": "Sienna (Australia) — 'She is a category five storm. My model says evacuate. I have unpacked.'",
   "rival": "matteo-italy",
   "initialAttraction": "sienna-australia",
-  "recurringJoke": "Cites his algorithm with absurd false precision ('We are 87.3% compatible. The .3 is her laugh').",
+  "recurringJoke": "Cites his algorithm with absurd false precision ('We are 87.3% compatible. The point three is her laugh.').",
   "signaturePhrase": "Love is a plan you make twice.",
-  "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, polo color-blocked in Indian flag saffron white and green with a small navy chakra wheel crest, cricket sweater over shoulders, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook",
+  "visualReference": "Rohan: Indian man, neat black hair with one loose curl, saffron-white-green polo with chakra crest, cricket sweater on shoulders, tailored shorts, watch, notebook",
   "imageSeed": 11007,
   "palette": {
     "skin": "#b97e4f",
     "hair": "#1d1712",
-    "outfit": "#b9a5e3",
-    "accent": "#e0b13e"
+    "outfit": "#ff9933",
+    "accent": "#138808"
   },
   "voice": {
     "provider": "elevenlabs",
@@ -45,22 +45,22 @@
       "As predicted.",
       "Fascinating data point.",
       "This was NOT in the projections!",
-      "Please hold. Recalculating."
+      "Nobody move. I need to revise page two."
     ],
     "flirts": [
       "I remembered you hate coriander. I remember everything about you.",
-      "My algorithm says 87.3%. I say more, and I built the algorithm.",
-      "I have prepared six compliments. May I read them out of order?"
+      "My algorithm says 87.3%. I say more.",
+      "I have prepared a spontaneous moment. Please act surprised."
     ],
     "conflicts": [
       "Your strategy has one flaw: all of it.",
       "I planned for this argument. Point one of nine—",
-      "You improvised at MY dinner. That is sabotage with garlic."
+      "You cooked for her. Fine. I MEMORISED her."
     ],
     "confessionals": [
-      "Tonight I tell her how I feel. Right after I finish the flowchart.",
+      "Tonight I tell her how I feel. Immediately after the flowchart.",
       "The algorithm is science. The stars are merely... consultants.",
-      "She jumped off the terrace mid-sentence. My spreadsheet has no column for that."
+      "She dared me off a terrace and I said yes. There is no cell for that in the spreadsheet."
     ]
   }
 }

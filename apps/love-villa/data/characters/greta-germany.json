@@ -4,29 +4,29 @@
   "country": "Germany",
   "age": 27,
   "gender": "woman",
-  "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in measured parallel stripes, waterproof watch she checks during kisses.",
-  "clothingStyle": "Sporty colour-blocked swimwear, clipboard stationed beside the sun-lounger, sensible waterproof sandals with strong opinions.",
-  "voiceDescription": "Even, efficient, deadpan; delivers devastating punchlines in the tone of approved meeting minutes.",
+  "physicalDescription": "Precise braided crown, athletic posture, sunscreen applied in measured parallel stripes, waterproof watch consulted often.",
+  "clothingStyle": "Sporty swimwear color-blocked in black, red and gold like a national team kit, clipboard parked beside the sun-lounger, sensible waterproof sandals, tiny black-red-gold wristband.",
+  "voiceDescription": "Even, efficient, deadpan; devastating jokes delivered in the tone of meeting minutes.",
   "accentDirection": "Crisp German accent, precise consonants, fully intelligible.",
-  "personality": "Hyper-efficient romantic who schedules spontaneity in fifteen-minute blocks. Secretly the funniest person in the villa and the only one who never smiles at her own jokes. Has already labelled the fridge shelves.",
-  "datingStrategy": "Flirtation window 19:00–19:30. Attendance mandatory. Late arrivals move to the waiting list.",
-  "strength": "Completely dependable — she brings the sunscreen, the water, the plasters, and the emotional stability nobody else packed.",
-  "fatalFlaw": "Treats feelings as agenda items and is genuinely baffled when hearts miss the deadline without an apology email.",
-  "secret": "Cries at videos of dogs being reunited with their owners. Every night. 22:15. Non-negotiable.",
-  "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic and irrational. I have never been so interested in anything.'",
+  "personality": "Hyper-organised romantic who schedules spontaneity into thirty-minute blocks. Secretly the funniest person here and will never confirm it.",
+  "datingStrategy": "Flirtation window 19:00–19:30. Attendance mandatory. Snacks provided. Results historically excellent.",
+  "strength": "Utterly dependable — brings the sunscreen, the water, the plasters, and the emotional stability nobody else packed.",
+  "fatalFlaw": "Files feelings as agenda items, then is genuinely baffled when a heart misses its deadline.",
+  "secret": "Cries at dog videos every night at 22:15, precisely, in the bathroom, with the fan on.",
+  "romanticPreference": "Matteo (Italy) — 'He is inefficient, dramatic and irrational. I have never taken more notes.'",
   "rival": "sienna-australia",
   "initialAttraction": "matteo-italy",
-  "recurringJoke": "Announces romance as numbered agenda items ('Item four: prolonged eye contact. Beginning now.').",
+  "recurringJoke": "Announces romance as numbered agenda items ('Item four: prolonged eye contact. Commencing now.').",
   "signaturePhrase": "Romance runs on schedule.",
-  "imagePrompt": "Precise athletic German woman in her late twenties, braided crown hair, color-blocked sporty swimwear, holding a clipboard by a sun lounger, deadpan hint of a smile, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Precise athletic German woman in her late twenties, braided crown hair, sporty swimwear color-blocked in German flag black red and gold like a national team kit, black-red-gold wristband, holding a clipboard by a sun lounger, deadpan hint of a smile, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan",
+  "visualReference": "Greta: German woman, blonde braided crown, black-red-gold German kit swimwear, black-red-gold wristband, clipboard, waterproof watch, deadpan",
   "imageSeed": 11008,
   "palette": {
     "skin": "#f2cfae",
     "hair": "#d9b76a",
-    "outfit": "#1f7a8c",
-    "accent": "#12263a"
+    "outfit": "#dd0000",
+    "accent": "#ffce00"
   },
   "voice": {
     "provider": "elevenlabs",
@@ -45,22 +45,22 @@
       "Noted.",
       "This is chaos. I have logged it.",
       "Unacceptable. Continue.",
-      "Hm. Interesting. Terrible."
+      "Correction: that was worse."
     ],
     "flirts": [
       "You have been assigned: my attention.",
-      "You are scheduled. One sunset. Bring nothing but yourself.",
-      "I have moved you to the top of my list. There is no list. There is now."
+      "You are scheduled: one sunset, with me. Bring nothing.",
+      "I moved you to the top of the list. Do not discuss it."
     ],
     "conflicts": [
       "Your argument is inefficient. Restart it.",
-      "I have minuted your betrayal. With timestamps.",
-      "You dared him to jump. I had booked that man for 19:00."
+      "I have minuted your betrayal. Page three.",
+      "She dared him. I planned him. One of us is a professional."
     ],
     "confessionals": [
-      "He cooked for six hours. Inefficient. I ate all of it. Also inefficient. Interesting.",
-      "Feelings arrived today at 14:20, outside the scheduled window. I am investigating.",
-      "At 22:15 I watch dogs greeting their owners. This is unrelated to anything. Next question."
+      "He cooked for six hours. Inefficient. I ate everything. Also inefficient. Interesting.",
+      "Feelings arrived at 14:20, outside the scheduled window. I am investigating.",
+      "I do not cry. Except at 22:15. About dogs. This is normal maintenance."
     ]
   }
 }

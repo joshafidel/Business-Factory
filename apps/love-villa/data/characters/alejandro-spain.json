@@ -4,23 +4,23 @@
   "country": "Spain",
   "age": 29,
   "gender": "man",
-  "physicalDescription": "Slow-motion hair, smoulder set to default, walks as though flamenco is playing at a volume only he can hear.",
-  "clothingStyle": "Crimson shirt tucked loosely into white trousers, sleeves rolled with suspiciously perfect symmetry.",
-  "voiceDescription": "Low, velvet, unhurried; makes the word 'hello' sound like a season finale with a cliffhanger.",
+  "physicalDescription": "Slow-motion hair, smoldering default expression, walks as though flamenco is playing at a volume only he can hear.",
+  "clothingStyle": "Crimson shirt with golden Spanish-flag trim and subtle flamenco floral embroidery, loosely tucked into white trousers, red-and-gold sash belt, red carnation in the pocket, sleeves rolled with suspicious perfection.",
+  "voiceDescription": "Low, velvet, unhurried; makes 'good morning' sound like a season finale.",
   "accentDirection": "Smooth Spanish accent, deliberate pacing, fully intelligible.",
-  "personality": "Devastatingly confident latecomer who treats the villa as a stage he was born on. Charm first, explanations never. Wildly overprepared and desperate for nobody to find out.",
-  "datingStrategy": "Arrive late, say almost nothing, dance exactly once, destabilise the entire ecosystem.",
-  "strength": "Unshakeable calm — chaos hits him and simply slides off, which makes people tell him things they shouldn't.",
-  "fatalFlaw": "So devoted to mystique that nobody knows what he feels, including him, including his own diary.",
-  "secret": "He auditioned for this show four times. The smoulder took six years of hallway practice and one hired mirror.",
-  "romanticPreference": "Élodie (France) — 'I came for the one who rates everybody. I will be her ten. Possibly her eleven.'",
+  "personality": "Devastatingly confident latecomer who treats the villa as a stage built for him. Charm first, explanations never, sincerity only by accident.",
+  "datingStrategy": "Arrive late. Say almost nothing. Dance once. Leave the entire villa unstable for a week.",
+  "strength": "Unshakeable calm — chaos slides off him like water off a carnation.",
+  "fatalFlaw": "So devoted to mystique that nobody, himself included, knows what he actually feels.",
+  "secret": "He applied to the show four times. The smolder took eleven months of mirror practice and one pulled facial muscle.",
+  "romanticPreference": "Élodie (France) — 'I came for the woman who rates everyone. I intend to be the ten.'",
   "rival": "lucas-brazil",
   "initialAttraction": "elodie-france",
-  "recurringJoke": "Everything he does is scored by invisible flamenco claps that only the audience and Poppy can hear.",
+  "recurringJoke": "Everything he does is scored by invisible flamenco claps nobody can locate ('Why do I hear clapping?' — everyone, weekly).",
   "signaturePhrase": "The night is young, and so am I. Mostly.",
-  "imagePrompt": "Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt loosely tucked into white trousers, walking a villa entrance walkway at sunset, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt with golden Spanish flag trim and subtle flamenco-style floral embroidery, red and gold striped sash belt, red carnation in pocket, white trousers, walking a villa entrance walkway at sunset, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Alejandro: Spanish man, flowing dark hair, crimson shirt, white trousers, smolder, sunset backlight",
+  "visualReference": "Alejandro: Spanish man, flowing dark hair, crimson shirt with gold Spanish trim, red-gold sash, red carnation, white trousers, smolder",
   "imageSeed": 11009,
   "palette": {
     "skin": "#cf9868",
@@ -45,22 +45,22 @@
       "Bueno.",
       "And now... it begins.",
       "Tranquilo. I am here.",
-      "Ah. The clapping again."
+      "No, no. Let them wait."
     ],
     "flirts": [
       "One dance. I never ask twice. ...Except twice.",
       "You look at me like a difficult question. Good.",
-      "I do not want your ten. I want the moment you stop counting."
+      "I will not compliment you. You already know."
     ],
     "conflicts": [
-      "Sunshine boy. So. We meet.",
-      "I do not argue. I simply win slowly.",
-      "You may keep the pool. I have the sunset."
+      "Sunshine boy. We meet.",
+      "I do not argue. I win slowly.",
+      "You brought a smoothie. I brought a carnation. Judge us."
     ],
     "confessionals": [
       "Four auditions. Four. Tonight the villa learns why they finally said yes.",
       "The French one looked at me for two seconds. That is practically a wedding.",
-      "I rehearsed this walk in a hallway for six years. Every step was worth it. Do not tell them."
+      "Do I have feelings? Certainly. They are unavailable for comment."
     ]
   }
 }

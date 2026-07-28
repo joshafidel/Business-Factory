@@ -4,29 +4,29 @@
   "country": "Australia",
   "age": 23,
   "gender": "woman",
-  "physicalDescription": "Sun-bleached ponytail, zinc stripe down her nose, permanently barefoot, and a fresh band-aid somewhere at all times.",
-  "clothingStyle": "Surf bikini top with boardshorts, shark-tooth necklace, sunnies on a leash because she has lost eleven pairs.",
+  "physicalDescription": "Sun-bleached ponytail, zinc stripe on her nose, permanently barefoot, a fresh band-aid somewhere at all times and no memory of why.",
+  "clothingStyle": "Australian-flag boardshorts (navy, Union Jack corner, white Southern Cross stars), green-and-gold surf top, cork-brimmed hat hanging down her back, shark-tooth necklace, sunnies on a leash.",
   "voiceDescription": "Bright, fast, gleeful; sounds like she's daring you even when she's saying good morning.",
   "accentDirection": "Cheerful Australian accent, energetic, fully intelligible.",
-  "personality": "Chaotic adventure gremlin who turns everything into a competition, including feelings, which is precisely how she avoids having them. Fearless about heights, cliffs and sharks. Terrified of the sentence 'can we talk?'",
-  "datingStrategy": "If he survives the dares, he's a keeper. Nine men. Zero survivors. She's not lowering the bar, she's raising the cliff.",
-  "strength": "Makes everyone braver — she's the villa's confidence dealer and she gives it away free.",
-  "fatalFlaw": "Converts every vulnerable moment into a dare roughly 0.4 seconds before it could become real.",
-  "secret": "Was engaged for forty-eight hours to a man she met at a jet-ski rental counter. She still has the receipt, not the ring.",
-  "romanticPreference": "Rohan (India) — 'He plans everything. I wanna see him try to plan for ME.'",
+  "personality": "Chaotic adventure gremlin who converts feelings into physical challenges. Has never lost a dare or won an emotional conversation.",
+  "datingStrategy": "If he survives the dares, he's a keeper. So far the dares are undefeated.",
+  "strength": "Makes everyone braver — the villa's confidence dealer, first to push a shy person into the good decision.",
+  "fatalFlaw": "Turns every vulnerable moment into a dare exactly one second before it becomes real.",
+  "secret": "Was engaged once, for 48 hours, to a man she met at a jet-ski rental. She still has the ring on a keyring.",
+  "romanticPreference": "Rohan (India) — 'He plans everything. I want to watch him plan for ME and completely fall apart.'",
   "rival": "greta-germany",
   "initialAttraction": "rohan-india",
-  "recurringJoke": "Insists 'back home this would be totally legal' about increasingly unhinged activities.",
+  "recurringJoke": "Claims 'in Australia this would be legal' about increasingly unhinged poolside activities.",
   "signaturePhrase": "Scared money don't find love!",
-  "imagePrompt": "Adventurous Australian woman in her early twenties, sun-bleached ponytail, zinc stripe on nose, surf bikini top and boardshorts, shark tooth necklace, mischievous grin, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Adventurous Australian woman in her early twenties, sun-bleached ponytail, zinc stripe on nose, green and gold surf top, Australian flag boardshorts with Southern Cross stars, cork-brim hat hanging on her back, shark tooth necklace, mischievous grin, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin",
+  "visualReference": "Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, green-and-gold surf top, Australian-flag boardshorts with stars, cork hat on back, grin",
   "imageSeed": 11006,
   "palette": {
     "skin": "#eab183",
     "hair": "#f2e3b3",
-    "outfit": "#f28c38",
-    "accent": "#31b5c4"
+    "outfit": "#00843d",
+    "accent": "#ffcd00"
   },
   "voice": {
     "provider": "elevenlabs",
@@ -45,22 +45,22 @@
       "Let's send it!",
       "Oh this is about to get GOOD.",
       "Absolute scenes!",
-      "Nobody panic — I've got a plan and it's bad."
+      "Nobody panic — I've done this once!"
     ],
     "flirts": [
       "Race you to the firepit. Loser buys feelings.",
       "You're cute when you're terrified.",
-      "Put the clipboard down and climb something with me."
+      "Put the notebook down and kiss me. That's the dare."
     ],
     "conflicts": [
       "Settle it with a dare. Winner's right.",
       "Mate, you fumbled that so hard the ocean felt it.",
-      "You scheduled me. Like a dentist. A DENTIST."
+      "She scheduled me. SCHEDULED me. For nineteen fifteen!"
     ],
     "confessionals": [
       "Feelings? Hard. Backflips? Easy. Guess which one I'm doing.",
       "He said 'let's talk about us' and I heard 'let's jump off the terrace'. Honest mistake.",
-      "I was engaged once for two days. Unreal weekend. Terrible decision. Would maybe repeat."
+      "I've got a ring on my keyring and zero explanation. Next question."
     ]
   }
 }

@@ -88,7 +88,7 @@
         "id": "pool",
         "name": "Infinity Pool",
         "description": "Turquoise infinity pool with pink loungers and a swim-up heart-shaped bar.",
-        "imagePrompt": "Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text",
+        "imagePrompt": "Luxury villa turquoise infinity pool glittering with caustic light reflections, rows of hot-pink sun loungers with striped towels, heart shaped swim-up bar stacked with tropical drinks and fruit, inflatable flamingo and beach ball floating, terracotta arches draped in bougainvillea, palm trees, distant hills, bright midday sun with sparkling water highlights, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text",
         "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
         "imageSeed": 21001,
         "palette": {
@@ -103,7 +103,7 @@
         "id": "firepit",
         "name": "Firepit Lounge",
         "description": "Sunken circular firepit with amber cushions — where the serious conversations combust.",
-        "imagePrompt": "Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text",
+        "imagePrompt": "Sunken circular firepit lounge at dusk, plush amber and magenta cushions, crackling glowing fire casting warm flicker light on the stone, canopies of string lights and lanterns overhead, cocktails on a low table, purple-orange gradient sky over an ocean horizon with the first stars, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text",
         "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
         "imageSeed": 21002,
         "palette": {
@@ -118,7 +118,7 @@
         "id": "kitchen",
         "name": "Open Kitchen",
         "description": "Marble island kitchen with copper pans — Matteo's kingdom and Rohan's laboratory.",
-        "imagePrompt": "Bright luxury open villa kitchen, marble island, hanging copper pans, bowls of lemons, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text",
+        "imagePrompt": "Bright luxury open villa kitchen, veined marble island with fresh pasta and flour mid-preparation, hanging copper pans catching the light, open shelves of colorful ceramics, bowls of lemons and tomatoes, herbs in pots on the windowsill, big windows with garden light streaming in, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text",
         "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
         "imageSeed": 21003,
         "palette": {
@@ -133,7 +133,7 @@
         "id": "bedroom",
         "name": "Shared Bedroom",
         "description": "One giant room, eight beds, zero privacy — where whispers travel at the speed of gossip.",
-        "imagePrompt": "Luxury shared bedroom with rows of neat double beds, soft lamps, pastel bedding, moonlight through windows, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text",
+        "imagePrompt": "Luxury shared villa bedroom with rows of neat double beds each with its own personality of pastel bedding and pillows, warm bedside lamps glowing, fairy lights along the headboards, moonlight pouring through tall arched windows, soft rugs and slippers, romantic blue-and-lavender night palette, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text",
         "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
         "imageSeed": 21004,
         "palette": {
@@ -148,7 +148,7 @@
         "id": "confessional",
         "name": "The Spill Room",
         "description": "A neon-lit velvet confessional booth where contestants tell the camera the truth-ish.",
-        "imagePrompt": "Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text",
+        "imagePrompt": "Cozy velvet confessional booth wrapped in deep magenta drapes, glowing neon pink heart light on the wall, plush tufted armchair facing camera on a small stage, dramatic single spotlight with soft haze, scattered rose petals, gossip-ready intimacy, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text",
         "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
         "imageSeed": 21005,
         "palette": {
@@ -163,7 +163,7 @@
         "id": "terrace",
         "name": "Sunset Terrace",
         "description": "A bougainvillea-draped rooftop terrace — the villa's official overthinking zone.",
-        "imagePrompt": "Rooftop villa terrace at golden hour, bougainvillea flowers, wicker chairs, ocean view, warm sunset glow, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text",
+        "imagePrompt": "Rooftop villa terrace at golden hour, cascades of bougainvillea in full bloom, elegant wicker chairs around a candle-lit table with two glasses, ocean view with sailboats, sun flaring low over the water, warm honey-gold sunset glow with long soft shadows, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text",
         "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
         "imageSeed": 21006,
         "palette": {
@@ -178,7 +178,7 @@
         "id": "walkway",
         "name": "Entrance Walkway",
         "description": "A torch-lit palm walkway where new arrivals strut in — nobody good ever walks in quietly.",
-        "imagePrompt": "Dramatic torch-lit palm tree walkway leading to villa entrance at night, flame torches, stone path, stars, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text",
+        "imagePrompt": "Dramatic torch-lit palm tree walkway leading to a grand villa entrance at night, flame torches with dancing light, polished stone path with petals scattered down the center, arched entry glowing warm from within, deep blue starry sky with a bright moon, red-carpet arrival energy, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text",
         "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
         "imageSeed": 21007,
         "palette": {
