@@ -139,6 +139,24 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
   let lastError: unknown = null;
   let totalCost = 0n;
 
+  // Billing-failure failover: when the configured provider rejects for
+  // credits/quota (a non-retryable account problem, not a model problem),
+  // switch to the other real provider mid-run instead of failing the
+  // pipeline. Self-healing: the next run tries the configured provider
+  // first again.
+  const FAILOVER: Record<string, { provider: string; model: string }> = {
+    anthropic: { provider: "openai", model: "gpt-4o" },
+    openai: { provider: "anthropic", model: "claude-sonnet-4-5" },
+  };
+  const isBillingError = (err: unknown): boolean => {
+    const msg = err instanceof Error ? err.message : String(err);
+    const body = JSON.stringify((err as { details?: unknown })?.details ?? "");
+    return /credit balance|billing|insufficient_quota|exceeded your current quota/i.test(
+      `${msg} ${body}`,
+    );
+  };
+  let activeModel = version.model;
+
   while (attempt <= version.maxRetries) {
     attempt += 1;
     try {
@@ -153,7 +171,7 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
 
       // 5. Provider call.
       const result = await provider.generateObject({
-        model: provider.key === "mock" ? "mock-basic" : version.model,
+        model: provider.key === "mock" ? "mock-basic" : activeModel,
         messages,
         temperature: version.temperature,
         maxTokens: version.maxTokens,
@@ -179,7 +197,7 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
 
       // 7. Record usage and cost.
       const cost = estimateCostMicroUsd(
-        version.model,
+        activeModel,
         result.usage.inputTokens,
         result.usage.outputTokens,
       );
@@ -188,7 +206,7 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
         data: {
           organizationId: params.organizationId,
           providerKey: provider.key,
-          model: provider.key === "mock" ? "mock-basic" : version.model,
+          model: provider.key === "mock" ? "mock-basic" : activeModel,
           operation: "generateObject",
           inputTokens: result.usage.inputTokens,
           outputTokens: result.usage.outputTokens,
@@ -204,8 +222,8 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
         moduleKey,
         workflowRunId: params.workflowRunId,
         agentRunId: run.id,
-        providerKey: version.provider,
-        description: `${agent.key} (${version.model})`,
+        providerKey: provider.key,
+        description: `${agent.key} (${activeModel})`,
       });
 
       if (totalCost > version.maxCostMicroUsd) {
@@ -236,6 +254,21 @@ export async function runAgent(params: RunAgentParams): Promise<RunAgentResult> 
       return { run: completed, output: result.object as Record<string, unknown> };
     } catch (err) {
       lastError = err;
+      const failover = FAILOVER[provider.key];
+      if (isBillingError(err) && failover) {
+        try {
+          const alt = registry.get(failover.provider);
+          log.warn(
+            { runId: run.id, agentKey: agent.key, from: provider.key, to: failover.provider },
+            "provider billing failure; failing over",
+          );
+          provider = alt;
+          activeModel = failover.model;
+          continue;
+        } catch {
+          // Alternate provider not enabled — fall through to normal handling.
+        }
+      }
       const retryable = isRetryable(err) && attempt <= version.maxRetries;
       log.warn(
         { runId: run.id, agentKey: agent.key, attempt, retryable, err: toErrorRecord(err) },
