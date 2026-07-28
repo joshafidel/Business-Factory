@@ -79,10 +79,14 @@ function motionPrompt(
       category === "exterior" || category === "aerial"
         ? `flying smoothly forward toward the home's ${roomLabel === "Backyard" ? "backyard" : "front entrance"}, as if about to fly inside`
         : `flying smoothly forward through the ${room}, heading toward the doorway or opening on the far side as if continuing into the next room`;
+    // First-person camera language only — naming a "drone" makes i2v models
+    // render one into the shot.
     return (
-      `Cinematic indoor FPV drone shot, one continuous forward flight: the camera is ${subject}. ` +
+      `Cinematic first-person flying camera shot, one continuous forward flight: the camera is ${subject}. ` +
       `Perfectly stable, constant gliding speed, slight forward momentum the whole time — never ` +
-      `stopping, never reversing. ${CONSERVATIVE_MOTION_GUARDRAILS}`
+      `stopping, never reversing. The camera itself is invisible: no drone, no aircraft, no ` +
+      `camera equipment, and no camera shadow may appear anywhere in the frame. ` +
+      `${CONSERVATIVE_MOTION_GUARDRAILS}`
     );
   }
   const subject =

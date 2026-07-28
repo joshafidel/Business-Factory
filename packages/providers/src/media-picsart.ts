@@ -83,7 +83,7 @@ export const CONSERVATIVE_MOTION_GUARDRAILS =
   "Subtle, slow camera movement only. Preserve the exact architecture, walls, doors, windows, " +
   "flooring, fixtures, and furniture. Do not add or remove any property feature, change room " +
   "proportions, morph geometry, introduce people or text, change lighting unrealistically, or " +
-  "invent views outside windows.";
+  "invent views outside windows. Never show the camera, a drone, or any aircraft in the frame.";
 
 export function picsartConfigured(): boolean {
   return Boolean(loadEnv().PICSART_API_KEY);
