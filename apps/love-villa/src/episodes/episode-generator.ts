@@ -52,6 +52,15 @@ export async function generateEpisode(params: {
     mock: () => writeEpisodeScriptMock(beat, cast, state),
     tracker,
   });
+  // Normalize near-miss location ids from the LLM ("villa-kitchen" → "kitchen").
+  const knownLocations = bible.villa.locations.map((l) => l.id);
+  for (const scene of script.scenes) {
+    if (knownLocations.includes(scene.locationId)) continue;
+    const match = knownLocations.find(
+      (id) => scene.locationId.includes(id) || id.includes(scene.locationId),
+    );
+    scene.locationId = match ?? "pool";
+  }
 
   const shots = buildShotList(script, bible, cast);
   const continuity = continuityUpdateSchema.parse(continuityUpdateFromBeat(beat));

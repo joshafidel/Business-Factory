@@ -4,21 +4,21 @@
   "country": "Italy",
   "age": 28,
   "gender": "man",
-  "physicalDescription": "Dark curls, eyebrows that act independently, talks with both hands and occasionally a wooden spoon, always faintly windswept.",
-  "clothingStyle": "Linen shirt open exactly two buttons, thin gold chain, and an apron that materializes from nowhere the second he's stressed.",
-  "voiceDescription": "Rich and operatic; drops to a whisper, then declaims to the ceiling within one sentence.",
-  "accentDirection": "Melodic Italian accent, warm and theatrical, every word fully intelligible.",
-  "personality": "Grand romantic who feels everything at concert volume. Cooks when stressed, and he is always stressed, so the villa eats extremely well.",
-  "datingStrategy": "Seduction by eight-course tasting menu, devastating eye contact, and a hand-written menu with her name as the dessert.",
-  "strength": "His grand gestures are real — when Matteo decides you matter, he shows up at 6am with fresh bread.",
-  "fatalFlaw": "Operatic jealousy: a borrowed sun-lounger becomes a Shakespearean betrayal by dinner service.",
-  "secret": "He is lactose intolerant. The mozzarella devotion is a beautiful, painful, nightly lie.",
-  "romanticPreference": "Élodie (France) — 'She rated my risotto a six. I must marry her immediately.'",
+  "physicalDescription": "Dark curls, tremendous eyebrows, talks with both hands and occasionally a wooden spoon, permanently windswept like he's in a perfume advert nobody commissioned.",
+  "clothingStyle": "Linen shirt unbuttoned exactly two buttons, gold chain, and an apron that materialises from thin air the second he feels an emotion.",
+  "voiceDescription": "Rich, operatic, emotional; whispers a secret and then declaims to the heavens mid-sentence.",
+  "accentDirection": "Melodic Italian accent, warm and theatrical, fully intelligible.",
+  "personality": "Grand romantic living at full orchestral volume. Cooks when stressed, so the villa smells incredible and nobody has slept. Sincerely believes food is a legally binding declaration of love.",
+  "datingStrategy": "Seduction by eight-course tasting menu, devastating eye contact, and one tear he pretends is from the onions.",
+  "strength": "His grand gestures are real — when Matteo shows up for someone, he shows up at 5am with fresh bread and a playlist.",
+  "fatalFlaw": "Operatic jealousy: a borrowed sun-lounger becomes a family betrayal spanning generations by dinner service.",
+  "secret": "He is lactose intolerant. The mozzarella devotion is a beautiful, agonising lie he suffers for nightly.",
+  "romanticPreference": "Élodie (France) — 'She insulted my risotto. To my face. I must marry her.'",
   "rival": "rohan-india",
   "initialAttraction": "elodie-france",
-  "recurringJoke": "Diagnoses every person and crisis as a dish ('You are gnocchi. Soft. And you sink.').",
+  "recurringJoke": "Diagnoses every person and crisis as a dish ('You are gnocchi: soft, but you sink').",
   "signaturePhrase": "My heart is al dente — firm, but ready.",
-  "imagePrompt": "Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, unbuttoned linen shirt, gold chain, gesturing passionately with both hands, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "imagePrompt": "Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, unbuttoned linen shirt, gold chain, gesturing passionately with both hands, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
   "visualReference": "Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands",
   "imageSeed": 11003,
@@ -43,23 +43,24 @@
   "voicePatterns": {
     "exclamations": [
       "Mamma mia, no!",
-      "This is a tragedy, and it is only Tuesday!",
-      "Perfetto. PERFETTO!"
+      "This is a tragedy in three acts!",
+      "Perfetto. PERFETTO!",
+      "Who has TOUCHED my basil?!"
     ],
     "flirts": [
-      "I will cook for you until the sun gives up.",
-      "Your eyes — like good olive oil. Rare. Expensive.",
-      "Sit. Eat. Fall in love. In that order."
+      "I will cook for you until the sun forgets its job.",
+      "Your eyes — like good olive oil. Rare. Expensive. Cold-pressed.",
+      "Sit. Eat. Fall in love. In that order, please."
     ],
     "conflicts": [
-      "You insulted my risotto AND my honor. The risotto first!",
+      "You have insulted my risotto AND my bloodline!",
       "We are enemies now. Pass the parmesan.",
-      "Do not raise your voice — that is MY instrument."
+      "You took my lounger. I will remember this at my wedding."
     ],
     "confessionals": [
       "I am calm. I am serene. I have chopped forty onions.",
-      "Love is like pasta water: you must salt it with tears.",
-      "She said my sauce was 'fine'. I have not slept. I have made three more sauces."
+      "Love is like pasta water. You must salt it with tears.",
+      "She timed my carbonara. Seven minutes. She was correct. I am furious. I am in love."
     ]
   }
 }
