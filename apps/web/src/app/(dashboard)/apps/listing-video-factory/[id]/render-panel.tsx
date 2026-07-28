@@ -10,6 +10,7 @@ import {
   type SocialPackage,
 } from "@bf/workflows/src/listing-factory/types";
 import { Badge, Button, Card, CardContent } from "@/components/ui";
+import { MediaActions } from "@/components/media-actions";
 import { generateSocialAction, startRenderAction } from "../actions";
 import { rasterizeOverlays } from "./overlay-rasterizer";
 
@@ -239,14 +240,12 @@ export function RenderPanel(props: {
             ) : null}
 
             {latestVideo ? (
-              <div className="flex flex-wrap gap-3 text-xs">
-                <a
-                  href={`/api/assets/raw?id=${latestVideo.videoAssetId}`}
-                  download
-                  className="font-medium text-primary hover:underline"
-                >
-                  ⬇ Download MP4
-                </a>
+              <div className="flex flex-wrap items-center gap-3 text-xs">
+                <MediaActions
+                  variant="links"
+                  src={`/api/assets/raw?id=${latestVideo.videoAssetId}`}
+                  filename="listing-walkthrough.mp4"
+                />
                 {latestVideo.srtAssetId ? (
                   <a
                     href={`/api/assets/raw?id=${latestVideo.srtAssetId}`}
@@ -298,7 +297,7 @@ export function RenderPanel(props: {
                       <span className="flex items-center gap-2">
                         {render.status === "COMPLETED" && render.videoAssetId ? (
                           <a
-                            href={`/api/assets/raw?id=${render.videoAssetId}`}
+                            href={`/api/assets/raw?id=${render.videoAssetId}&download=1`}
                             download
                             className="text-primary hover:underline"
                           >

@@ -7,6 +7,7 @@ import {
   PageHeader,
   StatusBadge,
 } from "@/components/ui";
+import { MediaActions } from "@/components/media-actions";
 
 /**
  * Love Villa: Nations app page. The production pipeline is the standalone
@@ -130,8 +131,15 @@ export function LoveVillaApp({ description }: { description: string }) {
                         src={`/love-villa/${id}.mp4`}
                         className="aspect-[9/16] w-full rounded-xl border border-border bg-black object-contain"
                       />
-                      <figcaption className="text-xs text-muted-foreground">
-                        EP {n} — {ep?.title ?? id}
+                      <figcaption className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground">
+                        <span>
+                          EP {n} — {ep?.title ?? id}
+                        </span>
+                        <MediaActions
+                          variant="links"
+                          src={`/love-villa/${id}.mp4`}
+                          filename={`love-villa-${id}.mp4`}
+                        />
                       </figcaption>
                     </figure>
                   );
