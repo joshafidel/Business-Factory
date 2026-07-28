@@ -9,15 +9,24 @@ import {
   getMediaProviders,
   getMotionProvider,
   awaitMotionJobs,
+  critiqueFrames,
   withMotionGuardrails,
   type MediaResult,
+  type VisualQaResult,
 } from "@bf/providers";
 import { getStorage } from "@bf/storage";
 import { castLooks, createLogger, PlatformError, signAssetToken } from "@bf/shared";
 import { registerCodeFunction, readPath } from "../definitions";
 import { analyzeBeats, beatAlignedDurations } from "./beat-map";
 import { ensureCastRefs, refsFor, type CastRefs } from "./zoo-cast-refs";
-import { mp3DurationSeconds, pcmToWav, publicBaseUrl, resolveFfmpeg } from "./media-utils";
+import {
+  downscaleForQa,
+  extractQaFrames,
+  mp3DurationSeconds,
+  pcmToWav,
+  publicBaseUrl,
+  resolveFfmpeg,
+} from "./media-utils";
 
 const log = createLogger("zoo-render");
 
@@ -150,37 +159,80 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     "Soft rounded shapes, pastel rainbow colors, glossy 3D toddler-animation style like modern " +
     "nursery rhyme cartoons, huge sparkly eyes, soft cinematic lighting, cheerful sunny zoo " +
     "playground background, no text, no words, no letters";
-  const images = await Promise.all(
-    scenes.map((scene, i) => {
-      const looks = castLooks(scene?.characters ?? []);
-      const castLine =
-        looks.length > 0 ? ` Characters (keep these exact designs): ${looks.join("; ")}.` : "";
-      const prompt = `${scene?.visual ?? "happy zoo animal"}.${castLine} ${style}`;
-      const refs = castRefs ? refsFor(castRefs, scene?.characters ?? []) : [];
-      const gen =
-        refs.length > 0 && imageWithEdit.editImage
-          ? imageWithEdit.editImage({
-              prompt:
-                `Compose this scene using the EXACT characters from the reference images — ` +
-                `identical designs, colors and proportions: ${prompt}`,
-              references: refs,
-            })
-          : providers.image.generateImage({ prompt });
-      return gen.then((r) => ({ i, r }));
+  const generateStill = (scene: ZooScene | undefined, extraGuard = ""): Promise<MediaResult> => {
+    const looks = castLooks(scene?.characters ?? []);
+    const castLine =
+      looks.length > 0 ? ` Characters (keep these exact designs): ${looks.join("; ")}.` : "";
+    const anatomyGuard =
+      " Correct animal anatomy is mandatory: exactly one trunk per elephant, one tail, two ears," +
+      " four limbs per animal, well-formed faces. Every prop drawn once, fully visible.";
+    const prompt = `${scene?.visual ?? "happy zoo animal"}.${castLine} ${style}${anatomyGuard}${extraGuard}`;
+    const refs = castRefs ? refsFor(castRefs, scene?.characters ?? []) : [];
+    return refs.length > 0 && imageWithEdit.editImage
+      ? imageWithEdit.editImage({
+          prompt:
+            `Compose this scene using the EXACT characters from the reference images — ` +
+            `identical designs, colors and proportions: ${prompt}`,
+          references: refs,
+        })
+      : providers.image.generateImage({ prompt });
+  };
+
+  // Visual QA gate (see docs/animation/VISUAL-QA.md): every still is
+  // inspected for AI-generation defects — extra limbs/trunks, malformed
+  // anatomy, garbled text — and regenerated with the specific defects fed
+  // back into the prompt. Two rounds; the best-scoring attempt wins so a
+  // stubborn scene can't wedge the pipeline.
+  const qaStill = (r: MediaResult, scene: ZooScene | undefined): Promise<VisualQaResult> =>
+    critiqueFrames({
+      frames: [downscaleForQa(r.data)],
+      kind: "still",
+      sceneDescription: scene?.visual ?? "happy zoo animal scene",
+      characters: scene?.characters,
+    });
+  const firstPass = await Promise.all(
+    scenes.map((scene, i) =>
+      generateStill(scene).then(async (r) => ({ i, r, qa: await qaStill(r, scene) })),
+    ),
+  );
+  const stillQa: { scene: number; score: number; attempts: number; defects: string[] }[] = [];
+  const finals = await Promise.all(
+    firstPass.map(async (first) => {
+      let best = first;
+      let attempts = 1;
+      totalCost += first.r.costMicroUsd + first.qa.costMicroUsd;
+      if (!first.qa.pass && providers.real) {
+        const defects = [...first.qa.criticalDefects, ...first.qa.minorIssues].slice(0, 4);
+        const retry = await generateStill(
+          scenes[first.i],
+          ` A previous attempt was REJECTED by QA for: ${defects.join("; ")}. Avoid these defects.`,
+        ).then(async (r) => ({ i: first.i, r, qa: await qaStill(r, scenes[first.i]) }));
+        attempts = 2;
+        if (retry.qa.pass || retry.qa.score > first.qa.score) best = retry;
+        totalCost += retry.r.costMicroUsd + retry.qa.costMicroUsd;
+      }
+      stillQa.push({
+        scene: first.i,
+        score: best.qa.score,
+        attempts,
+        defects: best.qa.criticalDefects,
+      });
+      return best;
     }),
   );
   const imageAssetIds: string[] = [];
-  for (const { i, r } of images.sort((a, b) => a.i - b.i)) {
-    totalCost += r.costMicroUsd;
+  for (const { i, r, qa } of finals.sort((a, b) => a.i - b.i)) {
     const id = await save(
       `Scene ${i + 1}: ${(scenes[i]?.visual ?? "").slice(0, 60)}`,
       "IMAGE",
       r.mimeType,
       r.data,
-      { sceneIndex: i, visual: scenes[i]?.visual, provider: providers.image.key },
+      { sceneIndex: i, visual: scenes[i]?.visual, provider: providers.image.key, qaScore: qa.score },
     );
     imageAssetIds.push(id);
   }
+  stillQa.sort((a, b) => a.scene - b.scene);
+  log.info({ stillQa }, "still visual QA complete");
 
   // Audio track. Two modes:
   //  - SONG (Eleven Music configured + script has lyrics): a real sung
@@ -311,6 +363,7 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     audioSeconds,
     animationJobs,
     motionProvider: motion?.key ?? null,
+    stillQa,
     submissionsFailed,
     assetIds,
     sceneCount: scenes.length,
@@ -395,6 +448,7 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   // serverless limit. Scenes whose clip isn't ready fall back to Ken Burns.
   const motion = getMotionProvider();
   const clips = new Map<number, Buffer>();
+  const clipQa: { scene: number; rejected: boolean; defects: string[] }[] = [];
   let clipCost = 0n;
   if (animationJobs.length > 0 && motion) {
     // 150s polling cap keeps poll + download + ffmpeg safely inside the
@@ -428,6 +482,45 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       { provider: motion.key, animated: clips.size, total: imageBuffers.length },
       "motion clips ready",
     );
+
+    // Visual QA gate on motion (see docs/animation/VISUAL-QA.md): image-to-
+    // video models add their own defects on top of clean stills — limbs that
+    // split or multiply mid-motion, props that vanish or teleport, melting
+    // geometry. Sample frames across each clip and reject any clip with a
+    // critical defect; a rejected scene ships as a clean Ken Burns move over
+    // its QA-passed still instead of as broken animation.
+    const script = readPath(context, "$.steps.script") as { scenes?: ZooScene[] } | undefined;
+    const clipVerdicts = await Promise.all(
+      [...clips.entries()].map(async ([sceneIndex, data]) => {
+        try {
+          const qa = await critiqueFrames({
+            frames: extractQaFrames(data, 4),
+            kind: "clip",
+            sceneDescription: script?.scenes?.[sceneIndex]?.visual ?? "animated zoo scene",
+            characters: script?.scenes?.[sceneIndex]?.characters,
+            // Motion always has some softness; only critical defects reject.
+            minScore: 0,
+          });
+          return { sceneIndex, qa };
+        } catch (err) {
+          log.warn({ sceneIndex, err }, "clip QA errored; keeping clip");
+          return { sceneIndex, qa: null };
+        }
+      }),
+    );
+    for (const v of clipVerdicts) {
+      if (v.qa) clipCost += v.qa.costMicroUsd;
+      if (v.qa && !v.qa.pass) {
+        clips.delete(v.sceneIndex);
+        clipQa.push({ scene: v.sceneIndex, rejected: true, defects: v.qa.criticalDefects });
+        log.warn(
+          { sceneIndex: v.sceneIndex, defects: v.qa.criticalDefects },
+          "clip REJECTED by visual QA; scene falls back to Ken Burns",
+        );
+      } else if (v.qa) {
+        clipQa.push({ scene: v.sceneIndex, rejected: false, defects: [] });
+      }
+    }
 
     // Generation regularly outlasts one polling window: providers cap
     // per-account concurrency and their global queues back up. The jobs are
@@ -480,6 +573,7 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     audioKind: render.audioKind ?? "narration",
     sceneCount: imageBuffers.length,
     animatedScenes: clips.size,
+    clipQa,
     bpm: beatMap.bpm,
     durationSeconds: Math.round(audioSeconds),
   });
@@ -500,6 +594,7 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     videoAssetId,
     isPlaceholder: false,
     animatedScenes: clips.size,
+    clipQa,
     sceneCount: imageBuffers.length,
     _costMicroUsd: clipCost.toString(),
   };
