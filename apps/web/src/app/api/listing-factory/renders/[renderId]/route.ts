@@ -1,7 +1,15 @@
 import { prisma } from "@bf/database";
+import { createLogger } from "@bf/shared";
 import { syncActiveRenders } from "@bf/workflows";
 import { NextResponse, type NextRequest } from "next/server";
+import { dispatchAdvance } from "@/lib/execution";
 import { getOrgContext } from "@/lib/session";
+
+const log = createLogger("web:lvf-renders-api");
+
+/** A step stuck RUNNING this long means its invocation died (timeout/OOM)
+ *  before recording an outcome — nothing will advance the run on its own. */
+const STUCK_STEP_MS = 7 * 60_000;
 
 /** Live render status for the editor's polling loop. */
 export async function GET(
@@ -18,6 +26,28 @@ export async function GET(
   if (!render) return NextResponse.json({ error: "Not found" }, { status: 404 });
   if (render.status === "QUEUED" || render.status === "RUNNING") {
     await syncActiveRenders(render.projectId);
+    // Self-healing (mirrors /api/runs/[id]): this endpoint is polled while
+    // renders execute — detect a step whose invocation died without
+    // recording an outcome and re-dispatch so the engine retries it.
+    if (render.workflowRunId) {
+      const latestStep = await prisma.stepRun.findFirst({
+        where: { workflowRunId: render.workflowRunId },
+        orderBy: { createdAt: "desc" },
+        select: { stepKey: true, status: true, startedAt: true },
+      });
+      const startedAt = latestStep?.startedAt ? latestStep.startedAt.getTime() : 0;
+      if (
+        latestStep?.status === "RUNNING" &&
+        startedAt > 0 &&
+        Date.now() - startedAt > STUCK_STEP_MS
+      ) {
+        log.warn(
+          { renderId: render.id, stepKey: latestStep.stepKey },
+          "stuck step detected; re-dispatching",
+        );
+        await dispatchAdvance(render.workflowRunId, render.organizationId);
+      }
+    }
   }
   const fresh = await prisma.listingRender.findUnique({
     where: { id: render.id },
