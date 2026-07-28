@@ -10,8 +10,13 @@ tells. Nothing in the pipeline was looking at the pixels; now something is.
 | Stage | What's inspected | On failure |
 |---|---|---|
 | `render` step | Every scene still (1 downscaled frame) | Regenerated once with the specific defects fed back into the prompt; best-scoring attempt wins |
-| `assemble` step | Every downloaded motion clip (4 frames sampled across the clip) | Clip is **rejected**; the scene ships as a clean Ken Burns move over its QA-passed still instead of broken animation |
-| Approval | `stillQa` / `clipQa` arrays in the run's step outputs + final review of extracted frames | Reject the approval; rerun the pipeline |
+| `assemble` step | Every downloaded motion clip (6 frames sampled across the clip) | Clip is **rejected and the animation is REGENERATED** with the defects appended to the motion prompt (up to 3 tries/scene, 10 submissions/run). Static fallback is a last resort only, reported in `animationFallbacks` |
+| Approval | `stillQa` / `clipQa` / `animationFallbacks` in step outputs + final review of extracted frames | Reject the approval; rerun the pipeline |
+
+**Motion quality bar (owner mandate 2026-07-28):** every scene must be truly
+animated — NunuTV/Cocomelon energy. Static Ken Burns scenes and freeze-hold
+padding are banned; the video's duration is sized to what real animation can
+cover and the song fades at that cap.
 
 Critic model: `gpt-4o`, temperature 0, JSON verdict, ~$0.01 per inspection
 (~$0.15–0.30 per video). Fail-open: a vision-API outage passes assets through

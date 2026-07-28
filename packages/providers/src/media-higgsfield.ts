@@ -22,7 +22,15 @@ function hfModel(): string {
   return loadEnv().HIGGSFIELD_MODEL ?? "dop-lite";
 }
 
-/** ~$0.10/s × ~5.4s clip. */
+/**
+ * Per-clip cost estimate by model tier. dop-lite ≈ $0.10/s; the premium
+ * tiers are booked at 2x as a conservative estimate until real billing
+ * numbers say otherwise.
+ */
+export function higgsfieldClipCostMicroUsd(): bigint {
+  return hfModel() === "dop-lite" ? 550_000n : 1_100_000n;
+}
+/** @deprecated use higgsfieldClipCostMicroUsd() — kept for existing imports. */
 export const HIGGSFIELD_CLIP_COST_MICRO_USD = 550_000n;
 
 const log = createLogger("higgsfield");
