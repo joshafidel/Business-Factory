@@ -231,7 +231,8 @@ export async function directPostVideo(params: {
       method: "PUT",
       headers: {
         "content-type": "video/mp4",
-        "content-length": String(chunk.byteLength),
+        // No manual content-length: undici derives it from the body and
+        // rejects a duplicate (UND_ERR_INVALID_ARG "invalid content-length").
         "content-range": `bytes ${start}-${end - 1}/${size}`,
       },
       body: new Uint8Array(chunk),
