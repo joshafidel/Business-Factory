@@ -6,11 +6,19 @@ work in this repo on separate branches, but they share ONE Vercel project:
 
 ## Coordination rules (all sessions MUST follow)
 
-1. **Converge before you deploy.** Before any production deployment, merge
-   the other active session branches into yours (and push the merge back to
-   their branches so history stays shared):
-   - `claude/ai-business-factory-platform-12estn` (platform + Zoo Shorts)
-   - `claude/ai-business-factory-real-estate-3gkuep` (Listing Video Factory)
+**The full protocol + session/branch/ownership registry lives in
+`docs/SESSIONS.md` — read it first.** The one-command version:
+
+```
+node scripts/sync-sessions.mjs            # start of session: build on everyone's latest
+node scripts/sync-sessions.mjs --check    # pre-deploy gate: fails if you're behind a sibling
+node scripts/sync-sessions.mjs --push-back  # optional: share merged history back
+```
+
+1. **Converge before you deploy.** Before any production deployment, run
+   `node scripts/sync-sessions.mjs` — it fetches and merges every other
+   active `claude/*` session branch into yours (and `--push-back` pushes
+   the merge back so history stays shared).
    Deploying a branch that lacks a sibling's latest work silently reverts
    their production fixes and can strand their in-flight workflow runs.
 
@@ -19,10 +27,11 @@ work in this repo on separate branches, but they share ONE Vercel project:
    pruning them mid-run strands the run. The storage maintenance route
    already excludes them — keep that exclusion.
 
-3. **Don't edit another session's pipeline code** (`packages/workflows/src/functions/zoo-render.ts`,
-   `apps/love-villa/**`, `packages/workflows/src/listing-factory/**`) except
-   via merges. Shared packages (`packages/shared`, `packages/config`,
-   `packages/database`) are append-friendly: add, don't rewrite.
+3. **Don't edit another session's owned paths** (ownership map in
+   `docs/SESSIONS.md`) except via merges. Shared packages
+   (`packages/shared`, `packages/config`, `packages/database`) are
+   append-friendly: add, don't rewrite. Conflicts resolve by ownership:
+   their file → their side; your file → your side; shared → keep both.
 
 4. **Database migrations & seeds are shared.** `prisma migrate` runs over the
    direct (non-pooling) connection with a stale-advisory-lock buster (see
@@ -79,6 +88,15 @@ never around it.** Concretely:
     `/apps/listing-video-factory`) — a 500 on a sibling page means your
     deploy broke them: fix forward immediately or redeploy the previous
     merged commit.
+
+## Mobile shell (owner uses the dashboard from a phone)
+
+- Every dashboard page renders inside `apps/web/src/components/dashboard-shell.tsx`
+  (mobile drawer + bottom tabs, desktop fixed sidebar). Don't reintroduce
+  fixed-width/desktop-only layouts; sanity-check new pages at 390px wide.
+- Videos must stay downloadable: serve bytes via `/api/assets/raw?id=…`
+  (supports `&download=1`) and reuse `MediaActions` / `AssetPreview`
+  components for download + save-to-camera-roll buttons.
 
 ## Env notes
 
