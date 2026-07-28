@@ -1,5 +1,29 @@
 import { describe, expect, it } from "vitest";
-import { extractListingData } from "../listing-factory/listing-import";
+import { extractListingData, parsePortalAddress } from "../listing-factory/listing-import";
+
+describe("parsePortalAddress", () => {
+  it("reads the address out of a Zillow homedetails URL", () => {
+    const r = parsePortalAddress(
+      "https://www.zillow.com/homedetails/255-S-Rengstorff-Ave-APT-161-Mountain-View-CA-94040/19514674_zpid/",
+    );
+    expect(r?.address).toBe("255 S Rengstorff Ave APT 161 Mountain View, CA 94040");
+    expect(r?.city).toBe("Mountain View");
+    expect(r?.state).toBe("CA");
+  });
+
+  it("reads a Realtor.com detail URL", () => {
+    const r = parsePortalAddress(
+      "https://www.realtor.com/realestateandhomes-detail/12-Maple-St_Pittsburgh_PA_15213_M1234-56789",
+    );
+    expect(r?.address).toContain("12 Maple St");
+    expect(r?.state).toBe("PA");
+  });
+
+  it("returns null for URLs without an address slug", () => {
+    expect(parsePortalAddress("https://www.zillow.com/homes/for_sale/")).toBeNull();
+    expect(parsePortalAddress("not a url")).toBeNull();
+  });
+});
 
 const PAGE_URL = "https://averyrealty.example.com/listings/12-maple-st";
 
