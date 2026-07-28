@@ -1,20 +1,26 @@
 # Go-live checklist — the two things only you can do
 
-Everything else is built, deployed, and automated. These two items need a human because they
-involve logging into _your_ accounts. Total active time: **~30 minutes** (plus a TikTok review
-wait at the very end that doesn't block anything).
+Everything else is built, deployed, and automated. These items need a human because they
+involve logging into _your_ accounts. **The only required item is Part 2 (TikTok), ~20 min
+active** (plus a TikTok review wait at the very end that doesn't block anything). Part 1 is
+optional and currently deferred.
 
 All file edits below happen in **`apps/love-villa/.env`** — a gitignored file that exists only
 on this machine. Never put keys anywhere else, and never commit them.
 
 ---
 
-## Part 1 — Rotate the four API keys (~10 min, do this first)
+## Part 1 — Rotate the four API keys (~10 min, OPTIONAL — deferred by owner)
 
-**Why:** the current keys were pasted into a chat conversation. They were never committed to
-git (`.env` is gitignored), but chat is an exposure surface, so standard practice is to rotate.
-Rotation is painless if you do it in this order for each provider: **create the new key first →
-paste it into `.env` → then revoke the old key.** That way nothing is ever broken in between.
+**Status: the owner has reviewed this and chosen to skip it for now** (sole access to the
+account and keys). Keeping the steps here in case that changes — e.g. before adding
+collaborators, or if a provider ever flags unusual usage.
+
+**Why it would matter:** the current keys were pasted into a chat conversation. They were never
+committed to git (`.env` is gitignored), but chat history is an exposure surface, so standard
+practice is to rotate. Rotation is painless if you do it in this order for each provider:
+**create the new key first → paste it into `.env` → then revoke the old key.** That way nothing
+is ever broken in between.
 
 ### 1. Anthropic (script writing)
 
