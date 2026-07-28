@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@bf/database";
 import { can, formatMicroUsd } from "@bf/shared";
-import { MODULE_KEY, VIDEO_FORMATS, ensureListingFactoryInstalled } from "@bf/workflows";
+import { MODULE_KEY, ensureListingFactoryInstalled } from "@bf/workflows";
 import { requireOrgContext } from "@/lib/session";
 import { formatDate } from "@/lib/utils";
 import {
@@ -87,10 +87,14 @@ export default async function ListingFactoryPage() {
           ) : (
             <div className="space-y-2">
               {projects.map((project) => {
-                const property = project.property as { address?: string };
+                const property = project.property as {
+                  address?: string;
+                  listingUrl?: string;
+                  agentName?: string;
+                  agentPhone?: string;
+                };
                 const lastRender = project.renders[0];
                 const coverAssetId = project.photos[0]?.assetId;
-                const format = VIDEO_FORMATS[project.format as keyof typeof VIDEO_FORMATS];
                 return (
                   <div
                     key={project.id}
@@ -112,16 +116,32 @@ export default async function ListingFactoryPage() {
                         </div>
                       )}
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-medium">{project.name}</p>
+                        <p className="truncate text-sm font-medium">
+                          {property.address ?? project.name}
+                        </p>
                         <p className="truncate text-xs text-muted-foreground">
-                          {property.address ?? "No address"} · {project._count.photos} photo
-                          {project._count.photos === 1 ? "" : "s"} ·{" "}
-                          {format?.label.split(" (")[0] ?? project.format} · updated{" "}
-                          {formatDate(project.updatedAt)}
+                          {[
+                            property.agentName &&
+                              `${property.agentName}${property.agentPhone ? ` · ${property.agentPhone}` : ""}`,
+                            `${project._count.photos} photo${project._count.photos === 1 ? "" : "s"}`,
+                            `updated ${formatDate(project.updatedAt)}`,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ")}
                         </p>
                       </div>
                     </Link>
                     <div className="flex shrink-0 items-center gap-2">
+                      {property.listingUrl ? (
+                        <a
+                          href={property.listingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-medium text-primary hover:underline"
+                        >
+                          Listing ↗
+                        </a>
+                      ) : null}
                       {lastRender ? (
                         <Badge
                           variant={

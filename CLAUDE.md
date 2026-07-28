@@ -62,6 +62,54 @@ Use `node scripts/sync-deploy.mjs` (does all of this), or by hand:
 - **A merge conflict in a generated/artifact file** is always resolved by deleting or
   regenerating the file, never by hand-merging its content.
 
+## Piggyback, don't compete (owner directive)
+
+Sessions run simultaneously. The owner's rule: **build on each other's work,
+never around it.** Concretely:
+
+6. **Sync before every push, not just before deploys.** `git fetch origin
+   <your-branch> && git merge --ff-only` (or a real merge if diverged) before
+   committing on top. Never force-push a shared branch. If your deploy loses a
+   race (another session's deploy finished after yours), merge and redeploy —
+   the fix is convergence, not a bigger hammer.
+
+7. **Reuse the shared toolbox before building your own.** Existing, tested
+   capabilities any session should lean on (grep before you reinvent):
+   - `packages/workflows/src/functions/media-utils.ts` — `resolveFfmpeg`,
+     `mp3DurationSeconds`, `pcmToWav`, `publicBaseUrl`.
+   - `/api/assets/raw` — org-checked asset streaming **with HTTP Range
+     support** (use it for any media playback; don't add parallel endpoints).
+   - `/api/assets/public` + `signAssetToken` — short-lived signed URLs for
+     external fetchers (Higgsfield, Picsart, …).
+   - Stuck-run self-healing — `/api/runs/[id]` and
+     `/api/listing-factory/renders/[renderId]` re-dispatch steps stuck
+     RUNNING > 7 min. Copy that pattern into any new polling endpoint.
+   - `/api/maintenance/storage` (Owner) — usage report + prune of regenerable
+     media + VACUUM. Respect its exclusions (rule 2).
+   - Runtime installers (`ensure*Installed` with a manifest version marker) —
+     modules must self-install on first page/API touch; never rely on the
+     one-time seed for prod.
+   - Media/AI providers in `packages/providers` — OpenAI image/TTS,
+     ElevenLabs voice/music, Higgsfield i2v (+ retry patience), Picsart GenAI
+     adapter, cost tables. Extend the registry; don't fork per app.
+   - `recordCost` + workflow `costLimitMicroUsd` — every paid call goes
+     through the ledger so the shared $15/day cap actually protects everyone.
+8. **Announce new shared capabilities here.** If you build something another
+   session could use, add one line to the toolbox list above in the same PR.
+9. **Database is a shared 512MB Neon budget.** Media bytes live in Postgres
+   (DbStorage) until S3/R2 lands — keep intermediates prunable (asset
+   `metadata.role` and `source` set), clean up after failed runs, and prefer
+   external URLs over copying bytes when a provider hosts output. Schema
+   changes: additive migrations only; never rename/drop another session's
+   tables or columns.
+10. **Deploys are whole-site releases.** After your deploy goes READY, load
+    the OTHER apps' dashboards once (`/apps/kids-shorts`, `/apps/love-villa`,
+    `/apps/listing-video-factory`) — a 500 on a sibling page means your
+    deploy broke them: fix forward immediately or redeploy the previous
+    merged commit.
+
+## Env notes
+
 ## Production invariants (don't "simplify" these away)
 
 - **Never delete `scene-render-` blobs** (StorageBlob keys containing `/scene-render-`). They

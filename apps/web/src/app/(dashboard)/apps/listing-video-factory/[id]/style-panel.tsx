@@ -46,7 +46,7 @@ export function StylePanel({
   return (
     <Card>
       <CardContent className="p-5">
-        <h2 className="mb-3 text-sm font-semibold">3 · Style & format</h2>
+        <h2 className="mb-3 text-sm font-semibold">Style</h2>
         <form action={formAction} className="space-y-3">
           <div className="space-y-1.5">
             <Label>Video style</Label>

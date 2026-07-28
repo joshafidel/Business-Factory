@@ -68,11 +68,27 @@ interface AnimationJob {
 }
 
 /** Camera brief per shot, always wrapped in the conservative guardrails. */
-function motionPrompt(roomLabel: string | null, category: string): string {
+function motionPrompt(
+  roomLabel: string | null,
+  category: string,
+  motionStyle: "gimbal" | "drone" = "gimbal",
+): string {
+  const room = roomLabel?.toLowerCase() ?? "room";
+  if (motionStyle === "drone") {
+    const subject =
+      category === "exterior" || category === "aerial"
+        ? `flying smoothly forward toward the home's ${roomLabel === "Backyard" ? "backyard" : "front entrance"}, as if about to fly inside`
+        : `flying smoothly forward through the ${room}, heading toward the doorway or opening on the far side as if continuing into the next room`;
+    return (
+      `Cinematic indoor FPV drone shot, one continuous forward flight: the camera is ${subject}. ` +
+      `Perfectly stable, constant gliding speed, slight forward momentum the whole time — never ` +
+      `stopping, never reversing. ${CONSERVATIVE_MOTION_GUARDRAILS}`
+    );
+  }
   const subject =
     category === "exterior" || category === "aerial"
       ? `a slow, smooth cinematic push toward the home's ${roomLabel === "Backyard" ? "backyard" : "entrance"}`
-      : `a smooth steadicam glide forward through the ${roomLabel?.toLowerCase() ?? "room"}`;
+      : `a smooth steadicam glide forward through the ${room}`;
   return (
     `Real-estate walkthrough shot: ${subject}, as if a videographer is walking through with a ` +
     `gimbal. Gentle, constant speed. ${CONSERVATIVE_MOTION_GUARDRAILS}`
@@ -294,11 +310,12 @@ async function submitAnimationJobs(
     .filter((t): t is { photo: NonNullable<typeof t.photo>; sceneIndex: number } =>
       Boolean(t.photo),
     );
+  const motionStyle = getTemplate(settings.style).motionStyle ?? "gimbal";
   const submissions = await Promise.allSettled(
     targets.map(async ({ photo, sceneIndex }): Promise<AnimationJob> => {
       const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, photo.assetId, exp);
       const imageUrl = `${base}/api/assets/public?id=${photo.assetId}&exp=${exp}&sig=${sig}`;
-      const prompt = motionPrompt(photo.roomLabel, photo.category);
+      const prompt = motionPrompt(photo.roomLabel, photo.category, motionStyle);
       if (useHiggsfield) {
         const jobSetId = await submitImageToVideo({ imageUrl, prompt });
         return { sceneIndex, jobSetId, provider: "higgsfield" };
