@@ -603,11 +603,11 @@ async function main(): Promise<void> {
     },
     update: {},
   });
-  // Owner-approved levels (July 2026: daily raised $10 → $15 at the
-  // owner's request to fit ~4-5 animated videos/day). Seed is authoritative
-  // for these two defaults.
+  // Owner-approved levels (July 2026: daily raised $10 → $15, then $15 → $30
+  // at the owner's request; monthly $100 stays the overall backstop). Seed is
+  // authoritative for these two defaults.
   const costLimits = [
-    { scope: "DAILY" as const, limitMicroUsd: 15_000_000n },
+    { scope: "DAILY" as const, limitMicroUsd: 30_000_000n },
     { scope: "MONTHLY" as const, limitMicroUsd: 100_000_000n },
   ];
   for (const limit of costLimits) {
@@ -630,7 +630,7 @@ async function main(): Promise<void> {
       update: { limitMicroUsd: limit.limitMicroUsd },
     });
   }
-  console.log("✓ approval policy + default cost limits ($15/day, $100/month hard stops)");
+  console.log("✓ approval policy + default cost limits ($30/day, $100/month hard stops)");
 
   // ── Demo metrics (flagged) ────────────────────────────────────────────────
   const today = new Date();

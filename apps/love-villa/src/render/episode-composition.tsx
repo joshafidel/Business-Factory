@@ -28,6 +28,10 @@ export const EpisodeComposition: React.FC<{ plan: RenderPlan }> = ({ plan }) => 
   );
 };
 
+// One grade for every scene — uniform saturation/contrast keeps cuts feeling
+// like the same show even when clips come from different generations.
+const HOUSE_GRADE = "saturate(1.08) contrast(1.03)";
+
 const SceneBlock: React.FC<{ scene: PlanScene; plan: RenderPlan }> = ({ scene, plan }) => {
   return (
     <AbsoluteFill>
@@ -35,7 +39,9 @@ const SceneBlock: React.FC<{ scene: PlanScene; plan: RenderPlan }> = ({ scene, p
         <EndCard scene={scene} plan={plan} />
       ) : (
         <>
-          <SceneShot scene={scene} />
+          <AbsoluteFill style={{ filter: HOUSE_GRADE }}>
+            <SceneShot scene={scene} />
+          </AbsoluteFill>
           {scene.kind === "text-message" ? <TextMessageOverlay scene={scene} /> : null}
           {plan.cleanPlate ? null : (
             <>

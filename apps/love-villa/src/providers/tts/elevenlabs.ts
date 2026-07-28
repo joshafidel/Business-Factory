@@ -43,7 +43,27 @@ export class ElevenLabsTTSProvider implements TTSProvider {
       );
       return this.fallback.speak(req);
     }
-    const styled = req.delivery ? `${req.text}` : req.text;
+    const isV3 = env.ELEVENLABS_MODEL.startsWith("eleven_v3");
+    // eleven_v3 understands inline audio tags ("[sarcastic] ...") and treats
+    // punctuation as performance direction — feed it the script's delivery
+    // note so lines are ACTED, not read. Older models get plain text.
+    const tag =
+      isV3 && req.delivery
+        ? `[${req.delivery
+            .toLowerCase()
+            .replace(/[^a-z ,-]/g, "")
+            .trim()
+            .slice(0, 40)}] `
+        : "";
+    const styled = `${tag}${req.text}`;
+    // v3 only accepts the discrete stability presets 0 / 0.5 / 1.
+    const stability = isV3
+      ? [0, 0.5, 1].reduce((a, b) =>
+          Math.abs(b - req.character.voice.stability) < Math.abs(a - req.character.voice.stability)
+            ? b
+            : a,
+        )
+      : req.character.voice.stability;
     const res = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`,
       {
@@ -54,7 +74,7 @@ export class ElevenLabsTTSProvider implements TTSProvider {
           text: styled,
           model_id: env.ELEVENLABS_MODEL,
           voice_settings: {
-            stability: req.character.voice.stability,
+            stability,
             similarity_boost: req.character.voice.similarityBoost,
           },
         }),

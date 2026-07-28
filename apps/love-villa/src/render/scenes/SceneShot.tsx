@@ -25,10 +25,10 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
     (l) => frame >= l.startFrame && frame < l.startFrame + l.durationFrames,
   );
   const activeSpeaker = activeLine?.speaker;
-  // Punch-in: a quick 5% zoom pop at the start of every line keeps the cut
-  // rhythm of viral shorts even inside a single scene.
+  // Punch-in: a subtle zoom pop at the start of every line keeps cut rhythm
+  // without jittering character proportions between beats.
   const sinceLine = activeLine ? frame - activeLine.startFrame : 99;
-  const punch = 1 + 0.05 * Math.exp(-sinceLine / 5);
+  const punch = 1 + 0.028 * Math.exp(-sinceLine / 5);
   const camera = `${cameraTransform(scene.motion, p, frame)} scale(${punch.toFixed(4)})`;
 
   // True animated clip (image-to-video): the characters and set are baked into

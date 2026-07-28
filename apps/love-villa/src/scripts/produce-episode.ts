@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { requireApproved, setApproval } from "../approvals/approvals";
 import { characterById, loadCast } from "../characters/character-manager";
@@ -16,6 +16,12 @@ import {
   type LineAudioInfo,
 } from "../render/render-plan";
 import { renderEpisodeVideo, renderSceneStill, resetBundleCache } from "../render/render";
+import {
+  loadQualityReport,
+  reviewAudio,
+  reviewVisuals,
+  saveQualityReport,
+} from "../quality/quality-director";
 import { loadShowBible } from "../show/show-bible";
 import { parseArgs, intArg } from "../utils/args";
 import { CostTracker } from "../utils/cost";
@@ -160,6 +166,24 @@ async function main(): Promise<void> {
   }
   log.ok(`${manifest.lines.length} voice lines`);
 
+  log.step("Quality Director — audio check");
+  const audioFindings = reviewAudio(episode);
+  {
+    const qr = loadQualityReport(episode);
+    qr.audio = { findings: audioFindings, checkedAt: new Date().toISOString() };
+    saveQualityReport(qr);
+  }
+  const audioCritical = audioFindings.filter((f) => f.severity === "critical");
+  for (const f of audioFindings) {
+    (f.severity === "critical" ? log.warn : log.info)(`[audio] ${f.file}: ${f.issue}`);
+  }
+  if (audioCritical.length > 0) {
+    throw new Error(
+      `Quality Director rejected ${audioCritical.length} voice line(s) — regenerate before continuing.`,
+    );
+  }
+  log.ok("audio passes");
+
   log.step("Music bed (generated, royalty-free)");
   const speech = manifest.lines.reduce((s, l) => s + l.seconds, 0);
   const estimated = speech + script.scenes.length * 1.6 + 8;
@@ -214,8 +238,10 @@ async function main(): Promise<void> {
           prompt:
             `${scriptScene?.visual ?? "villa scene"}. Gentle expressive character animation: they ` +
             `blink, breathe, gesture and react naturally; subtle cloth and hair movement; slow ` +
-            `cinematic camera; keep the exact glossy animated reality-show art style and character ` +
-            `designs of the image; no text, no morphing.`,
+            `cinematic camera. STRICT CONSISTENCY: preserve every character's exact face, body ` +
+            `proportions, outfit, colors and position from the image — identical designs, no ` +
+            `redesign, no morphing, no warping, characters stay in place; keep the exact glossy ` +
+            `animated reality-show art style and color grading of the image; no text.`,
           seconds: env.MOTION_CLIP_SECONDS,
         });
         if (clip) {
@@ -242,6 +268,40 @@ async function main(): Promise<void> {
   log.ok(
     `render plan: ${plan.scenes.length} scenes · ${(plan.durationFrames / plan.fps).toFixed(1)}s total`,
   );
+
+  // Quality Director — visual pass over the scene stills (one vision call).
+  const stillsDir = assetAbs(assetRel("episodes", epId, "stills"));
+  if (existsSync(stillsDir)) {
+    log.step("Quality Director — visual check");
+    const stills = readdirSync(stillsDir)
+      .filter((f) => f.endsWith(".png"))
+      .sort()
+      .slice(0, 8)
+      .map((f) => ({ label: `still:${f}`, file: path.join(stillsDir, f) }));
+    if (stills.length > 0) {
+      const visual = await reviewVisuals({ episode, images: stills, tracker });
+      const qr = loadQualityReport(episode);
+      qr.visuals = [{ ...visual, checkedAt: new Date().toISOString() }];
+      saveQualityReport(qr);
+      const critical = visual.images.filter((i) => i.severity === "critical");
+      for (const img of visual.images) {
+        if (img.severity !== "ok") {
+          const label = visual.labels[img.index] ?? `img${img.index}`;
+          (img.severity === "critical" ? log.warn : log.info)(
+            `[visual] ${label}: ${img.aiDefects.join("; ") || img.notes}`,
+          );
+        }
+      }
+      if (critical.length > 0) {
+        log.warn(
+          `Quality Director flagged ${critical.length} still(s) CRITICAL — regenerate those scenes ` +
+            `before approving the rough cut (validate-episode will refuse to pass).`,
+        );
+      } else {
+        log.ok("visuals pass");
+      }
+    }
+  }
 
   if (!skipDraft) {
     log.step("Draft render (rough cut, half resolution)");

@@ -18,6 +18,11 @@ import { loadShowBible } from "../show/show-bible";
 import { parseArgs, intArg } from "../utils/args";
 import { episodeId, readJsonIfExists, writeJson } from "../utils/fs";
 import { log } from "../utils/log";
+import {
+  hasCriticalFindings,
+  loadQualityReport,
+  summarizeReport,
+} from "../quality/quality-director";
 import { wavDurationSeconds, wavPeak } from "../utils/wav";
 import { type AssetManifest } from "./produce-episode";
 
@@ -159,6 +164,22 @@ async function main(): Promise<void> {
       check: "final-export",
       severity: "info",
       message: `final.mp4 present (${mb.toFixed(1)} MB)`,
+    });
+  }
+
+  // Quality Director verdict is part of validation: critical findings fail it.
+  const quality = loadQualityReport(episode);
+  if (hasCriticalFindings(quality)) {
+    issues.push({
+      check: "quality-director",
+      severity: "error",
+      message: `critical quality findings — ${summarizeReport(quality)}`,
+    });
+  } else {
+    issues.push({
+      check: "quality-director",
+      severity: "info",
+      message: summarizeReport(quality),
     });
   }
 

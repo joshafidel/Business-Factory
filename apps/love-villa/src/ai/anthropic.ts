@@ -40,6 +40,8 @@ export interface GenerateOptions<T> {
   mock: () => T;
   tracker: CostTracker;
   maxTokens?: number;
+  /** Optional images (PNG/JPEG) attached before the prompt — for visual QA. */
+  images?: { data: Buffer; mediaType: "image/png" | "image/jpeg" }[];
 }
 
 export async function generateStructured<T>(opts: GenerateOptions<T>): Promise<T> {
@@ -52,18 +54,31 @@ export async function generateStructured<T>(opts: GenerateOptions<T>): Promise<T
     return opts.schema.parse(opts.mock());
   }
 
+  // ~1.6k tokens per attached image at our sizes.
+  const imageTokens = (opts.images?.length ?? 0) * 1600;
   opts.tracker.charge({
     provider: "anthropic",
     item: opts.item,
-    estimatedUsd: estimateUsd(opts.prompt, maxTokens),
+    estimatedUsd: estimateUsd(opts.prompt, maxTokens) + (imageTokens * 5) / 1_000_000,
     mode: "live",
   });
   log.info(`LLM live (${env.ANTHROPIC_MODEL}): ${opts.item}`);
 
+  const content: Anthropic.Beta.BetaContentBlockParam[] = [
+    ...(opts.images ?? []).map((img): Anthropic.Beta.BetaContentBlockParam => ({
+      type: "image",
+      source: {
+        type: "base64",
+        media_type: img.mediaType,
+        data: img.data.toString("base64"),
+      },
+    })),
+    { type: "text", text: opts.prompt },
+  ];
   const response = await getClient().beta.messages.parse({
     model: env.ANTHROPIC_MODEL,
     max_tokens: maxTokens,
-    messages: [{ role: "user", content: opts.prompt }],
+    messages: [{ role: "user", content }],
     output_format: betaZodOutputFormat(opts.schema),
   });
 

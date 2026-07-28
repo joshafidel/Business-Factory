@@ -18,6 +18,7 @@ const STYLE =
   "ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive " +
   "adult character in their twenties, expressive big eyes, polished modern-animation adult " +
   "proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, " +
+  "national flag colors and motifs boldly woven into the outfit so their country reads at a glance, " +
   "vertical 9:16 framing, consistent character design";
 
 const NEG =
@@ -34,7 +35,8 @@ export const CAST: Character[] = [
     physicalDescription:
       "Tall, gym-sculpted, permanent megawatt grin, spray-tan one shade too orange, blindingly white teeth.",
     clothingStyle:
-      "Stars-and-stripes swim shorts, backwards cap, sleeveless everything, shaker bottle always in hand.",
+      "American-flag tank top (stars on one side, stripes on the other), red backwards cap with a " +
+      "white star, star-spangled swim shorts, eagle belt buckle, shaker bottle always in hand.",
     voiceDescription:
       "Booming, upbeat frat-bro energy; every sentence sounds like a locker-room pep talk.",
     accentDirection:
@@ -53,11 +55,12 @@ export const CAST: Character[] = [
     recurringJoke: "Pitches everything as a business ('Us? We'd be a great merger, babe').",
     signaturePhrase: "Full send on the heart, baby!",
     imagePrompt:
-      `Confident athletic American man in his mid twenties, orange-ish tan, backwards cap, ` +
-      `stars-and-stripes swim shorts, holding a protein shaker, huge grin, ${STYLE}`,
+      `Confident athletic American man in his mid twenties, orange-ish tan, red backwards cap with ` +
+      `white star, American flag tank top with stars and stripes, star-spangled swim shorts, eagle ` +
+      `belt buckle, holding a protein shaker, huge grin, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin",
+      "Brock: tall tan American man, American-flag tank top (stars and stripes), red backwards cap with white star, star-print shorts, shaker bottle, huge grin",
     imageSeed: 11001,
     palette: { skin: "#e8a26f", hair: "#6b4a2b", outfit: "#d63b3b", accent: "#2b4c9b" },
     voice: {
@@ -87,7 +90,8 @@ export const CAST: Character[] = [
     physicalDescription:
       "Petite with a sharp blonde bob, permanent unimpressed eyebrow, sunburn developing in real time.",
     clothingStyle:
-      "Chic high-street co-ords, giant sunglasses pushed up, always holding a mug of tea by the pool.",
+      "Union Jack crop top with matching high-street co-ord skirt, giant sunglasses pushed up, " +
+      "always holding a Union-Jack-printed mug of tea by the pool, tiny UK flag hair clip.",
     voiceDescription:
       "Dry, quick, deadpan; delivers devastating one-liners at conversational volume.",
     accentDirection:
@@ -106,13 +110,14 @@ export const CAST: Character[] = [
       "Rates every romantic moment out of ten like a grumpy judge ('That kiss? Four. Generous four.').",
     signaturePhrase: "Sun's out, standards up.",
     imagePrompt:
-      `Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord ` +
-      `outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, ${STYLE}`,
+      `Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, Union Jack ` +
+      `crop top and chic matching skirt, holding a Union Jack printed tea mug by a pool, unimpressed ` +
+      `smirk, slight sunburn, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk",
+      "Poppy: petite British woman, sharp blonde bob, big sunglasses on head, Union Jack crop top and skirt, Union Jack tea mug, smirk",
     imageSeed: 11002,
-    palette: { skin: "#f3c6a5", hair: "#e8d48b", outfit: "#e777a8", accent: "#7db5e0" },
+    palette: { skin: "#f3c6a5", hair: "#e8d48b", outfit: "#1b3d8f", accent: "#cf142b" },
     voice: {
       provider: "elevenlabs",
       voiceId: null,
@@ -143,7 +148,8 @@ export const CAST: Character[] = [
     physicalDescription:
       "Dark curls, dramatic eyebrows, talks with both hands, always slightly windswept as if in a perfume ad.",
     clothingStyle:
-      "Linen shirt unbuttoned exactly two buttons, gold chain, apron appears from nowhere when he cooks.",
+      "White linen shirt unbuttoned exactly two buttons with green-white-red Italian tricolore trim " +
+      "on the collar, gold chain, Italian-flag-striped apron that appears from nowhere when he cooks.",
     voiceDescription:
       "Rich, operatic, emotional; whispers and then suddenly declaims to the heavens.",
     accentDirection: "Melodic Italian accent, warm and theatrical, fully intelligible.",
@@ -161,11 +167,12 @@ export const CAST: Character[] = [
       "Compares every person and crisis to a dish ('You are gnocchi: soft, but you sink').",
     signaturePhrase: "My heart is al dente — firm, but ready.",
     imagePrompt:
-      `Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, unbuttoned ` +
-      `linen shirt, gold chain, gesturing passionately with both hands, ${STYLE}`,
+      `Dramatic romantic Italian man in his late twenties, dark curls, expressive eyebrows, white linen ` +
+      `shirt with green-white-red Italian flag trim on the collar, Italian tricolore striped apron, ` +
+      `gold chain, gesturing passionately with both hands, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands",
+      "Matteo: Italian man, dark curls, thick eyebrows, white linen shirt with Italian tricolore collar trim, Italian-flag apron, gold chain, expressive hands",
     imageSeed: 11003,
     palette: { skin: "#d9a06a", hair: "#2e2119", outfit: "#efe6d3", accent: "#c9a441" },
     voice: {
@@ -201,7 +208,8 @@ export const CAST: Character[] = [
     physicalDescription:
       "Effortless dark bob, red lip at the pool for no reason, posture of someone permanently unimpressed.",
     clothingStyle:
-      "Breton stripes, silk scarf even in the water, tiny sunglasses she looks over the top of.",
+      "Navy beret with a small bleu-blanc-rouge cockade pin, breton stripes, silk scarf in French " +
+      "tricolore blue-white-red even in the water, tiny sunglasses she looks over the top of.",
     voiceDescription: "Low, measured, faintly bored; compliments sound like verdicts.",
     accentDirection: "Light Parisian accent, elegant and crisp, fully intelligible.",
     personality:
@@ -217,11 +225,12 @@ export const CAST: Character[] = [
       "Rates everything out of ten, including sunsets, apologies, and declarations of love.",
     signaturePhrase: "C'est un non.",
     imagePrompt:
-      `Effortlessly chic French woman in her mid twenties, dark bob, red lipstick, breton stripe top, ` +
-      `silk scarf, tiny sunglasses, looking over them with cool judgment, ${STYLE}`,
+      `Effortlessly chic French woman in her mid twenties, dark bob under a navy beret with a small ` +
+      `blue-white-red cockade pin, red lipstick, breton stripe top, silk scarf in French tricolore ` +
+      `blue white red, tiny sunglasses, looking over them with cool judgment, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare",
+      "Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, cool stare",
     imageSeed: 11004,
     palette: { skin: "#f0c39e", hair: "#241c1c", outfit: "#f4f1ea", accent: "#c0392b" },
     voice: {
@@ -250,7 +259,9 @@ export const CAST: Character[] = [
     gender: "man",
     physicalDescription:
       "Radiant grin, dark curls with sun streaks, permanently mid-dance-move, abs that have their own lighting.",
-    clothingStyle: "Open tropical-print shirt, beaded necklace, flip-flops he loses constantly.",
+    clothingStyle:
+      "Canary-yellow Brazil football jersey with green trim worn open over swim shorts in " +
+      "Brazilian-flag green-yellow-blue, green and yellow beaded necklace, flip-flops he loses constantly.",
     voiceDescription: "Warm, musical, laughing through his words; turns names into songs.",
     accentDirection: "Gentle Brazilian Portuguese accent, sunny and rhythmic, fully intelligible.",
     personality:
@@ -267,13 +278,14 @@ export const CAST: Character[] = [
       "Announces a samba move for every mood ('This one is called: Emotional Damage').",
     signaturePhrase: "Dance now, feelings later!",
     imagePrompt:
-      `Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, open tropical ` +
-      `print shirt, beaded necklace, caught mid dance move by the pool, ${STYLE}`,
+      `Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, canary yellow ` +
+      `Brazil football jersey with green trim worn open, swim shorts in Brazilian flag green yellow and ` +
+      `blue, green and yellow beaded necklace, caught mid dance move by the pool, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open green tropical shirt, beaded necklace, mid-dance",
+      "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open canary-yellow Brazil jersey with green trim, green-yellow-blue shorts, beaded necklace, mid-dance",
     imageSeed: 11005,
-    palette: { skin: "#c98a5b", hair: "#3a2a1a", outfit: "#2e9e6b", accent: "#f4c542" },
+    palette: { skin: "#c98a5b", hair: "#3a2a1a", outfit: "#ffdf00", accent: "#009c3b" },
     voice: {
       provider: "elevenlabs",
       voiceId: null,
@@ -306,7 +318,9 @@ export const CAST: Character[] = [
     gender: "woman",
     physicalDescription:
       "Sun-bleached ponytail, zinc stripe on her nose, permanently barefoot, a band-aid somewhere at all times.",
-    clothingStyle: "Surf bikini top with boardshorts, shark-tooth necklace, sunnies with a leash.",
+    clothingStyle:
+      "Australian-flag boardshorts (navy with Union Jack corner and white Southern Cross stars), " +
+      "green-and-gold surf top, cork-brimmed hat hanging on her back, shark-tooth necklace, sunnies with a leash.",
     voiceDescription:
       "Bright, fast, gleeful; sounds like she's daring you even when she's saying good morning.",
     accentDirection: "Cheerful Australian accent, energetic, fully intelligible.",
@@ -323,12 +337,13 @@ export const CAST: Character[] = [
     signaturePhrase: "Scared money don't find love!",
     imagePrompt:
       `Adventurous Australian woman in her early twenties, sun-bleached ponytail, zinc stripe on nose, ` +
-      `surf bikini top and boardshorts, shark tooth necklace, mischievous grin, ${STYLE}`,
+      `green and gold surf top, Australian flag boardshorts with Southern Cross stars, cork-brim hat ` +
+      `hanging on her back, shark tooth necklace, mischievous grin, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin",
+      "Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, green-and-gold surf top, Australian-flag boardshorts with stars, cork hat on back, grin",
     imageSeed: 11006,
-    palette: { skin: "#eab183", hair: "#f2e3b3", outfit: "#f28c38", accent: "#31b5c4" },
+    palette: { skin: "#eab183", hair: "#f2e3b3", outfit: "#00843d", accent: "#ffcd00" },
     voice: {
       provider: "elevenlabs",
       voiceId: null,
@@ -362,7 +377,8 @@ export const CAST: Character[] = [
     physicalDescription:
       "Immaculate hair with one rebellious curl, warm knowing smile, carries a small notebook he denies having.",
     clothingStyle:
-      "Pastel polo tucked into tailored shorts, expensive watch, sandals with — controversially — socks.",
+      "Polo color-blocked in Indian-flag saffron, white, and green with a navy chakra-wheel crest, " +
+      "tailored shorts, expensive watch, cricket sweater over the shoulders, sandals with — controversially — socks.",
     voiceDescription:
       "Smooth, charming, precise; the voice of a man who has rehearsed being spontaneous.",
     accentDirection: "Polished Indian English accent, warm and articulate, fully intelligible.",
@@ -381,13 +397,14 @@ export const CAST: Character[] = [
       "Quotes his 'algorithm' with fake precision ('We are 87.3% compatible. The .3 is her smile').",
     signaturePhrase: "Love is a plan you make twice.",
     imagePrompt:
-      `Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored ` +
-      `shorts, expensive watch, warm knowing smile, small notebook in pocket, ${STYLE}`,
+      `Charming Indian man in his mid twenties, immaculate hair with one loose curl, polo color-blocked ` +
+      `in Indian flag saffron white and green with a small navy chakra wheel crest, cricket sweater over ` +
+      `shoulders, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook",
+      "Rohan: Indian man, neat black hair with one loose curl, saffron-white-green polo with chakra crest, cricket sweater on shoulders, tailored shorts, watch, notebook",
     imageSeed: 11007,
-    palette: { skin: "#b97e4f", hair: "#1d1712", outfit: "#b9a5e3", accent: "#e0b13e" },
+    palette: { skin: "#b97e4f", hair: "#1d1712", outfit: "#ff9933", accent: "#138808" },
     voice: {
       provider: "elevenlabs",
       voiceId: null,
@@ -426,7 +443,8 @@ export const CAST: Character[] = [
     physicalDescription:
       "Precise braided crown, athletic posture, sunscreen applied in exact measured stripes, waterproof watch.",
     clothingStyle:
-      "Sporty color-blocked swimwear, clipboard by the sun-lounger, sensible waterproof sandals.",
+      "Sporty swimwear color-blocked in German-flag black, red, and gold like a national team kit, " +
+      "clipboard by the sun-lounger, sensible waterproof sandals, tiny black-red-gold wristband.",
     voiceDescription: "Even, efficient, deadpan; devastating jokes delivered like meeting minutes.",
     accentDirection: "Crisp German accent, precise consonants, fully intelligible.",
     personality:
@@ -443,13 +461,14 @@ export const CAST: Character[] = [
     recurringJoke: "Announces agenda items for romance ('Item four: eye contact. Beginning now.').",
     signaturePhrase: "Romance runs on schedule.",
     imagePrompt:
-      `Precise athletic German woman in her late twenties, braided crown hair, color-blocked sporty ` +
-      `swimwear, holding a clipboard by a sun lounger, deadpan hint of a smile, ${STYLE}`,
+      `Precise athletic German woman in her late twenties, braided crown hair, sporty swimwear ` +
+      `color-blocked in German flag black red and gold like a national team kit, black-red-gold ` +
+      `wristband, holding a clipboard by a sun lounger, deadpan hint of a smile, ${STYLE}`,
     negativeImagePrompt: NEG,
     visualReference:
-      "Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan",
+      "Greta: German woman, blonde braided crown, black-red-gold German kit swimwear, black-red-gold wristband, clipboard, waterproof watch, deadpan",
     imageSeed: 11008,
-    palette: { skin: "#f2cfae", hair: "#d9b76a", outfit: "#1f7a8c", accent: "#12263a" },
+    palette: { skin: "#f2cfae", hair: "#d9b76a", outfit: "#dd0000", accent: "#ffce00" },
     voice: {
       provider: "elevenlabs",
       voiceId: null,
@@ -480,7 +499,9 @@ export const ARRIVAL_SPAIN: Character = {
   physicalDescription:
     "Slow-motion hair, smoldering default expression, walks like flamenco is playing somewhere only he can hear.",
   clothingStyle:
-    "Crimson shirt tucked loosely into white trousers, sleeves rolled with suspicious perfection.",
+    "Crimson shirt with golden Spanish-flag trim and subtle matador embroidery, tucked loosely into " +
+    "white trousers, red-and-gold striped sash belt, red carnation in the pocket, sleeves rolled with " +
+    "suspicious perfection.",
   voiceDescription: "Low, velvet, unhurried; makes 'hello' sound like a season finale.",
   accentDirection: "Smooth Spanish accent, deliberate pacing, fully intelligible.",
   personality:
@@ -497,11 +518,12 @@ export const ARRIVAL_SPAIN: Character = {
     "Everything he does gets invisible flamenco claps ('Why do I hear clapping?' — everyone).",
   signaturePhrase: "The night is young, and so am I. Mostly.",
   imagePrompt:
-    `Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt loosely ` +
-    `tucked into white trousers, walking a villa entrance walkway at sunset, ${STYLE}`,
+    `Smoldering confident Spanish man in his late twenties, flowing dark hair, crimson shirt with ` +
+    `golden Spanish flag trim and subtle matador embroidery, red and gold striped sash belt, red ` +
+    `carnation in pocket, white trousers, walking a villa entrance walkway at sunset, ${STYLE}`,
   negativeImagePrompt: NEG,
   visualReference:
-    "Alejandro: Spanish man, flowing dark hair, crimson shirt, white trousers, smolder, sunset backlight",
+    "Alejandro: Spanish man, flowing dark hair, crimson shirt with gold Spanish trim, red-gold sash, red carnation, white trousers, smolder",
   imageSeed: 11009,
   palette: { skin: "#cf9868", hair: "#171310", outfit: "#b3232e", accent: "#f0ead6" },
   voice: {

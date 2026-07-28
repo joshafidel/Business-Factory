@@ -39,9 +39,14 @@ export interface LineAudioInfo {
   seconds: number;
 }
 
-const LEAD_IN_S = 0.35;
-const LINE_GAP_S = 0.16;
-const TAIL_S = 0.45;
+// Comedic-timing pacing (owner directive: let jokes breathe, never rush):
+// a real pause between every line, a longer beat after punchlines, and extra
+// air in escalation/twist scenes where reactions need time to register.
+const LEAD_IN_S = 0.5;
+const LINE_GAP_S = 0.45;
+const PUNCHLINE_GAP_S = 0.75;
+const ESCALATION_EXTRA_S = 0.12;
+const TAIL_S = 0.7;
 
 export function assetRel(...parts: string[]): string {
   return parts.join("/");
@@ -78,6 +83,7 @@ export function buildRenderPlan(params: {
   let cursor = 0;
   const scenes: PlanScene[] = script.scenes.map((scene) => {
     const startFrame = cursor;
+    const paced = scene.slot === "escalation" || scene.slot === "twist";
     let offset = Math.round(LEAD_IN_S * FPS);
     const lines: PlanLine[] = scene.lines.map((l, li) => {
       const audio = audioOf(scene.index, li);
@@ -97,7 +103,10 @@ export function buildRenderPlan(params: {
         startFrame: offset,
         durationFrames,
       };
-      offset += durationFrames + Math.round(LINE_GAP_S * FPS);
+      // Punchlines (emphasized lines) earn a longer beat before the next line.
+      const gapS =
+        (l.emphasize.length > 0 ? PUNCHLINE_GAP_S : LINE_GAP_S) + (paced ? ESCALATION_EXTRA_S : 0);
+      offset += durationFrames + Math.round(gapS * FPS);
       return planLine;
     });
     const isEndcard = scene.kind === "endcard";
@@ -109,12 +118,19 @@ export function buildRenderPlan(params: {
       findExistingAsset(assetRel("locations", scene.locationId), ["png", "svg"]) ??
       assetRel("locations", `${scene.locationId}.svg`);
 
-    const characters: PlanCharacter[] = scene.characters.map((id, i) => {
+    // Deterministic placement: order by cast roster so the same person sits
+    // on the same side in every scene — viewers recognize who is where
+    // without reading a chip.
+    const castOrder = new Map(cast.map((c, i) => [c.id, i]));
+    const stable = [...scene.characters].sort(
+      (a, b) => (castOrder.get(a) ?? 99) - (castOrder.get(b) ?? 99),
+    );
+    const characters: PlanCharacter[] = stable.map((id, i) => {
       const c = byId.get(id);
       const file =
         findExistingAsset(assetRel("characters", id), ["png", "svg"]) ??
         assetRel("characters", `${id}.svg`);
-      const position = scene.characters.length === 1 ? 2 : i === 0 ? 0 : i === 1 ? 1 : 2;
+      const position = stable.length === 1 ? 2 : i === 0 ? 0 : i === 1 ? 1 : 2;
       return { id, name: c?.fullName.split(" ")[0] ?? id, file, position };
     });
 
