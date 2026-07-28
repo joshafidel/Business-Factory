@@ -167,7 +167,7 @@ export function PhotoManager({
       <CardContent className="p-5">
         <div className="mb-3 flex items-center justify-between gap-2">
           <h2 className="text-sm font-semibold">
-            1 · Photos{" "}
+            Photos{" "}
             <span className="font-normal text-muted-foreground">
               ({photos.length}/{LIMITS.maxPhotosPerProject} · drag to set the tour order)
             </span>

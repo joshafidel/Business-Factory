@@ -26,18 +26,23 @@ interface RenderRow {
 
 const STAGE_LABELS: Record<string, string> = {
   queued: "Queued…",
-  prepare: "Generating voice-over…",
+  prepare: "Generating voice-over & motion…",
+  branch: "Generating motion…",
+  wait: "Animating scenes…",
   assemble: "Rendering video…",
   notify: "Finishing up…",
 };
 
+/**
+ * The listing card: the rendered walkthrough front and center, with the
+ * address, the listing link, and the realtor's contact info beside it.
+ */
 export function RenderPanel(props: {
   projectId: string;
   canExecute: boolean;
   rightsConfirmed: boolean;
   hasScript: boolean;
   format: "vertical" | "landscape" | "square";
-  style: string;
   options: ListingOptions;
   property: ListingProperty;
   script: ListingScript | null;
@@ -53,8 +58,9 @@ export function RenderPanel(props: {
   const [stage, setStage] = useState<string | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const activeRender = props.renders.find((r) => r.status === "QUEUED" || r.status === "RUNNING");
+  const latestVideo = props.renders.find((r) => r.status === "COMPLETED" && r.videoAssetId);
+  const olderRenders = props.renders.filter((r) => r.id !== latestVideo?.id && r.id !== activeRender?.id);
 
-  // Poll while a render is active; refresh the page data when it settles.
   useEffect(() => {
     if (!activeRender) return;
     pollRef.current = setInterval(() => {
@@ -122,131 +128,202 @@ export function RenderPanel(props: {
   };
 
   const estimate = Number(props.estimateMicroUsd) / 1_000_000;
-  const warningsBlocking = !props.rightsConfirmed || !props.hasScript || props.photos.length === 0;
+  const blocking = !props.rightsConfirmed || !props.hasScript || props.photos.length === 0;
+  const p = props.property;
+  const contact = [p.agentPhone, p.agentEmail].filter(Boolean).join(" · ");
 
   return (
     <Card>
       <CardContent className="p-5">
-        <h2 className="mb-3 text-sm font-semibold">5 · Render & downloads</h2>
-
-        {props.canExecute ? (
-          <div className="space-y-2">
-            <div className="flex gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                className="flex-1"
-                disabled={Boolean(busy) || pending || warningsBlocking || Boolean(activeRender)}
-                onClick={() => startRender("preview")}
-              >
-                {busy === "preview" ? "Starting…" : "Render preview"}
-              </Button>
-              <Button
-                size="sm"
-                className="flex-1"
-                disabled={Boolean(busy) || pending || warningsBlocking || Boolean(activeRender)}
-                onClick={() => startRender("final")}
-              >
-                {busy === "final" ? "Starting…" : "Render final video"}
-              </Button>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Preview is fast, half-resolution, and watermarked. Final renders{" "}
-              {VIDEO_FORMATS[props.format].width}×{VIDEO_FORMATS[props.format].height}.{" "}
-              {estimate > 0
-                ? `Estimated final-render cost ≈ $${estimate.toFixed(2)} (AI walkthrough motion + voice; previews are free, re-used voice lines are free).`
-                : "No paid APIs needed for this render."}
-            </p>
-            {warningsBlocking ? (
-              <p className="text-xs text-warning">
-                To render:{" "}
-                {[
-                  props.photos.length === 0 && "upload photos",
-                  !props.hasScript && "generate the script",
-                  !props.rightsConfirmed && "confirm usage rights (section 2)",
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </p>
-            ) : null}
-            {activeRender ? (
-              <p className="text-xs text-primary">
-                ⏳ {stage ?? "Rendering…"} — you can leave this page; it keeps going.
-              </p>
-            ) : null}
-            {error ? <p className="text-xs text-destructive">{error}</p> : null}
-          </div>
-        ) : null}
-
-        {props.renders.length > 0 ? (
-          <div className="mt-4 space-y-2">
-            {props.renders.map((render) => (
-              <div key={render.id} className="rounded-md border border-border p-2.5 text-xs">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium">
-                    {render.kind === "FINAL" ? "Final" : "Preview"} · {render.createdAtLabel}
-                  </span>
-                  <Badge
-                    variant={
-                      render.status === "COMPLETED"
-                        ? "success"
-                        : render.status === "FAILED"
-                          ? "destructive"
-                          : "warning"
-                    }
-                  >
-                    {render.status.toLowerCase()}
-                  </Badge>
-                </div>
-                {render.error ? <p className="mt-1 text-destructive">{render.error}</p> : null}
-                {render.status === "COMPLETED" && render.videoAssetId ? (
-                  <div className="mt-2 space-y-2">
-                    <video
-                      src={`/api/assets/raw?id=${render.videoAssetId}`}
-                      controls
-                      preload="metadata"
-                      className="max-h-72 w-full rounded-md bg-black"
-                    />
-                    <div className="flex flex-wrap gap-3">
-                      <a
-                        href={`/api/assets/raw?id=${render.videoAssetId}`}
-                        download
-                        className="font-medium text-primary hover:underline"
-                      >
-                        ⬇ Download MP4
-                      </a>
-                      {render.srtAssetId ? (
-                        <a
-                          href={`/api/assets/raw?id=${render.srtAssetId}`}
-                          download
-                          className="text-muted-foreground hover:underline"
-                        >
-                          Captions (.srt)
-                        </a>
-                      ) : null}
-                      {render.reportAssetId ? (
-                        <a
-                          href={`/api/assets/raw?id=${render.reportAssetId}`}
-                          download
-                          className="text-muted-foreground hover:underline"
-                        >
-                          Generation report
-                        </a>
-                      ) : null}
-                    </div>
-                  </div>
-                ) : null}
+        <div className="flex flex-col gap-5 md:flex-row">
+          {/* The walkthrough video */}
+          <div className="md:w-[300px] md:shrink-0">
+            {latestVideo?.videoAssetId ? (
+              <video
+                key={latestVideo.videoAssetId}
+                src={`/api/assets/raw?id=${latestVideo.videoAssetId}`}
+                controls
+                playsInline
+                preload="metadata"
+                className={`w-full rounded-lg bg-black ${props.format === "landscape" ? "" : "max-h-[520px]"}`}
+              />
+            ) : (
+              <div className="flex aspect-[9/16] max-h-[420px] w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border text-center text-sm text-muted-foreground">
+                <span className="text-3xl">🎬</span>
+                {activeRender ? (stage ?? "Rendering…") : "No video yet"}
               </div>
-            ))}
+            )}
           </div>
-        ) : null}
 
-        <SocialSection
-          projectId={props.projectId}
-          canExecute={props.canExecute}
-          hasScript={props.hasScript}
-          socialPackage={props.socialPackage}
-        />
+          {/* Address, listing link, realtor, render controls */}
+          <div className="min-w-0 flex-1 space-y-4">
+            <div>
+              <h2 className="text-lg font-semibold leading-snug">{p.address}</h2>
+              {p.listingUrl ? (
+                <a
+                  href={p.listingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-primary hover:underline"
+                >
+                  View listing ↗
+                </a>
+              ) : (
+                <p className="text-xs text-muted-foreground">
+                  No listing link yet — paste it in Listing details below.
+                </p>
+              )}
+            </div>
+
+            {p.agentName || p.brokerage || contact ? (
+              <div className="rounded-lg border border-border bg-muted/30 p-3 text-sm">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  Realtor
+                </p>
+                {p.agentName ? <p className="font-medium">{p.agentName}</p> : null}
+                {p.brokerage ? <p className="text-muted-foreground">{p.brokerage}</p> : null}
+                {contact ? <p className="text-muted-foreground">{contact}</p> : null}
+              </div>
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                No realtor on file — add contact info in Listing details below.
+              </p>
+            )}
+
+            {props.canExecute ? (
+              <div className="space-y-2">
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1"
+                    disabled={Boolean(busy) || pending || blocking || Boolean(activeRender)}
+                    onClick={() => startRender("preview")}
+                  >
+                    {busy === "preview" ? "Starting…" : "Render preview"}
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="flex-1"
+                    disabled={Boolean(busy) || pending || blocking || Boolean(activeRender)}
+                    onClick={() => startRender("final")}
+                  >
+                    {busy === "final" ? "Starting…" : "Render walkthrough"}
+                  </Button>
+                </div>
+                {activeRender ? (
+                  <p className="text-xs text-primary">
+                    ⏳ {stage ?? "Rendering…"} — takes a few minutes; you can leave this page.
+                  </p>
+                ) : null}
+                {blocking ? (
+                  <p className="text-xs text-warning">
+                    To render:{" "}
+                    {[
+                      props.photos.length === 0 && "add photos",
+                      !props.hasScript && "generate the narration",
+                      !props.rightsConfirmed && "confirm usage rights (Listing details)",
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </p>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    {estimate > 0
+                      ? `≈ $${estimate.toFixed(2)} per final render (AI walkthrough motion + voice). Previews are free.`
+                      : "No paid APIs needed for this render."}
+                  </p>
+                )}
+                {error ? <p className="text-xs text-destructive">{error}</p> : null}
+              </div>
+            ) : null}
+
+            {latestVideo ? (
+              <div className="flex flex-wrap gap-3 text-xs">
+                <a
+                  href={`/api/assets/raw?id=${latestVideo.videoAssetId}`}
+                  download
+                  className="font-medium text-primary hover:underline"
+                >
+                  ⬇ Download MP4
+                </a>
+                {latestVideo.srtAssetId ? (
+                  <a
+                    href={`/api/assets/raw?id=${latestVideo.srtAssetId}`}
+                    download
+                    className="text-muted-foreground hover:underline"
+                  >
+                    Captions (.srt)
+                  </a>
+                ) : null}
+                {latestVideo.reportAssetId ? (
+                  <a
+                    href={`/api/assets/raw?id=${latestVideo.reportAssetId}`}
+                    download
+                    className="text-muted-foreground hover:underline"
+                  >
+                    Report
+                  </a>
+                ) : null}
+                <span className="text-muted-foreground">
+                  {latestVideo.kind === "FINAL" ? "Final" : "Preview"} · {latestVideo.createdAtLabel}
+                </span>
+              </div>
+            ) : null}
+            {activeRender?.error ? (
+              <p className="text-xs text-destructive">{activeRender.error}</p>
+            ) : null}
+
+            <SocialSection
+              projectId={props.projectId}
+              canExecute={props.canExecute}
+              hasScript={props.hasScript}
+              socialPackage={props.socialPackage}
+            />
+
+            {olderRenders.length > 0 ? (
+              <details className="text-xs">
+                <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+                  Previous renders ({olderRenders.length})
+                </summary>
+                <div className="mt-2 space-y-1.5">
+                  {olderRenders.map((render) => (
+                    <div
+                      key={render.id}
+                      className="flex items-center justify-between gap-2 rounded-md border border-border p-2"
+                    >
+                      <span>
+                        {render.kind === "FINAL" ? "Final" : "Preview"} · {render.createdAtLabel}
+                      </span>
+                      <span className="flex items-center gap-2">
+                        {render.status === "COMPLETED" && render.videoAssetId ? (
+                          <a
+                            href={`/api/assets/raw?id=${render.videoAssetId}`}
+                            download
+                            className="text-primary hover:underline"
+                          >
+                            Download
+                          </a>
+                        ) : null}
+                        <Badge
+                          variant={
+                            render.status === "COMPLETED"
+                              ? "success"
+                              : render.status === "FAILED"
+                                ? "destructive"
+                                : "warning"
+                          }
+                        >
+                          {render.status.toLowerCase()}
+                        </Badge>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            ) : null}
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
@@ -287,11 +364,11 @@ function SocialSection({
     : [];
 
   return (
-    <div className="mt-4 border-t border-border pt-3">
-      <div className="flex items-center justify-between gap-2">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Social posting package
-        </h3>
+    <details className="text-xs" open={rows.length > 0}>
+      <summary className="cursor-pointer font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground">
+        Social captions
+      </summary>
+      <div className="mt-2 space-y-1.5">
         {canExecute ? (
           <Button
             size="sm"
@@ -306,34 +383,26 @@ function SocialSection({
               });
             }}
           >
-            {pending ? "Writing…" : socialPackage ? "Regenerate" : "Generate captions"}
+            {pending ? "Writing…" : socialPackage ? "Regenerate captions" : "Generate captions"}
           </Button>
         ) : null}
-      </div>
-      {error ? <p className="mt-1 text-xs text-destructive">{error}</p> : null}
-      {rows.length > 0 ? (
-        <div className="mt-2 space-y-1.5">
-          {rows.map((row) => (
-            <div key={row.label} className="rounded-md bg-muted/40 p-2 text-xs">
-              <div className="mb-0.5 flex items-center justify-between">
-                <span className="font-medium">{row.label}</span>
-                <button
-                  type="button"
-                  className="text-primary hover:underline"
-                  onClick={() => copy(row.label, row.text)}
-                >
-                  {copied === row.label ? "Copied ✓" : "Copy"}
-                </button>
-              </div>
-              <p className="whitespace-pre-wrap text-muted-foreground">{row.text}</p>
+        {error ? <p className="text-destructive">{error}</p> : null}
+        {rows.map((row) => (
+          <div key={row.label} className="rounded-md bg-muted/40 p-2">
+            <div className="mb-0.5 flex items-center justify-between">
+              <span className="font-medium">{row.label}</span>
+              <button
+                type="button"
+                className="text-primary hover:underline"
+                onClick={() => copy(row.label, row.text)}
+              >
+                {copied === row.label ? "Copied ✓" : "Copy"}
+              </button>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p className="mt-1 text-xs text-muted-foreground">
-          Platform-ready captions, titles, and hashtags — generated from the final script.
-        </p>
-      )}
-    </div>
+            <p className="whitespace-pre-wrap text-muted-foreground">{row.text}</p>
+          </div>
+        ))}
+      </div>
+    </details>
   );
 }

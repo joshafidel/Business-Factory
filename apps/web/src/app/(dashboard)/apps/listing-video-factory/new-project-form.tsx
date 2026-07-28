@@ -60,10 +60,17 @@ export function NewProjectForm() {
         <form action={importAction} className="space-y-3">
           <div className="space-y-1.5">
             <Label htmlFor="lvf-url">Listing page URL</Label>
-            <Input id="lvf-url" name="url" type="url" placeholder="https://…/listings/12-maple-st" required />
+            <Input
+              id="lvf-url"
+              name="url"
+              type="url"
+              placeholder="https://www.zillow.com/homedetails/… or an agent's listing page"
+              required
+            />
             <p className="text-xs text-muted-foreground">
-              We read the page once and pull the realtor (name, phone, brokerage), property facts,
-              and photos from its listing data — then everything is editable.
+              Zillow/portal links are attached to the project as the listing reference (their
+              terms don’t allow importing their photos) — add the photos you’re licensed to use.
+              Agent/brokerage pages are imported fully: realtor contact, facts, and photos.
             </p>
           </div>
           <label className="flex items-start gap-2 text-xs">
