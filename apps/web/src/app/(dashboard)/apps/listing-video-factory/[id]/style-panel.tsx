@@ -3,10 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import { VIDEO_TEMPLATES } from "@bf/workflows/src/listing-factory/templates";
-import {
-  VIDEO_FORMATS,
-  type ListingOptions,
-} from "@bf/workflows/src/listing-factory/types";
+import { VIDEO_FORMATS, type ListingOptions } from "@bf/workflows/src/listing-factory/types";
 import { Button, Card, CardContent, Input, Label, Select } from "@/components/ui";
 import { updateSettingsAction } from "../actions";
 
@@ -49,7 +46,7 @@ export function StylePanel({
   return (
     <Card>
       <CardContent className="p-5">
-        <h2 className="mb-3 text-sm font-semibold">3 · Style & format</h2>
+        <h2 className="mb-3 text-sm font-semibold">Style</h2>
         <form action={formAction} className="space-y-3">
           <div className="space-y-1.5">
             <Label>Video style</Label>
@@ -106,7 +103,12 @@ export function StylePanel({
             <Label htmlFor="platform" className="text-xs">
               Primary platform
             </Label>
-            <Select id="platform" name="platform" defaultValue={options.platform} disabled={!canExecute}>
+            <Select
+              id="platform"
+              name="platform"
+              defaultValue={options.platform}
+              disabled={!canExecute}
+            >
               <option value="tiktok">TikTok</option>
               <option value="instagram">Instagram Reels</option>
               <option value="youtube">YouTube Shorts</option>

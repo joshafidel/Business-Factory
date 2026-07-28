@@ -50,11 +50,11 @@ async function openaiFetch(path: string, body: Record<string, unknown>): Promise
 export class OpenAIImageProvider implements ImageProvider {
   readonly key = "openai-image";
 
-  async generateImage(params: { prompt: string }): Promise<MediaResult> {
+  async generateImage(params: { prompt: string; size?: string }): Promise<MediaResult> {
     const res = await openaiFetch("/images/generations", {
       model: "gpt-image-1-mini",
       prompt: params.prompt,
-      size: "1024x1536",
+      size: params.size ?? "1024x1536",
       quality: "medium",
     });
     const data = (await res.json()) as { data: { b64_json?: string }[] };
@@ -65,6 +65,48 @@ export class OpenAIImageProvider implements ImageProvider {
       mimeType: "image/png",
       costMicroUsd: 15_000n, // ~$0.015 medium-quality estimate
       metadata: { model: "gpt-image-1-mini" },
+    };
+  }
+
+  /**
+   * Reference-conditioned generation (images/edits): the model composes the
+   * scene while copying the character designs from the supplied reference
+   * renders. This is what keeps the cast pixel-consistent across shots and
+   * episodes — never regenerate a primary character from text alone.
+   */
+  async editImage(params: { prompt: string; references: Buffer[] }): Promise<MediaResult> {
+    const env = loadEnv();
+    const form = new FormData();
+    form.append("model", "gpt-image-1-mini");
+    form.append("prompt", params.prompt);
+    form.append("size", "1024x1536");
+    form.append("quality", "medium");
+    for (let i = 0; i < params.references.length; i++) {
+      form.append(
+        "image[]",
+        new Blob([new Uint8Array(params.references[i] as Buffer)], { type: "image/png" }),
+        `ref${i}.png`,
+      );
+    }
+    const res = await fetch(`${OPENAI_BASE}/images/edits`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${env.OPENAI_API_KEY}` },
+      body: form,
+      ...(process.env.HTTPS_PROXY ? { dispatcher: await proxyDispatcher() } : {}),
+    } as RequestInit);
+    if (!res.ok) {
+      throw new Error(
+        `OpenAI images/edits failed (${res.status}): ${(await res.text()).slice(0, 300)}`,
+      );
+    }
+    const data = (await res.json()) as { data: { b64_json?: string }[] };
+    const b64 = data.data?.[0]?.b64_json;
+    if (!b64) throw new Error("OpenAI image edit returned no image");
+    return {
+      data: Buffer.from(b64, "base64"),
+      mimeType: "image/png",
+      costMicroUsd: 20_000n, // edits bill slightly above generations
+      metadata: { model: "gpt-image-1-mini", edit: true, refs: params.references.length },
     };
   }
 }

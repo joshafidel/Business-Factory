@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@bf/database";
 import { can, formatMicroUsd } from "@bf/shared";
-import { MODULE_KEY, VIDEO_FORMATS, ensureListingFactoryInstalled } from "@bf/workflows";
+import { MODULE_KEY, ensureListingFactoryInstalled } from "@bf/workflows";
 import { requireOrgContext } from "@/lib/session";
 import { formatDate } from "@/lib/utils";
 import {
@@ -34,7 +34,12 @@ export default async function ListingFactoryPage() {
       orderBy: { updatedAt: "desc" },
       take: 50,
       include: {
-        photos: { where: { isExcluded: false }, select: { id: true, assetId: true }, orderBy: { order: "asc" }, take: 1 },
+        photos: {
+          where: { isExcluded: false },
+          select: { id: true, assetId: true },
+          orderBy: { order: "asc" },
+          take: 1,
+        },
         renders: { orderBy: { createdAt: "desc" }, take: 1 },
         _count: { select: { photos: true, renders: true } },
       },
@@ -63,7 +68,10 @@ export default async function ListingFactoryPage() {
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="Projects" value={projects.length} />
-        <Stat label="Rendering now" value={projects.filter((p) => p.status === "RENDERING").length} />
+        <Stat
+          label="Rendering now"
+          value={projects.filter((p) => p.status === "RENDERING").length}
+        />
         <Stat label="Videos rendered" value={videoCount} />
         <Stat label="Cost this month" value={formatMicroUsd(monthCost._sum.costMicroUsd ?? 0n)} />
       </div>
@@ -79,10 +87,14 @@ export default async function ListingFactoryPage() {
           ) : (
             <div className="space-y-2">
               {projects.map((project) => {
-                const property = project.property as { address?: string };
+                const property = project.property as {
+                  address?: string;
+                  listingUrl?: string;
+                  agentName?: string;
+                  agentPhone?: string;
+                };
                 const lastRender = project.renders[0];
                 const coverAssetId = project.photos[0]?.assetId;
-                const format = VIDEO_FORMATS[project.format as keyof typeof VIDEO_FORMATS];
                 return (
                   <div
                     key={project.id}
@@ -104,16 +116,32 @@ export default async function ListingFactoryPage() {
                         </div>
                       )}
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-medium">{project.name}</p>
+                        <p className="truncate text-sm font-medium">
+                          {property.address ?? project.name}
+                        </p>
                         <p className="truncate text-xs text-muted-foreground">
-                          {property.address ?? "No address"} · {project._count.photos} photo
-                          {project._count.photos === 1 ? "" : "s"} ·{" "}
-                          {format?.label.split(" (")[0] ?? project.format} · updated{" "}
-                          {formatDate(project.updatedAt)}
+                          {[
+                            property.agentName &&
+                              `${property.agentName}${property.agentPhone ? ` · ${property.agentPhone}` : ""}`,
+                            `${project._count.photos} photo${project._count.photos === 1 ? "" : "s"}`,
+                            `updated ${formatDate(project.updatedAt)}`,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ")}
                         </p>
                       </div>
                     </Link>
                     <div className="flex shrink-0 items-center gap-2">
+                      {property.listingUrl ? (
+                        <a
+                          href={property.listingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-medium text-primary hover:underline"
+                        >
+                          Listing ↗
+                        </a>
+                      ) : null}
                       {lastRender ? (
                         <Badge
                           variant={
@@ -152,7 +180,9 @@ export default async function ListingFactoryPage() {
               <h2 className="mb-2 text-sm font-semibold text-foreground">How it works</h2>
               <p>1. Upload the listing photos and drag them into tour order.</p>
               <p>2. Enter the property facts — the script uses only what you provide.</p>
-              <p>3. Pick a style: Luxury Cinematic, Fast Social, Clean Professional, or Showcase.</p>
+              <p>
+                3. Pick a style: Luxury Cinematic, Fast Social, Clean Professional, or Showcase.
+              </p>
               <p>4. Generate the script and voice-over, render a preview, then the final MP4.</p>
               <p>5. Download the video, captions, and social posting package.</p>
             </CardContent>

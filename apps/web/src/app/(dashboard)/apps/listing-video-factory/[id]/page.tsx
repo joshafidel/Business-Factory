@@ -25,11 +25,7 @@ export const metadata = { title: "Listing project" };
 // Script generation + render kickoff run through this segment's actions.
 export const maxDuration = 300;
 
-export default async function ListingProjectPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ListingProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const ctx = await requireOrgContext();
   const { id } = await params;
   const project = await prisma.listingProject.findFirst({
@@ -94,6 +90,34 @@ export default async function ListingProjectPage({
         </div>
       </PageHeader>
 
+      <div className="mb-4">
+        <RenderPanel
+          projectId={project.id}
+          canExecute={canExecute}
+          rightsConfirmed={Boolean(project.rightsConfirmedAt)}
+          hasScript={Boolean(script)}
+          format={project.format as "vertical" | "landscape" | "square"}
+          options={options}
+          property={property}
+          script={script}
+          photos={project.photos
+            .filter((p) => !p.isExcluded)
+            .map((p) => ({ id: p.id, assetId: p.assetId }))}
+          estimateMicroUsd={estimate.toString()}
+          socialPackage={project.socialPackage as never}
+          renders={project.renders.map((r) => ({
+            id: r.id,
+            kind: r.kind,
+            status: r.status,
+            error: r.error,
+            videoAssetId: r.videoAssetId,
+            createdAtLabel: formatDate(r.createdAt),
+            srtAssetId: packagesByRender.get(r.id)?.srtAssetId ?? null,
+            reportAssetId: packagesByRender.get(r.id)?.reportAssetId ?? null,
+          }))}
+        />
+      </div>
+
       <div className="grid gap-4 xl:grid-cols-5">
         <div className="space-y-4 xl:col-span-3">
           <PhotoManager
@@ -124,13 +148,6 @@ export default async function ListingProjectPage({
           />
         </div>
         <div className="space-y-4 xl:col-span-2">
-          <PropertyForm
-            projectId={project.id}
-            projectName={project.name}
-            property={property}
-            rightsConfirmed={Boolean(project.rightsConfirmedAt)}
-            canExecute={canExecute}
-          />
           <StylePanel
             projectId={project.id}
             format={project.format}
@@ -138,31 +155,12 @@ export default async function ListingProjectPage({
             options={options}
             canExecute={canExecute}
           />
-          <RenderPanel
+          <PropertyForm
             projectId={project.id}
-            canExecute={canExecute}
-            rightsConfirmed={Boolean(project.rightsConfirmedAt)}
-            hasScript={Boolean(script)}
-            format={project.format as "vertical" | "landscape" | "square"}
-            style={project.style}
-            options={options}
+            projectName={project.name}
             property={property}
-            script={script}
-            photos={project.photos
-              .filter((p) => !p.isExcluded)
-              .map((p) => ({ id: p.id, assetId: p.assetId }))}
-            estimateMicroUsd={estimate.toString()}
-            socialPackage={project.socialPackage as never}
-            renders={project.renders.map((r) => ({
-              id: r.id,
-              kind: r.kind,
-              status: r.status,
-              error: r.error,
-              videoAssetId: r.videoAssetId,
-              createdAtLabel: formatDate(r.createdAt),
-              srtAssetId: packagesByRender.get(r.id)?.srtAssetId ?? null,
-              reportAssetId: packagesByRender.get(r.id)?.reportAssetId ?? null,
-            }))}
+            rightsConfirmed={Boolean(project.rightsConfirmedAt)}
+            canExecute={canExecute}
           />
         </div>
       </div>

@@ -42,7 +42,12 @@ async function requireProject(ctx: OrgContext, projectId: string) {
 function asError(err: unknown): { error: string } {
   if (err instanceof PlatformError) return { error: toErrorRecord(err).message };
   if (err instanceof z.ZodError) {
-    return { error: err.issues.map((i) => i.message).join("; ").slice(0, 300) };
+    return {
+      error: err.issues
+        .map((i) => i.message)
+        .join("; ")
+        .slice(0, 300),
+    };
   }
   return { error: (err as Error)?.message?.slice(0, 300) || "Something went wrong" };
 }
@@ -100,6 +105,30 @@ export async function importListingPageAction(
     }
     if (!isSafePhotoUrl(url)) {
       return { error: "Enter a public https:// listing page URL." };
+    }
+    // Portal pages (Zillow, Redfin, Realtor.com, Trulia) prohibit automated
+    // access and their photos are third-party-copyrighted, so we don't fetch
+    // them — the link is attached to the project as the listing reference,
+    // and the photos come from upload or a licensed MLS feed.
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    const PORTAL_HOSTS = ["zillow.com", "redfin.com", "realtor.com", "trulia.com", "homes.com"];
+    if (PORTAL_HOSTS.some((p) => host === p || host.endsWith(`.${p}`))) {
+      const project = await prisma.listingProject.create({
+        data: {
+          organizationId: ctx.organizationId,
+          createdById: ctx.userId,
+          name: `Listing from ${host}`,
+          property: listingPropertySchema.parse({
+            address: "Address pending",
+            listingUrl: url,
+          }) as Prisma.InputJsonValue,
+          options: listingOptionsSchema.parse({}) as Prisma.InputJsonValue,
+          rightsConfirmedAt: new Date(),
+        },
+      });
+      await trackEvent(ctx.organizationId, "lvf_projects_created");
+      revalidatePath(BASE);
+      return { projectId: project.id, photoCount: 0, agentName: "" };
     }
     let html: string;
     try {
@@ -399,9 +428,7 @@ export async function reorderPhotosAction(
     const known = new Set(photos.map((p) => p.id));
     const ids = orderedIds.filter((id) => known.has(id));
     await prisma.$transaction(
-      ids.map((id, i) =>
-        prisma.listingPhoto.update({ where: { id }, data: { order: i } }),
-      ),
+      ids.map((id, i) => prisma.listingPhoto.update({ where: { id }, data: { order: i } })),
     );
     await trackEvent(ctx.organizationId, "lvf_photos_reordered");
     revalidatePath(`${BASE}/${projectId}`);
@@ -533,7 +560,10 @@ export async function generateSocialAction(projectId: string): Promise<ActionRes
 
 const startRenderSchema = z.object({
   kind: z.enum(["preview", "final"]),
-  overlays: z.array(renderOverlaySchema).max(LIMITS.maxRenderScenes + 4).default([]),
+  overlays: z
+    .array(renderOverlaySchema)
+    .max(LIMITS.maxRenderScenes + 4)
+    .default([]),
 });
 
 export async function startRenderAction(
@@ -560,4 +590,3 @@ export async function startRenderAction(
     return asError(err);
   }
 }
-

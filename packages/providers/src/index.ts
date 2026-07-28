@@ -8,4 +8,5 @@ export * from "./media-openai";
 export * from "./media-higgsfield";
 export * from "./media-elevenlabs";
 export * from "./media-picsart";
+export * from "./motion";
 export * from "./registry";

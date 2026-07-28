@@ -32,9 +32,38 @@ export interface VideoTemplate {
   scriptTone: string;
   /** Voice direction passed to the TTS provider. */
   voiceStyle: string;
+  /** AI-motion camera language: steadicam glide vs FPV drone flight. */
+  motionStyle?: "gimbal" | "drone";
 }
 
 export const VIDEO_TEMPLATES: Record<string, VideoTemplate> = {
+  "drone-flythrough": {
+    key: "drone-flythrough",
+    name: "Drone Fly-Through",
+    description: "One continuous flight through the house — every shot flies forward, rooms connect.",
+    voiceover: true,
+    minSceneSeconds: 4,
+    maxSceneSeconds: 8,
+    transitionSeconds: 0.5,
+    // zoomin punches through the end of one shot into the next — the classic
+    // FPV doorway transition; every scene's motion is a forward flight, so
+    // the cut reads as continuing the same flight path.
+    transitions: ["zoomin"],
+    motion: ["push-in"],
+    zoomAmount: 1.16,
+    defaultTargetSeconds: 45,
+    musicStyle: "warm",
+    musicVolume: 0.12,
+    scriptTone:
+      "A continuous guided flight through the home. Write the narration so rooms flow into each " +
+      "other ('through the entry…', 'gliding into the kitchen…', 'and out back…') — movement " +
+      "words, short flowing sentences, cinematic but factual. Never claim two rooms physically " +
+      "connect unless the supplied facts say so; keep the flow language about the tour, not the floor plan.",
+    voiceStyle:
+      "A smooth, cinematic tour narrator carried along on a gliding camera. Flowing, unhurried " +
+      "delivery that never fully stops — each line hands off to the next room. Warm, awed, real.",
+    motionStyle: "drone",
+  },
   "luxury-cinematic": {
     key: "luxury-cinematic",
     name: "Luxury Cinematic",

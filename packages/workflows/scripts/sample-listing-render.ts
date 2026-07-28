@@ -51,15 +51,26 @@ async function main(): Promise<void> {
   const colors = ["0x7A9CC6", "0xC6AE7A", "0x8FBF8F", "0xB78FBF", "0xBF8F8F", "0x7ABFB4"];
   const photoFiles = rooms.map(([label], i) => {
     const file = path.join(dir, `photo${i}.jpg`);
-    execFileSync(ffmpeg, [
-      "-y",
-      "-f", "lavfi",
-      "-i", `testsrc2=s=1600x1067:d=1`,
-      "-f", "lavfi",
-      "-i", `color=c=${colors[i]}@0.75:s=1600x1067:d=1`,
-      "-filter_complex", "[0:v][1:v]overlay=0:0",
-      "-frames:v", "1", file,
-    ], { stdio: "ignore" });
+    execFileSync(
+      ffmpeg,
+      [
+        "-y",
+        "-f",
+        "lavfi",
+        "-i",
+        `testsrc2=s=1600x1067:d=1`,
+        "-f",
+        "lavfi",
+        "-i",
+        `color=c=${colors[i]}@0.75:s=1600x1067:d=1`,
+        "-filter_complex",
+        "[0:v][1:v]overlay=0:0",
+        "-frames:v",
+        "1",
+        file,
+      ],
+      { stdio: "ignore" },
+    );
     console.log(`→ placeholder photo: ${label}`);
     return file;
   });
