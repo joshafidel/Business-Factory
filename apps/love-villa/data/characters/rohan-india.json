@@ -4,21 +4,21 @@
   "country": "India",
   "age": 26,
   "gender": "man",
-  "physicalDescription": "Immaculate hair with one rebellious curl he blames on humidity, warm knowing smile, and a tiny notebook he insists is not a notebook.",
-  "clothingStyle": "Pastel polo tucked into tailored shorts, watch worth more than the sun-loungers, sandals worn with socks — a stance he will defend in writing.",
-  "voiceDescription": "Smooth, charming and precise: the voice of a man who has rehearsed being spontaneous in a mirror.",
+  "physicalDescription": "Immaculate hair with one rebellious curl that appears whenever he lies, warm knowing smile, a small notebook he swears does not exist.",
+  "clothingStyle": "Pastel polo tucked into tailored shorts, expensive watch set to three time zones, sandals with — controversially, defiantly — socks.",
+  "voiceDescription": "Smooth, charming, precise; the voice of a man who has rehearsed being spontaneous in a mirror with a timer.",
   "accentDirection": "Polished Indian English accent, warm and articulate, fully intelligible.",
-  "personality": "Romantic strategist with a compatibility framework, a five-date plan, and a contingency plan for the plan's feelings.",
-  "datingStrategy": "Remember every detail, anticipate every need, confess eventually — where 'eventually' is a moving target.",
-  "strength": "He remembers everything anyone has ever mentioned, which makes him the most quietly thoughtful person in the villa.",
-  "fatalFlaw": "Polishes the perfect confession for so long that the moment dies of natural causes.",
-  "secret": "The famous 'compatibility algorithm' is horoscopes in a spreadsheet with three impressive-looking charts.",
-  "romanticPreference": "Sienna (Australia) — 'She is a category five storm. The data says run. I have brought an umbrella.'",
+  "personality": "Romantic strategist with a compatibility framework, a five-date roadmap, and a contingency roadmap for the roadmap. Colour-codes the villa's drama. Has never once said a feeling without first drafting it.",
+  "datingStrategy": "Data-driven wooing: remember everything, anticipate everything, confess... at the optimal moment, which keeps moving.",
+  "strength": "Remembers every detail anyone has ever mentioned — the most thoughtful man in the villa by a measurable margin.",
+  "fatalFlaw": "Refines the perfect confession for so long that the moment expires, quietly, of old age.",
+  "secret": "His celebrated 'compatibility algorithm' is astrology in a spreadsheet wearing a lanyard.",
+  "romanticPreference": "Sienna (Australia) — 'She is a category five storm. My data says flee. I have brought an umbrella.'",
   "rival": "matteo-italy",
   "initialAttraction": "sienna-australia",
-  "recurringJoke": "Cites his algorithm with fake decimal precision ('We are 87.3 percent compatible. The point-three is her laugh.').",
+  "recurringJoke": "Cites his algorithm with absurd false precision ('We are 87.3% compatible. The .3 is her laugh').",
   "signaturePhrase": "Love is a plan you make twice.",
-  "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "imagePrompt": "Charming Indian man in his mid twenties, immaculate hair with one loose curl, pastel polo, tailored shorts, expensive watch, warm knowing smile, small notebook in pocket, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
   "visualReference": "Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook",
   "imageSeed": 11007,
@@ -44,22 +44,23 @@
     "exclamations": [
       "As predicted.",
       "Fascinating data point.",
-      "This was NOT in the projections!"
+      "This was NOT in the projections!",
+      "Please hold. Recalculating."
     ],
     "flirts": [
-      "You hate cilantro. I remember everything about you.",
-      "My algorithm says 87.3 percent. I say higher.",
-      "I planned tonight in advance. Please act surprised."
+      "I remembered you hate coriander. I remember everything about you.",
+      "My algorithm says 87.3%. I say more, and I built the algorithm.",
+      "I have prepared six compliments. May I read them out of order?"
     ],
     "conflicts": [
-      "Your strategy has one flaw. All of it.",
-      "I anticipated this argument. Point one—",
-      "I don't shout. I file complaints beautifully."
+      "Your strategy has one flaw: all of it.",
+      "I planned for this argument. Point one of nine—",
+      "You improvised at MY dinner. That is sabotage with garlic."
     ],
     "confessionals": [
-      "Tonight I tell her how I feel. Right after the flowchart.",
-      "The algorithm is science. The stars are merely consultants.",
-      "She dared me off a roof. I said yes. My spreadsheet is furious."
+      "Tonight I tell her how I feel. Right after I finish the flowchart.",
+      "The algorithm is science. The stars are merely... consultants.",
+      "She jumped off the terrace mid-sentence. My spreadsheet has no column for that."
     ]
   }
 }

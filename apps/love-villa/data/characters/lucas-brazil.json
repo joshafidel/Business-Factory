@@ -4,21 +4,21 @@
   "country": "Brazil",
   "age": 27,
   "gender": "man",
-  "physicalDescription": "Radiant grin, sun-streaked dark curls, permanently mid-dance-move, posture of a man who has never once been cold.",
-  "clothingStyle": "Open tropical-print shirt, beaded necklace, and flip-flops he loses at a rate of one pair per episode.",
-  "voiceDescription": "Warm, musical, laughing halfway through his own sentences; turns everyone's name into a two-note song.",
+  "physicalDescription": "Radiant grin, dark curls with sun streaks, permanently mid-dance-move, abs that appear to have their own lighting rig.",
+  "clothingStyle": "Open tropical-print shirt, beaded necklace, flip-flops he loses at a rate of one per episode.",
+  "voiceDescription": "Warm, musical, laughing halfway through his own sentences; turns everyone's name into a two-second song.",
   "accentDirection": "Gentle Brazilian Portuguese accent, sunny and rhythmic, fully intelligible.",
-  "personality": "Human sunshine with golden-retriever wiring. Dances instead of walking, hugs first, asks the question three days later.",
-  "datingStrategy": "Radical warmth aimed at everyone, meant every time, followed by mild panic when it actually works.",
-  "strength": "The villa's emotional radar — he clocks who is hurting before they've noticed it themselves.",
-  "fatalFlaw": "Flirts on reflex, lighting fires he then tries to extinguish with more flirting.",
-  "secret": "He cannot swim. Beach volleyball legend, yes. Deep end: absolute terror, disguised as 'guarding the drinks'.",
-  "romanticPreference": "Poppy (UK) — 'She insults me so beautifully. Like a song, but mean.'",
+  "personality": "Human sunshine with the emotional radar of a therapist and the impulse control of a puppy. Dances instead of walking, hugs first, asks questions somewhere around Thursday.",
+  "datingStrategy": "Radical warmth: flirt with everyone, mean every bit of it, then panic beautifully when it works.",
+  "strength": "The highest emotional intelligence in the villa — he clocks who's hurting before they've noticed themselves.",
+  "fatalFlaw": "Flirts by reflex, which starts fires he then apologises for with more flirting, which starts more fires.",
+  "secret": "He cannot swim. Beach volleyball champion, yes. The deep end: pure ancestral terror.",
+  "romanticPreference": "Poppy (UK) — 'She insults me so beautifully. Like poetry, but mean.'",
   "rival": "alejandro-spain",
   "initialAttraction": "poppy-uk",
-  "recurringJoke": "Names a samba move for every emotion ('This one is called: Emotional Damage. Two steps, one cry.').",
+  "recurringJoke": "Names a samba move for every emotional state ('This one is called: Emotional Damage').",
   "signaturePhrase": "Dance now, feelings later!",
-  "imagePrompt": "Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, open tropical print shirt, beaded necklace, caught mid dance move by the pool, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "imagePrompt": "Joyful Brazilian man in his late twenties, radiant grin, dark sun-streaked curls, open tropical print shirt, beaded necklace, caught mid dance move by the pool, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
   "visualReference": "Lucas: Brazilian man, sun-streaked dark curls, huge grin, open green tropical shirt, beaded necklace, mid-dance",
   "imageSeed": 11005,
@@ -44,22 +44,23 @@
     "exclamations": [
       "Aiii, beleza!",
       "This villa has no chill and I love it!",
-      "Golaço!"
+      "Golaço!",
+      "No no no — okay, yes."
     ],
     "flirts": [
-      "One dance. Okay, three. Okay, forever.",
-      "Your smile is my favorite country.",
-      "Insult me again. Slower this time."
+      "One dance. Okay, three. Okay, until the music dies.",
+      "Your smile? That is my favourite country.",
+      "You call me an idiot and my whole day is fixed. What is that?"
     ],
     "conflicts": [
       "Why so much drama? We could be dancing.",
-      "Okay, now I am angry. Small angry. Medium angry.",
-      "Say it to my face. Nicely. With eye contact."
+      "Okay NOW I am angry. Small angry. Medium angry.",
+      "You knew I liked her. You KNEW, and you still did the hair thing."
     ],
     "confessionals": [
-      "I flirt with everyone, yes. With her it is different flirting. Scary flirting.",
-      "The pool is beautiful. From here. From the edge. Where I stand.",
-      "She rated our hug a five. I am going to earn a nine by Friday."
+      "I flirt with everyone, yes. But with her it is different flirting. Scary flirting.",
+      "The pool is very beautiful. From here. From the edge. Where I stand.",
+      "They put me in the water challenge. I prayed in two languages and one was invented."
     ]
   }
 }

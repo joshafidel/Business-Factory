@@ -1,3 +1,4 @@
+import { isNarrator } from "../ai/narrator";
 import {
   type Character,
   type EpisodeScript,
@@ -27,6 +28,16 @@ export function checkContinuity(
 
   for (const scene of script.scenes) {
     for (const id of [...scene.characters, ...scene.lines.map((l) => l.speaker)]) {
+      if (isNarrator(id)) {
+        if (scene.characters.includes(id)) {
+          issues.push({
+            check: "character-consistency",
+            severity: "warning",
+            message: `Scene ${scene.index + 1}: the narrator is off-screen and should not be listed in characters`,
+          });
+        }
+        continue;
+      }
       if (!known.has(id)) {
         issues.push({
           check: "character-consistency",
@@ -48,6 +59,7 @@ export function checkContinuity(
       }
     }
     for (const line of scene.lines) {
+      if (isNarrator(line.speaker)) continue;
       if (!scene.characters.includes(line.speaker) && scene.kind !== "endcard") {
         issues.push({
           check: "character-consistency",
@@ -140,7 +152,10 @@ export function checkStereotypeRisk(script: EpisodeScript, cast: Character[]): V
   // Equal-treatment sanity check: no single character dominates all dialogue.
   const counts = new Map<string, number>();
   for (const scene of script.scenes)
-    for (const line of scene.lines) counts.set(line.speaker, (counts.get(line.speaker) ?? 0) + 1);
+    for (const line of scene.lines) {
+      if (isNarrator(line.speaker)) continue; // narrator-led format by design
+      counts.set(line.speaker, (counts.get(line.speaker) ?? 0) + 1);
+    }
   const total = [...counts.values()].reduce((a, b) => a + b, 0);
   for (const [speaker, n] of counts) {
     if (total >= 10 && n / total > 0.5) {

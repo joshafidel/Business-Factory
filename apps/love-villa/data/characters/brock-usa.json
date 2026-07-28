@@ -4,21 +4,21 @@
   "country": "United States",
   "age": 26,
   "gender": "man",
-  "physicalDescription": "Tall, gym-sculpted, megawatt grin welded permanently in place, spray-tan one confident shade too orange, teeth you could land a plane by.",
-  "clothingStyle": "Stars-and-stripes swim shorts, backwards cap, sleeveless everything, shaker bottle fused to his right hand like a scepter.",
-  "voiceDescription": "Booming and upbeat; every sentence arrives like a halftime pep talk nobody requested.",
-  "accentDirection": "Light all-American broadcast accent with surfer-bro lift at the end of sentences. Always fully intelligible.",
-  "personality": "Relentlessly optimistic hype-man who runs romance like a funding round. Infinite generosity, zero volume control, celebrates other people's wins louder than his own.",
-  "datingStrategy": "Day one: grand declaration. Day two: matching nicknames. Day three: a laminated five-year plan and a smoothie in her favorite color.",
-  "strength": "A sincere cheerleader — he will hype up the man flirting with his crush and mean every single syllable.",
-  "fatalFlaw": "Reads every room upside down. 'No, thank you' reaches his ears as 'not yet, champ'.",
-  "secret": "His 'seven-figure startup' is a lemonade-stand LLC with forty-three dollars in it and his cousin listed as CFO.",
-  "romanticPreference": "Élodie (France) — 'Premium woman. Luxury brand. Never on the sale rack.'",
+  "physicalDescription": "Tall, gym-sculpted, permanent megawatt grin, spray-tan one shade too orange, teeth so white they trigger the villa's motion lights.",
+  "clothingStyle": "Stars-and-stripes swim shorts, backwards cap, sleeveless everything, shaker bottle welded to his hand like a scepter.",
+  "voiceDescription": "Booming, upbeat frat-bro energy; every sentence sounds like a locker-room pep talk delivered through a megaphone made of hope.",
+  "accentDirection": "Light all-American broadcast accent with surfer-bro inflection. Keep fully intelligible.",
+  "personality": "Relentlessly optimistic hype-man who treats romance like a funding round. Calls the villa 'the campus', high-fives people in the middle of their own breakups, and has never once used an indoor voice. Underneath the noise he is desperately afraid of being the guy nobody picks.",
+  "datingStrategy": "Go enormous immediately: day-one declarations, hand-blended protein smoothies as love language, a laminated 'vision board for us' by day three.",
+  "strength": "Genuinely kind cheerleader — he hypes up the men competing against him, remembers everyone's PRs and birthdays, and means every word.",
+  "fatalFlaw": "Cannot read a room to save his life; reads politeness as devotion, silence as flirting, and a restraining-order tone as 'she's warming up'.",
+  "secret": "His 'seven-figure startup' is a lemonade-stand LLC with forty-three dollars in the account and a logo his cousin made.",
+  "romanticPreference": "Élodie (France) — he calls her 'the most premium woman I've ever met, like, artisanal'.",
   "rival": "poppy-uk",
   "initialAttraction": "elodie-france",
-  "recurringJoke": "Pitches every relationship as a business merger, complete with hand-drawn projections and an unreciprocated handshake.",
+  "recurringJoke": "Pitches every human interaction as a business deal ('Us? Vertical integration, babe').",
   "signaturePhrase": "Full send on the heart, baby!",
-  "imagePrompt": "Confident athletic American man in his mid twenties, orange-ish tan, backwards cap, stars-and-stripes swim shorts, holding a protein shaker, huge grin, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "imagePrompt": "Confident athletic American man in his mid twenties, orange-ish tan, backwards cap, stars-and-stripes swim shorts, holding a protein shaker, huge grin, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
   "visualReference": "Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin",
   "imageSeed": 11001,
@@ -44,21 +44,23 @@
     "exclamations": [
       "Let's GO!",
       "That's a win, baby!",
-      "Huge. HUGE. Colossal."
+      "Huge. HUGE.",
+      "No notes! Zero notes!"
     ],
     "flirts": [
-      "You and me? Vertical integration.",
-      "I'd put my whole portfolio in your hands. It's forty-three dollars."
+      "You and me? Vertical integration, babe.",
+      "I'd invest everything in you. Everything. All forty-three— all of it.",
+      "You're not my type, you're my whole business model."
     ],
     "conflicts": [
-      "Bro. That was not the play.",
-      "I hyped you at breakfast. At BREAKFAST, man.",
-      "You want beef? I don't even eat beef. I eat chicken and forgiveness."
+      "Bro, that was NOT the play.",
+      "I hyped you up, man. I HYPED you. At the grill. In FRONT of people.",
+      "We had a handshake. A HANDSHAKE, dude."
     ],
     "confessionals": [
-      "Am I worried? Confidence is my cardio.",
-      "Day one, all in. That's not desperate, that's aggressive investing.",
-      "She said 'we'll see'. In my industry, that's a signed contract."
+      "I'm not worried. Confidence is my cardio.",
+      "Day one and I'm already all-in. That's just good business.",
+      "She said she needs space. Space is a market, baby. I'm expanding into it."
     ]
   }
 }

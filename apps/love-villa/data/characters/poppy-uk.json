@@ -4,21 +4,21 @@
   "country": "United Kingdom",
   "age": 24,
   "gender": "woman",
-  "physicalDescription": "Petite, razor-sharp blonde bob, one eyebrow permanently raised at the world, sunburn advancing across her shoulders in real time.",
-  "clothingStyle": "Chic high-street co-ords, giant sunglasses shoved up into the bob, a mug of tea at the poolside like a courtroom exhibit.",
-  "voiceDescription": "Dry, fast, level; delivers devastation at the volume of someone ordering a sandwich.",
-  "accentDirection": "Soft London accent, playful and crisp. No slang walls — every word lands clearly.",
-  "personality": "The villa's unofficial commentator. Allergic to sincerity, fluent in understatement, and quietly the most loyal person on the property.",
-  "datingStrategy": "Insult them steadily until one of them turns out to be worth it. Never speak first. Deny the diary exists.",
-  "strength": "Ferociously loyal — the first to stand between someone and a pile-on, even someone she can't stand.",
-  "fatalFlaw": "Buries every real feeling under a punchline, then privately mourns the moment she just murdered.",
-  "secret": "A notebook of catastrophically sincere poetry lives under her mattress. One page is titled 'Brazilian Sunlight'.",
-  "romanticPreference": "Lucas (Brazil) — she would sooner get sunburnt again than say it out loud.",
+  "physicalDescription": "Petite with a sharp blonde bob, one permanently unimpressed eyebrow, a sunburn advancing across her shoulders in real time.",
+  "clothingStyle": "Chic high-street co-ords, giant sunglasses parked on her head, a mug of tea at the pool in thirty-degree heat.",
+  "voiceDescription": "Dry, quick, deadpan; delivers character assassinations at conversational volume and then sips.",
+  "accentDirection": "Soft London accent, playful and clear. No heavy slang walls — keep it understandable.",
+  "personality": "The villa's unofficial commentator. Allergic to sincerity, fluent in banter, and secretly the most loyal person on the property. Will roast you for eleven minutes and then quietly refill your water.",
+  "datingStrategy": "Insult them until one of them turns out to be worth it. Never message first. Deny all feelings, including under oath.",
+  "strength": "Fiercely loyal — the first to step in front of anyone being ganged up on, including people she's actively feuding with.",
+  "fatalFlaw": "Deflects every genuine feeling with a joke, then rehearses the sincere version alone at 3am when it's far too late.",
+  "secret": "Keeps a notebook of humiliatingly earnest love poetry under her mattress. Two of them rhyme 'Lucas' with 'ruckus'.",
+  "romanticPreference": "Lucas (Brazil) — she'd get sunburnt twice before admitting it out loud.",
   "rival": "brock-usa",
   "initialAttraction": "lucas-brazil",
-  "recurringJoke": "Scores every romantic moment out of ten like a bitter figure-skating judge ('That kiss? Four. Generous four. Bad landing.').",
+  "recurringJoke": "Scores every romantic moment out of ten like a bitter talent judge — which puts her in direct turf war with Élodie, who does the exact same bit in French.",
   "signaturePhrase": "Sun's out, standards up.",
-  "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, glossy exaggerated semi-realistic animated reality-show style, colorful, slightly cartoonish, expressive big eyes, high-energy, clean rim lighting, vertical 9:16 framing, vibrant sunset colors, attractive stylized adult character, consistent character design",
+  "imagePrompt": "Sharp-witted British woman in her mid twenties, blonde bob, big sunglasses on head, chic co-ord outfit, holding a tea mug by a pool, unimpressed smirk, slight sunburn, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
   "visualReference": "Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk",
   "imageSeed": 11002,
@@ -44,22 +44,23 @@
     "exclamations": [
       "Obviously.",
       "I cannot cope with this villa.",
-      "Riveting. Truly. Gripping television."
+      "Riveting. Truly.",
+      "Right. Kettle."
     ],
     "flirts": [
-      "You're a solid six. Fine. Seven. Stop smiling.",
-      "Don't make me like you, I've got a schedule.",
-      "If I laugh, it's the sun. Heatstroke. Not you."
+      "You're a solid six. Fine. Seven. Don't get greedy.",
+      "Don't make me like you, I've got a personality to maintain.",
+      "If you kiss me I'll deny it in the morning and then think about it forever."
     ],
     "conflicts": [
-      "Say that again, slower, so you can hear it too.",
-      "Bless him. He thinks he's being subtle.",
-      "I'm not angry, I'm just building a case."
+      "Say that again but slower, so you can hear it.",
+      "Bless him. He thinks he's subtle.",
+      "I defended you. Out loud. To their FACES. Never again."
     ],
     "confessionals": [
       "Am I bothered? No. Am I taking notes? ...No comment.",
-      "Everyone here is unwell and I'm the only journalist on the ground.",
-      "He danced with someone else. Fine. Two out of ten. Poor technique."
+      "Everyone here is unwell and I am the only journalist covering it.",
+      "He called me beautiful and I said 'cheers, mate.' I should be studied by science."
     ]
   }
 }

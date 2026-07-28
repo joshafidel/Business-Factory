@@ -3,12 +3,10 @@ import { useCurrentFrame } from "remotion";
 import { wrapWords, type PlanLine, type PlanScene } from "../plan-types";
 
 /**
- * Large animated TikTok-style subtitles:
- *  - inside vertical safe zones (bottom band above TikTok UI, horizontal margins)
- *  - max two lines, wrapped by word
- *  - currently spoken words highlighted progressively
- *  - emphasized words tinted with the speaker's accent color
- *  - speaker name chip so viewers always know who's talking
+ * Viral-short captions: huge bold text high-center (the object-love-island
+ * look), word-by-word highlight as it's spoken, punch words in gold, heavy
+ * outline for readability on any art. Narrator lines have no name chip (she's
+ * the voice of the show); contestant quotes keep a small colored chip.
  */
 
 /** Split a wrapped block into chunks of ≤2 rows shown sequentially. */
@@ -28,15 +26,17 @@ function activeChunk(rows: string[][], wordsSpoken: number): { rows: string[][];
 export const Subtitles: React.FC<{ scene: PlanScene }> = ({ scene }) => {
   const frame = useCurrentFrame();
   const line = scene.lines.find(
-    (l) => frame >= l.startFrame && frame < l.startFrame + l.durationFrames + 6,
+    (l) => frame >= l.startFrame && frame < l.startFrame + l.durationFrames + 5,
   );
   if (!line) return null;
   return <SubtitleBlock line={line} frame={frame} />;
 };
 
+const GOLD = "#ffd54a";
+
 const SubtitleBlock: React.FC<{ line: PlanLine; frame: number }> = ({ line, frame }) => {
+  const isNarrator = line.speaker === "narrator";
   const words = line.text.split(/\s+/).filter(Boolean);
-  // Progress through the line, weighted by word length (longer words take longer).
   const totalChars = words.reduce((n, w) => n + w.length, 0) || 1;
   const progress = Math.max(
     0,
@@ -50,79 +50,77 @@ const SubtitleBlock: React.FC<{ line: PlanLine; frame: number }> = ({ line, fram
     wordsSpoken++;
   }
 
-  const rows = wrapWords(words);
+  const rows = wrapWords(words, 14);
   const { rows: visible, offset } = activeChunk(rows, wordsSpoken);
   const emphasize = new Set(line.emphasize.map((w) => w.toLowerCase().replace(/[^a-zà-ÿ']/gi, "")));
+  const pop = Math.min(1, (frame - line.startFrame) / 5);
 
   let wordIndex = offset;
   return (
     <div
       style={{
         position: "absolute",
-        bottom: 470,
-        left: 60,
-        right: 60,
+        top: isNarrator ? 300 : 270,
+        left: 40,
+        right: 40,
         textAlign: "center",
         pointerEvents: "none",
+        transform: `scale(${0.92 + 0.08 * pop})`,
+        opacity: Math.max(0.6, pop),
       }}
     >
-      <div
-        style={{
-          display: "inline-block",
-          background: "rgba(10, 6, 20, 0.72)",
-          borderRadius: 28,
-          padding: "18px 30px 24px",
-          maxWidth: "100%",
-        }}
-      >
+      {!isNarrator ? (
         <div
           style={{
             display: "inline-block",
             background: line.color,
             color: "#14081f",
-            fontSize: 30,
+            fontSize: 32,
             fontWeight: 900,
             borderRadius: 999,
-            padding: "4px 22px",
-            marginBottom: 12,
-            letterSpacing: 1,
+            padding: "4px 24px",
+            marginBottom: 10,
+            letterSpacing: 2,
+            boxShadow: "0 4px 0 rgba(0,0,0,0.4)",
           }}
         >
           {line.speakerName.toUpperCase()}
         </div>
-        {visible.map((row, ri) => (
-          <div key={ri} style={{ lineHeight: 1.12, whiteSpace: "nowrap" }}>
-            {row.map((w, wi) => {
-              const idx = wordIndex++;
-              const spoken = idx < wordsSpoken;
-              const current = idx === wordsSpoken;
-              const clean = w.toLowerCase().replace(/[^a-zà-ÿ']/gi, "");
-              const isEmph = emphasize.has(clean);
-              return (
-                <span
-                  key={wi}
-                  style={{
-                    display: "inline-block",
-                    margin: "0 8px",
-                    fontSize: isEmph ? 66 : 56,
-                    fontWeight: 900,
-                    color: isEmph
-                      ? line.color
-                      : spoken || current
-                        ? "#ffffff"
-                        : "rgba(255,255,255,0.45)",
-                    transform: current ? "scale(1.12)" : "scale(1)",
-                    textShadow: "0 4px 0 rgba(0,0,0,0.55)",
-                    WebkitTextStroke: "1.5px rgba(0,0,0,0.6)",
-                  }}
-                >
-                  {w}
-                </span>
-              );
-            })}
-          </div>
-        ))}
-      </div>
+      ) : null}
+      {visible.map((row, ri) => (
+        <div key={ri} style={{ lineHeight: 1.08, whiteSpace: "nowrap" }}>
+          {row.map((w, wi) => {
+            const idx = wordIndex++;
+            const spoken = idx < wordsSpoken;
+            const current = idx === wordsSpoken;
+            const clean = w.toLowerCase().replace(/[^a-zà-ÿ']/gi, "");
+            const isEmph = emphasize.has(clean);
+            return (
+              <span
+                key={wi}
+                style={{
+                  display: "inline-block",
+                  margin: "0 7px",
+                  fontSize: isEmph ? 84 : 70,
+                  fontWeight: 900,
+                  textTransform: "uppercase",
+                  color: isEmph ? GOLD : spoken || current ? "#ffffff" : "rgba(255,255,255,0.55)",
+                  transform: current
+                    ? "scale(1.14) rotate(-1.5deg)"
+                    : isEmph
+                      ? "rotate(1deg)"
+                      : "none",
+                  textShadow:
+                    "0 5px 0 rgba(0,0,0,0.85), 0 0 26px rgba(0,0,0,0.55), 3px 3px 0 rgba(0,0,0,0.9)",
+                  WebkitTextStroke: "2.5px rgba(0,0,0,0.85)",
+                }}
+              >
+                {w}
+              </span>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 };

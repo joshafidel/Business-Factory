@@ -39,11 +39,13 @@ function line(
 
 // ── Episode 1: fully authored ───────────────────────────────────────────────
 
+const N = "narrator";
+
 const EPISODE_1: EpisodeScript = {
   episode: 1,
   title: "Two Kings, One Croissant",
   logline:
-    "Brock and Matteo discover they're chasing the same woman; Élodie rates the entire war a five — until Spain walks in.",
+    "Brock and Matteo discover they want the same woman; Élodie rates the entire war a five — until Spain walks in.",
   scenes: [
     {
       index: 0,
@@ -52,10 +54,10 @@ const EPISODE_1: EpisodeScript = {
       locationId: "pool",
       characters: ["brock-usa", "matteo-italy"],
       visual:
-        "Brock and Matteo nose to nose at the pool edge, shocked, a smoothie and a risotto pan between them",
+        "Brock and Matteo frozen nose to nose at the pool edge, horrified realization on both faces, smoothie and risotto pan between them",
       lines: [
-        line("brock-usa", "Bro. We're both all-in on the same girl?!", ["same", "girl"]),
-        line("matteo-italy", "Not a girl. A vision. MY vision!", ["MY"], "operatic outrage"),
+        line(N, "This is Brock. In ten seconds he declares war on Italy.", ["war"]),
+        line(N, "Over a woman who rated him a five.", ["five"]),
       ],
       motion: "push-in",
       sfx: ["heartbeat"],
@@ -66,16 +68,13 @@ const EPISODE_1: EpisodeScript = {
       slot: "setup",
       kind: "scene",
       locationId: "pool",
-      characters: ["brock-usa", "elodie-france", "matteo-italy"],
+      characters: ["elodie-france", "brock-usa"],
       visual:
-        "Élodie on a pink lounger, unimpressed; Brock offers a smoothie while Matteo presents a steaming pan",
+        "Élodie lounging in sunglasses, supremely unbothered, while Brock kneels presenting a mango smoothie like a crown jewel",
       lines: [
-        line("brock-usa", "Élodie! Fresh mango protein. Premium, like you.", ["Premium"]),
+        line(N, "This is Élodie. France. She rates everything.", ["everything"]),
+        line(N, "The sunset? Four. This villa? Five. Feelings? Zero.", ["Zero"]),
         line("elodie-france", "A smoothie. At ten a.m. ...Five.", ["Five"], "bored verdict"),
-        line("matteo-italy", "Move the smoothie. Risotto of my ancestors, for the lady.", [
-          "ancestors",
-        ]),
-        line("elodie-france", "Also five.", ["five"], "flat"),
       ],
       motion: "pan-right",
       sfx: [],
@@ -83,76 +82,78 @@ const EPISODE_1: EpisodeScript = {
     },
     {
       index: 2,
-      slot: "escalation",
-      kind: "argument",
-      locationId: "kitchen",
-      characters: ["matteo-italy", "brock-usa"],
-      visual:
-        "Split-screen kitchen standoff: Matteo brandishing a wooden spoon, Brock cradling his blender like a baby",
-      lines: [
-        line("matteo-italy", "You made her a smoothie. I made her a promise.", ["promise"]),
-        line("brock-usa", "My smoothie has eighteen grams of commitment, bro!", [
-          "eighteen",
-          "commitment",
-        ]),
-        line("matteo-italy", "You cannot blend your way into a French heart!", ["blend"]),
-        line("brock-usa", "Watch me. I'll blend DESTINY.", ["DESTINY"], "deadly serious"),
-      ],
-      motion: "parallax",
-      sfx: ["whoosh"],
-      textMessages: [],
-    },
-    {
-      index: 3,
-      slot: "escalation",
-      kind: "confessional",
-      locationId: "confessional",
-      characters: ["poppy-uk"],
-      visual: "Poppy in the neon Spill Room armchair, tea in hand, profoundly entertained",
-      lines: [
-        line("poppy-uk", "Day one, and two grown men are dueling with kitchen appliances.", [
-          "dueling",
-        ]),
-        line(
-          "poppy-uk",
-          "My money's on the blender. Only one here with a clear plan.",
-          ["blender"],
-          "deadpan",
-        ),
-      ],
-      motion: "push-in",
-      sfx: [],
-      textMessages: [],
-    },
-    {
-      index: 4,
-      slot: "escalation",
+      slot: "setup",
       kind: "scene",
-      locationId: "firepit",
-      characters: ["greta-germany", "sienna-australia", "lucas-brazil"],
+      locationId: "kitchen",
+      characters: ["matteo-italy", "elodie-france"],
       visual:
-        "Greta writing on her clipboard while Sienna grins and Lucas does a celebratory samba step",
+        "Matteo presents a steaming risotto with operatic pride while Élodie examines one grain of rice like a jeweler",
       lines: [
-        line("greta-germany", "Fourteen hundred hours: America and Italy declared war. Logged.", [
-          "war",
-        ]),
-        line("sienna-australia", "Best. Day. EVER.", ["EVER"], "gleeful"),
-        line("lucas-brazil", "This dance is called: International Emotional Damage!", [
-          "Emotional",
-          "Damage",
-        ]),
+        line(N, "Enter Matteo. Italy. He cooked her his grandmother's risotto.", ["risotto"]),
+        line("elodie-france", "Also five.", ["five"], "flat"),
+        line(N, "Two men. One five. This ends badly.", ["badly"]),
       ],
       motion: "pan-left",
       sfx: ["pop"],
       textMessages: [],
     },
     {
+      index: 3,
+      slot: "escalation",
+      kind: "argument",
+      locationId: "kitchen",
+      characters: ["brock-usa", "matteo-italy"],
+      visual:
+        "Split-screen kitchen standoff: Brock cradling his blender like a newborn, Matteo brandishing a wooden spoon like a rapier",
+      lines: [
+        line("brock-usa", "Bro. We're both all-in on the same girl?!", ["same", "girl"]),
+        line("matteo-italy", "You made her a smoothie. I made her a promise.", ["promise"]),
+        line(N, "Gentlemen. She rated you EQUALLY.", ["EQUALLY"]),
+      ],
+      motion: "parallax",
+      sfx: ["whoosh"],
+      textMessages: [],
+    },
+    {
+      index: 4,
+      slot: "escalation",
+      kind: "confessional",
+      locationId: "confessional",
+      characters: ["poppy-uk"],
+      visual: "Poppy in the neon Spill Room armchair, tea in hand, having the best day of her life",
+      lines: [
+        line("poppy-uk", "My money's on the blender. It has a plan.", ["blender"], "deadpan"),
+        line(N, "Poppy is enjoying this WAY too much.", ["WAY"]),
+      ],
+      motion: "push-in",
+      sfx: [],
+      textMessages: [],
+    },
+    {
       index: 5,
+      slot: "escalation",
+      kind: "scene",
+      locationId: "firepit",
+      characters: ["sienna-australia", "greta-germany"],
+      visual:
+        "Sienna vibrating with delight at the firepit while Greta writes on her clipboard with military precision",
+      lines: [
+        line(N, "The villa reacts with grace and maturity.", ["grace"]),
+        line("sienna-australia", "Best. Day. EVER.", ["EVER"], "gleeful"),
+        line("greta-germany", "War declared. Fourteen hundred hours. Logged.", ["Logged"]),
+      ],
+      motion: "pan-left",
+      sfx: ["pop"],
+      textMessages: [],
+    },
+    {
+      index: 6,
       slot: "escalation",
       kind: "confessional",
       locationId: "confessional",
       characters: ["elodie-france"],
-      visual: "Élodie in the Spill Room, examining her nails, betraying the faintest smile",
+      visual:
+        "Élodie in the Spill Room, examining her nails, betraying the faintest possible smile",
       lines: [
         line(
           "elodie-france",
@@ -160,24 +161,22 @@ const EPISODE_1: EpisodeScript = {
           ["Seven"],
           "reluctantly delighted",
         ),
+        line(N, "A SEVEN. Unprecedented.", ["SEVEN"]),
       ],
       motion: "push-in",
       sfx: [],
       textMessages: [],
     },
     {
-      index: 6,
+      index: 7,
       slot: "twist",
       kind: "arrival",
       locationId: "walkway",
-      characters: ["alejandro-spain", "sienna-australia", "brock-usa"],
+      characters: ["alejandro-spain", "brock-usa"],
       visual:
-        "Torch-lit walkway at night: Alejandro strides in slow motion, crimson shirt glowing, villa gawking",
+        "Torch-lit walkway at night: Alejandro strides in slow motion, crimson shirt glowing, while Brock's soul leaves his body",
       lines: [
-        line("sienna-australia", "GUYS. Walkway alert. This one's got SLOW MOTION.", [
-          "SLOW",
-          "MOTION",
-        ]),
+        line(N, "And then. The doors. SPAIN.", ["SPAIN"]),
         line(
           "alejandro-spain",
           "I heard someone here rates men out of ten. I am the ten.",
@@ -191,13 +190,13 @@ const EPISODE_1: EpisodeScript = {
       textMessages: [],
     },
     {
-      index: 7,
+      index: 8,
       slot: "engagement",
       kind: "endcard",
       locationId: "firepit",
       characters: [],
       visual: "End card: Who should Élodie pick? 🇺🇸 🇮🇹 🇪🇸 Vote in the comments!",
-      lines: [],
+      lines: [line(N, "America. Italy. Spain. Vote. Now.", ["Vote"])],
       motion: "zoom-out",
       sfx: ["ding"],
       textMessages: [],
@@ -222,7 +221,7 @@ const EPISODE_1: EpisodeScript = {
     "Brock and Matteo rivalry over Élodie is now open",
     "Élodie's rating system established (everything is a five; drama is a seven)",
     "Alejandro arrived for Élodie — villa destabilized",
-    "Greta logs events; Poppy provides commentary; these are recurring devices",
+    "The narrator is a recurring device from episode 1 onward",
   ],
 };
 
@@ -311,10 +310,7 @@ export function writeEpisodeScriptMock(
         ...new Set([hookKey?.speaker, f0, f1].filter((x): x is string => Boolean(x))),
       ].slice(0, 3),
       visual: `${beat.hook} — caught mid-moment: ${beat.summary.slice(0, 110)}`,
-      lines: [
-        hookKey ? toLine(hookKey) : pool.pick(f0, "exclamations"),
-        pool.pick(f1, "exclamations"),
-      ],
+      lines: [line(N, beat.hook), hookKey ? toLine(hookKey) : pool.pick(f0, "exclamations")],
       motion: "push-in",
       sfx: ["heartbeat"],
       textMessages: [],
@@ -395,6 +391,7 @@ export function writeEpisodeScriptMock(
       characters: [twistKey?.speaker ?? f1, f0],
       visual: `TWIST: ${beat.twist}`,
       lines: [
+        line(N, "And then it happens.", ["then"]),
         twistKey ? toLine(twistKey) : pool.pick(f1, "exclamations"),
         pool.pick(f0, "exclamations"),
       ],
@@ -415,7 +412,16 @@ export function writeEpisodeScriptMock(
       locationId: "firepit",
       characters: [],
       visual: `End card: ${beat.engagement.text}`,
-      lines: [],
+      lines: [
+        line(
+          N,
+          beat.engagement.text
+            .replace(/[^\x20-\x7Eà-ÿÀ-Ÿ'’]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, 90),
+        ),
+      ],
       motion: "zoom-out",
       sfx: ["ding"],
       textMessages: [],
