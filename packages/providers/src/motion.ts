@@ -152,9 +152,94 @@ class FalKlingMotionProvider implements MotionProvider {
   }
 }
 
-/** Active motion provider, or null when none is configured. */
+/**
+ * Google Veo 3.1 via the Gemini API — the strongest image-to-video model
+ * for coherent character animation (the owner's Gemini side-by-side made
+ * the gap obvious). Uses the Fast tier at 1080p: $0.12/s ≈ $0.96 per 8s
+ * clip. Image-to-video: the scene still conditions the first frame, so the
+ * cast reference pipeline keeps working unchanged.
+ */
+class VeoMotionProvider implements MotionProvider {
+  readonly key = "veo";
+  // 8s × $0.12/s (veo-3.1-fast, 1080p).
+  readonly clipCostMicroUsd = 960_000n;
+  readonly clipSeconds = 8;
+  private readonly model = "veo-3.1-fast-generate-preview";
+  private readonly base = "https://generativelanguage.googleapis.com/v1beta";
+
+  private headers(): Record<string, string> {
+    const env = loadEnv();
+    return { "x-goog-api-key": env.GEMINI_API_KEY ?? "", "content-type": "application/json" };
+  }
+
+  async submit(job: MotionJob): Promise<string> {
+    // Veo takes the conditioning image inline; fetch the signed still URL.
+    const img = await fetch(job.imageUrl);
+    if (!img.ok) throw new Error(`veo: could not fetch source still (${img.status})`);
+    const b64 = Buffer.from(await img.arrayBuffer()).toString("base64");
+    const res = await fetch(`${this.base}/models/${this.model}:predictLongRunning`, {
+      method: "POST",
+      headers: this.headers(),
+      body: JSON.stringify({
+        instances: [
+          {
+            prompt: job.prompt,
+            image: { bytesBase64Encoded: b64, mimeType: "image/png" },
+          },
+        ],
+        parameters: { aspectRatio: "9:16", resolution: "1080p", negativePrompt:
+          "extra limbs, morphing, deformed characters, text, watermark, new characters appearing" },
+      }),
+    });
+    const text = await res.text();
+    if (!res.ok) throw new Error(`veo submit failed (${res.status}): ${text.slice(0, 300)}`);
+    const data = JSON.parse(text) as { name?: string };
+    if (!data.name) throw new Error(`veo submit returned no operation name: ${text.slice(0, 200)}`);
+    return data.name;
+  }
+
+  async poll(jobId: string): Promise<MotionJobStatus> {
+    try {
+      const res = await fetch(`${this.base}/${jobId}`, { headers: this.headers() });
+      if (!res.ok) return { jobId, status: "pending" };
+      const data = (await res.json()) as {
+        done?: boolean;
+        error?: unknown;
+        response?: {
+          generateVideoResponse?: {
+            generatedSamples?: { video?: { uri?: string } }[];
+          };
+          // Some API revisions nest under predictions instead.
+          predictions?: { videoUri?: string }[];
+        };
+      };
+      if (!data.done) return { jobId, status: "pending" };
+      if (data.error) return { jobId, status: "failed" };
+      const uri =
+        data.response?.generateVideoResponse?.generatedSamples?.[0]?.video?.uri ??
+        data.response?.predictions?.[0]?.videoUri;
+      return uri ? { jobId, status: "completed", videoUrl: uri } : { jobId, status: "failed" };
+    } catch (err) {
+      log.warn({ jobId, err }, "veo poll failed");
+      return { jobId, status: "pending" };
+    }
+  }
+
+  async download(url: string): Promise<Buffer> {
+    // Veo download URIs require the API key.
+    const res = await fetch(url, { headers: { "x-goog-api-key": loadEnv().GEMINI_API_KEY ?? "" } });
+    if (!res.ok) throw new Error(`veo clip download failed (${res.status})`);
+    return Buffer.from(await res.arrayBuffer());
+  }
+}
+
+/**
+ * Active motion provider, or null when none is configured.
+ * Preference: Veo (best character coherence) → Kling → Higgsfield.
+ */
 export function getMotionProvider(): MotionProvider | null {
   const env = loadEnv();
+  if (env.GEMINI_API_KEY) return new VeoMotionProvider();
   if (env.FAL_KEY) return new FalKlingMotionProvider();
   if (higgsfieldConfigured()) return new HiggsfieldMotionProvider();
   return null;

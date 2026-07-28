@@ -603,11 +603,11 @@ async function main(): Promise<void> {
     },
     update: {},
   });
-  // Owner-approved levels (July 2026: daily raised $10 → $15 at the
-  // owner's request to fit ~4-5 animated videos/day). Seed is authoritative
-  // for these two defaults.
+  // Owner-approved levels (July 2026: daily raised $10 → $15, then $15 → $30
+  // at the owner's request; monthly $100 stays the overall backstop). Seed is
+  // authoritative for these two defaults.
   const costLimits = [
-    { scope: "DAILY" as const, limitMicroUsd: 15_000_000n },
+    { scope: "DAILY" as const, limitMicroUsd: 30_000_000n },
     { scope: "MONTHLY" as const, limitMicroUsd: 100_000_000n },
   ];
   for (const limit of costLimits) {
@@ -630,7 +630,7 @@ async function main(): Promise<void> {
       update: { limitMicroUsd: limit.limitMicroUsd },
     });
   }
-  console.log("✓ approval policy + default cost limits ($15/day, $100/month hard stops)");
+  console.log("✓ approval policy + default cost limits ($30/day, $100/month hard stops)");
 
   // ── Demo metrics (flagged) ────────────────────────────────────────────────
   const today = new Date();
@@ -785,9 +785,25 @@ async function main(): Promise<void> {
     role: "creative",
     description: "Picks the animal and hook for each episode.",
     instructions:
-      "You create story-driven nursery-rhyme song concepts for toddlers (ages 1-4) starring the recurring Zoo Friends cast, like modern 3D nursery-rhyme YouTube channels. Every episode is a tiny relatable story from toddler life with a catchy repeated hook. Everything must be singable, repetitive, and joyful. Facts must be true and ultra-simple. Never scary.",
+      "You create story-driven nursery-rhyme song concepts for toddlers (ages 1-4) starring the recurring Zoo Friends cast, like modern 3D nursery-rhyme YouTube channels. DEMAND-DRIVEN: when input.trending lists recent high-view videos from leading kids channels, pick the proven topic/format with the strongest demand that Zoo Friends has not covered yet (bath time, food songs, colors, vehicles, potty, boo-boos, bedtime, dance-alongs...) and adapt it to OUR cast. STRICT ORIGINALITY: never copy or imitate another channel's characters, names, melodies, or lyrics — only the underlying topic and format may be learned from. Every episode is a tiny relatable story from toddler life with a catchy repeated hook. Everything must be singable, repetitive, and joyful. Facts must be true and ultra-simple. Never scary.",
     promptId: zooIdeaPromptId,
-    inputSchema: { type: "object", properties: { animal: { type: "string" } } },
+    inputSchema: {
+      type: "object",
+      properties: {
+        animal: { type: "string" },
+        trending: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              views: { type: "number" },
+              channel: { type: "string" },
+            },
+          },
+        },
+      },
+    },
     outputSchema: {
       type: "object",
       properties: {
@@ -853,11 +869,15 @@ async function main(): Promise<void> {
     role: "publisher",
     description: "Writes the YouTube title, description, and tags.",
     instructions:
-      "You write SEO-optimized YouTube metadata for made-for-kids nursery-rhyme content in the style of top toddler song channels: search-phrase-first titles, keyword-rich honest descriptions with hashtags, and comprehensive tags. Appealing to parents, COPPA-compliant, never clickbait.",
+      "You write SEO-optimized YouTube metadata for made-for-kids nursery-rhyme content in the style of top toddler song channels: search-phrase-first titles, keyword-rich honest descriptions with hashtags, and comprehensive tags. When input.trending lists recent high-view titles from winning kids channels, MODEL the title structure on those proven patterns (search keyword first, hook word repeated, one emoji, ' | Zoo Friends Nursery Rhymes' brand suffix) without ever copying a title verbatim or referencing other channels' brands or characters. Appealing to parents, COPPA-compliant, never clickbait.",
     promptId: zooMetadataPromptId,
     inputSchema: {
       type: "object",
-      properties: { idea: { type: "object" }, script: { type: "object" } },
+      properties: {
+        idea: { type: "object" },
+        script: { type: "object" },
+        trending: { type: "array", items: { type: "object" } },
+      },
       required: ["idea"],
     },
     outputSchema: {
@@ -914,7 +934,7 @@ async function main(): Promise<void> {
       config: {
         agentKey: "zoo-idea-agent",
         goal: "Choose the animal and hook for this episode",
-        inputMapping: { animal: "$.input.animal" },
+        inputMapping: { animal: "$.input.animal", trending: "$.input.trending" },
       },
     },
     {
@@ -934,7 +954,11 @@ async function main(): Promise<void> {
       config: {
         agentKey: "zoo-metadata-agent",
         goal: "Write the YouTube metadata",
-        inputMapping: { idea: "$.steps.idea", script: "$.steps.script" },
+        inputMapping: {
+          idea: "$.steps.idea",
+          script: "$.steps.script",
+          trending: "$.input.trending",
+        },
       },
     },
     {

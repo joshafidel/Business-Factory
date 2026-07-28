@@ -84,6 +84,8 @@ const envSchema = z.object({
   // fal.ai (optional): higher-quality image-to-video motion (Kling tier).
   // When set, the zoo pipeline prefers it over Higgsfield for scene motion.
   FAL_KEY: z.string().optional(),
+  /** Google Gemini API key — enables Veo 3.1 as the motion provider. */
+  GEMINI_API_KEY: z.string().optional(),
 
   // ElevenLabs: expressive narration voices + Eleven Music (real sung songs
   // with custom lyrics, commercially licensed). Set the API key to upgrade

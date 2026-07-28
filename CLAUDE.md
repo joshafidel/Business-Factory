@@ -104,7 +104,7 @@ never around it.** Concretely:
      ElevenLabs voice/music, Higgsfield i2v (+ retry patience), Picsart GenAI
      adapter, cost tables. Extend the registry; don't fork per app.
    - `recordCost` + workflow `costLimitMicroUsd` — every paid call goes
-     through the ledger so the shared $15/day cap actually protects everyone.
+     through the ledger so the shared $30/day cap actually protects everyone.
    - Mobile shell & media UI — every dashboard page renders inside
      `apps/web/src/components/dashboard-shell.tsx` (drawer sidebar + bottom
      tabs on phones; fixed rail on lg+). Reuse `MediaActions` (download +
@@ -169,6 +169,6 @@ never around it.** Concretely:
 
 - The production DB is shared. Seed/lazy-registration code must be idempotent upserts keyed on
   stable keys (`organizationId_key`) so any session's deploy can run it safely.
-- Platform cost limits: $15/day, $100/month hard stops (owner-approved levels).
+- Platform cost limits: $30/day, $100/month hard stops (owner-approved levels; daily raised 2026-07-28).
 - Love Villa's cost-metered providers (OpenAI/ElevenLabs/fal/Anthropic keys in
   `apps/love-villa/.env`) are budget-guarded at $5/episode; don't remove the guards.
