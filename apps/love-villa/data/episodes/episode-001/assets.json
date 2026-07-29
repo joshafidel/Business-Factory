@@ -172,6 +172,8 @@
     }
   ],
   "music": "episodes/episode-001/music-bed.wav",
-  "failures": [],
+  "failures": [
+    "motion:scene-4: fal.ai submit failed (403): {\"detail\":\"User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.\"} (falling back to camera move)"
+  ],
   "regenerated": []
 }
