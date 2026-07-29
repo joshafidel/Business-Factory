@@ -609,7 +609,14 @@
       "estimatedUsd": 0.25,
       "mode": "live",
       "at": "2026-07-29T17:43:57.902Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.148995,
+      "mode": "live",
+      "at": "2026-07-29T17:46:27.565Z"
     }
   ],
-  "totalUsd": 11.479
+  "totalUsd": 11.628
 }
