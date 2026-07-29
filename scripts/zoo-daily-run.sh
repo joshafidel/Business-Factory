@@ -17,6 +17,7 @@ JAR="${ZOO_COOKIE_JAR:-/tmp/zoo-cookies.txt}"
 COVERED_TOPICS=(
   "bath time / splish splash / washing"
   "stomping / elephant marching"
+  "counting bananas / number counting / one two three"
 )
 
 signin() {

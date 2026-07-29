@@ -18,6 +18,7 @@ import {
   ListChecks,
   Plug,
   Bot,
+  Wallet,
   Workflow,
 } from "lucide-react";
 import { requireOrgContext } from "@/lib/session";
@@ -97,6 +98,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <CheckSquare className="h-4 w-4 shrink-0 text-primary" />
           <span className="flex-1">Approvals</span>
           {pendingApprovals > 0 ? <Badge variant="warning">{pendingApprovals}</Badge> : null}
+        </Link>
+        <Link
+          href="/spending"
+          className="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm font-medium hover:bg-muted"
+        >
+          <Wallet className="h-4 w-4 shrink-0 text-primary" />
+          Spending
         </Link>
 
         <details className="mt-4 group">

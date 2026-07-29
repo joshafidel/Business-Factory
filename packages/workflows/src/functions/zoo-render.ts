@@ -8,10 +8,13 @@ import { prisma, type Prisma } from "@bf/database";
 import {
   getMediaProviders,
   getMotionProvider,
+  getMotionProviderByKey,
+  isQuotaError,
   awaitMotionJobs,
   critiqueFrames,
   withMotionGuardrails,
   type MediaResult,
+  type MotionProvider,
   type VisualQaResult,
 } from "@bf/providers";
 import { getStorage } from "@bf/storage";
@@ -274,10 +277,13 @@ registerCodeFunction("render_zoo_short", async (args, context) => {
     const lengthMs = Math.max(38_000, Math.min(120_000, scenes.length * 6_500 + 2_000));
     const song = await providers.music.generateMusic({
       prompt:
-        "A joyful children's nursery rhyme song for toddlers (ages 1-4), sung by a warm, sweet, " +
-        "playful female voice with a gentle kids' choir echoing the chorus. Simple ultra-catchy " +
-        "melody that repeats, bouncy but soft: ukulele, glockenspiel, marimba, light hand-claps, " +
-        "soft drums. Around 95 BPM, C major, bright and happy, clean mix, toddler-friendly. " +
+        "A professionally produced children's song in the style of top preschool YouTube " +
+        "channels: an irresistibly catchy sing-song melody built on a simple repeated hook, " +
+        "sung by a bright, warm, expressive female lead with crystal-clear diction (every " +
+        "word easy for a toddler to follow), with a cute kids' choir answering on the chorus. " +
+        "Bouncy, energetic arrangement: ukulele, glockenspiel, marimba, hand-claps, upbeat " +
+        "kids-pop drums with a strong steady beat. 110 BPM, C major, punchy modern mix, " +
+        "vocals loud and front-and-center, instantly danceable, joyful from the first second. " +
         `Sing these lyrics exactly:\n\n${lyricSheet}`,
       lengthMs,
     });
@@ -521,6 +527,8 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     interface JobEntry {
       jobId: string;
       tries: number;
+      /** Which vendor owns this scene's current job (hybrid overflow). */
+      provider?: string;
       /** Set when the scene's clip passed QA and was baked (or gave up). */
       settled?: boolean;
       avoid?: string[];
@@ -530,12 +538,23 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     try {
       jobMap = JSON.parse((await storage.get(jobMapKey)).toString("utf8")) as typeof jobMap;
     } catch {
-      for (const j of animationJobs) jobMap[String(j.sceneIndex)] = { jobId: j.jobSetId, tries: 1 };
+      for (const j of animationJobs) {
+        jobMap[String(j.sceneIndex)] = { jobId: j.jobSetId, tries: 1, provider: motion.key };
+      }
     }
     const totalSubmissions = (): number =>
       Object.values(jobMap).reduce((a, e) => a + e.tries, 0);
+    const providerFor = (e: JobEntry | undefined): MotionProvider =>
+      (e?.provider ? getMotionProviderByKey(e.provider) : null) ?? motion;
     const env = loadEnv();
-    const submitScene = async (i: number, avoid: string[]): Promise<string> => {
+    // Hybrid submit: the preferred engine first; on a quota/rate-limit
+    // rejection (Veo preview tiers are tiny) the scene overflows to
+    // Higgsfield so the episode still gets REAL animation everywhere —
+    // stills are never an acceptable outcome.
+    const submitScene = async (
+      i: number,
+      avoid: string[],
+    ): Promise<{ jobId: string; provider: string }> => {
       const assetId = imageAssetIds[i] as string;
       const exp = Math.floor(Date.now() / 1000) + 2 * 60 * 60;
       const sig = signAssetToken(env.SECRET_ENCRYPTION_KEY, assetId, exp);
@@ -544,10 +563,17 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
         (avoid.length > 0
           ? ` STRICTLY AVOID these defects a previous attempt had: ${avoid.join("; ")}.`
           : "");
-      return motion.submit({
-        imageUrl: `${base}/api/assets/public?id=${assetId}&exp=${exp}&sig=${sig}`,
-        prompt,
-      });
+      const imageUrl = `${base}/api/assets/public?id=${assetId}&exp=${exp}&sig=${sig}`;
+      try {
+        return { jobId: await motion.submit({ imageUrl, prompt }), provider: motion.key };
+      } catch (err) {
+        const overflow = getMotionProviderByKey("higgsfield");
+        if (isQuotaError(err) && overflow && overflow.key !== motion.key) {
+          log.warn({ scene: i }, "primary motion quota hit; overflowing scene to higgsfield");
+          return { jobId: await overflow.submit({ imageUrl, prompt }), provider: overflow.key };
+        }
+        throw err;
+      }
     };
 
     const need = [...Array(imageAssetIds.length).keys()].filter((i) => !cachedScenes.has(i));
@@ -565,13 +591,25 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
     });
     // 1. Poll active jobs (bounded window; fresh budget every attempt).
     const deadline = Date.now() + 150_000;
-    const results = await awaitMotionJobs(
-      motion,
-      active.map((i) => (jobMap[String(i)] as JobEntry).jobId),
-      deadline,
-    );
+    // Poll per provider group (hybrid runs can have jobs at two vendors).
+    const results = new Map<string, Awaited<ReturnType<MotionProvider["poll"]>>>();
+    const byProvider = new Map<string, number[]>();
+    for (const i of active) {
+      const key = providerFor(jobMap[String(i)]).key;
+      byProvider.set(key, [...(byProvider.get(key) ?? []), i]);
+    }
+    for (const [key, scenes] of byProvider) {
+      const prov = getMotionProviderByKey(key) ?? motion;
+      const polled = await awaitMotionJobs(
+        prov,
+        scenes.map((i) => (jobMap[String(i)] as JobEntry).jobId),
+        deadline,
+      );
+      for (const [id, st] of polled) results.set(id, st);
+    }
     for (const i of active) {
       const entry = jobMap[String(i)] as JobEntry;
+      const entryProvider = providerFor(entry);
       const r = results.get(entry.jobId);
       let needsResubmit = false;
       if (r?.status === "completed" && r.videoUrl) {
@@ -579,8 +617,8 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
         // the defects fed back. A transient download/QA error resubmits
         // nothing — the job URL stays valid for the next attempt.
         try {
-          const data = await motion.download(r.videoUrl);
-          clipCost += motion.clipCostMicroUsd;
+          const data = await entryProvider.download(r.videoUrl);
+          clipCost += entryProvider.clipCostMicroUsd;
           const qa = await critiqueFrames({
             // 6 samples: a muzzle-morph once slipped through 4-frame
             // sampling — denser coverage catches mid-clip morphs.
@@ -613,11 +651,18 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
       if (needsResubmit && !entry.settled) {
         if (entry.tries < MAX_TRIES_PER_SCENE && totalSubmissions() < MAX_TOTAL_SUBMISSIONS) {
           try {
-            entry.jobId = await submitScene(i, entry.avoid ?? []);
+            const sub = await submitScene(i, entry.avoid ?? []);
+            entry.jobId = sub.jobId;
+            entry.provider = sub.provider;
             entry.tries += 1;
-            log.info({ scene: i, tries: entry.tries }, "resubmitted motion for scene");
+            log.info(
+              { scene: i, tries: entry.tries, provider: sub.provider },
+              "resubmitted motion for scene",
+            );
           } catch (err) {
-            log.warn({ scene: i, err }, "motion resubmission failed");
+            // A quota error is NOT terminal — leave the entry unresolved so
+            // the run keeps waiting/retrying instead of giving up on motion.
+            log.warn({ scene: i, err }, "motion resubmission failed; will retry next attempt");
           }
         } else {
           entry.settled = true; // exhausted — terminal Ken Burns fallback
@@ -626,21 +671,24 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
         }
       }
     }
-    // 3. Stage scenes that never got a job while concurrency allows.
+    // 3. Stage scenes that never got a job — max 2 new submissions per
+    // attempt (rate-limit friendly: a 4-wide burst blew Veo's preview
+    // quota and shipped a stills-only video on 2026-07-29).
     const activeCount = need.filter((i) => {
       const e = jobMap[String(i)];
       return e && !e.settled && !clips.has(i);
     }).length;
-    let slots = Math.max(0, MAX_CONCURRENT - activeCount);
+    let slots = Math.max(0, Math.min(2, MAX_CONCURRENT - activeCount));
     for (const i of need) {
       if (jobMap[String(i)] || slots <= 0) continue;
       if (totalSubmissions() >= MAX_TOTAL_SUBMISSIONS) break;
       try {
-        jobMap[String(i)] = { jobId: await submitScene(i, []), tries: 1 };
+        const sub = await submitScene(i, []);
+        jobMap[String(i)] = { jobId: sub.jobId, tries: 1, provider: sub.provider };
         slots -= 1;
-        log.info({ scene: i }, "staged motion submission");
+        log.info({ scene: i, provider: sub.provider }, "staged motion submission");
       } catch (err) {
-        log.warn({ scene: i, err }, "staged submission failed");
+        log.warn({ scene: i, err }, "staged submission failed; will retry next attempt");
       }
     }
     await storage.put(jobMapKey, Buffer.from(JSON.stringify(jobMap)), {
@@ -666,6 +714,16 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
         );
       }
       animationFallbacks.push(...unresolved);
+    }
+    // Never assemble a stills video: if more than one scene would ship
+    // static, fail the run loudly instead — the Quality Director would
+    // reject it anyway, and a named failure is actionable.
+    if (animationFallbacks.length > 1) {
+      throw new PlatformError(
+        "VALIDATION",
+        `QUALITY_REJECT: only ${imageAssetIds.length - animationFallbacks.length}/${imageAssetIds.length} scenes could be animated (static fallbacks: ${animationFallbacks.join(",")}). Motion providers exhausted or rate-limited.`,
+        { retryable: false },
+      );
     }
   }
 
