@@ -265,7 +265,9 @@ async function main(): Promise<void> {
           try {
             const loc = bible.villa.locations.find((l) => l.id === scriptScene.locationId);
             const refs: Buffer[] = [];
-            const locRef = findExistingAsset(assetRel("locations", scriptScene.locationId), ["png"]);
+            const locRef = findExistingAsset(assetRel("locations", scriptScene.locationId), [
+              "png",
+            ]);
             if (locRef) refs.push(readFileSync(assetAbs(locRef)));
             for (const id of scriptScene.characters.slice(0, 4)) {
               const cRef = findExistingAsset(assetRel("characters", id), ["png"]);
@@ -278,7 +280,7 @@ async function main(): Promise<void> {
             tracker.charge({
               provider: "openai",
               item: `scene-still:${planScene.index}`,
-              estimatedUsd: env.IMAGE_QUALITY === "high" ? 0.063 : 0.016,
+              estimatedUsd: 0.25,
               mode: "live",
             });
             const painted = await editImageWithReferences({
@@ -289,10 +291,13 @@ async function main(): Promise<void> {
                   `environment as ONE unified scene: correct relative scale, believable contact ` +
                   `shadows, lighting matched to the environment's ${loc?.timeOfDay ?? "day"} key light.`,
                 `Character designs must match the references EXACTLY (faces, hair, flag outfits): ${looks}.`,
+                "Hands must be anatomically correct with five clearly separated fingers; every " +
+                  "held object fully resolved and physically supported; no floating, merged, or " +
+                  "half-formed props.",
                 "Ultra-glossy stylized 3D render, candy-bright, vertical 9:16 composition, no text, no watermark.",
               ].join(" "),
               references: refs,
-              quality: env.IMAGE_QUALITY,
+              quality: "max",
             });
             writeFileSync(stillFile, painted.data);
             stillMade = true;
@@ -308,7 +313,9 @@ async function main(): Promise<void> {
           image: readFileSync(stillFile),
           prompt:
             `${scriptScene?.visual ?? "villa scene"}. ` +
-            (scriptScene ? `${motionDirection(scriptScene)} ${cameraDirection(scriptScene)} ` : "") +
+            (scriptScene
+              ? `${motionDirection(scriptScene)} ${cameraDirection(scriptScene)} `
+              : "") +
             `STRICT CONSISTENCY: preserve every character's exact face, body proportions, outfit, ` +
             `colors and position from the image — no redesign, no morphing, no new clothing items ` +
             `or accessories, no flags other than those already present; keep the exact glossy ` +

@@ -1,0 +1,154 @@
+{
+  "episode": 1,
+  "updatedAt": "2026-07-29T16:48:47.447Z",
+  "script": {
+    "scores": {
+      "hook": 8,
+      "comedicEngine": 7,
+      "causalEscalation": 7,
+      "characterVoice": 8,
+      "comedicPacing": 7,
+      "ending": 7
+    },
+    "verdict": "pass",
+    "topProblems": [
+      "The twist narration muddies its own logic: Poppy audibly says 'Lucas' at 3am, then the narrator insists '3am wasn't a dream about Lucas.' Viewers will re-read that as a contradiction rather than a gut-punch, and the balcony reveal loses its snap.",
+      "Matteo is set up as a numbered joke ('lasagne. For eleven.') and then abandoned — the gavel beat gets courtroom gravity but no punchline, and the one man whose name was NOT said at 3am exits the episode unpaid. The carb-language runner sits adjacent to the rating premise instead of inside it.",
+      "Poppy — the villa's designated scorer of everyone else — is the only major character who never receives a number. That's the episode's biggest missed joke: the premise's cleanest ironic payoff is left on the table.",
+      "Alejandro's arrival is thematically welded to the rating engine at the endcard but causally unconnected to Scene 5's kiss reveal. It reads as a scheduled format beat, not a consequence, which softens the run into the CTA.",
+      "Scene 4 is the densest scene and runs eight lines with no engineered silence; the 'four' punchline on Brock's water — the best rating gag in the script — gets cut off instead of held."
+    ],
+    "concreteFixes": [
+      "Scene 5, narrator lines 3–4: replace 'It was the balcony she pretended not to see' construction with clarified logic — 'She was dreaming about Lucas.' / (beat) 'She was dreaming about the balcony.' This keeps the reveal and kills the contradiction.",
+      "Scene 4, after 'Matteo sets the lasagne down like a gavel': add Élodie, flat, mid-sip — 'The lasagne — a nine.' Then narrator, dry: 'The highest score of the night went to pasta.' This pulls Matteo's carb-language inside the rating engine and pays the gavel.",
+      "Scene 3, after Matteo's 'For eleven': change narrator's 'Nobody asked' to 'There are nine of you, Matteo.' (beat) 'Nobody asked.' — makes the number do premise work instead of sitting as flavour.",
+      "Scene 4, Brock's 'That was a four': add a two-second hold (SFX drop to room tone) before the cut so the episode's sharpest rating beat lands instead of being buried under the scene transition.",
+      "Scene 7, Greta line: change 'You are not on the schedule' follow-up so the arrival is caused — Rohan: 'Someone scored low enough to trigger a replacement.' Now Alejandro walks in as a consequence of the firepit ratings, not a format injection.",
+      "Scene 8 endcard: before Alejandro's smolder, cut two seconds to Poppy in the Spill Room — 'I don't do numbers.' — then narrator over Alejandro's exit: 'She gave Lucas a ten in her sleep.' Pays off the only unscored character and hands the CTA a second guess to bait."
+    ],
+    "iterations": 2
+  },
+  "audio": {
+    "findings": [],
+    "checkedAt": "2026-07-29T16:36:34.741Z"
+  },
+  "visuals": [
+    {
+      "images": [
+        {
+          "index": 0,
+          "aiDefects": [
+            "French girl in bed appears to have no visible torso/arm anatomy resolving into the duvet — her crossed arms merge oddly with the blanket",
+            "Blonde UK woman's arm/shoulder geometry under the duvet is ambiguous; forearm crossing the bed reads as detached",
+            "Man in white shirt has no visible arms or hands at all — sleeves vanish into bedding",
+            "Bed geometry impossible: three people share a bed whose headboard and mattress edges don't align; French girl sits on a plane higher than the mattress",
+            "Floating candle-like glows on the windowsill and mid-air near the headboard with no holders",
+            "Lamp at bottom-left is cropped and light source inconsistent with cast shadows"
+          ],
+          "styleConsistent": false,
+          "nationalityObvious": true,
+          "severity": "critical",
+          "notes": "Night grading is far darker and more desaturated than the candy-bright house look of the other frames. Union Jack tank and Union Jack mug read instantly for UK; Breton stripes + navy beret + red neckerchief read as French. The dark-haired man in the white shirt has zero national signifiers. Sleeping open-mouth face on the blonde looks slightly melted around the jaw. Multiple missing-limb issues make this the weakest frame."
+        },
+        {
+          "index": 1,
+          "aiDefects": [
+            "American man's right hand on the counter has ambiguous/merged fingers and an unnaturally long reach; his other hand hovers over the glass with rubbery finger geometry",
+            "Small sausage-like object floating inside the water glass",
+            "French woman's crossed arms show an extra-long forearm and her left hand disappears behind her elbow",
+            "Blonde's mug handle geometry is odd — fingers pass oddly through the handle",
+            "Pasta/fries pile is an undifferentiated blob; a stray green shape peeks out with no source",
+            "Hanging pot rack has a lamp fixture that terminates in nothing"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "critical",
+          "notes": "Bright, glossy, well-graded kitchen that matches the house style best. Union Jack crop top + mug, Breton/beret French, stars-and-stripes tank + red cap all read at a glance. However the hands around the counter are visibly warped and the floating object in the glass is the kind of thing a viewer clocks immediately as AI."
+        },
+        {
+          "index": 2,
+          "aiDefects": [
+            "Blonde UK woman's left hand holding the mug has fused/incomplete fingers and the mug is clipped into her forearm",
+            "Brazilian man's right arm wrapping the French girl becomes very long; his hand on her shoulder has soft, half-formed fingers",
+            "French girl's crossed arms produce an apparent third forearm silhouette against her skirt",
+            "Australian girl's hand on hip merges into the shorts",
+            "Pool geometry behind the group is inconsistent; a flamingo float is half-dissolved",
+            "Villa balcony railing spacing warps toward the right arch"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "critical",
+          "notes": "Grading and proportions match the candy-bright style well. UK Union Jack dress, Brazil yellow/green, France Breton+beret and Australia green-and-gold read instantly. Hand deformities on two characters and the arm-length issue on the Brazilian are noticeable at normal viewing size."
+        },
+        {
+          "index": 3,
+          "aiDefects": [
+            "Center French girl's raised hand is oversized with thick, mismatched fingers",
+            "Bearded man's hands holding the tray show merged fingers and the tray floats oddly close to the fire",
+            "Blonde woman at left has an arm reaching toward the fire that doesn't connect convincingly to her shoulder",
+            "Shirtless man at back has an incomplete torso hidden behind the pole; his arms vanish",
+            "Blonde with glasses appears with no visible arms other than a mug-holding hand emerging from nowhere",
+            "String-light strands cross and terminate in mid-air; lantern hangs from nothing",
+            "Fire pit stones and seating merge into a mushy mass"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": false,
+          "severity": "critical",
+          "notes": "Warm sunset grading is on-brand and glossy. Union Jack, US stars-and-stripes, Brazil yellow/green and Australia green are legible, but the bearded man in the plain white shirt and the shirtless man in back carry no national wardrobe, and the French girl's shrunken child-like proportions clash with the adult scale of the rest of the cast. Many hand and limb faults."
+        },
+        {
+          "index": 4,
+          "aiDefects": [
+            "Blonde's pointing hand has an over-long index finger and a thumb that reads as an extra digit",
+            "Brazilian man's shirt collar/neckline geometry is inconsistent — necklace floats over an undefined chest",
+            "French woman's crossed arms sit on the fire-pit rim with a forearm that bends unnaturally",
+            "Fire-pit rim is a flat plate that the flame sits on without depth",
+            "Lantern on the right hangs from a pole that does not connect to anything"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Strong candy-bright sunset grade consistent with frames 2-4. Union Jack swimsuit + mug, Brazil yellow/green shirt, French Breton + beret + neckerchief all instantly readable. Defects are confined to the pointing hand and background prop logic — shippable with a small fix."
+        },
+        {
+          "index": 5,
+          "aiDefects": [
+            "Beret badge changes design from other frames (roundel here vs plain dot/heart elsewhere) — continuity drift",
+            "Crossed-arm hands are slightly soft but essentially clean",
+            "Background chair and neon ring are vague/unresolved"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Cleanest render of the set: solid hands, coherent face, glossy 3D finish. Grading is moodier and more saturated-red than the rest of the episode, so it reads as a confessional-booth insert rather than a mismatch. French identity is unmistakable via beret, Breton stripes, red neckerchief and tricolore roundel. Only continuity nitpick is the beret badge and darker key light."
+        },
+        {
+          "index": 6,
+          "aiDefects": [
+            "Blonde woman's right hand holding the phone has fused fingers; the phone is a featureless brown slab",
+            "Indian boy's hand holding the book shows a warped thumb and the book pages are blank/garbled",
+            "Red-shirted man's arm being clutched has an ambiguous join at the elbow",
+            "Torch flames float detached from any torch body",
+            "Pathway markers/petals are smeared",
+            "Facial proportions and rendering are noticeably more semi-realistic than the rest of the cast"
+          ],
+          "styleConsistent": false,
+          "nationalityObvious": false,
+          "severity": "critical",
+          "notes": "Major style break: painterly, realistic-proportioned characters with a dark teal/amber cinematic grade, nothing like the candy-bright chunky 3D of frames 1-6. None of the three characters appear in the other stills. The Indian boy's saffron/white/green does read; the red-shirted man (Spain?) and the blonde in a black swimsuit with a vague red-yellow stripe do not read as any flag at a glance. Reads as a different show."
+        }
+      ],
+      "overallNotes": "The episode holds together across frames 1-5 (kitchen, poolside, firepit, two-shot, confessional): consistent glossy candy-bright 3D, matching chunky character proportions, and instantly legible flag wardrobes (Union Jack, US stars-and-stripes, Brazil yellow/green, Australia green-and-gold, French Breton/beret). Two frames break the show: the opening bedroom still is far too dark, has multiple missing arms/hands and floating candle glows, and the final still is a completely different painterly, semi-realistic render with an unfamiliar cast and unreadable national wardrobe. Recurring cast-wide problems are hands — nearly every frame has at least one fused, elongated or vanished hand — plus props that don't obey physics (a sausage in a water glass, lanterns hanging from nothing, blank book pages, a featureless phone). Two characters (the bearded man in the plain white shirt, the shirtless man) carry no national branding at all and should be re-costumed. Recommendation: regenerate stills 1 and 7, retouch hands in 2, 3 and 4, and lock the beret badge design for continuity.",
+      "labels": [
+        "still:s1.png",
+        "still:s2.png",
+        "still:s3.png",
+        "still:s4.png",
+        "still:s5.png",
+        "still:s6.png",
+        "still:s7.png"
+      ],
+      "checkedAt": "2026-07-29T16:48:47.447Z"
+    }
+  ]
+}

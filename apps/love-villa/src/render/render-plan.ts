@@ -42,11 +42,11 @@ export interface LineAudioInfo {
 // Comedic-timing pacing (owner directive: let jokes breathe, never rush):
 // a real pause between every line, a longer beat after punchlines, and extra
 // air in escalation/twist scenes where reactions need time to register.
-const LEAD_IN_S = 0.5;
-const LINE_GAP_S = 0.45;
-const PUNCHLINE_GAP_S = 0.75;
+const LEAD_IN_S = 0.4;
+const LINE_GAP_S = 0.38;
+const PUNCHLINE_GAP_S = 0.62;
 const ESCALATION_EXTRA_S = 0.12;
-const TAIL_S = 0.7;
+const TAIL_S = 0.55;
 
 export function assetRel(...parts: string[]): string {
   return parts.join("/");
@@ -110,7 +110,11 @@ export function buildRenderPlan(params: {
       return planLine;
     });
     const isEndcard = scene.kind === "endcard";
-    const bodyFrames = isEndcard ? Math.round(3.6 * FPS) : offset + Math.round(TAIL_S * FPS);
+    // Endcards with spoken lines must fit their audio (v1 text-only endcards
+    // used a fixed 3.6s, which truncated the engagement question).
+    const bodyFrames = isEndcard
+      ? Math.max(Math.round(3.6 * FPS), offset + Math.round(TAIL_S * FPS))
+      : offset + Math.round(TAIL_S * FPS);
     const durationFrames = Math.max(Math.round(2.2 * FPS), bodyFrames);
 
     const loc = bible.villa.locations.find((l) => l.id === scene.locationId);

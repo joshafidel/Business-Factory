@@ -25,7 +25,9 @@ export function motionDirection(scene: Scene): string {
         "is one sharp point or one slow arm-cross by the aggressor."
       );
     case "arrival":
-      return base + "The arriving character takes two calm steps and stops; others only turn heads.";
+      return (
+        base + "The arriving character takes two calm steps and stops; others only turn heads."
+      );
     default:
       if (scene.slot === "twist") {
         return (

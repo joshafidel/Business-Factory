@@ -1,0 +1,370 @@
+{
+  "scope": "episode-001",
+  "entries": [
+    {
+      "provider": "anthropic",
+      "item": "plot:pitches:e1",
+      "estimatedUsd": 0.10891,
+      "mode": "live",
+      "at": "2026-07-29T16:28:01.059Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "episode-1-script",
+      "estimatedUsd": 0.2205,
+      "mode": "live",
+      "at": "2026-07-29T16:28:45.360Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:script-review:e1",
+      "estimatedUsd": 0.11299000000000001,
+      "mode": "live",
+      "at": "2026-07-29T16:30:13.890Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "episode-1-script-rev2",
+      "estimatedUsd": 0.22439,
+      "mode": "live",
+      "at": "2026-07-29T16:30:51.826Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:script-review:e1",
+      "estimatedUsd": 0.11776500000000001,
+      "mode": "live",
+      "at": "2026-07-29T16:32:50.400Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Poppy is asleep.",
+      "estimatedUsd": 0.0024,
+      "mode": "live",
+      "at": "2026-07-29T16:35:25.770Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Poppy is talking.",
+      "estimatedUsd": 0.00255,
+      "mode": "live",
+      "at": "2026-07-29T16:35:27.954Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:That is not Matteo's name.",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-29T16:35:29.987Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:…Lucas.",
+      "estimatedUsd": 0.00105,
+      "mode": "live",
+      "at": "2026-07-29T16:35:31.610Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:A six.",
+      "estimatedUsd": 0.0009,
+      "mode": "live",
+      "at": "2026-07-29T16:35:33.254Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Morning. Poppy remembers everyth",
+      "estimatedUsd": 0.005399999999999999,
+      "mode": "live",
+      "at": "2026-07-29T16:35:34.952Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:A six.",
+      "estimatedUsd": 0.0009,
+      "mode": "live",
+      "at": "2026-07-29T16:35:36.843Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Lucas hugs Poppy. Then Élodie.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-29T16:35:38.558Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Same minute.",
+      "estimatedUsd": 0.0018,
+      "mode": "live",
+      "at": "2026-07-29T16:35:42.366Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:Dance now, feelings later!",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-29T16:35:43.857Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:I make lasagne. For eleven.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-29T16:35:45.750Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Nobody asked.",
+      "estimatedUsd": 0.00195,
+      "mode": "live",
+      "at": "2026-07-29T16:35:48.006Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:sienna-australia:Rate the men. Out of ten. Go.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-29T16:35:49.394Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Lucas — a five.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-29T16:35:51.128Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:Five is a nice number, no?",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-29T16:35:53.061Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Watch his face.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-29T16:35:54.920Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:A five? He's the best thing here",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-29T16:35:56.873Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:You rate him a five and you—",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-29T16:35:59.235Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Day two. I kissed him. Two minut",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-29T16:36:01.907Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:3am wasn't about Lucas.",
+      "estimatedUsd": 0.00345,
+      "mode": "live",
+      "at": "2026-07-29T16:36:06.189Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:It was the balcony she pretended",
+      "estimatedUsd": 0.006599999999999999,
+      "mode": "live",
+      "at": "2026-07-29T16:36:08.667Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:That was a kiss? I filed it as a",
+      "estimatedUsd": 0.005549999999999999,
+      "mode": "live",
+      "at": "2026-07-29T16:36:10.747Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Do I want Lucas? C'est un non.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-29T16:36:13.280Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:She scored him a five.",
+      "estimatedUsd": 0.0032999999999999995,
+      "mode": "live",
+      "at": "2026-07-29T16:36:15.546Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:She meant nine.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-29T16:36:17.057Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:greta-germany:You are not on the schedule.",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-29T16:36:18.432Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:No.",
+      "estimatedUsd": 0.00045,
+      "mode": "live",
+      "at": "2026-07-29T16:36:20.393Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:One carnation. Zero explanation.",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-29T16:36:21.707Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:She gives numbers. Tomorrow I gi",
+      "estimatedUsd": 0.006449999999999999,
+      "mode": "live",
+      "at": "2026-07-29T16:36:23.572Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:He hasn't met her.",
+      "estimatedUsd": 0.0026999999999999997,
+      "mode": "live",
+      "at": "2026-07-29T16:36:26.127Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:He's already scoring.",
+      "estimatedUsd": 0.00315,
+      "mode": "live",
+      "at": "2026-07-29T16:36:28.273Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:What number does he give Élodie?",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-29T16:36:29.898Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-1",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:36:37.513Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:1",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:36:41.213Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-5",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:38:58.883Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:5",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:38:59.069Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-6",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:40:59.122Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:6",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:40:59.757Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-2",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:43:04.066Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:2",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:43:04.898Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:45:46.565Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:3",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:45:46.659Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:46:35.787Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:4",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:46:36.421Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-7",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:47:13.525Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:7",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:47:14.518Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.15701500000000002,
+      "mode": "live",
+      "at": "2026-07-29T16:47:57.362Z"
+    }
+  ],
+  "totalUsd": 3.944
+}

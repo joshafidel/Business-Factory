@@ -1,6 +1,6 @@
 {
   "season": 1,
-  "currentEpisode": 0,
+  "currentEpisode": 1,
   "cast": [
     "brock-usa",
     "poppy-uk",
@@ -9,7 +9,8 @@
     "lucas-brazil",
     "sienna-australia",
     "rohan-india",
-    "greta-germany"
+    "greta-germany",
+    "alejandro-spain"
   ],
   "eliminated": [],
   "couples": [],
@@ -23,7 +24,18 @@
     "greta-germany->matteo-italy": 6,
     "alejandro-spain->elodie-france": 6
   },
-  "rivalries": [],
+  "rivalries": [
+    {
+      "a": "brock-usa",
+      "b": "matteo-italy",
+      "reason": "Both pursuing Élodie"
+    },
+    {
+      "a": "lucas-brazil",
+      "b": "alejandro-spain",
+      "reason": "Villa sunshine-king contest"
+    }
+  ],
   "alliances": [],
   "secretsRevealed": [],
   "secretsUnrevealed": [
@@ -37,8 +49,13 @@
     "greta-germany: Cries at dog videos every night at 22:15, precisely, in the bathroom, with the fan on.",
     "alejandro-spain: He applied to the show four times. The smolder took eleven months of mirror practice and one pulled facial muscle."
   ],
-  "previousEpisodeSummary": "Season premiere — nothing has happened yet. Everything is about to.",
-  "unresolvedStorylines": [],
+  "previousEpisodeSummary": "Day six. The villa's four starter pairs look stable — Brock with Élodie, Matteo with Poppy, Lucas with Sienna, Rohan with Greta — and every single one is a clerical error. At 3am Poppy murmurs a name that is absolutely not Matteo's. Élodie hears it, says nothing, and rates the moment a six. By breakfast the narrator has confirmed the horror: Poppy and Élodie want the same Brazilian. Poppy attacks the feeling with jokes. Élodie attacks it with indifference so convincing she nearly deletes herself from the running. Lucas, oblivious, hugs both of them within ninety seconds and starts a fire he cannot name. Brock mistakes Élodie's politeness for a proposal and begins planning a joint venture. Matteo senses a disturbance in the loyalty field and preemptively makes lasagne for eleven. Then the gate opens.",
+  "unresolvedStorylines": [
+    "Does Lucas know either of them likes him?",
+    "What exactly is under Poppy's mattress?",
+    "Why does Lucas refuse to go past the pool steps?",
+    "Who is Alejandro actually here for?"
+  ],
   "viewerDecisions": [],
   "popularity": {
     "brock-usa": 50,
@@ -51,5 +68,7 @@
     "greta-germany": 50,
     "alejandro-spain": 50
   },
-  "continuityNotes": []
+  "continuityNotes": [
+    "Season opener — plants the Poppy/Élodie/Lucas triangle that reroutes every couple through Episode 10, and delivers Alejandro as the season's chaos engine."
+  ]
 }
