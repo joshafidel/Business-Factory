@@ -248,6 +248,25 @@ export function getMotionProvider(): MotionProvider | null {
 }
 
 /**
+ * Resolve a specific provider by key — used by the hybrid motion manager,
+ * where each scene remembers which vendor its job belongs to (Veo's small
+ * preview rate limits overflow individual scenes to Higgsfield).
+ */
+export function getMotionProviderByKey(key: string): MotionProvider | null {
+  const env = loadEnv();
+  if (key === "veo" && env.GEMINI_API_KEY) return new VeoMotionProvider();
+  if (key === "fal-kling" && env.FAL_KEY) return new FalKlingMotionProvider();
+  if (key === "higgsfield" && higgsfieldConfigured()) return new HiggsfieldMotionProvider();
+  return null;
+}
+
+/** True for out-of-quota / rate-limit submit failures (retry later or overflow). */
+export function isQuotaError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return /\b429\b|RESOURCE_EXHAUSTED|exceeded your current quota|rate limit/i.test(msg);
+}
+
+/**
  * Poll a set of motion jobs until they finish or the deadline passes.
  * Terminal failures are resolved without a URL; still-pending jobs come
  * back as "pending" so callers can retry in a fresh invocation.

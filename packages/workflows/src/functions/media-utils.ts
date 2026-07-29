@@ -129,6 +129,57 @@ export function extractQaFrames(video: Buffer, count = 4): Buffer[] {
   }
 }
 
+/**
+ * Measure real motion in `n` equal segments of a video: mean luma frame
+ * difference (tblend=difference → signalstats YAVG) at 320px. Ken Burns
+ * zooms measure well under ~1.0; genuine character animation measures
+ * several times that — measured: dop-lite clip 9.7, Veo 5.5, zoompan <1.
+ * This is the deterministic still-detector: frame LOOKS can't fool it.
+ */
+export function measureSegmentMotion(video: Buffer, n: number): number[] {
+  const dir = mkdtempSync(path.join(os.tmpdir(), "motion-"));
+  try {
+    const f = path.join(dir, "v.mp4");
+    writeFileSync(f, video);
+    let durationSec = 0;
+    try {
+      execFileSync(resolveFfmpeg(), ["-i", f], { stdio: ["ignore", "ignore", "pipe"], timeout: 60_000 });
+    } catch (err) {
+      const stderr = String((err as { stderr?: Buffer }).stderr ?? "");
+      const m = stderr.match(/Duration: (\d+):(\d+):(\d+\.\d+)/);
+      if (m) durationSec = Number(m[1]) * 3600 + Number(m[2]) * 60 + Number(m[3]);
+    }
+    if (durationSec <= 0) return Array.from({ length: n }, () => -1);
+    const seg = durationSec / n;
+    const out: number[] = [];
+    for (let i = 0; i < n; i++) {
+      // Trim 0.4s from each edge to skip the baked dip-to-black fades,
+      // which register as large luma change on a static scene.
+      const start = i * seg + 0.4;
+      const len = Math.max(0.5, seg - 0.8);
+      try {
+        const res = execFileSync(
+          "sh",
+          [
+            "-c",
+            `"${resolveFfmpeg()}" -ss ${start.toFixed(2)} -t ${len.toFixed(2)} -i "${f}" ` +
+              `-vf "scale=320:-2,tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG" ` +
+              `-f null - 2>&1 | grep -oP "YAVG=\\K[0-9.]+"`,
+          ],
+          { timeout: 120_000 },
+        ).toString();
+        const vals = res.split("\n").filter(Boolean).map(Number);
+        out.push(vals.length > 1 ? vals.slice(1).reduce((a, b) => a + b, 0) / (vals.length - 1) : 0);
+      } catch {
+        out.push(-1);
+      }
+    }
+    return out;
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
 /** Wrap raw 16-bit mono PCM samples into a WAV container. */
 export function pcmToWav(pcm: Int16Array, sampleRate: number): Buffer {
   const dataSize = pcm.length * 2;
