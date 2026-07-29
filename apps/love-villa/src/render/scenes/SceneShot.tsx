@@ -37,7 +37,7 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
   if (scene.clipFile) {
     return (
       <AbsoluteFill style={{ overflow: "hidden" }}>
-        <AbsoluteFill style={{ transform: `scale(${((1 + 0.04 * p) * punch).toFixed(4)})` }}>
+        <AbsoluteFill style={{ transform: `scale(${(1 + 0.03 * p).toFixed(4)})` }}>
           <Loop durationInFrames={Math.max(1, scene.clipDurationFrames ?? scene.durationFrames)}>
             <OffthreadVideo
               src={staticFile(scene.clipFile)}
@@ -68,7 +68,7 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
         const n = scene.characters.length;
         const speaking = c.id === activeSpeaker;
         const parallax = scene.motion === "parallax" ? (c.position === 0 ? 1 : -1) * p * 40 : 0;
-        const bob = Math.sin((frame + i * 20) / 9) * 8;
+        const bob = 0;
         const entering = scene.kind === "arrival" && i === n - 1;
         const approach = entering
           ? interpolate(p, [0, 0.65], [0.45, 1], { extrapolateRight: "clamp" })

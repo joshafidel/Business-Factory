@@ -1,0 +1,752 @@
+{
+  "episode": 1,
+  "title": "Two Kings, One Croissant",
+  "hookText": "Brock is about to start a war.",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationFrames": 2658,
+  "music": {
+    "file": "episodes/episode-001/music-bed.wav",
+    "volume": 0.26
+  },
+  "scenes": [
+    {
+      "index": 0,
+      "slot": "hook",
+      "kind": "scene",
+      "motion": "push-in",
+      "startFrame": 0,
+      "durationFrames": 347,
+      "background": "locations/kitchen.png",
+      "timeOfDay": "day",
+      "characters": [
+        {
+          "id": "brock-usa",
+          "name": "Brock",
+          "file": "characters/brock-usa.png",
+          "position": 0
+        },
+        {
+          "id": "matteo-italy",
+          "name": "Matteo",
+          "file": "characters/matteo-italy.png",
+          "position": 1
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Brock is about to start a war.",
+          "emphasize": [
+            "war"
+          ],
+          "audioFile": "episodes/episode-001/audio/s0-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 74
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "He does not know this yet.",
+          "emphasize": [],
+          "audioFile": "episodes/episode-001/audio/s0-l1.mp3",
+          "startFrame": 90,
+          "durationFrames": 51
+        },
+        {
+          "speaker": "brock-usa",
+          "speakerName": "Brock",
+          "color": "#2b4c9b",
+          "text": "Bro. We're both all-in on the same girl?!",
+          "emphasize": [
+            "same girl"
+          ],
+          "audioFile": "episodes/episode-001/audio/s0-l2.mp3",
+          "startFrame": 146,
+          "durationFrames": 83
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "America. Italy. One French woman.",
+          "emphasize": [
+            "French"
+          ],
+          "audioFile": "episodes/episode-001/audio/s0-l3.mp3",
+          "startFrame": 234,
+          "durationFrames": 94
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "sting",
+          "file": "sfx/sting.wav",
+          "atFrame": 0
+        },
+        {
+          "kind": "whoosh",
+          "file": "sfx/whoosh.wav",
+          "atFrame": 174
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s0.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 1,
+      "slot": "setup",
+      "kind": "scene",
+      "motion": "pan-right",
+      "startFrame": 347,
+      "durationFrames": 318,
+      "background": "locations/kitchen.png",
+      "timeOfDay": "day",
+      "characters": [
+        {
+          "id": "brock-usa",
+          "name": "Brock",
+          "file": "characters/brock-usa.png",
+          "position": 0
+        },
+        {
+          "id": "matteo-italy",
+          "name": "Matteo",
+          "file": "characters/matteo-italy.png",
+          "position": 1
+        },
+        {
+          "id": "poppy-uk",
+          "name": "Poppy",
+          "file": "characters/poppy-uk.png",
+          "position": 2
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Brock made a smoothie. Matteo made eight courses.",
+          "emphasize": [
+            "smoothie",
+            "eight"
+          ],
+          "audioFile": "episodes/episode-001/audio/s1-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 119
+        },
+        {
+          "speaker": "matteo-italy",
+          "speakerName": "Matteo",
+          "color": "#c9a441",
+          "text": "You made her a smoothie. I made her a promise.",
+          "emphasize": [
+            "promise"
+          ],
+          "audioFile": "episodes/episode-001/audio/s1-l1.mp3",
+          "startFrame": 135,
+          "durationFrames": 83
+        },
+        {
+          "speaker": "poppy-uk",
+          "speakerName": "Poppy",
+          "color": "#7db5e0",
+          "text": "Day one and we've got a treaty violation.",
+          "emphasize": [
+            "treaty"
+          ],
+          "audioFile": "episodes/episode-001/audio/s1-l2.mp3",
+          "startFrame": 223,
+          "durationFrames": 76
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "ding",
+          "file": "sfx/ding.wav",
+          "atFrame": 0
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s1.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 2,
+      "slot": "escalation",
+      "kind": "argument",
+      "motion": "shake",
+      "startFrame": 665,
+      "durationFrames": 319,
+      "background": "locations/kitchen.png",
+      "timeOfDay": "day",
+      "characters": [
+        {
+          "id": "brock-usa",
+          "name": "Brock",
+          "file": "characters/brock-usa.png",
+          "position": 0
+        },
+        {
+          "id": "matteo-italy",
+          "name": "Matteo",
+          "file": "characters/matteo-italy.png",
+          "position": 1
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Watch the risotto. It's revenge now.",
+          "emphasize": [
+            "revenge"
+          ],
+          "audioFile": "episodes/episode-001/audio/s2-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 89
+        },
+        {
+          "speaker": "brock-usa",
+          "speakerName": "Brock",
+          "color": "#2b4c9b",
+          "text": "Full send on the heart, baby!",
+          "emphasize": [
+            "Full send"
+          ],
+          "audioFile": "episodes/episode-001/audio/s2-l1.mp3",
+          "startFrame": 105,
+          "durationFrames": 55
+        },
+        {
+          "speaker": "matteo-italy",
+          "speakerName": "Matteo",
+          "color": "#c9a441",
+          "text": "My heart is al dente. Yours is a blender.",
+          "emphasize": [
+            "blender"
+          ],
+          "audioFile": "episodes/episode-001/audio/s2-l2.mp3",
+          "startFrame": 165,
+          "durationFrames": 85
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Oh, that landed.",
+          "emphasize": [],
+          "audioFile": "episodes/episode-001/audio/s2-l3.mp3",
+          "startFrame": 255,
+          "durationFrames": 45
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "sting",
+          "file": "sfx/sting.wav",
+          "atFrame": 0
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s2.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 3,
+      "slot": "escalation",
+      "kind": "scene",
+      "motion": "pan-left",
+      "startFrame": 984,
+      "durationFrames": 349,
+      "background": "locations/terrace.png",
+      "timeOfDay": "sunset",
+      "characters": [
+        {
+          "id": "greta-germany",
+          "name": "Greta",
+          "file": "characters/greta-germany.png",
+          "position": 0
+        },
+        {
+          "id": "poppy-uk",
+          "name": "Poppy",
+          "file": "characters/poppy-uk.png",
+          "position": 1
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Greta is logging it. Officially.",
+          "emphasize": [
+            "logging"
+          ],
+          "audioFile": "episodes/episode-001/audio/s3-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 83
+        },
+        {
+          "speaker": "greta-germany",
+          "speakerName": "Greta",
+          "color": "#12263a",
+          "text": "Conflict began 11:04. Escalation, 11:06. Efficient.",
+          "emphasize": [
+            "Efficient"
+          ],
+          "audioFile": "episodes/episode-001/audio/s3-l1.mp3",
+          "startFrame": 99,
+          "durationFrames": 162
+        },
+        {
+          "speaker": "poppy-uk",
+          "speakerName": "Poppy",
+          "color": "#7db5e0",
+          "text": "She's got a spreadsheet for a stabbing.",
+          "emphasize": [
+            "spreadsheet"
+          ],
+          "audioFile": "episodes/episode-001/audio/s3-l2.mp3",
+          "startFrame": 266,
+          "durationFrames": 64
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "pop",
+          "file": "sfx/pop.wav",
+          "atFrame": 0
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s3.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 4,
+      "slot": "escalation",
+      "kind": "scene",
+      "motion": "push-in",
+      "startFrame": 1333,
+      "durationFrames": 363,
+      "background": "locations/pool.png",
+      "timeOfDay": "day",
+      "characters": [
+        {
+          "id": "elodie-france",
+          "name": "Élodie",
+          "file": "characters/elodie-france.png",
+          "position": 0
+        },
+        {
+          "id": "brock-usa",
+          "name": "Brock",
+          "file": "characters/brock-usa.png",
+          "position": 1
+        },
+        {
+          "id": "matteo-italy",
+          "name": "Matteo",
+          "file": "characters/matteo-italy.png",
+          "position": 2
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Two kings. One croissant. Zero interest.",
+          "emphasize": [
+            "Zero"
+          ],
+          "audioFile": "episodes/episode-001/audio/s4-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 110
+        },
+        {
+          "speaker": "elodie-france",
+          "speakerName": "Élodie",
+          "color": "#c0392b",
+          "text": "The smoothie? Five. The risotto? Five. The drama? ...Seven.",
+          "emphasize": [
+            "Five",
+            "Seven"
+          ],
+          "audioFile": "episodes/episode-001/audio/s4-l1.mp3",
+          "startFrame": 126,
+          "durationFrames": 135
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "She rated the fight higher than both men.",
+          "emphasize": [
+            "higher"
+          ],
+          "audioFile": "episodes/episode-001/audio/s4-l2.mp3",
+          "startFrame": 266,
+          "durationFrames": 78
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "ding",
+          "file": "sfx/ding.wav",
+          "atFrame": 0
+        },
+        {
+          "kind": "sting",
+          "file": "sfx/sting.wav",
+          "atFrame": 182
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s4.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 5,
+      "slot": "escalation",
+      "kind": "confessional",
+      "motion": "push-in",
+      "startFrame": 1696,
+      "durationFrames": 207,
+      "background": "locations/confessional.png",
+      "timeOfDay": "night",
+      "characters": [
+        {
+          "id": "brock-usa",
+          "name": "Brock",
+          "file": "characters/brock-usa.png",
+          "position": 2
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "brock-usa",
+          "speakerName": "Brock",
+          "color": "#2b4c9b",
+          "text": "A five's basically a nine with room to grow.",
+          "emphasize": [
+            "room to grow"
+          ],
+          "audioFile": "episodes/episode-001/audio/s5-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 84
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Nobody correct him. It's beautiful.",
+          "emphasize": [],
+          "audioFile": "episodes/episode-001/audio/s5-l1.mp3",
+          "startFrame": 100,
+          "durationFrames": 88
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "heartbeat",
+          "file": "sfx/heartbeat.wav",
+          "atFrame": 0
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s5.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 6,
+      "slot": "escalation",
+      "kind": "scene",
+      "motion": "zoom-out",
+      "startFrame": 1903,
+      "durationFrames": 244,
+      "background": "locations/pool.png",
+      "timeOfDay": "day",
+      "characters": [
+        {
+          "id": "lucas-brazil",
+          "name": "Lucas",
+          "file": "characters/lucas-brazil.png",
+          "position": 0
+        },
+        {
+          "id": "sienna-australia",
+          "name": "Sienna",
+          "file": "characters/sienna-australia.png",
+          "position": 1
+        },
+        {
+          "id": "rohan-india",
+          "name": "Rohan",
+          "file": "characters/rohan-india.png",
+          "position": 2
+        },
+        {
+          "id": "elodie-france",
+          "name": "Élodie",
+          "file": "characters/elodie-france.png",
+          "position": 2
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "The villa reacts. Badly.",
+          "emphasize": [],
+          "audioFile": "episodes/episode-001/audio/s6-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 66
+        },
+        {
+          "speaker": "sienna-australia",
+          "speakerName": "Sienna",
+          "color": "#31b5c4",
+          "text": "She scored them like a diving competition!",
+          "emphasize": [
+            "scored"
+          ],
+          "audioFile": "episodes/episode-001/audio/s6-l1.mp3",
+          "startFrame": 82,
+          "durationFrames": 71
+        },
+        {
+          "speaker": "rohan-india",
+          "speakerName": "Rohan",
+          "color": "#e0b13e",
+          "text": "I'm recalculating everything. Everything.",
+          "emphasize": [
+            "recalculating"
+          ],
+          "audioFile": "episodes/episode-001/audio/s6-l2.mp3",
+          "startFrame": 158,
+          "durationFrames": 67
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "pop",
+          "file": "sfx/pop.wav",
+          "atFrame": 0
+        },
+        {
+          "kind": "sting",
+          "file": "sfx/sting.wav",
+          "atFrame": 122
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s6.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 7,
+      "slot": "twist",
+      "kind": "arrival",
+      "motion": "parallax",
+      "startFrame": 2147,
+      "durationFrames": 403,
+      "background": "locations/walkway.png",
+      "timeOfDay": "night",
+      "characters": [
+        {
+          "id": "alejandro-spain",
+          "name": "Alejandro",
+          "file": "characters/alejandro-spain.png",
+          "position": 0
+        },
+        {
+          "id": "elodie-france",
+          "name": "Élodie",
+          "file": "characters/elodie-france.png",
+          "position": 1
+        },
+        {
+          "id": "matteo-italy",
+          "name": "Matteo",
+          "file": "characters/matteo-italy.png",
+          "position": 2
+        },
+        {
+          "id": "brock-usa",
+          "name": "Brock",
+          "file": "characters/brock-usa.png",
+          "position": 2
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Torches lit. Gate open. Oh no.",
+          "emphasize": [
+            "Oh no"
+          ],
+          "audioFile": "episodes/episode-001/audio/s7-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 96
+        },
+        {
+          "speaker": "alejandro-spain",
+          "speakerName": "Alejandro",
+          "color": "#f0ead6",
+          "text": "I heard someone here rates men out of ten. I am the ten.",
+          "emphasize": [
+            "the ten"
+          ],
+          "audioFile": "episodes/episode-001/audio/s7-l1.mp3",
+          "startFrame": 112,
+          "durationFrames": 98
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Élodie lowered the sunglasses. That's a gasp.",
+          "emphasize": [
+            "sunglasses"
+          ],
+          "audioFile": "episodes/episode-001/audio/s7-l2.mp3",
+          "startFrame": 215,
+          "durationFrames": 106
+        },
+        {
+          "speaker": "matteo-italy",
+          "speakerName": "Matteo",
+          "color": "#c9a441",
+          "text": "Spain. Of course. Spain.",
+          "emphasize": [
+            "Spain"
+          ],
+          "audioFile": "episodes/episode-001/audio/s7-l3.mp3",
+          "startFrame": 326,
+          "durationFrames": 58
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "whoosh",
+          "file": "sfx/whoosh.wav",
+          "atFrame": 0
+        },
+        {
+          "kind": "heartbeat",
+          "file": "sfx/heartbeat.wav",
+          "atFrame": 202
+        }
+      ],
+      "textMessages": [],
+      "clipFile": "episodes/episode-001/clips/s7.mp4",
+      "clipDurationFrames": 150
+    },
+    {
+      "index": 8,
+      "slot": "engagement",
+      "kind": "endcard",
+      "motion": "push-in",
+      "startFrame": 2550,
+      "durationFrames": 108,
+      "background": "locations/firepit.png",
+      "timeOfDay": "sunset",
+      "characters": [
+        {
+          "id": "elodie-france",
+          "name": "Élodie",
+          "file": "characters/elodie-france.png",
+          "position": 0
+        },
+        {
+          "id": "brock-usa",
+          "name": "Brock",
+          "file": "characters/brock-usa.png",
+          "position": 1
+        },
+        {
+          "id": "matteo-italy",
+          "name": "Matteo",
+          "file": "characters/matteo-italy.png",
+          "position": 2
+        },
+        {
+          "id": "alejandro-spain",
+          "name": "Alejandro",
+          "file": "characters/alejandro-spain.png",
+          "position": 2
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "So. Smoothie, risotto, or smoulder?",
+          "emphasize": [],
+          "audioFile": "episodes/episode-001/audio/s8-l0.mp3",
+          "startFrame": 11,
+          "durationFrames": 99
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Who should Élodie pick? Comment now.",
+          "emphasize": [
+            "Comment"
+          ],
+          "audioFile": "episodes/episode-001/audio/s8-l1.mp3",
+          "startFrame": 115,
+          "durationFrames": 89
+        },
+        {
+          "speaker": "elodie-france",
+          "speakerName": "Élodie",
+          "color": "#c0392b",
+          "text": "C'est un non. Probably.",
+          "emphasize": [
+            "Probably"
+          ],
+          "audioFile": "episodes/episode-001/audio/s8-l2.mp3",
+          "startFrame": 209,
+          "durationFrames": 51
+        },
+        {
+          "speaker": "narrator",
+          "speakerName": "Narrator",
+          "color": "#ffd54a",
+          "text": "Probably? She said probably. Episode two.",
+          "emphasize": [
+            "probably"
+          ],
+          "audioFile": "episodes/episode-001/audio/s8-l3.mp3",
+          "startFrame": 265,
+          "durationFrames": 117
+        }
+      ],
+      "sfx": [
+        {
+          "kind": "ding",
+          "file": "sfx/ding.wav",
+          "atFrame": 0
+        }
+      ],
+      "textMessages": [],
+      "endcardText": "Brock, Matteo and Alejandro in a tense row, Élodie centre-frame with an unreadable stare into the flames."
+    }
+  ]
+}

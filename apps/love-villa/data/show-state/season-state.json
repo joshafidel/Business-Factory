@@ -1,6 +1,6 @@
 {
   "season": 1,
-  "currentEpisode": 5,
+  "currentEpisode": 0,
   "cast": [
     "brock-usa",
     "poppy-uk",
@@ -9,8 +9,7 @@
     "lucas-brazil",
     "sienna-australia",
     "rohan-india",
-    "greta-germany",
-    "alejandro-spain"
+    "greta-germany"
   ],
   "eliminated": [],
   "couples": [],
@@ -24,44 +23,22 @@
     "greta-germany->matteo-italy": 6,
     "alejandro-spain->elodie-france": 6
   },
-  "rivalries": [
-    {
-      "a": "brock-usa",
-      "b": "matteo-italy",
-      "reason": "Both pursuing Élodie"
-    },
-    {
-      "a": "lucas-brazil",
-      "b": "alejandro-spain",
-      "reason": "Villa sunshine-king contest"
-    }
-  ],
+  "rivalries": [],
   "alliances": [],
-  "secretsRevealed": ["brock-usa: the seven-figure startup is a $43 lemonade stand"],
+  "secretsRevealed": [],
   "secretsUnrevealed": [
-    "poppy-uk: Keeps a notebook of embarrassingly sincere romantic poetry under her mattress.",
-    "matteo-italy: He is lactose intolerant. The mozzarella devotion is a beautiful, painful lie.",
-    "elodie-france: Owns every cheesy American rom-com ever made and cries at all of them.",
-    "lucas-brazil: He cannot really swim. Beach volleyball champion, yes. Deep end of the pool: terror.",
-    "sienna-australia: Was engaged once — for 48 hours — to a man she met at a jet-ski rental.",
-    "rohan-india: His famous 'compatibility algorithm' is just astrology with a spreadsheet skin.",
-    "greta-germany: Cries at dog videos every single night, on schedule, 22:15.",
-    "alejandro-spain: He applied to the show four times. The smolder took years of practice in a mirror."
+    "brock-usa: His 'seven-figure startup' is a lemonade-stand LLC with $43 in the bank and one investor: his mom.",
+    "poppy-uk: Keeps a notebook of catastrophically sincere romantic poetry under her mattress. Two of the poems rhyme 'Lucas' with 'ruckus'.",
+    "matteo-italy: He is lactose intolerant. The mozzarella devotion is a beautiful, agonizing lie he suffers for nightly.",
+    "elodie-france: Owns every cheesy American rom-com ever made and sobs at all of them, including the trailers.",
+    "lucas-brazil: He cannot swim. Beach volleyball champion, yes. Deep end: an unspoken horror he has been faking around for six days.",
+    "sienna-australia: Was engaged once, for 48 hours, to a man she met at a jet-ski rental. She still has the ring on a keyring.",
+    "rohan-india: His famous 'compatibility algorithm' is astrology in a spreadsheet wearing a lanyard.",
+    "greta-germany: Cries at dog videos every night at 22:15, precisely, in the bathroom, with the fan on.",
+    "alejandro-spain: He applied to the show four times. The smolder took eleven months of mirror practice and one pulled facial muscle."
   ],
-  "previousEpisodeSummary": "Rohan's innocent networking question unravels Brock's startup story in front of everyone. The villa braces to laugh — and Poppy, of all people, torches the pile-on instead. Brock's honest firepit speech about being broke and hopeful becomes his most genuinely liked moment ever.",
-  "unresolvedStorylines": [
-    "Who will Élodie actually rate above a five?",
-    "Matteo vs Brock rivalry is now open",
-    "Alejandro's real intentions unknown",
-    "Brock's confidence wobble",
-    "Lucas vs Alejandro cold war begins",
-    "Rohan-Sienna almost-moment",
-    "Greta-Matteo prize dinner pending",
-    "Matteo's pivot from Élodie to Greta",
-    "Matteo's dairy secret ticking",
-    "Poppy's accidental sincerity",
-    "Is Brock-Poppy a thing?? (they insist: no)"
-  ],
+  "previousEpisodeSummary": "Season premiere — nothing has happened yet. Everything is about to.",
+  "unresolvedStorylines": [],
   "viewerDecisions": [],
   "popularity": {
     "brock-usa": 50,
@@ -74,11 +51,5 @@
     "greta-germany": 50,
     "alejandro-spain": 50
   },
-  "continuityNotes": [
-    "Series premiere — plants the triangle, the rivalry, and Alejandro's arrival.",
-    "Direct continuation of Alejandro's episode 1 arrival.",
-    "Sienna's ep2 teasing of Rohan escalates into the challenge dare.",
-    "The ep3 challenge prize plays out; Élodie continues testing Alejandro from ep2.",
-    "Brock's ep2 confidence crack finally splits open; Rohan's rivalry with flair over data."
-  ]
+  "continuityNotes": []
 }

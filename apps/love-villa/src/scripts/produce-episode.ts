@@ -16,6 +16,9 @@ import {
   type LineAudioInfo,
 } from "../render/render-plan";
 import { renderEpisodeVideo, renderSceneStill, resetBundleCache } from "../render/render";
+import { editImageWithReferences } from "../providers/images/openai";
+import { cameraDirection, framingDirection, palindromify } from "../staff/videographer";
+import { motionDirection } from "../staff/animator";
 import {
   loadQualityReport,
   reviewAudio,
@@ -240,7 +243,8 @@ async function main(): Promise<void> {
       const existingClip = assetRel("episodes", epId, "clips", `s${planScene.index}.mp4`);
       if (env.REUSE_EXISTING_ASSETS && existsSync(assetAbs(existingClip))) {
         planScene.clipFile = existingClip;
-        planScene.clipDurationFrames = Math.round(env.MOTION_CLIP_SECONDS * plan.fps);
+        // Clips are stored as palindromes (Videographer) — double duration.
+        planScene.clipDurationFrames = Math.round(2 * env.MOTION_CLIP_SECONDS * plan.fps);
         log.info(`scene ${planScene.index + 1}: reusing existing clip`);
         continue;
       }
@@ -252,15 +256,62 @@ async function main(): Promise<void> {
           mode: "live",
         });
         const stillFile = assetAbs(assetRel("episodes", epId, "stills", `s${planScene.index}.png`));
-        await renderSceneStill(plan, planScene.index, stillFile);
+        ensureDir(path.dirname(stillFile));
+        // Videographer: painted scene still — characters rendered INTO the
+        // environment with reference images (Directive 3). Falls back to the
+        // legacy cutout composite on failure.
+        let stillMade = false;
+        if (env.OPENAI_API_KEY && scriptScene) {
+          try {
+            const loc = bible.villa.locations.find((l) => l.id === scriptScene.locationId);
+            const refs: Buffer[] = [];
+            const locRef = findExistingAsset(assetRel("locations", scriptScene.locationId), ["png"]);
+            if (locRef) refs.push(readFileSync(assetAbs(locRef)));
+            for (const id of scriptScene.characters.slice(0, 4)) {
+              const cRef = findExistingAsset(assetRel("characters", id), ["png"]);
+              if (cRef) refs.push(readFileSync(assetAbs(cRef)));
+            }
+            const looks = scriptScene.characters
+              .map((id) => cast.find((c) => c.id === id)?.visualReference)
+              .filter(Boolean)
+              .join("; ");
+            tracker.charge({
+              provider: "openai",
+              item: `scene-still:${planScene.index}`,
+              estimatedUsd: env.IMAGE_QUALITY === "high" ? 0.063 : 0.016,
+              mode: "live",
+            });
+            const painted = await editImageWithReferences({
+              prompt: [
+                `${scriptScene.visual}.`,
+                framingDirection(scriptScene),
+                `Paint the referenced characters INTO the referenced ${loc?.name ?? "villa"} ` +
+                  `environment as ONE unified scene: correct relative scale, believable contact ` +
+                  `shadows, lighting matched to the environment's ${loc?.timeOfDay ?? "day"} key light.`,
+                `Character designs must match the references EXACTLY (faces, hair, flag outfits): ${looks}.`,
+                "Ultra-glossy stylized 3D render, candy-bright, vertical 9:16 composition, no text, no watermark.",
+              ].join(" "),
+              references: refs,
+              quality: env.IMAGE_QUALITY,
+            });
+            writeFileSync(stillFile, painted.data);
+            stillMade = true;
+            log.ok(`scene ${planScene.index + 1}: painted still (Videographer)`);
+          } catch (err) {
+            log.warn(
+              `scene ${planScene.index + 1}: painted still failed (${err instanceof Error ? err.message.slice(0, 120) : err}) — cutout fallback`,
+            );
+          }
+        }
+        if (!stillMade) await renderSceneStill(plan, planScene.index, stillFile);
         const clip = await motion.imageToVideo({
           image: readFileSync(stillFile),
           prompt:
-            `${scriptScene?.visual ?? "villa scene"}. Gentle expressive character animation: they ` +
-            `blink, breathe, gesture and react naturally; subtle cloth and hair movement; slow ` +
-            `cinematic camera. STRICT CONSISTENCY: preserve every character's exact face, body ` +
-            `proportions, outfit, colors and position from the image — identical designs, no ` +
-            `redesign, no morphing, no warping, characters stay in place; keep the exact glossy ` +
+            `${scriptScene?.visual ?? "villa scene"}. ` +
+            (scriptScene ? `${motionDirection(scriptScene)} ${cameraDirection(scriptScene)} ` : "") +
+            `STRICT CONSISTENCY: preserve every character's exact face, body proportions, outfit, ` +
+            `colors and position from the image — no redesign, no morphing, no new clothing items ` +
+            `or accessories, no flags other than those already present; keep the exact glossy ` +
             `animated reality-show art style and color grading of the image; no text.`,
           seconds: env.MOTION_CLIP_SECONDS,
         });
@@ -268,8 +319,10 @@ async function main(): Promise<void> {
           const rel = assetRel("episodes", epId, "clips", `s${planScene.index}.${clip.ext}`);
           ensureDir(path.dirname(assetAbs(rel)));
           writeFileSync(assetAbs(rel), clip.data);
+          // Videographer: palindrome the clip so looping never snaps back.
+          palindromify(assetAbs(rel));
           planScene.clipFile = rel;
-          planScene.clipDurationFrames = Math.round(env.MOTION_CLIP_SECONDS * plan.fps);
+          planScene.clipDurationFrames = Math.round(2 * env.MOTION_CLIP_SECONDS * plan.fps);
           log.ok(`scene ${planScene.index + 1} animated → assets/${rel}`);
         }
       } catch (err) {
