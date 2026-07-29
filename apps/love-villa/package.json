@@ -12,6 +12,7 @@
     "render-episode": "tsx src/scripts/render-episode.ts",
     "validate-episode": "tsx src/scripts/validate-episode.ts",
     "quality-review": "tsx src/scripts/quality-review.ts",
+    "creative-review": "tsx src/scripts/creative-review.ts",
     "validate-continuity": "tsx src/scripts/validate-continuity.ts",
     "approve": "tsx src/scripts/approve.ts",
     "tiktok-auth": "tsx src/scripts/tiktok-auth.ts",

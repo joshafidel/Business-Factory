@@ -105,6 +105,12 @@ never around it.** Concretely:
      adapter, cost tables. Extend the registry; don't fork per app.
    - `recordCost` + workflow `costLimitMicroUsd` — every paid call goes
      through the ledger so the shared $30/day cap actually protects everyone.
+   - **Creative Director + Quality Director reviewers** (Love Villa lane,
+     `apps/love-villa/src/quality/`) — standing automated employees: Quality
+     Director catches defects (AI artifacts, audio health, consistency);
+     Creative Director judges entertainment, cinematography (free
+     loop-snap-back detection from any render plan — copy it into Zoo/LVF),
+     background quality, and motion restraint. Pattern is lane-portable.
    - Mobile shell & media UI — every dashboard page renders inside
      `apps/web/src/components/dashboard-shell.tsx` (drawer sidebar + bottom
      tabs on phones; fixed rail on lg+). Reuse `MediaActions` (download +
