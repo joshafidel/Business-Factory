@@ -1,0 +1,26 @@
+{
+  "episode": 1,
+  "passed": true,
+  "issues": [
+    {
+      "check": "structure",
+      "severity": "warning",
+      "message": "Missing \"setup\" beat"
+    },
+    {
+      "check": "video-duration",
+      "severity": "info",
+      "message": "Episode runs 84.8s — inside the 60–90s target"
+    },
+    {
+      "check": "final-export",
+      "severity": "info",
+      "message": "final.mp4 present (78.5 MB)"
+    },
+    {
+      "check": "quality-director",
+      "severity": "info",
+      "message": "script pass (hook 8, engine 7, escalation 7, voice 8, pacing 7, ending 7; 2 draft(s)) · audio: 0 finding(s), 0 critical · visuals(6 imgs): 0 critical"
+    }
+  ]
+}
