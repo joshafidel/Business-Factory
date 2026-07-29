@@ -17,6 +17,7 @@ JAR="${ZOO_COOKIE_JAR:-/tmp/zoo-cookies.txt}"
 COVERED_TOPICS=(
   "bath time / splish splash / washing"
   "stomping / elephant marching"
+  "counting bananas / number counting (DEFERRED until the Veo motion engine is active: current image-to-video tier cannot hold exact object counts, two episodes failed QA on count drift)"
 )
 
 signin() {
