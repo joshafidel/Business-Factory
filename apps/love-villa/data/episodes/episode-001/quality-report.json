@@ -1,6 +1,6 @@
 {
   "episode": 1,
-  "updatedAt": "2026-07-29T17:59:26.405Z",
+  "updatedAt": "2026-07-29T18:03:18.081Z",
   "script": {
     "scores": {
       "hook": 8,
@@ -38,77 +38,81 @@
         {
           "index": 0,
           "aiDefects": [
-            "blonde sleeper's left arm/hand is absent from the composition, torso reads slightly disjointed against the Italian's shoulder",
-            "sunglasses perched on blonde's head float slightly off the hairline",
-            "background beds/lamps repeat in a copy-paste rhythm"
+            "blonde sleeper's torso/shoulder line bends awkwardly and her lower arm disappears into the bedding with no clear elbow",
+            "open-mouth yawn face is slightly soft/mushy around the jaw and chin",
+            "dark heavy eyebrows mismatched to platinum-blonde hair (continuity, not defect)",
+            "repeating dormitory beds/nightstand lamps in background are copy-pasted with slightly inconsistent bedside table geometry on the second bed"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
           "severity": "minor",
-          "notes": "Night grading is much darker than the candy-bright daytime frames but reads as a legitimate lights-out scene. Union Jack swimsuit and Italian green/white/red placket read instantly; French beret + Breton stripes + red scarf are clear. Defects only visible when paused."
+          "notes": "Night-lit dorm scene; grading is much darker/cooler than the candy-bright poolside frames, so it reads as a moody variant of the house style rather than a break. Union Jack swimsuit and the green/red tricolore panels on the man's shirt plus the French beret/striped top/red scarf all read instantly. Only zoom-level issues: buried arm and slightly soft yawning face."
         },
         {
           "index": 1,
           "aiDefects": [
-            "the French girl appears TWICE in the same frame (standing centre and seated in the deck chair right)",
-            "possible second duplicate of the male lead in the flamingo float background (same face, different outfit)",
-            "Brazilian's hands and the French girl's forearm merge into a tangle of fingers at the grab point",
-            "heart-shaped fruit bowl contents are mushy/undefined"
+            "arm tangle at center: the Brazilian's wrapping arm, a second forearm crossing the British girl's waist and the hand on the mug are hard to attribute — reads as a possible extra limb when paused",
+            "British girl's left arm is not accounted for anywhere in frame",
+            "flamingo pool float has a warped, melted face",
+            "fingers on the mug are slightly fused/soft"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
-          "severity": "critical",
-          "notes": "Duplicated hero character in one shot is the headline problem — a casual viewer would clock two identical French girls in a 5-second pan. Wardrobe nationality (Brazil yellow/green, France stripes/beret) is otherwise excellent."
+          "severity": "minor",
+          "notes": "Strongest match to the glossy candy-bright house style: saturated teal pool, coral villa, clean rim light. Brazil (yellow/green + flag), UK (Union Jack dress and mug), France (beret, marinière, red neckerchief) all read at a glance. The center arm cluster is the one thing that could catch a sharp eye, but in a moving 5-second clip it plausibly reads as him handing her the mug."
         },
         {
           "index": 2,
           "aiDefects": [
-            "Aussie girl's face is the weakest render: nose has a white smear and the muzzle reads flattened/waxy",
-            "her cap brim and ponytail intersect the hairline oddly",
-            "fire-pit stones lose contact shadow where the Brazilian stands"
+            "blonde's face is flatter and more 2D-cartoon than the other two characters in the same frame (softer modeling, painted nose highlight)",
+            "pointing hand is slightly rubbery with an over-long index finger",
+            "Brazilian's left arm/hand at hip merges into the shorts silhouette"
           ],
-          "styleConsistent": true,
+          "styleConsistent": false,
           "nationalityObvious": true,
           "severity": "minor",
-          "notes": "Slightly more painterly/illustrative than the glossy 3D frames but grading matches the sunset set. Aussie flag shorts, Brazil yellow-green, France stripes all legible at a glance. Face softness only shows when paused."
+          "notes": "Grading is warm and appealing but the render leans more hand-painted/illustrative than the crisp 3D of frames 1 and 3, and the blonde's proportions/facial modeling drift from her poolside version (now cap + ponytail, green tee, Australian-flag shorts instead of Union Jack). If she is meant to be the same British girl this is a wardrobe/identity continuity problem; if she is a separate Australian cast member it works. Australian flag shorts, French marinière/beret and Brazil kit all read instantly."
         },
         {
           "index": 3,
           "aiDefects": [
-            "central pointing arm/hand is ambiguous — it reads as possibly a disembodied third limb between the blonde and the Brazilian",
-            "Brazilian lead's face looks younger/rounder than in the adjacent frame (identity drift)",
-            "seating geometry behind the trio is vague; bodies fuse into the fire-pit rim"
+            "Brazilian's pointing arm has an unclear elbow join — the forearm appears to sprout from the torso, reading as a near-disembodied limb",
+            "his other arm is entirely absent from frame",
+            "pointing index finger is soft and slightly boneless",
+            "blonde's mug-holding fingers are mushy at the knuckles"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
           "severity": "minor",
-          "notes": "Union Jack swimsuit plus matching Union Jack mug is a strong nationality read; Brazil and France also clear. The floating pointing arm is the one thing that risks being noticed in motion — flag it for a fix but it stays just under the critical bar."
+          "notes": "Good match to the glossy house style with warm firelight grading consistent with frame 2. Union Jack dress + Union Jack mug, Brazil yellow/green shirt, French striped top/beret/red scarf all instantly legible. The pointing arm's missing elbow is the only thing approaching a glance-level issue; the fire and lantern props are clean and consistent."
         },
         {
           "index": 4,
           "aiDefects": [
-            "scarf knot sits on a small unexplained neckline cut-out",
-            "fingernails slightly soft on the crossed hands"
+            "scarf-to-collar transition is slightly incoherent where the neckerchief meets the striped turtleneck",
+            "crossed-hand fingertips are marginally soft/blended"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
           "severity": "ok",
-          "notes": "Clean confessional-style portrait. Beret with tricolore cockade, Breton stripes and red neckerchief make the French identity instant. Red/neon backdrop is moodier than the candy-bright pool frames but consistent in material shine and proportion."
+          "notes": "Clean glossy 3D beauty portrait, consistent facial design and proportions with her appearances in frames 0–3 (beret with tricolore cockade, cat-eye sunglasses, bob, marinière, red lips). Red-curtain/neon backdrop is a lighting change but stays within the candy-bright grading. Nothing a viewer would catch in motion."
         },
         {
           "index": 5,
           "aiDefects": [
-            "blonde's clipboard is held with a stiff, slightly fused grip",
-            "pen/notebook contact is loose — nib does not touch the page",
-            "gate ironwork geometry behind the trio is inconsistent left to right"
+            "entirely new cast with no carry-over characters, and the man on the right is rendered in a taller, more Disney-prince proportion than the stylized cast (head-to-body ratio break)",
+            "the central character reads noticeably younger (teen) than the other two adults",
+            "pen/hand grip on the notebook is soft and the pen tip does not contact the page",
+            "blonde's clipboard is held with a single ambiguous grip and casts almost no contact shadow",
+            "background gate/villa geometry is vague and the flaming torches float without clear bases"
           ],
-          "styleConsistent": true,
+          "styleConsistent": false,
           "nationalityObvious": false,
           "severity": "minor",
-          "notes": "Indian tricolour polo with Ashoka chakra is perfect. However the blonde's plain black-and-red athletic one-piece gives no readable flag, and the red shirt/yellow sash man is only vaguely Spanish — two of three nationalities fail the at-a-glance test. Also introduces a new blonde design distinct from the earlier Union Jack/Aussie blondes, which could confuse continuity."
+          "notes": "Glossy and warmly graded, but character proportions drift from the established cast (the red-shirted man is a different design language). Nationality only reads for India (tricolore polo with Ashoka chakra); the blonde's black/red athletic swimsuit and the red shirt with gold sash are generic and do not clearly signal any flag, so the flag-wardrobe rule fails here. Age mismatch of the central character is the closest thing to a glance-level problem."
         }
       ],
-      "overallNotes": "Cast wardrobe language is generally strong — France (beret, Breton stripes, red scarf), Brazil (yellow/green), UK (Union Jack), Italy (tricolore placket) and India (tricolour + chakra) all read instantly. One frame must be re-rendered: image 1 (s3.png) duplicates the French girl within a single shot and likely duplicates the male lead in the background, a hard fail in motion. Secondary fixes, in priority order: the ambiguous floating pointing arm in image 3, the waxy nose/face on the Aussie in image 2, the missing arm on the sleeping blonde in image 0, and giving the blonde in image 5 an actual flag-coded swimsuit so her nationality reads. Grading drifts from glossy candy-bright (images 1, 4) to painterly warm sunset (2, 3) to dim night blue (0, 5); acceptable as scene lighting, but tighten saturation and specular shine in 2 and 5 so the house style holds across the cut.",
+      "overallNotes": "Cast continuity for the French girl is excellent across frames 0–4 (beret with cockade, cat-eye shades, marinière, red neckerchief) and the Brazil/UK wardrobe reads instantly in every frame they appear. Two consistency risks: (1) the blonde flips between Union Jack (frames 0,1,3) and Australian-flag shorts with a cap/ponytail (frame 2), which will read as either a wardrobe error or an unannounced second character; (2) frame 5 introduces a completely new trio in a slightly different proportion/style language with non-flag wardrobe, breaking the flag-colored-costume rule and the established ensemble. Style-wise, frames 1, 3 and 4 are the cleanest house-style anchors; frame 2 is more painterly and frame 0 is much darker — worth a grade pass to pull them toward the candy-bright baseline. Recurring micro-defects are soft/fused fingers and ambiguous arm joins around props (mugs, pointing gestures, clipboard); none rise to glance-level in motion, so all frames are shippable, with frame 4 fully clean.",
       "labels": [
         "still:s1.png",
         "still:s3.png",
@@ -117,7 +121,7 @@
         "still:s6.png",
         "still:s7.png"
       ],
-      "checkedAt": "2026-07-29T17:58:59.143Z"
+      "checkedAt": "2026-07-29T18:03:18.081Z"
     }
   ]
 }
