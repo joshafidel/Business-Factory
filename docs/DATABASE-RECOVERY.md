@@ -7,10 +7,10 @@ unreachable every page 500s and deploys fail at `prisma migrate deploy` with
 
 ## Step 1 — See what Neon says (2 min)
 
-1. Go to <https://console.neon.tech> and log in (use the account the database was
-   created with — if you created it through Vercel, log in at
-   <https://vercel.com> → your project → **Storage** tab → the Neon database →
-   **Open in Neon Console**).
+1. Direct links (this project's database is Vercel-managed — plan changes happen in Vercel):
+   - Database page: <https://vercel.com/joshafidel-1495s-projects/business-factory/stores>
+   - Billing/payment card: <https://vercel.com/joshafidel-1495s-projects/~/settings/billing>
+   - Neon console (read-only view of status/usage): <https://console.neon.tech>
 2. Open the project (database name: `neondb`).
 3. Read the banner at the top of the project page. It will tell you which case
    you're in:
@@ -34,10 +34,9 @@ bytes (video chunks, photos, generated assets) IN the database. Three AI
 sessions generating media in one day can blow the cap. Two ways out:
 
 **Option 1 (recommended): upgrade the plan.**
-Project → **Billing/Upgrade** → pick the paid tier (usage-based; pricing:
-<https://neon.tech/pricing>). Storage limit lifts immediately and the database
-resumes on its own. At current usage this is dollars, not tens of dollars, per
-month — and it prevents a repeat.
+Open <https://vercel.com/joshafidel-1495s-projects/business-factory/stores>, click the Neon
+database, then **Change Plan** → paid tier (pricing: <https://neon.tech/pricing>). The limit
+lifts and the database resumes on its own within ~2 minutes.
 
 **Option 2: free space without upgrading.**
 Only possible if the database still accepts connections (some over-quota states
