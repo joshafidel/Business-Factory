@@ -993,6 +993,16 @@ async function main(): Promise<void> {
       retryLimit: 12,
     },
     {
+      // The Quality Director (owner mandate): re-verifies the finished cut
+      // against the production bar before a human is even asked. Fails the
+      // run with a QUALITY_REJECT violation list otherwise.
+      key: "quality",
+      name: "Quality Director check",
+      type: "CODE_FUNCTION",
+      config: { functionKey: "zoo_quality_gate", args: {} },
+      retryLimit: 1,
+    },
+    {
       key: "review",
       name: "Your review",
       type: "HUMAN_APPROVAL",
