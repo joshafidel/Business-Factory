@@ -295,6 +295,11 @@ async function main(): Promise<void> {
                 `EXACTLY ${scriptScene.characters.length} people in frame — no duplicates, no extra ` +
                   `background people. Every character is an ADULT with the same adult proportions ` +
                   `as their reference; no child-sized bodies.`,
+                "Stage the characters with CLEAR SEPARATION: bodies never overlap or interlock; " +
+                  "any physical contact is minimal (a hand on a shoulder at most) with both " +
+                  "people's arms fully visible and unmistakably attached to their own bodies. " +
+                  "Minimal set dressing: never duplicate a furniture item, one clean silhouette " +
+                  "per bed/table/lamp, and everything rests on a real surface.",
                 "Hands must be anatomically correct with five clearly separated fingers; every " +
                   "held object fully resolved and physically supported; no floating, merged, or " +
                   "half-formed props; every hand and arm attaches to a visible body — no " +
