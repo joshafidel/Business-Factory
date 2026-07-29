@@ -74,12 +74,13 @@ print(json.dumps(covered+rows[:13]))" 2>/dev/null || echo "[]"
 
 case "${1:-start}" in
   signin) signin ;;
-  start)
+  oneshot|start)
     signin >/dev/null
     T=$(trends || covered_only || echo "[]"); [ -z "$T" ] && T=$(covered_only)
     echo "trends: $(echo "$T" | python3 -c "import json,sys; d=json.load(sys.stdin); real=[r for r in d if r['views']>0]; print(len(real),'topics, top:', real[0]['title'][:60] if real else 'NONE - agent must rotate fresh topics')" 2>/dev/null)" >&2
     BODY=$(python3 -c "import json,sys; print(json.dumps({'input':{'trending':json.loads(sys.argv[1])}}))" "$T")
-    curl -sS -b "$JAR" -X POST "$BASE/api/workflows/zoo-shorts-pipeline/run" \
+    WF="zoo-shorts-pipeline"; [ "$1" = "oneshot" ] && WF="zoo-oneshot-pipeline"
+    curl -sS -b "$JAR" -X POST "$BASE/api/workflows/$WF/run" \
       -H "content-type: application/json" -d "$BODY"
     echo ;;
   status)
