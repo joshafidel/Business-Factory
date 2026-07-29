@@ -13,3 +13,5 @@ assets/sfx/
 
 # build
 dist/
+assets/episodes-series-v1/
+output/episodes-series-v1/
