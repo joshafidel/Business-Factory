@@ -5,6 +5,7 @@ import {
   writeEpisodeScriptMock,
 } from "../ai/mock-content/episode-writer";
 import { episodePrompt } from "../ai/prompts";
+import { writePitches } from "../staff/plot-writer";
 import {
   loadQualityReport,
   reviewScript,
@@ -69,6 +70,12 @@ export async function generateEpisode(params: {
   // Draft → Quality Director review → (if below the bar) revise with the
   // critique injected, up to MAX_DRAFTS total attempts. The best-scoring
   // draft wins if none passes outright.
+  // Plot Writer first: three pitches, best one wins, Script Writer must follow it.
+  const pitchSet = await writePitches({ beat, bible, cast, state, tracker });
+  const pitch = pitchSet.pitches[pitchSet.chosenIndex] ?? pitchSet.pitches[0]!;
+  writeJson(path.join(episodeDir(beat.episode), "pitches.json"), pitchSet);
+  log.info(`Plot Writer chose: ${pitch.logline.slice(0, 100)}…`);
+
   const MAX_DRAFTS = 3;
   let script: EpisodeScript | null = null;
   let review: ScriptReview | null = null;
@@ -76,7 +83,7 @@ export async function generateEpisode(params: {
   for (let attempt = 1; attempt <= MAX_DRAFTS; attempt++) {
     const draft = await generateStructured({
       item: `episode-${beat.episode}-script${attempt > 1 ? `-rev${attempt}` : ""}`,
-      prompt: episodePrompt(bible, cast, state, beat) + critique,
+      prompt: episodePrompt(bible, cast, state, beat, pitch) + critique,
       schema: episodeScriptSchema,
       mock: () => writeEpisodeScriptMock(beat, cast, state),
       tracker,
