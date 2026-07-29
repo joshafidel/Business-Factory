@@ -97,6 +97,8 @@ const envSchema = z.object({
   // conservative AI image-to-video motion. Absent key = deterministic
   // motion only; nothing breaks.
   PICSART_API_KEY: z.string().optional(),
+  /** Kling tier on Picsart workflows: std | pro | 4k (default pro). */
+  PICSART_KLING_MODE: z.enum(["std", "pro", "4k"]).optional(),
 
   // MLS listing feed via SimplyRETS (Listing Video Factory). Credentials
   // come from a licensed MLS/IDX feed; without them the public sample feed

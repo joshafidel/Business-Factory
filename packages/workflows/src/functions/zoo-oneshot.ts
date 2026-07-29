@@ -3,9 +3,13 @@ import { prisma, type Prisma } from "@bf/database";
 import {
   KLING_ONESHOT_COST_MICRO_USD_PER_SECOND,
   downloadOneShotVideo,
+  downloadPicsartKling,
   klingOneShotConfigured,
+  picsartKlingConfigured,
   pollOneShotVideo,
+  pollPicsartKling,
   submitOneShotVideo,
+  submitPicsartKling,
 } from "@bf/providers";
 import { getStorage } from "@bf/storage";
 import { createLogger, PlatformError } from "@bf/shared";
@@ -34,10 +38,13 @@ registerCodeFunction("zoo_oneshot_generate", async (args, context) => {
   const title = metadata?.title ?? "Zoo Friends short";
   const storage = getStorage();
 
-  if (!klingOneShotConfigured()) {
+  // Backend preference (owner directive): Picsart's workflows API first
+  // (the exact Flow recipe), fal.ai's Kling 3.0 as fallback.
+  const usePicsart = picsartKlingConfigured();
+  if (!usePicsart && !klingOneShotConfigured()) {
     throw new PlatformError(
       "VALIDATION",
-      "FAL_KEY is not configured — the one-shot pipeline needs a fal.ai key (Kling 3.0).",
+      "Neither PICSART_API_KEY (with API credits) nor FAL_KEY is configured — the one-shot pipeline needs a Kling 3.0 backend.",
       { retryable: false },
     );
   }
@@ -50,21 +57,42 @@ registerCodeFunction("zoo_oneshot_generate", async (args, context) => {
   const durationSeconds = Math.min(15, Math.max(10, prompt?.durationSeconds ?? 15));
 
   const jobKey = `${organizationId}/${workflowRunId}/scene-render-oneshot-job.txt`;
-  let requestId: string;
+  // The job marker records which backend owns the task: "picsart|id" / "fal|id".
+  let marker: string;
   try {
-    requestId = (await storage.get(jobKey)).toString("utf8");
+    marker = (await storage.get(jobKey)).toString("utf8");
   } catch {
-    requestId = await submitOneShotVideo({ prompt: videoPrompt, durationSeconds });
-    await storage.put(jobKey, Buffer.from(requestId), { contentType: "text/plain" });
-    log.info({ workflowRunId, requestId }, "one-shot generation submitted");
+    let backend = "fal";
+    let requestId = "";
+    if (usePicsart) {
+      try {
+        requestId = await submitPicsartKling({ prompt: videoPrompt, durationSeconds });
+        backend = "picsart";
+      } catch (err) {
+        log.warn({ err }, "picsart kling submit failed; falling back to fal");
+        if (!klingOneShotConfigured()) throw err;
+      }
+    }
+    if (!requestId) {
+      requestId = await submitOneShotVideo({ prompt: videoPrompt, durationSeconds });
+      backend = "fal";
+    }
+    marker = `${backend}|${requestId}`;
+    await storage.put(jobKey, Buffer.from(marker), { contentType: "text/plain" });
+    log.info({ workflowRunId, marker }, "one-shot generation submitted");
   }
+  const [backend, requestId] = marker.includes("|")
+    ? (marker.split("|", 2) as [string, string])
+    : (["fal", marker] as [string, string]);
+  const poll = backend === "picsart" ? pollPicsartKling : pollOneShotVideo;
+  const download = backend === "picsart" ? downloadPicsartKling : downloadOneShotVideo;
 
   // Poll within this invocation's budget; Kling 3.0 usually lands in ~2-4 min.
   const deadline = Date.now() + 150_000;
-  let status = await pollOneShotVideo(requestId);
+  let status = await poll(requestId);
   while (status.status === "pending" && Date.now() < deadline) {
     await new Promise((r) => setTimeout(r, 10_000));
-    status = await pollOneShotVideo(requestId);
+    status = await poll(requestId);
   }
   if (status.status === "pending") {
     const attempt = await prisma.stepRun.count({ where: { workflowRunId, stepKey: "assemble" } });
@@ -86,7 +114,7 @@ registerCodeFunction("zoo_oneshot_generate", async (args, context) => {
     });
   }
 
-  const video = await downloadOneShotVideo(status.videoUrl);
+  const video = await download(status.videoUrl);
   const cost = KLING_ONESHOT_COST_MICRO_USD_PER_SECOND * BigInt(durationSeconds);
   const key = `${organizationId}/${workflowRunId}/video-final-${Date.now()}`;
   const stored = await storage.put(key, video, { contentType: "video/mp4" });
@@ -104,7 +132,7 @@ registerCodeFunction("zoo_oneshot_generate", async (args, context) => {
       source: "workflow:zoo-oneshot-pipeline:assemble",
       approvalStatus: "PENDING_REVIEW",
       metadata: {
-        provider: "kling-v3-oneshot",
+        provider: `kling-v3-oneshot-${backend}`,
         durationSeconds,
         oneShot: true,
       } as Prisma.InputJsonValue,
@@ -117,7 +145,7 @@ registerCodeFunction("zoo_oneshot_generate", async (args, context) => {
     costMicroUsd: cost,
     moduleKey: "kids-shorts",
     workflowRunId,
-    providerKey: "fal-kling",
+    providerKey: backend === "picsart" ? "picsart" : "fal-kling",
     description: `Kling 3.0 one-shot ${durationSeconds}s for "${title.slice(0, 60)}"`,
   });
 
