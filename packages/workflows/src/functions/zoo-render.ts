@@ -819,7 +819,11 @@ async function assembleNurseryVideo(
         // before the song → frozen tail on YouTube). fps must come last
         // (tpad/trim drop the rate metadata concat relies on).
         const stretch = Math.min(1.35, Math.max(0.75, sceneLen / opts.clipSeconds));
+        // Leading trim to the provider's USABLE length: generative clips can
+        // drift in their final beat (objects migrating), so anything past
+        // clipSeconds is cut before the stretch.
         filter =
+          `trim=duration=${opts.clipSeconds.toFixed(2)},setpts=PTS-STARTPTS,` +
           `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,` +
           `tpad=stop_mode=clone:stop_duration=15,setpts=${stretch.toFixed(4)}*PTS,` +
           `trim=duration=${sceneLen.toFixed(2)},` +

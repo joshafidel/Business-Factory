@@ -161,9 +161,11 @@ class FalKlingMotionProvider implements MotionProvider {
  */
 class VeoMotionProvider implements MotionProvider {
   readonly key = "veo";
-  // 8s × $0.12/s (veo-3.1-fast, 1080p).
+  // 8s × $0.12/s (veo-3.1-fast, 1080p). clipSeconds is the USABLE length:
+  // Veo's final second tends to drift (objects migrate, foreground clutter
+  // creeps in), so the renderer trims each clip to its first 7s.
   readonly clipCostMicroUsd = 960_000n;
-  readonly clipSeconds = 8;
+  readonly clipSeconds = 7;
   private readonly model = "veo-3.1-fast-generate-preview";
   private readonly base = "https://generativelanguage.googleapis.com/v1beta";
 
