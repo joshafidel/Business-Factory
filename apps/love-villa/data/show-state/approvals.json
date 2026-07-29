@@ -24,9 +24,9 @@
     "locked": true
   },
   "rough-cut:1": {
-    "status": "pending",
-    "at": "2026-07-29T18:06:56.909Z",
-    "note": "Review output/episodes/episode-001/draft.mp4",
-    "locked": false
+    "status": "approved",
+    "at": "2026-07-29T18:12:21.539Z",
+    "note": "",
+    "locked": true
   }
 }

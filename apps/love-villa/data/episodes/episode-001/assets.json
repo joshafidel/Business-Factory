@@ -172,8 +172,6 @@
     }
   ],
   "music": "episodes/episode-001/music-bed.wav",
-  "failures": [
-    "motion:scene-4: Budget guard: fal-i2v motion:scene-4 ($0.35) would exceed the $14.5 per-episode limit (spent so far: $14.18). Raise MAX_COST_PER_EPISODE_USD or reduce asset counts. (falling back to camera move)"
-  ],
+  "failures": [],
   "regenerated": []
 }
