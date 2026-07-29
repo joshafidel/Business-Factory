@@ -35,7 +35,7 @@ export const SHOW_BIBLE: ShowBible = {
     "high-energy. Designed for vertical mobile viewing. Consistent character designs across episodes. " +
     "Never photorealistic, never deepfakes.",
   format: {
-    durationSeconds: { min: 60, max: 90 },
+    durationSeconds: { min: 35, max: 60 },
     structure: [
       {
         beat: "hook",

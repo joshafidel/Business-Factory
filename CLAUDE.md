@@ -79,7 +79,7 @@ Sessions run simultaneously. The owner's rule: **build on each other's work,
 never around it.** Concretely:
 
 6. **Sync before every push, not just before deploys.** `git fetch origin
-   <your-branch> && git merge --ff-only` (or a real merge if diverged) before
+<your-branch> && git merge --ff-only` (or a real merge if diverged) before
    committing on top. Never force-push a shared branch. If your deploy loses a
    race (another session's deploy finished after yours), merge and redeploy —
    the fix is convergence, not a bigger hammer.
@@ -105,12 +105,16 @@ never around it.** Concretely:
      adapter, cost tables. Extend the registry; don't fork per app.
    - `recordCost` + workflow `costLimitMicroUsd` — every paid call goes
      through the ledger so the shared $30/day cap actually protects everyone.
-   - **Creative Director + Quality Director reviewers** (Love Villa lane,
-     `apps/love-villa/src/quality/`) — standing automated employees: Quality
-     Director catches defects (AI artifacts, audio health, consistency);
-     Creative Director judges entertainment, cinematography (free
-     loop-snap-back detection from any render plan — copy it into Zoo/LVF),
-     background quality, and motion restraint. Pattern is lane-portable.
+   - **Quality Director + Creative Director + Standards Officer reviewers**
+     (Love Villa lane, `apps/love-villa/src/quality/`) — standing automated
+     employees: Quality Director catches defects (AI artifacts, audio health,
+     consistency); Creative Director judges entertainment, cinematography
+     (free loop-snap-back detection from any render plan — copy it into
+     Zoo/LVF), background quality, and motion restraint; Standards Officer
+     enforces the owner's Production Standards Charter
+     (apps/love-villa/docs/PRODUCTION-STANDARDS.md: 16-axis scorecard with
+     hard reject thresholds, 35-60s runtime, engagement-question endings,
+     cultural-comedy review). Pattern is lane-portable.
    - Mobile shell & media UI — every dashboard page renders inside
      `apps/web/src/components/dashboard-shell.tsx` (drawer sidebar + bottom
      tabs on phones; fixed rail on lg+). Reuse `MediaActions` (download +
@@ -164,6 +168,13 @@ never around it.** Concretely:
   3 tries/scene, 10 submissions/run) — never silently replaced by a still. `animationFallbacks`
   in the assemble output lists any scene that exhausted its budget; a non-empty list means
   the video needs extra scrutiny before approval, and more than one fallback scene → reject.
+
+## Owner communication preferences (all sessions)
+
+- **Direct links only, never click-path directions.** Verify a link resolves before
+  sending it; for auth-walled dashboards where deep paths can't be verified from the
+  session, send the top-level page that definitely exists plus at most one click.
+- Owner reads from a phone; keep instructions short and self-contained.
 
 ## Quality gates before any push
 
