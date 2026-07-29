@@ -264,16 +264,25 @@ async function main(): Promise<void> {
         if (env.OPENAI_API_KEY && scriptScene) {
           try {
             const loc = bible.villa.locations.find((l) => l.id === scriptScene.locationId);
+            // Focal casting (QD rounds 1-3 finding): the image model produces
+            // duplicated people, identity blends, and fused limbs whenever a
+            // frame holds 4+ characters. Paint only the first 3 characters of
+            // the scene roster (the script orders them by importance);
+            // everyone else stays off-camera, reality-TV style.
+            const paintCast = scriptScene.characters.slice(0, 3);
             const refs: Buffer[] = [];
             const locRef = findExistingAsset(assetRel("locations", scriptScene.locationId), [
               "png",
             ]);
             if (locRef) refs.push(readFileSync(assetAbs(locRef)));
-            for (const id of scriptScene.characters.slice(0, 4)) {
+            for (const id of paintCast) {
               const cRef = findExistingAsset(assetRel("characters", id), ["png"]);
               if (cRef) refs.push(readFileSync(assetAbs(cRef)));
             }
-            const looks = scriptScene.characters
+            const paintNames = paintCast
+              .map((id) => cast.find((c) => c.id === id)?.fullName.split(" ")[0] ?? id)
+              .join(", ");
+            const looks = paintCast
               .map((id) => cast.find((c) => c.id === id)?.visualReference)
               .filter(Boolean)
               .join("; ");
@@ -292,9 +301,10 @@ async function main(): Promise<void> {
                   `shadows, lighting matched to the environment's ${loc?.timeOfDay ?? "day"} key light.`,
                 `Character designs must match the references EXACTLY (faces, hair, flag outfits, ` +
                   `signature accessories like eyewear/hats/scarves — never swap or restyle them): ${looks}.`,
-                `EXACTLY ${scriptScene.characters.length} people in frame — no duplicates, no extra ` +
-                  `background people. Every character is an ADULT with the same adult proportions ` +
-                  `as their reference; no child-sized bodies.`,
+                `EXACTLY ${paintCast.length} people in frame — ONLY ${paintNames}; every other ` +
+                  `character mentioned in the scene description is OFF-CAMERA (tight reality-TV ` +
+                  `framing). No duplicates, no extra background people. Every character is an ` +
+                  `ADULT with the same adult proportions as their reference; no child-sized bodies.`,
                 "Stage the characters with CLEAR SEPARATION: bodies never overlap or interlock; " +
                   "any physical contact is minimal (a hand on a shoulder at most) with both " +
                   "people's arms fully visible and unmistakably attached to their own bodies. " +
