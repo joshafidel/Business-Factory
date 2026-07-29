@@ -1,6 +1,6 @@
 {
   "episode": 1,
-  "updatedAt": "2026-07-29T17:51:20.018Z",
+  "updatedAt": "2026-07-29T17:59:26.405Z",
   "script": {
     "scores": {
       "hook": 8,
@@ -30,7 +30,7 @@
   },
   "audio": {
     "findings": [],
-    "checkedAt": "2026-07-29T17:51:20.018Z"
+    "checkedAt": "2026-07-29T17:59:26.404Z"
   },
   "visuals": [
     {
@@ -38,90 +38,77 @@
         {
           "index": 0,
           "aiDefects": [
-            "blonde UK woman's left arm is unnaturally elongated and her mug-holding hand reads as detached from the shoulder line",
-            "ambiguous limb ownership: the arm draped across the pink blanket cannot be traced to any torso",
-            "Italian man's lower body merges into a tricolore 'skirt/blanket' that has no clear form",
-            "sunglasses appear to float in the blonde's hair with no contact shading",
-            "rear male character has a head but essentially no body/shoulders",
-            "duplicated bedside lamps and a second phantom bed/sofa mass behind the group with contradictory geometry",
-            "framed picture on wall shows a smeared, featureless face"
+            "blonde sleeper's left arm/hand is absent from the composition, torso reads slightly disjointed against the Italian's shoulder",
+            "sunglasses perched on blonde's head float slightly off the hairline",
+            "background beds/lamps repeat in a copy-paste rhythm"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
-          "severity": "critical",
-          "notes": "Color grading and proportions fit the house style, and the Union Jack swimsuit, Italian tricolore apron and French beret/marinière read instantly. However the sleeping pile is anatomically incoherent — an extra unattributable arm, a stretched arm, and a body that dissolves into bedding. A viewer would immediately sense 'AI' in the tangle of limbs."
+          "severity": "minor",
+          "notes": "Night grading is much darker than the candy-bright daytime frames but reads as a legitimate lights-out scene. Union Jack swimsuit and Italian green/white/red placket read instantly; French beret + Breton stripes + red scarf are clear. Defects only visible when paused."
         },
         {
           "index": 1,
           "aiDefects": [
-            "Brazilian man's arm bends behind the child at an impossible angle; his hand on her shoulder has fused/soft fingers",
-            "Union Jack fabric bleeds out from under the Brazilian man's yellow shirt, wardrobe layers merging",
-            "the Italian character has changed gender/face from frame 0 and wears a French beret over the tricolore apron (mixed identity)",
-            "child's outfit combines Union Jack with Australian stars — conflicting flags on one garment",
-            "object in child's hand is half mug, half can — undefined prop",
-            "spaghetti bowl noodles are a uniform extruded mass without individual strands"
+            "the French girl appears TWICE in the same frame (standing centre and seated in the deck chair right)",
+            "possible second duplicate of the male lead in the flamingo float background (same face, different outfit)",
+            "Brazilian's hands and the French girl's forearm merge into a tangle of fingers at the grab point",
+            "heart-shaped fruit bowl contents are mushy/undefined"
           ],
           "styleConsistent": true,
-          "nationalityObvious": false,
+          "nationalityObvious": true,
           "severity": "critical",
-          "notes": "Bright, glossy grade and proportions match well, and the villa/pool set is clean. But national coding breaks down: the Italian cook now wears a French beret, and the child mixes Union Jack with Australian stars, so at a glance you cannot tell who is who. Combined with the warped shoulder hand, this needs a re-render."
+          "notes": "Duplicated hero character in one shot is the headline problem — a casual viewer would clock two identical French girls in a 5-second pan. Wardrobe nationality (Brazil yellow/green, France stripes/beret) is otherwise excellent."
         },
         {
           "index": 2,
           "aiDefects": [
-            "a disembodied human head is rendered inside/beside the hanging lantern in the upper background — most glaring defect",
-            "two near-identical Brazilian men duplicated behind the group as semi-transparent ghost figures",
-            "the French marinière/beret character is duplicated three times in the same frame",
-            "raised hand at center has a flattened thumb and merged finger silhouette",
-            "lower-left French girl's arm crosses behind the firepit with no traceable connection to her body",
-            "string-light wires terminate in mid-air and change thickness inconsistently"
+            "Aussie girl's face is the weakest render: nose has a white smear and the muzzle reads flattened/waxy",
+            "her cap brim and ponytail intersect the hairline oddly",
+            "fire-pit stones lose contact shadow where the Brazilian stands"
           ],
           "styleConsistent": true,
-          "nationalityObvious": false,
-          "severity": "critical",
-          "notes": "Lighting and painterly candy-warm grade are appealing and on-style, but the frame is a cast-continuity disaster: cloned characters, translucent background doubles, and a floating head inside a lantern. Instantly reads as AI; must be regenerated."
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Slightly more painterly/illustrative than the glossy 3D frames but grading matches the sunset set. Aussie flag shorts, Brazil yellow-green, France stripes all legible at a glance. Face softness only shows when paused."
         },
         {
           "index": 3,
           "aiDefects": [
-            "pointing hand has a thick, slightly fused index/thumb and an oddly short pinky",
-            "Brazilian man's shirt placket and green trim don't align across the body",
-            "his torso/shorts junction is vague behind the flame",
-            "UK woman's mug handle is not gripped by any finger"
+            "central pointing arm/hand is ambiguous — it reads as possibly a disembodied third limb between the blonde and the Brazilian",
+            "Brazilian lead's face looks younger/rounder than in the adjacent frame (identity drift)",
+            "seating geometry behind the trio is vague; bodies fuse into the fire-pit rim"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
           "severity": "minor",
-          "notes": "Cleanest group shot: three characters only, strong warm firelight, proportions consistent with the rest of the set. Union Jack dress + mug, Brazilian yellow/green, and French beret/stripes all read at a glance. Only small hand and grip imperfections — shippable with a touch-up."
+          "notes": "Union Jack swimsuit plus matching Union Jack mug is a strong nationality read; Brazil and France also clear. The floating pointing arm is the one thing that risks being noticed in motion — flag it for a fix but it stays just under the critical bar."
         },
         {
           "index": 4,
           "aiDefects": [
-            "crossed forearms overlap slightly incorrectly — the upper hand's wrist is thinner than the arm it emerges from",
-            "fingernails are soft/undefined on the lower hand",
-            "neckerchief knot geometry is a little melted where it meets the collar"
+            "scarf knot sits on a small unexplained neckline cut-out",
+            "fingernails slightly soft on the crossed hands"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
-          "severity": "minor",
-          "notes": "Strong hero portrait, glossy 3D finish and stylization consistent with the show. Blue beret with red/white roundel, marinière stripes and red scarf make the French identity unmistakable. Only the crossed-arm wrist join and soft nails betray generation; minor cleanup."
+          "severity": "ok",
+          "notes": "Clean confessional-style portrait. Beret with tricolore cockade, Breton stripes and red neckerchief make the French identity instant. Red/neon backdrop is moodier than the candy-bright pool frames but consistent in material shine and proportion."
         },
         {
           "index": 5,
           "aiDefects": [
-            "blonde woman's clipboard is held with a stiff, slightly boneless hand and no finger wrap around the edge",
-            "the notebook/pen contact is off — the pen doesn't touch the page and no fingers curl around it",
-            "red rose on the third man's shirt sits flat with no shadow, reading as a decal",
-            "gate ironwork behind the group has bars that don't align or connect on either side",
-            "torch flames float above their bowls with no attachment"
+            "blonde's clipboard is held with a stiff, slightly fused grip",
+            "pen/notebook contact is loose — nib does not touch the page",
+            "gate ironwork geometry behind the trio is inconsistent left to right"
           ],
-          "styleConsistent": false,
+          "styleConsistent": true,
           "nationalityObvious": false,
-          "severity": "critical",
-          "notes": "Grade is cooler and more classical-Disney illustrative than the candy-bright pool/party frames, and the character proportions (longer faces, taller build) drift from the established cast. Nationality fails: the black-and-red athletic suit and the plain red shirt code no readable flag; only the Indian tricolore with Ashoka chakra is clear. Prop contact errors and incoherent gate geometry compound it."
+          "severity": "minor",
+          "notes": "Indian tricolour polo with Ashoka chakra is perfect. However the blonde's plain black-and-red athletic one-piece gives no readable flag, and the red shirt/yellow sash man is only vaguely Spanish — two of three nationalities fail the at-a-glance test. Also introduces a new blonde design distinct from the earlier Union Jack/Aussie blondes, which could confuse continuity."
         }
       ],
-      "overallNotes": "The set shares a warm, glossy 3D look and the flag-wardrobe gimmick is a strong visual hook, but consistency and hand/limb fidelity are the weak points. Frames 3 and 4 (still:s5, still:s6) are the closest to shippable. Frame 2 (still:s4) must be regenerated — cloned cast members, translucent ghost doubles, and a human head inside a lantern. Frame 0 (still:s1) has an unattributable extra arm and a body dissolving into bedding. Frame 1 (still:s3) breaks the national-coding rule by putting a French beret on the Italian cook and mixing Union Jack with Australian stars on one child. Frame 5 (still:s7) drifts off-style in grade and proportions and introduces two characters with no legible flag identity. Action items: lock a character/wardrobe bible with one flag per character, cap group shots at 3–4 figures to avoid cloning, re-render all hand-prop contacts (mugs, pens, clipboards, bowls), and re-grade still:s7 to the candy-bright master LUT.",
+      "overallNotes": "Cast wardrobe language is generally strong — France (beret, Breton stripes, red scarf), Brazil (yellow/green), UK (Union Jack), Italy (tricolore placket) and India (tricolour + chakra) all read instantly. One frame must be re-rendered: image 1 (s3.png) duplicates the French girl within a single shot and likely duplicates the male lead in the background, a hard fail in motion. Secondary fixes, in priority order: the ambiguous floating pointing arm in image 3, the waxy nose/face on the Aussie in image 2, the missing arm on the sleeping blonde in image 0, and giving the blonde in image 5 an actual flag-coded swimsuit so her nationality reads. Grading drifts from glossy candy-bright (images 1, 4) to painterly warm sunset (2, 3) to dim night blue (0, 5); acceptable as scene lighting, but tighten saturation and specular shine in 2 and 5 so the house style holds across the cut.",
       "labels": [
         "still:s1.png",
         "still:s3.png",
@@ -130,7 +117,7 @@
         "still:s6.png",
         "still:s7.png"
       ],
-      "checkedAt": "2026-07-29T17:47:25.103Z"
+      "checkedAt": "2026-07-29T17:58:59.143Z"
     }
   ]
 }
