@@ -290,11 +290,19 @@ async function main(): Promise<void> {
                 `Paint the referenced characters INTO the referenced ${loc?.name ?? "villa"} ` +
                   `environment as ONE unified scene: correct relative scale, believable contact ` +
                   `shadows, lighting matched to the environment's ${loc?.timeOfDay ?? "day"} key light.`,
-                `Character designs must match the references EXACTLY (faces, hair, flag outfits): ${looks}.`,
+                `Character designs must match the references EXACTLY (faces, hair, flag outfits, ` +
+                  `signature accessories like eyewear/hats/scarves — never swap or restyle them): ${looks}.`,
+                `EXACTLY ${scriptScene.characters.length} people in frame — no duplicates, no extra ` +
+                  `background people. Every character is an ADULT with the same adult proportions ` +
+                  `as their reference; no child-sized bodies.`,
                 "Hands must be anatomically correct with five clearly separated fingers; every " +
                   "held object fully resolved and physically supported; no floating, merged, or " +
-                  "half-formed props.",
-                "Ultra-glossy stylized 3D render, candy-bright, vertical 9:16 composition, no text, no watermark.",
+                  "half-formed props; every hand and arm attaches to a visible body — no " +
+                  "disembodied limbs; flames only inside a fire pit, torch sconce, or lamp.",
+                "Ultra-glossy stylized chunky 3D render matching the character references' style " +
+                  "exactly (NOT painterly, NOT semi-realistic), candy-bright saturated palette even " +
+                  "in night scenes (moonlit teal with warm accents, never grey), vertical 9:16 " +
+                  "composition, no text, no watermark.",
               ].join(" "),
               references: refs,
               quality: "max",

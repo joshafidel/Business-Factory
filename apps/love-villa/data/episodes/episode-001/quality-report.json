@@ -1,6 +1,6 @@
 {
   "episode": 1,
-  "updatedAt": "2026-07-29T17:08:58.230Z",
+  "updatedAt": "2026-07-29T17:22:25.343Z",
   "script": {
     "scores": {
       "hook": 8,
@@ -30,7 +30,7 @@
   },
   "audio": {
     "findings": [],
-    "checkedAt": "2026-07-29T17:08:58.230Z"
+    "checkedAt": "2026-07-29T17:22:25.343Z"
   },
   "visuals": [
     {
@@ -38,117 +38,101 @@
         {
           "index": 0,
           "aiDefects": [
-            "French girl in bed appears to have no visible torso/arm anatomy resolving into the duvet — her crossed arms merge oddly with the blanket",
-            "Blonde UK woman's arm/shoulder geometry under the duvet is ambiguous; forearm crossing the bed reads as detached",
-            "Man in white shirt has no visible arms or hands at all — sleeves vanish into bedding",
-            "Bed geometry impossible: three people share a bed whose headboard and mattress edges don't align; French girl sits on a plane higher than the mattress",
-            "Floating candle-like glows on the windowsill and mid-air near the headboard with no holders",
-            "Lamp at bottom-left is cropped and light source inconsistent with cast shadows"
+            "sleeping Italian man is somehow holding a full bowl of pasta perfectly level in mid-air while asleep — implausible prop physics",
+            "his forearm/wrist joint reads as detached from the body under the blanket; fingers on the bowl rim are soft and fused",
+            "blonde UK character's near shoulder/arm anatomy is stretched and boneless where it meets the pillow",
+            "third sleeper in the background bed has a flattened, low-detail face and no clear costume identity",
+            "two identical nightstand lamps duplicated with mismatched light falloff (no shadow cast from the front lamp)",
+            "French character wears opaque sunglasses in a pitch-dark room (reads as an asset error rather than a gag)"
           ],
           "styleConsistent": false,
           "nationalityObvious": true,
           "severity": "critical",
-          "notes": "Night grading is far darker and more desaturated than the candy-bright house look of the other frames. Union Jack tank and Union Jack mug read instantly for UK; Breton stripes + navy beret + red neckerchief read as French. The dark-haired man in the white shirt has zero national signifiers. Sleeping open-mouth face on the blonde looks slightly melted around the jaw. Multiple missing-limb issues make this the weakest frame."
+          "notes": "Night grading is far muddier and lower-saturation than the candy-bright house look; the whole frame sits in blue-grey. Nationality still reads (Union Jack romper + mug, Italian green/red on the man, blue beret with red-white-blue roundel + Breton stripes for France), but the floating pasta bowl and the warped arm are the kind of thing a viewer clocks instantly as AI."
         },
         {
           "index": 1,
           "aiDefects": [
-            "American man's right hand on the counter has ambiguous/merged fingers and an unnaturally long reach; his other hand hovers over the glass with rubbery finger geometry",
-            "Small sausage-like object floating inside the water glass",
-            "French woman's crossed arms show an extra-long forearm and her left hand disappears behind her elbow",
-            "Blonde's mug handle geometry is odd — fingers pass oddly through the handle",
-            "Pasta/fries pile is an undifferentiated blob; a stray green shape peeks out with no source",
-            "Hanging pot rack has a lamp fixture that terminates in nothing"
+            "Brazil/France hug is an arm-tangle: her crossed forearms and his encircling arms overlap with no clear ownership, and his left hand on her waist has smeared, partially merged fingers",
+            "the small blonde girl's two hands on the Union Jack mug are warped — thumb/finger count is ambiguous and the mug handle disappears behind the palm",
+            "a brown blob (mis-rendered ponytail or towel) grows out of the right-hand Australian character's shoulder",
+            "British character appears as a small child here while she is an adult in other frames — continuity break",
+            "background Italian-shirt character is a low-fidelity duplicate of the man from frame 0 with a mismatched face",
+            "villa architecture: upper-floor arches and roofline don't align with the lower arcade (impossible geometry)"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
           "severity": "critical",
-          "notes": "Bright, glossy, well-graded kitchen that matches the house style best. Union Jack crop top + mug, Breton/beret French, stars-and-stripes tank + red cap all read at a glance. However the hands around the counter are visibly warped and the floating object in the glass is the kind of thing a viewer clocks immediately as AI."
+          "notes": "Best example of the intended glossy candy-bright grade — saturated turquoise pool, hot coral villa, clean rim light. Flags read at a glance (Brazil yellow/green, French Breton stripes + beret, Union Jack romper/dress, Australia blue shorts with white stars). But the central hug hands and the child-vs-adult scale break are viewer-visible AI tells."
         },
         {
           "index": 2,
           "aiDefects": [
-            "Blonde UK woman's left hand holding the mug has fused/incomplete fingers and the mug is clipped into her forearm",
-            "Brazilian man's right arm wrapping the French girl becomes very long; his hand on her shoulder has soft, half-formed fingers",
-            "French girl's crossed arms produce an apparent third forearm silhouette against her skirt",
-            "Australian girl's hand on hip merges into the shorts",
-            "Pool geometry behind the group is inconsistent; a flamingo float is half-dissolved",
-            "Villa balcony railing spacing warps toward the right arch"
+            "disembodied hand/forearm at bottom right holding a blue bottle, with no attached body",
+            "a second fire burns on top of a small stone side table with no fuel or fire bowl — impossible prop",
+            "the Australian character's raised hand is placed inside the flame with no heat interaction; fingers are soft and one reads as short/stubby",
+            "US character's pie/quiche is held in one hand at an angle that would spill; his far arm vanishes behind the French character",
+            "background man (Italian) has melted, low-resolution facial features and mismatched proportions to the foreground cast",
+            "British character again rendered child-sized among adults; her mug is cropped and the flag pattern smears"
           ],
           "styleConsistent": true,
           "nationalityObvious": true,
           "severity": "critical",
-          "notes": "Grading and proportions match the candy-bright style well. UK Union Jack dress, Brazil yellow/green, France Breton+beret and Australia green-and-gold read instantly. Hand deformities on two characters and the arm-length issue on the Brazilian are noticeable at normal viewing size."
+          "notes": "Warm sunset grading is on-model for the house style and the wardrobe reads clearly (USA stars tank + cap, Australia flag shorts, Union Jack dress, Brazil shorts, French stripes/beret). The floating hand at bottom right and the fire burning on a bare table are unambiguous 'looks AI' failures."
         },
         {
           "index": 3,
           "aiDefects": [
-            "Center French girl's raised hand is oversized with thick, mismatched fingers",
-            "Bearded man's hands holding the tray show merged fingers and the tray floats oddly close to the fire",
-            "Blonde woman at left has an arm reaching toward the fire that doesn't connect convincingly to her shoulder",
-            "Shirtless man at back has an incomplete torso hidden behind the pole; his arms vanish",
-            "Blonde with glasses appears with no visible arms other than a mug-holding hand emerging from nowhere",
-            "String-light strands cross and terminate in mid-air; lantern hangs from nothing",
-            "Fire pit stones and seating merge into a mushy mass"
+            "British character's pointing hand is malformed — the index finger is oversized and the remaining fingers fuse into a single mass",
+            "her other hand grips the mug with a thumb that reads as bent behind the ceramic",
+            "French character's costume changed: cat-eye dark sunglasses replaced with round tortoiseshell frames, breaking continuity with every other frame",
+            "her crossed arms rest on the fire pit lip with a floating elbow and no contact shadow",
+            "Brazilian character's open shirt shows bare chest with no undergarment, inconsistent with his closed yellow/green polo elsewhere",
+            "background lantern rig has a pole that supports nothing; the second lantern hangs from empty air"
           ],
           "styleConsistent": true,
-          "nationalityObvious": false,
+          "nationalityObvious": true,
           "severity": "critical",
-          "notes": "Warm sunset grading is on-brand and glossy. Union Jack, US stars-and-stripes, Brazil yellow/green and Australia green are legible, but the bearded man in the plain white shirt and the shirtless man in back carry no national wardrobe, and the French girl's shrunken child-like proportions clash with the adult scale of the rest of the cast. Many hand and limb faults."
+          "notes": "Grading and proportions match the series look and the three nationalities read instantly (Union Jack tank + mug, Brazil yellow/green collar, French beret/stripes/scarf). Downgraded to critical purely on the warped pointing hand plus the eyewear continuity swap on the French lead."
         },
         {
           "index": 4,
           "aiDefects": [
-            "Blonde's pointing hand has an over-long index finger and a thumb that reads as an extra digit",
-            "Brazilian man's shirt collar/neckline geometry is inconsistent — necklace floats over an undefined chest",
-            "French woman's crossed arms sit on the fire-pit rim with a forearm that bends unnaturally",
-            "Fire-pit rim is a flat plate that the flame sits on without depth",
-            "Lantern on the right hangs from a pole that does not connect to anything"
+            "slight asymmetry in the eyebrows/eyeline behind the sunglasses",
+            "scarf knot geometry is ambiguous where the red tie meets the blue-white-red collar",
+            "background sofa and curtain edges dissolve into soft noise"
           ],
-          "styleConsistent": true,
+          "styleConsistent": false,
           "nationalityObvious": true,
           "severity": "minor",
-          "notes": "Strong candy-bright sunset grade consistent with frames 2-4. Union Jack swimsuit + mug, Brazil yellow/green shirt, French Breton + beret + neckerchief all instantly readable. Defects are confined to the pointing hand and background prop logic — shippable with a small fix."
+          "notes": "Cleanest frame of the set — hands and crossed arms are anatomically correct, fingers all present, no floating props. France reads immediately (navy beret with tricolour roundel, Breton stripes, red neckerchief). Only complaint: the moody crimson studio grade is darker and more cinematic than the candy-bright key art, so it feels like a different show's poster."
         },
         {
           "index": 5,
           "aiDefects": [
-            "Beret badge changes design from other frames (roundel here vs plain dot/heart elsewhere) — continuity drift",
-            "Crossed-arm hands are slightly soft but essentially clean",
-            "Background chair and neon ring are vague/unresolved"
-          ],
-          "styleConsistent": true,
-          "nationalityObvious": true,
-          "severity": "minor",
-          "notes": "Cleanest render of the set: solid hands, coherent face, glossy 3D finish. Grading is moodier and more saturated-red than the rest of the episode, so it reads as a confessional-booth insert rather than a mismatch. French identity is unmistakable via beret, Breton stripes, red neckerchief and tricolore roundel. Only continuity nitpick is the beret badge and darker key light."
-        },
-        {
-          "index": 6,
-          "aiDefects": [
-            "Blonde woman's right hand holding the phone has fused fingers; the phone is a featureless brown slab",
-            "Indian boy's hand holding the book shows a warped thumb and the book pages are blank/garbled",
-            "Red-shirted man's arm being clutched has an ambiguous join at the elbow",
-            "Torch flames float detached from any torch body",
-            "Pathway markers/petals are smeared",
-            "Facial proportions and rendering are noticeably more semi-realistic than the rest of the cast"
+            "hard style break: faces are rendered in a more painterly semi-realistic mode (especially the man in red) with longer proportions than the chunky house characters",
+            "clipboard and open book are completely blank — no text or line art where the shot implies reading",
+            "rose petals on the path are shaped like lipstick prints/lips rather than petals",
+            "blonde woman's clipboard hand has fingers that flatten into the board edge; her other arm ends in a poorly defined fist",
+            "torch flames float with no visible sconce bowl on the left palm trunk; palm trunks bend into each other with inconsistent scale",
+            "villa entry archway perspective doesn't match the ground plane of the walkway"
           ],
           "styleConsistent": false,
           "nationalityObvious": false,
           "severity": "critical",
-          "notes": "Major style break: painterly, realistic-proportioned characters with a dark teal/amber cinematic grade, nothing like the candy-bright chunky 3D of frames 1-6. None of the three characters appear in the other stills. The Indian boy's saffron/white/green does read; the red-shirted man (Spain?) and the blonde in a black swimsuit with a vague red-yellow stripe do not read as any flag at a glance. Reads as a different show."
+          "notes": "Reads as a different production. Only India is legible (saffron/white/green shirt with Ashoka chakra); the blonde in a plain black-and-red swimsuit has no flag identity at all, and the man in the red shirt with cream trousers is only vaguely 'Spanish' by vibe. Blank props and the render-style mismatch make this the weakest frame."
         }
       ],
-      "overallNotes": "The episode holds together across frames 1-5 (kitchen, poolside, firepit, two-shot, confessional): consistent glossy candy-bright 3D, matching chunky character proportions, and instantly legible flag wardrobes (Union Jack, US stars-and-stripes, Brazil yellow/green, Australia green-and-gold, French Breton/beret). Two frames break the show: the opening bedroom still is far too dark, has multiple missing arms/hands and floating candle glows, and the final still is a completely different painterly, semi-realistic render with an unfamiliar cast and unreadable national wardrobe. Recurring cast-wide problems are hands — nearly every frame has at least one fused, elongated or vanished hand — plus props that don't obey physics (a sausage in a water glass, lanterns hanging from nothing, blank book pages, a featureless phone). Two characters (the bearded man in the plain white shirt, the shirtless man) carry no national branding at all and should be re-costumed. Recommendation: regenerate stills 1 and 7, retouch hands in 2, 3 and 4, and lock the beret badge design for continuity.",
+      "overallNotes": "Frames 1–3 form a coherent candy-bright block (saturated pool/sunset grade, chunky stylised faces) and nail the flag-wardrobe gimmick, but all three carry hand/limb failures: a tangled hug with fused fingers (1), a disembodied bottle-holding arm plus fire burning on a bare table (2), and a malformed pointing hand (3). Frame 0 is too desaturated and features a sleeping character holding a level bowl of pasta in mid-air. Frame 4 is technically the cleanest asset but is graded like a separate moody poster. Frame 5 is the outlier that must be regenerated: different render style, different character proportions, blank clipboard/book, and two characters with no readable national wardrobe. Cross-frame continuity also needs a fix — the British character alternates between adult and small child, and the French lead's signature cat-eye sunglasses become round glasses in frame 3. Priority: re-render frame 5, repair hands in 1–3, brighten frame 0, lock costume/scale bibles for the UK and France characters.",
       "labels": [
         "still:s1.png",
-        "still:s2.png",
         "still:s3.png",
         "still:s4.png",
         "still:s5.png",
         "still:s6.png",
         "still:s7.png"
       ],
-      "checkedAt": "2026-07-29T16:48:47.447Z"
+      "checkedAt": "2026-07-29T17:21:19.181Z"
     }
   ]
 }
