@@ -1,394 +1,501 @@
 {
   "season": 1,
-  "theme": "Eight nations, one villa, and the world's least diplomatic summit on love.",
-  "arcSummary": "A love triangle over Élodie detonates on day one and is immediately complicated by Spanish latecomer Alejandro. Across ten episodes: Brock's bravado cracks and Poppy accidentally defends him; Rohan's over-planning collides with Sienna's chaos; Greta schedules her way into Matteo's kitchen and heart; Lucas's pool secret and Poppy's poetry notebook both surface; Alejandro's strategy is exposed; and the finale locks in couples while planting season 2.",
+  "theme": "Nine nations, one villa, and not a single secret that survives the week — narrated by The Rafter Voice, an original off-screen gossip who knows everything and forgives nothing.",
+  "arcSummary": "Ten episodes, one villa, nine adults from nine countries who all think they're the sensible one. The season opens on a two-way crush collision over Lucas and escalates every episode as the villa's buried secrets surface one by one: Lucas can't swim, Rohan's famous compatibility algorithm is astrology in a spreadsheet, Poppy keeps a notebook of catastrophically sincere poetry, Matteo's mozzarella devotion is a lactose-intolerant lie, Sienna carries a 48-hour engagement ring on a keyring, Brock's seven-figure startup has forty-three dollars in it, Élodie sobs at rom-com trailers, Greta cries at dog videos at 22:15 sharp, and Alejandro's smolder took eleven months of mirror practice. Every reveal reroutes a couple. Every nation is equally ridiculous and equally loved. By the finale, deflection loses, sincerity wins, and Poppy reads the poem out loud on purpose.",
   "episodes": [
     {
       "episode": 1,
-      "title": "Two Kings, One Croissant",
-      "hook": "America and Italy just declared war over France.",
-      "summary": "Brock and Matteo simultaneously discover they are both pursuing Élodie. Smoothie diplomacy and an eight-course revenge risotto escalate into the villa's first international incident, while Élodie rates both suitors a five. A torch-lit twist ends day one: Spain has entered the villa — for Élodie.",
+      "title": "Sleep-Talking Sabotage",
+      "hook": "Poppy talks in her sleep. Élodie is wide awake.",
+      "summary": "Day six. The villa's four starter pairs look stable — Brock with Élodie, Matteo with Poppy, Lucas with Sienna, Rohan with Greta — and every single one is a clerical error. At 3am Poppy murmurs a name that is absolutely not Matteo's. Élodie hears it, says nothing, and rates the moment a six. By breakfast the narrator has confirmed the horror: Poppy and Élodie want the same Brazilian. Poppy attacks the feeling with jokes. Élodie attacks it with indifference so convincing she nearly deletes herself from the running. Lucas, oblivious, hugs both of them within ninety seconds and starts a fire he cannot name. Brock mistakes Élodie's politeness for a proposal and begins planning a joint venture. Matteo senses a disturbance in the loyalty field and preemptively makes lasagne for eleven. Then the gate opens.",
       "focusCharacters": [
-        "brock-usa",
-        "matteo-italy",
-        "elodie-france",
         "poppy-uk",
-        "greta-germany"
+        "elodie-france",
+        "lucas-brazil",
+        "brock-usa"
       ],
       "keyEvents": [
-        "Brock and Matteo discover their shared crush on Élodie",
-        "Élodie rates both men a five out of ten",
-        "Greta logs the conflict; Poppy provides commentary",
-        "Alejandro (Spain) arrives on the walkway, announcing he came for 'the French one'"
+        "Poppy sleep-says Lucas's name; Élodie hears it and files it under 'later'",
+        "Élodie publicly declares Lucas 'a five' while privately rating him a nine",
+        "Brock interprets Élodie saying 'thank you for the water' as a commitment",
+        "Lucas hugs both women in the same minute and detonates a silent war",
+        "A late arrival walks in at sunset with a red carnation and no explanation"
       ],
-      "twist": "New arrival: Alejandro from Spain walks in and says he's here for Élodie.",
+      "twist": "Élodie reveals she already had a two-minute kiss with Lucas on day two — before Poppy's feelings even had a name. Poppy laughs. The laugh does not reach her eyes.",
       "engagement": {
-        "kind": "vote",
-        "text": "Who should Élodie pick? 🇺🇸🇮🇹🇪🇸 Vote in the comments!"
+        "kind": "cliffhanger",
+        "text": "Alejandro says he'll take one person off the board by sunrise. Who does he name? Guess before Episode 2."
       },
       "keyLines": [
         {
-          "speaker": "brock-usa",
-          "text": "Bro. We're both all-in on the same girl?!"
+          "speaker": "Narrator",
+          "text": "Two women. One Brazilian. Zero survivors."
         },
         {
-          "speaker": "matteo-italy",
-          "text": "You made her a smoothie. I made her a promise."
+          "speaker": "Poppy",
+          "text": "Sun's out, standards up. Delusion's out too, apparently."
         },
         {
-          "speaker": "elodie-france",
-          "text": "The smoothie? Five. The risotto? Five. The drama? ...Seven."
+          "speaker": "Élodie",
+          "text": "Do I want Lucas? C'est un non. (Confessional) It is a yes."
         },
         {
-          "speaker": "alejandro-spain",
-          "text": "I heard someone here rates men out of ten. I am the ten."
+          "speaker": "Brock",
+          "text": "She said thank you, dude. Full send on the heart, baby!"
         }
       ],
       "unresolvedThreads": [
-        "Who will Élodie actually rate above a five?",
-        "Matteo vs Brock rivalry is now open",
-        "Alejandro's real intentions unknown"
+        "Does Lucas know either of them likes him?",
+        "What exactly is under Poppy's mattress?",
+        "Why does Lucas refuse to go past the pool steps?",
+        "Who is Alejandro actually here for?"
       ],
-      "connectionToPrevious": "Series premiere — plants the triangle, the rivalry, and Alejandro's arrival."
+      "connectionToPrevious": "Season opener — plants the Poppy/Élodie/Lucas triangle that reroutes every couple through Episode 10, and delivers Alejandro as the season's chaos engine."
     },
     {
       "episode": 2,
-      "title": "The Spanish Inquisition of Hearts",
-      "hook": "The new guy just asked Élodie to dance — in front of BOTH of them.",
-      "summary": "Alejandro's first morning: he says eleven words total and destabilizes the entire villa. Brock responds with a louder blender; Matteo cooks a threatening breakfast. Élodie gives Alejandro a six — the highest score ever recorded — and the villa loses its mind.",
+      "title": "The Spaniard Arrives Late, On Purpose",
+      "hook": "Alejandro says a name at sunrise. Greta drops her clipboard.",
+      "summary": "Alejandro picks Élodie, and Élodie — furious at her own crush — says yes purely to prove she's unbothered. Poppy celebrates for four seconds before realising the field being clear means she now has to actually say something. She says a joke instead. Matteo, freed and devastated, begins an operatic three-course grieving process and accidentally cooks the best meal of the season. Brock, unpaired and unbothered, appoints himself Alejandro's biggest fan, which ruins Alejandro's mystique entirely. Meanwhile Rohan follows a noise at 22:15 and finds Greta locked in the bathroom with the fan on, weeping at a video of a dog reuniting with a soldier. He does not tease her. He brings tissues, sits outside the door, and mentions the exact brand of tea she said she liked on day one. Greta reschedules her entire evening block.",
       "focusCharacters": [
         "alejandro-spain",
         "elodie-france",
-        "brock-usa",
-        "matteo-italy",
-        "lucas-brazil"
+        "greta-germany",
+        "rohan-india",
+        "matteo-italy"
       ],
       "keyEvents": [
-        "Alejandro's dance with Élodie at the firepit",
-        "Élodie awards a historic six out of ten",
-        "Brock's confidence shows its first crack in the Spill Room",
-        "Lucas clocks Alejandro as competition for villa sunshine-king"
+        "Alejandro chooses Élodie; she accepts out of spite, not desire",
+        "Matteo grief-cooks a five-dish tasting menu nobody asked for",
+        "Brock becomes Alejandro's unwanted hype-man, deflating the smolder",
+        "Rohan discovers Greta's 22:15 dog-video crying ritual and protects it",
+        "Poppy attempts a confession to Lucas and produces a knock-knock joke"
       ],
-      "twist": "Élodie rates Alejandro a six — a villa record — then immediately regrets revealing it.",
+      "twist": "Alejandro admits — to Brock, of all people — that he chose Élodie because she's the only one who didn't look at him. Brock immediately tells four people it's 'a strategy pivot'.",
       "engagement": {
         "kind": "question",
-        "text": "Is Alejandro genuine or just smooth? 👀"
+        "text": "Rohan kept Greta's secret. Would you have? Tell us in the comments."
       },
       "keyLines": [
         {
-          "speaker": "alejandro-spain",
-          "text": "Dance with me. The song will find us."
+          "speaker": "Narrator",
+          "text": "She said yes. Out of spite. Iconic."
         },
         {
-          "speaker": "elodie-france",
-          "text": "Six. ...I said that out loud. Non. NON."
+          "speaker": "Greta",
+          "text": "Romance runs on schedule. The dog videos are 22:15. Non-negotiable."
         },
         {
-          "speaker": "brock-usa",
-          "text": "A SIX? I've been grinding for a five-point-five all week!"
+          "speaker": "Matteo",
+          "text": "My heart is al dente — firm, but ready. Also there is lasagne."
+        },
+        {
+          "speaker": "Alejandro",
+          "text": "The night is young, and so am I. Mostly."
         }
       ],
-      "unresolvedThreads": ["Brock's confidence wobble", "Lucas vs Alejandro cold war begins"],
-      "connectionToPrevious": "Direct continuation of Alejandro's episode 1 arrival."
+      "unresolvedThreads": [
+        "Élodie is with the wrong man on purpose — how long can she hold it?",
+        "Rohan has a five-date plan and hasn't started date one",
+        "Poppy's confession attempt count: 1 failed",
+        "What happens when Lucas is asked to swim?"
+      ],
+      "connectionToPrevious": "Direct payoff of Episode 1's cliffhanger; Greta's 22:15 secret revealed here becomes the emotional proof of Rohan's loyalty in Episodes 4 and 9."
     },
     {
       "episode": 3,
-      "title": "Heartquake",
-      "hook": "One quiz question just ended two friendships and started a romance.",
-      "summary": "First villa challenge: 'Heartquake' — couples answer questions about each other while standing on a wobble platform over the pool. Rohan's spreadsheet fails him; Sienna dares him into the best answer of the day. Greta and Matteo accidentally win everything, to their mutual horror and delight.",
-      "focusCharacters": [
-        "rohan-india",
-        "sienna-australia",
-        "greta-germany",
-        "matteo-italy",
-        "brock-usa"
-      ],
-      "keyEvents": [
-        "Original challenge: Heartquake wobble-platform quiz",
-        "Rohan freezes; Sienna dares him to answer with feelings instead of data",
-        "Greta and Matteo win the challenge as a chaos pairing",
-        "Brock falls in the pool defending his 'perfect balance'"
-      ],
-      "twist": "Challenge result: the algorithm loses, the chaos couple wins — Greta chooses Matteo for the prize dinner.",
-      "engagement": {
-        "kind": "cliffhanger",
-        "text": "Greta + Matteo dinner date... what could go wrong? 🍝📋"
-      },
-      "keyLines": [
-        {
-          "speaker": "sienna-australia",
-          "text": "Drop the spreadsheet and SAY it, Kapoor!"
-        },
-        {
-          "speaker": "rohan-india",
-          "text": "Fine! She's... category five. And I'm not evacuating."
-        },
-        {
-          "speaker": "greta-germany",
-          "text": "We won. This was not scheduled. I am thrilled. Confusing."
-        }
-      ],
-      "unresolvedThreads": ["Rohan-Sienna almost-moment", "Greta-Matteo prize dinner pending"],
-      "connectionToPrevious": "Sienna's ep2 teasing of Rohan escalates into the challenge dare."
-    },
-    {
-      "episode": 4,
-      "title": "Dinner at Eight, Feelings at Nine",
-      "hook": "Greta scheduled a 90-minute date. Matteo cooked for six hours. Nobody's ready.",
-      "summary": "The prize dinner: Greta arrives with an agenda; Matteo arrives with eight courses and unresolved Élodie feelings. Across the villa, Élodie stress-tests Alejandro's mystique and finds one crack: he laughed — really laughed — at her rating system. Both pairs end closer than they planned.",
-      "focusCharacters": ["greta-germany", "matteo-italy", "elodie-france", "alejandro-spain"],
-      "keyEvents": [
-        "Greta and Matteo's chaotic-perfect prize dinner",
-        "Matteo eats cheese to impress Greta; suffers heroically and confesses nothing",
-        "Élodie interrogates Alejandro; his mask slips into a genuine laugh",
-        "Poppy watches everything and files it away"
-      ],
-      "twist": "Matteo realizes mid-tiramisu that he didn't think about Élodie once all night.",
-      "engagement": {
-        "kind": "vote",
-        "text": "Greta+Matteo or Élodie+Alejandro — which date won the night? 🗳️"
-      },
-      "keyLines": [
-        {
-          "speaker": "greta-germany",
-          "text": "Item four: eye contact. Beginning now."
-        },
-        {
-          "speaker": "matteo-italy",
-          "text": "You minuted our dinner?... Read it to me slowly."
-        },
-        {
-          "speaker": "elodie-france",
-          "text": "He laughed like a person. Alarming. Six point five."
-        }
-      ],
-      "unresolvedThreads": ["Matteo's pivot from Élodie to Greta", "Matteo's dairy secret ticking"],
-      "connectionToPrevious": "The ep3 challenge prize plays out; Élodie continues testing Alejandro from ep2."
-    },
-    {
-      "episode": 5,
-      "title": "The Lemonade Papers",
-      "hook": "Brock's 'seven-figure empire' just got fact-checked at the firepit.",
-      "summary": "Rohan's innocent networking question unravels Brock's startup story in front of everyone. The villa braces to laugh — and Poppy, of all people, torches the pile-on instead. Brock's honest firepit speech about being broke and hopeful becomes his most genuinely liked moment ever.",
-      "focusCharacters": ["brock-usa", "poppy-uk", "rohan-india", "lucas-brazil"],
-      "keyEvents": [
-        "Brock's lemonade-stand LLC secret is revealed",
-        "Poppy unexpectedly defends Brock mid-roast",
-        "Brock's honest speech lands; villa respect unlocked",
-        "Poppy panics about having publicly displayed sincerity"
-      ],
-      "twist": "Secret revealed: the empire is a lemonade stand — and Poppy is the one who saves him.",
-      "engagement": {
-        "kind": "question",
-        "text": "Poppy defending Brock?? What is HAPPENING 👀"
-      },
-      "keyLines": [
-        {
-          "speaker": "rohan-india",
-          "text": "Your projections list revenue as 'vibes'."
-        },
-        {
-          "speaker": "brock-usa",
-          "text": "Okay. Real talk? It's lemonade. It's forty-three dollars. It's mine."
-        },
-        {
-          "speaker": "poppy-uk",
-          "text": "Leave him. At least his dream fits in a cup. Yours needs a slideshow."
-        }
-      ],
-      "unresolvedThreads": [
-        "Poppy's accidental sincerity",
-        "Is Brock-Poppy a thing?? (they insist: no)"
-      ],
-      "connectionToPrevious": "Brock's ep2 confidence crack finally splits open; Rohan's rivalry with flair over data."
-    },
-    {
-      "episode": 6,
-      "title": "The Vote of No Confidence",
-      "hook": "The villa voted. Someone's suitcase is already on the walkway.",
-      "summary": "First elimination vote — viewers chose the 'least matched' contestant. The suitcase on the walkway belongs to... nobody: it's a twist. The vote result is sealed in an envelope that will only open when a couple officially forms. The villa turns on itself guessing whose name is inside.",
-      "focusCharacters": ["poppy-uk", "lucas-brazil", "alejandro-spain", "sienna-australia"],
-      "keyEvents": [
-        "Elimination fake-out: the suitcase is empty",
-        "Sealed envelope introduced: opens when the first official couple forms",
-        "Paranoia montage; alliances form overnight",
-        "Lucas and Poppy accidentally hold hands during the announcement — both deny it"
-      ],
-      "twist": "No one leaves — instead a sealed vote result now hangs over every future couple.",
-      "engagement": {
-        "kind": "cliffhanger",
-        "text": "WHOSE name is in the envelope? Wrong answers only 😈"
-      },
-      "keyLines": [
-        {
-          "speaker": "sienna-australia",
-          "text": "An empty suitcase? That's the scariest thing I've ever seen."
-        },
-        {
-          "speaker": "poppy-uk",
-          "text": "We held hands for SAFETY. It's a safety hand."
-        },
-        {
-          "speaker": "lucas-brazil",
-          "text": "In Brazil we say: the hand knows before the heart. ...My hand knows."
-        }
-      ],
-      "unresolvedThreads": ["Sealed envelope looming", "Lucas-Poppy safety hand incident"],
-      "connectionToPrevious": "The ep1 vote engagement pays off; alliances seeded in ep5 solidify."
-    },
-    {
-      "episode": 7,
-      "title": "Deep End Diplomacy",
-      "hook": "Lucas just refused a pool party. LUCAS.",
-      "summary": "Villa pool olympics. Lucas — sunshine incarnate — dodges every water event until Alejandro smells weakness and calls a cannonball contest. Poppy spots the truth, fakes a cramp, and quietly gets the party moved to the shallow end. Lucas confesses his secret to her at the firepit; she doesn't joke. Not once.",
-      "focusCharacters": ["lucas-brazil", "poppy-uk", "alejandro-spain", "brock-usa"],
-      "keyEvents": [
-        "Pool olympics; Lucas's swimming secret nearly exposed",
-        "Alejandro weaponizes the cannonball contest",
-        "Poppy covers for Lucas without being asked",
-        "Firepit confession: Lucas tells Poppy he can't swim; she stays sincere"
-      ],
-      "twist": "Lucas tells Poppy his secret — and Poppy responds with sincerity, her rarest resource.",
-      "engagement": {
-        "kind": "question",
-        "text": "Poppy was NICE. On purpose. Ship or panic? 🚢"
-      },
-      "keyLines": [
-        {
-          "speaker": "alejandro-spain",
-          "text": "Cannonball contest. Sunshine boy goes first."
-        },
-        {
-          "speaker": "lucas-brazil",
-          "text": "The ocean and me... we are friends who respect distance."
-        },
-        {
-          "speaker": "poppy-uk",
-          "text": "I'm not being nice. I'm being... efficient. Shut up."
-        }
-      ],
-      "unresolvedThreads": [
-        "Lucas-Poppy now genuinely close",
-        "Alejandro's edge revealed publicly"
-      ],
-      "connectionToPrevious": "The ep6 safety-hand becomes real trust; Alejandro-Lucas cold war from ep2 heats up."
-    },
-    {
-      "episode": 8,
-      "title": "The Notebook Situation",
-      "hook": "Someone found Poppy's poetry. And read it. OUT LOUD.",
-      "summary": "Bedroom chaos: Sienna, hunting for sunscreen, finds Poppy's poetry notebook and — not knowing whose it is — performs a dramatic reading at breakfast. The poem is unmistakably about a boy who dances. Poppy claims it's 'satire'. Lucas quietly memorizes every word. Sienna realizes what she's done and, for the first time ever, apologizes without a dare attached.",
-      "focusCharacters": ["poppy-uk", "sienna-australia", "lucas-brazil", "greta-germany"],
-      "keyEvents": [
-        "Poppy's poetry notebook discovered and read aloud",
-        "The dancing-boy poem is obviously about Lucas",
-        "Poppy's 'satire' defense convinces no one",
-        "Sienna's first sincere apology; Greta logs it as a historic event"
-      ],
-      "twist": "Secret revealed: Poppy's poetry — and everyone now knows who it's about.",
-      "engagement": {
-        "kind": "cliffhanger",
-        "text": "Lucas learned the poem BY HEART. What's he going to do with it?? 📖"
-      },
-      "keyLines": [
-        {
-          "speaker": "sienna-australia",
-          "text": "'His feet speak the language my heart is scared of' — WHO WROTE THIS?!"
-        },
-        {
-          "speaker": "poppy-uk",
-          "text": "It's satire. It's a satirical poem. About a satirical boy."
-        },
-        {
-          "speaker": "greta-germany",
-          "text": "14:32 — Sienna apologized. No dare attached. Logging historic event."
-        }
-      ],
-      "unresolvedThreads": ["Lucas holds the poem", "Poppy fully exposed emotionally"],
-      "connectionToPrevious": "Pays off Poppy's ep1-established notebook secret and ep7 firepit closeness."
-    },
-    {
-      "episode": 9,
-      "title": "The Ten Out of Ten Conspiracy",
-      "hook": "Alejandro has a list. Élodie's name is at the top. It's not a love list.",
-      "summary": "Greta, reorganizing the kitchen at 06:00, finds Alejandro's audition notebook: four years of notes on how to win villa shows — charm arcs, target selection, 'the French one: highest value'. The villa splits: is it calculated, or is it four years of wanting to be loved with a spreadsheet? Élodie reads the notebook alone at the firepit... and finds the last page: her name, and next to it, no strategy. Just 'actually funny. actually kind. off-script.'",
-      "focusCharacters": [
-        "alejandro-spain",
-        "elodie-france",
-        "greta-germany",
-        "matteo-italy",
-        "brock-usa"
-      ],
-      "keyEvents": [
-        "Alejandro's strategy notebook discovered",
-        "Villa tribunal at the firepit; Brock surprisingly defends him ('we've all got a pitch deck, man')",
-        "Élodie reads the final page: his notes on her stopped being strategy",
-        "Élodie burns the notebook and tells no one what the last page said"
-      ],
-      "twist": "Betrayal inverted: the 'strategy list' ends with Alejandro genuinely off-script about Élodie.",
-      "engagement": {
-        "kind": "vote",
-        "text": "Can Élodie trust him now? YES or RUN 🏃‍♀️"
-      },
-      "keyLines": [
-        {
-          "speaker": "greta-germany",
-          "text": "I found a four-year plan. It is beautiful. It is also a crime scene."
-        },
-        {
-          "speaker": "alejandro-spain",
-          "text": "Four auditions. You practice a face long enough, you forget you have one."
-        },
-        {
-          "speaker": "elodie-france",
-          "text": "The last page... c'est un... peut-être."
-        }
-      ],
-      "unresolvedThreads": [
-        "Élodie's secret about the last page",
-        "Villa trust in Alejandro fractured"
-      ],
-      "connectionToPrevious": "Alejandro's ep2 mystique and ep7 edge finally get an origin story."
-    },
-    {
-      "episode": 10,
-      "title": "The Envelope, Please",
-      "hook": "First official couple. Which opens the envelope. From episode six. Tonight.",
-      "summary": "Finale night. Lucas answers the poem — with a dance, obviously, then with words. Poppy says yes in plain English, no joke, a villa first. That makes them the first official couple — which unseals the ep6 envelope. The vote inside named the 'least matched' contestant: Alejandro. He stands to leave; Élodie stands up too — 'the vote was before the last page.' Season ends on Greta's clipboard: 'Season 2 agenda, item one: everything is unresolved.'",
+      "title": "The Deep End",
+      "hook": "Sienna dares Lucas into the deep end. Lucas cannot swim.",
+      "summary": "Challenge day: a raft race across the pool with couples' loyalty riding on it. Sienna, allergic to sincerity in its final second, converts a genuinely tender conversation with Lucas into a dare — and dares him off the deep end. Lucas, six days into faking it, goes in grinning and does not come back up smiling. Poppy is in the water before the narrator finishes the sentence. Union Jack crop top, full sprint, no jokes. She hauls him to the steps and the villa goes silent for the first time all season. Lucas confesses in front of everyone: beach volleyball champion, cannot swim, has been terrified since Tuesday. Sienna's confidence-dealer act collapses; she apologises with her whole chest and then makes a joke to escape it, and Lucas — highest emotional intelligence in the building — clocks the pattern out loud. Matteo declares Poppy a national hero of two nations. Brock offers to teach Lucas 'aquatic synergy'.",
       "focusCharacters": [
         "lucas-brazil",
         "poppy-uk",
-        "alejandro-spain",
-        "elodie-france",
-        "greta-germany"
+        "sienna-australia",
+        "matteo-italy"
       ],
       "keyEvents": [
-        "Lucas responds to the poem; Poppy answers sincerely — first official couple",
-        "The ep6 envelope unseals: Alejandro was voted least matched",
-        "Élodie publicly stakes her maybe on Alejandro",
-        "Season 2 hook: a boat with new flags appears on the horizon"
+        "Sienna dares Lucas into the deep end one second before a real conversation",
+        "Lucas's non-swimming secret detonates in front of the whole villa",
+        "Poppy dives in fully dressed and drops every layer of sarcasm",
+        "Lucas names Sienna's dare-deflection pattern to her face",
+        "Élodie watches the rescue from Alejandro's sun-lounger and rates it 'a ten, unfortunately'"
       ],
-      "twist": "The envelope names Alejandro — and Élodie chooses him anyway, sort of, maybe, a seven.",
+      "twist": "Lucas doesn't thank Poppy for saving him. He thanks her for not laughing. That single sentence moves the whole season.",
       "engagement": {
-        "kind": "preview",
-        "text": "Season 2: new flags on the horizon. Which countries should board? 🌍"
+        "kind": "cliffhanger",
+        "text": "Poppy nearly said the real thing at the pool steps. Tomorrow, someone finds her notebook."
       },
       "keyLines": [
         {
-          "speaker": "lucas-brazil",
-          "text": "This dance is called: I Read Your Poem Two Hundred Times."
+          "speaker": "Narrator",
+          "text": "He can't swim. She can. Cinema."
         },
         {
-          "speaker": "poppy-uk",
-          "text": "Yes. No joke attached. Don't make it weird. ...Okay make it a bit weird."
+          "speaker": "Lucas",
+          "text": "Dance now, feelings later. Except… that one was now."
         },
         {
-          "speaker": "elodie-france",
-          "text": "He is a seven. Final answer. For now."
+          "speaker": "Sienna",
+          "text": "Scared money don't find love. (Confessional) Scared money nearly drowned a man."
+        },
+        {
+          "speaker": "Poppy",
+          "text": "I didn't laugh. That's my whole personality gone, that."
         }
       ],
-      "unresolvedThreads": ["Alejandro-Élodie unresolved 'seven'", "Season 2 arrivals teased"],
-      "connectionToPrevious": "Resolves ep6 envelope, ep8 poem, ep9 notebook; launches season 2."
+      "unresolvedThreads": [
+        "Sienna's guilt has nowhere to go",
+        "Élodie has now watched Poppy win a moment she wanted",
+        "Who picked up Poppy's notebook from the poolside bag?",
+        "Will Lucas ever go past the shallow end again?"
+      ],
+      "connectionToPrevious": "Pays off Episode 1's 'why won't Lucas pass the pool steps'; Sienna's deflection here sets up her ring reveal in Episode 7, and Poppy's dropped bag sets up Episode 5."
+    },
+    {
+      "episode": 4,
+      "title": "Stars in a Spreadsheet",
+      "hook": "Rohan's algorithm is public. Rohan's algorithm is astrology.",
+      "summary": "Villa Compatibility Night: Rohan finally unveils the famous framework that got him on this show. Eleven metrics, three tabs, one lanyard. Poppy asks one question — 'what's column F?' — and column F is 'Moon Sign'. The framework is horoscopes in a spreadsheet wearing business clothes. The villa dies laughing. Brock calls it 'disruptive'. Élodie calls it 'a four, generously'. But the algorithm's top match is Matteo and Élodie at 96%, and both of them go very quiet, which is much worse than laughing. Alejandro, still technically with Élodie, says nothing with tremendous style. Then Greta finds her own score with Rohan: 71%. She reads it three times. She files it. She schedules a walk alone. And Rohan — who remembers every detail anyone has ever mentioned — realises he built a machine that rated the one person he actually likes and forgot to include the data that matters.",
+      "focusCharacters": [
+        "rohan-india",
+        "greta-germany",
+        "matteo-italy",
+        "elodie-france"
+      ],
+      "keyEvents": [
+        "Poppy exposes column F: the algorithm is astrology in a spreadsheet",
+        "Matteo and Élodie score 96% and both refuse to comment",
+        "Greta discovers her Rohan score is 71% and quietly walks away",
+        "Rohan rehearses a confession so long that Greta goes to bed",
+        "Alejandro realises he is dating a woman whose heart is in another column"
+      ],
+      "twist": "Greta returns with a printed spreadsheet of her own: twelve tabs, one metric, 'Rohan'. He scored 96% too. She'd run the numbers on day two and never mentioned it.",
+      "engagement": {
+        "kind": "vote",
+        "text": "Vote: is Rohan's algorithm romantic genius or a horoscope with a lanyard?"
+      },
+      "keyLines": [
+        {
+          "speaker": "Narrator",
+          "text": "Column F. Moon sign. Devastating."
+        },
+        {
+          "speaker": "Rohan",
+          "text": "Love is a plan you make twice. This is the second draft."
+        },
+        {
+          "speaker": "Greta",
+          "text": "Your data was incomplete. Mine wasn't."
+        },
+        {
+          "speaker": "Élodie",
+          "text": "Ninety-six percent with Matteo? C'est un non. (Confessional) It is a catastrophe."
+        }
+      ],
+      "unresolvedThreads": [
+        "Matteo and Élodie both know the number now",
+        "Alejandro is being quietly replaced and refuses to react",
+        "Rohan still hasn't said the actual sentence out loud",
+        "Why does Matteo never eat his own cheese dishes?"
+      ],
+      "connectionToPrevious": "Builds on Episode 2's bathroom-door tenderness between Rohan and Greta; the 96% score here is the seed of the Matteo–Élodie romance that lands in Episode 6 and Episode 9."
+    },
+    {
+      "episode": 5,
+      "title": "Nine Layers, One Notebook",
+      "hook": "Alejandro is holding Poppy's notebook. Out loud. On stage.",
+      "summary": "Talent Night in the villa courtyard. Alejandro, needing a moment after being emotionally outperformed by a spreadsheet, produces a small battered notebook found by the pool since Episode 3 and reads a poem 'by an anonymous romantic'. It rhymes 'Lucas' with 'ruckus'. Twice. The villa realises whose it is in real time and the temperature drops forty degrees. Poppy does not run. Poppy stands up, takes the notebook back, and says the funniest thing she has ever said, and everyone can hear that her voice is shaking. Lucas is not laughing. Lucas looks like someone just handed him something he'd been waiting for. Élodie — and this is the season's turn — steps in front of Poppy and dismantles Alejandro in four sentences of surgical French honesty, defending the rival she's been quietly resenting for four episodes. Brock hugs everyone, including Alejandro, who deserves nothing.",
+      "focusCharacters": [
+        "poppy-uk",
+        "alejandro-spain",
+        "lucas-brazil",
+        "elodie-france"
+      ],
+      "keyEvents": [
+        "Alejandro reads Poppy's secret poetry aloud without permission",
+        "The villa identifies the author mid-stanza; Poppy's mask cracks on camera",
+        "Élodie publicly destroys Alejandro to protect Poppy",
+        "Lucas asks Poppy to read him the rest — privately",
+        "Sienna, still guilty from Episode 3, appoints herself Poppy's bodyguard"
+      ],
+      "twist": "Poppy reads the rest to Lucas that night — and the last poem in the notebook isn't about Lucas at all. It's about her dad, and why she jokes. Lucas doesn't say a word. He just holds the mug.",
+      "engagement": {
+        "kind": "cliffhanger",
+        "text": "Poppy asked Lucas one question at 2am. His answer is Episode 6's first thirty seconds."
+      },
+      "keyLines": [
+        {
+          "speaker": "Narrator",
+          "text": "He rhymed Lucas with ruckus. Twice."
+        },
+        {
+          "speaker": "Élodie",
+          "text": "You read a woman's heart for applause. C'est un non."
+        },
+        {
+          "speaker": "Poppy",
+          "text": "Right. Well. That's nine layers of sarcasm gone in one evening."
+        },
+        {
+          "speaker": "Lucas",
+          "text": "Read me the rest. Dance now, feelings… no. Feelings now."
+        }
+      ],
+      "unresolvedThreads": [
+        "Alejandro has lost the villa and knows it",
+        "Poppy has been sincere in public and hasn't recovered",
+        "Why did Élodie defend her rival so hard?",
+        "Lucas hasn't answered Poppy's 2am question on camera"
+      ],
+      "connectionToPrevious": "Direct payoff of the bag Poppy dropped poolside in Episode 3 and the sleep-talking of Episode 1; Élodie's defence here explains her Episode 6 pivot toward Matteo."
+    },
+    {
+      "episode": 6,
+      "title": "The Mozzarella Martyr",
+      "hook": "Matteo just won the cheese challenge. Matteo is lactose intolerant.",
+      "summary": "Cook-Off Day: the villa is split into two kitchens and Matteo, national representative of dairy, is unbeatable — until Greta, who reads labels, notices he has never once eaten his own creations. Sienna dares him to take one bite of his prize-winning mozzarella tower. He takes three, for honour. The next twenty minutes are a beautiful, agonising lie collapsing in real time. Matteo confesses to the whole villa that he has been suffering nightly for the mozzarella brand, and it is the most Italian sentence ever recorded. Élodie doesn't laugh. Élodie brings him water, sits with him for two hours, tells nobody, and rates him — out loud, for the first time in her life — a ten. Alejandro sees it and, in his one genuinely graceful act of the season, ends things with Élodie before she has to. Brock announces a business idea for lactose-free mozzarella and calls it 'a seven-figure play'. Poppy asks how many figures are currently in his account. Brock changes the subject with astonishing speed.",
+      "focusCharacters": [
+        "matteo-italy",
+        "elodie-france",
+        "alejandro-spain",
+        "greta-germany"
+      ],
+      "keyEvents": [
+        "Greta clocks that Matteo never eats his own cheese dishes",
+        "Sienna's dare forces Matteo's lactose confession in front of everyone",
+        "Élodie nurses him for two hours and declares him a ten, unprompted",
+        "Alejandro voluntarily ends his pairing with Élodie",
+        "Brock dodges a direct question about his startup's bank balance"
+      ],
+      "twist": "Matteo says he'd suffer the cheese again — because his grandmother taught him the recipes and he can't bear to stop cooking them. The joke becomes the most moving speech of the season, and it's eleven seconds long.",
+      "engagement": {
+        "kind": "question",
+        "text": "Élodie said a number out loud. Is a ten from Élodie worth more than a poem? You decide."
+      },
+      "keyLines": [
+        {
+          "speaker": "Narrator",
+          "text": "Three bites. For honour. Catastrophic."
+        },
+        {
+          "speaker": "Matteo",
+          "text": "The mozzarella is a lie. The love is not."
+        },
+        {
+          "speaker": "Élodie",
+          "text": "You are a ten. Do not make me repeat it."
+        },
+        {
+          "speaker": "Brock",
+          "text": "Lactose-free mozzarella? Full send on the heart, baby!"
+        }
+      ],
+      "unresolvedThreads": [
+        "Poppy is now suspicious of Brock's finances",
+        "Alejandro is single, exposed, and quiet for the first time",
+        "Sienna's dares keep causing accidents — Episode 3, now Episode 6",
+        "Does Matteo know Élodie saw the 96%?"
+      ],
+      "connectionToPrevious": "Cashes in the 96% match from Episode 4 and Élodie's protective streak from Episode 5; Poppy's finance question here directly triggers Episode 8."
+    },
+    {
+      "episode": 7,
+      "title": "48 Hours in Queensland",
+      "hook": "Sienna's keyring has a ring on it. Lucas just noticed.",
+      "summary": "Beach-day storage clear-out. Lucas picks up Sienna's keys and finds an engagement ring threaded on the loop. The villa assumes a prank. Sienna's face says otherwise, and Sienna's face has never said otherwise about anything. Cornered kindly, she admits it: engaged once, for forty-eight hours, to a man she met at a jet-ski rental, and she has carried the ring ever since — not for him, but as proof she once said yes to something without turning it into a dare. Poppy sits down beside her without a single joke, which costs her physically. Then the betrayal: Sienna, terrified of being seen, tells Lucas she likes him — the very man Poppy has been sincerely, publicly, poetically in love with since Episode 1. Lucas says the kindest no in television history and it still lands like a wall. Poppy hears the end of it from the doorway. She says nothing. She says nothing for a very long time.",
+      "focusCharacters": [
+        "sienna-australia",
+        "lucas-brazil",
+        "poppy-uk",
+        "brock-usa"
+      ],
+      "keyEvents": [
+        "Lucas finds Sienna's 48-hour engagement ring on her keyring",
+        "Sienna confesses the whole story and cries without converting it to a dare",
+        "Sienna tells Lucas she likes him, knowing Poppy's poems exist",
+        "Lucas turns her down gently and tells Poppy the truth immediately",
+        "Brock takes Sienna out of the room and hypes her back to standing, meaning every word"
+      ],
+      "twist": "Poppy doesn't retaliate. She gives Sienna the notebook to read — the part about her dad — because loyalty is the only thing Poppy has never joked about. Sienna is destroyed by kindness.",
+      "engagement": {
+        "kind": "cliffhanger",
+        "text": "Two people are now protecting Sienna. One of them has forty-three dollars. Episode 8 opens with a receipt."
+      },
+      "keyLines": [
+        {
+          "speaker": "Narrator",
+          "text": "Forty-eight hours. One ring. One keyring."
+        },
+        {
+          "speaker": "Sienna",
+          "text": "I said yes once. Then I dared my way out of it."
+        },
+        {
+          "speaker": "Lucas",
+          "text": "I clock everyone before they clock themselves. Except me."
+        },
+        {
+          "speaker": "Poppy",
+          "text": "Read page nine. Then we never speak of it. Sun's out, standards up."
+        }
+      ],
+      "unresolvedThreads": [
+        "Sienna has feelings with nowhere to land",
+        "Brock and Sienna spent two hours laughing and nobody noticed",
+        "Poppy and Lucas still aren't officially anything",
+        "What receipt is in Brock's shorts pocket?"
+      ],
+      "connectionToPrevious": "Direct payoff of Sienna's Episode 3 deflection and Episode 6 dare; Poppy's page-nine poem from Episode 5 becomes the peace offering, and Brock/Sienna here sets up the finale."
+    },
+    {
+      "episode": 8,
+      "title": "Forty-Three Dollars",
+      "hook": "Brock's startup pitch is live. Poppy has the bank app.",
+      "summary": "Investor Night: the villa pitches passion projects for a prize date. Brock delivers eleven minutes of unstoppable American belief about his seven-figure lemonade-technology company — and Poppy, holding the receipt he dropped in Episode 7, asks the number out loud. Forty-three dollars. One investor. His mum. The villa's reaction is a face-reaction masterpiece: Élodie's eyebrow, Greta's clipboard hitting the tile, Matteo already crying. Brock does the bravest thing anyone does all season: he doesn't backpedal. He says he's broke, he says he hypes everyone else because he needs to believe it works, and he keeps smiling while his voice goes. Then Poppy — the villa's sniper — steps in front of him and defends him harder than she's defended anyone, because that's who she actually is under the sarcasm. And Sienna, unprompted, takes the mic and dares the whole villa to name one time Brock made them feel small. Nobody can. Nine nations, zero examples.",
+      "focusCharacters": [
+        "brock-usa",
+        "poppy-uk",
+        "sienna-australia",
+        "elodie-france"
+      ],
+      "keyEvents": [
+        "Poppy exposes the forty-three-dollar bank balance mid-pitch",
+        "Brock admits the whole truth without a single excuse",
+        "Poppy publicly defends the man she just exposed",
+        "Sienna challenges the villa and nobody can name a time Brock was unkind",
+        "Élodie rates Brock 'a nine, which for me is a scandal'"
+      ],
+      "twist": "Brock's one investor, his mum, sent a message read aloud on the villa speaker — and she doesn't mention the money at all. She asks whether he's remembered to be kind. Matteo has to leave the room.",
+      "engagement": {
+        "kind": "vote",
+        "text": "Vote for the villa's most genuinely decent human: Brock, Poppy, or Élodie. Results in Episode 10."
+      },
+      "keyLines": [
+        {
+          "speaker": "Narrator",
+          "text": "Seven figures. Two of them. Forty-three dollars."
+        },
+        {
+          "speaker": "Brock",
+          "text": "Broke, yeah. Still full send on the heart, baby."
+        },
+        {
+          "speaker": "Poppy",
+          "text": "Say one more word about him and I'll start rhyming."
+        },
+        {
+          "speaker": "Élodie",
+          "text": "A nine. For me that is a scandal."
+        }
+      ],
+      "unresolvedThreads": [
+        "Brock and Sienna keep ending up in the same conversations",
+        "Poppy has now been sincere twice in public and survived",
+        "Alejandro has been silent for two episodes — why?",
+        "Nobody has asked Élodie what she cries at"
+      ],
+      "connectionToPrevious": "Pays off the receipt from Episode 7 and Poppy's suspicion from Episode 6; Poppy's public loyalty here proves the character arc set up by her Episode 5 notebook."
+    },
+    {
+      "episode": 9,
+      "title": "Four Applications and a Mirror",
+      "hook": "Élodie is sobbing at a movie trailer. The whole villa is watching.",
+      "summary": "Final-week movie night. Somebody puts on a cheesy American rom-com and Élodie — arbiter of the ten-point scale, woman of ice — is gone by the trailer. Openly. Wetly. She owns every one of these films and can quote them. The villa's reaction beat is legendary. Matteo, weeping harder than she is, holds her hand through the entire third act and asks her to be his properly, out loud, with a menu. Élodie, who has spent nine episodes arguing herself out of what she wants, says yes in French, then repeats it in English so there's no confusion. Meanwhile Alejandro finally cracks. He admits he applied to this show four times, that the smolder took eleven months of mirror practice and one pulled facial muscle, and that he read Poppy's poem because he'd never had anything that sincere to read of his own. He apologises to Poppy directly. Poppy accepts, brutally and completely. Rohan, out of drafts, throws away his notebook and just says the sentence to Greta — no plan, no framework, no columns. Greta checks her watch, says he is four days late, and kisses him anyway.",
+      "focusCharacters": [
+        "elodie-france",
+        "matteo-italy",
+        "alejandro-spain",
+        "rohan-india",
+        "greta-germany"
+      ],
+      "keyEvents": [
+        "Élodie's rom-com sobbing is exposed to the entire villa",
+        "Matteo asks her to be his, properly, with a full menu",
+        "Alejandro confesses the four applications and eleven months of mirror practice",
+        "Alejandro apologises to Poppy for the notebook; she accepts",
+        "Rohan bins the framework and confesses to Greta unrehearsed"
+      ],
+      "twist": "Alejandro withdraws from the final himself — he says he came here to be looked at, and he'd rather leave having actually seen other people. The villa's most arrogant man exits as its most self-aware.",
+      "engagement": {
+        "kind": "preview",
+        "text": "Next: the finale. One vote, one poem read on purpose, and one man who cannot swim walking towards the deep end."
+      },
+      "keyLines": [
+        {
+          "speaker": "Narrator",
+          "text": "She cried. At the trailer. Historic."
+        },
+        {
+          "speaker": "Matteo",
+          "text": "My heart is al dente — firm, but ready. Table for two?"
+        },
+        {
+          "speaker": "Alejandro",
+          "text": "Eleven months of mirror practice. One pulled muscle. Worth nothing."
+        },
+        {
+          "speaker": "Greta",
+          "text": "You are four days late. Romance runs on schedule. Come here."
+        }
+      ],
+      "unresolvedThreads": [
+        "Poppy and Lucas still have not made it official",
+        "Sienna and Brock are pretending nothing is happening",
+        "Who wins the decency vote from Episode 8?",
+        "Will Lucas actually get in the water?"
+      ],
+      "connectionToPrevious": "Cashes the 96% score from Episode 4 and Élodie's Episode 6 'ten'; resolves Alejandro's Episode 5 betrayal and Rohan's stalled confession from Episodes 2 and 4."
+    },
+    {
+      "episode": 10,
+      "title": "Full Send",
+      "hook": "Lucas is walking to the deep end. Nobody dared him this time.",
+      "summary": "Finale. Four pairs, one public vote, and a villa where every secret has already been detonated. Poppy stands up and reads the Lucas poem aloud, on purpose, to his face, in front of everyone, and does not make a single joke — the whole season's arc collapsed into ninety seconds of sincerity that the narrator refuses to interrupt. Lucas answers by walking, unforced and terrified, into the deep end while Poppy holds his hand from the edge; he goes under, comes up, and laughs like a man who's finally stopped performing. Sienna and Brock stop pretending: two loud optimists, one keyring ring finally taken off it, and a hype-man who's never once made her feel small. Matteo cooks the final dinner entirely dairy-free and Élodie rates it a ten in front of nine nations. Rohan and Greta arrive at the ceremony four minutes early because of course they do. The decency vote lands, the winning pair is announced, and the prize gets split in a way nobody expects.",
+      "focusCharacters": [
+        "poppy-uk",
+        "lucas-brazil",
+        "brock-usa",
+        "sienna-australia",
+        "matteo-italy",
+        "elodie-france"
+      ],
+      "keyEvents": [
+        "Poppy reads the 'ruckus' poem aloud, on purpose, with zero jokes",
+        "Lucas walks into the deep end holding her hand — no dare, no audience pressure",
+        "Sienna takes the ring off the keyring and gives it to the sea",
+        "Brock and Sienna go public with the villa's loudest pairing",
+        "The decency vote is revealed and Poppy and Lucas win the season"
+      ],
+      "twist": "Poppy and Lucas split the prize nine ways — including with Alejandro, who already left — and Brock, still forty-three dollars deep, quietly declines his share and asks that it go to Matteo's grandmother's recipe book instead. Élodie cries. On camera. Again.",
+      "engagement": {
+        "kind": "question",
+        "text": "Nine nations, one villa, every secret out. Which pair should we bring back next season? Vote now."
+      },
+      "keyLines": [
+        {
+          "speaker": "Poppy",
+          "text": "Lucas. Ruckus. I meant every word. No punchline."
+        },
+        {
+          "speaker": "Lucas",
+          "text": "Dance now, feelings now, swimming lessons Monday."
+        },
+        {
+          "speaker": "Sienna",
+          "text": "Scared money don't find love. Neither does a keyring."
+        },
+        {
+          "speaker": "Narrator",
+          "text": "She was sincere. On purpose. Unbelievable."
+        }
+      ],
+      "unresolvedThreads": [
+        "Brock's lemonade LLC now has nine investors and still no product",
+        "Alejandro accepted his share and sent back a note nobody has read",
+        "Does Sienna's ex from the jet-ski rental know she's on television?",
+        "Greta scheduled a reunion. It is in eleven months, precisely."
+      ],
+      "connectionToPrevious": "Closes every thread planted since Episode 1: the sleep-talked name, the poolside notebook, Lucas's non-swimming, Sienna's ring, Brock's forty-three dollars, Matteo's dairy lie, Élodie's tears — and Greta's scheduled reunion sets up Season 2."
     }
   ]
 }

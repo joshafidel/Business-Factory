@@ -1,0 +1,123 @@
+[
+  {
+    "scene": 1,
+    "slot": "hook",
+    "kind": "scene",
+    "locationId": "bedroom",
+    "characters": [
+      "poppy-uk",
+      "matteo-italy",
+      "elodie-france"
+    ],
+    "imagePrompt": "Dark bedroom, moonlight stripes. Poppy in Union Jack pyjama crop top asleep mouth-open mid-murmur; Matteo beside her in white linen shirt smiling blissfully in his sleep; Élodie two beds over, sleek dark bob on the pillow, eyes wide open, red lip, utterly unimpressed.. Setting: Luxury shared villa bedroom with rows of neat double beds each with its own personality of pastel bedding and pillows, warm bedside lamps glowing, fairy lights along the headboards, moonlight pouring through tall arched windows, soft rugs and slippers, romantic blue-and-lavender night palette, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Poppy: petite British woman, sharp blonde bob, big sunglasses on head, Union Jack crop top and skirt, Union Jack tea mug, smirk; Matteo: Italian man, dark curls, thick eyebrows, white linen shirt with Italian tricolore collar trim, Italian-flag apron, gold chain, holding a pasta bowl with both hands; Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 9.988461538461538
+  },
+  {
+    "scene": 2,
+    "slot": "setup",
+    "kind": "scene",
+    "locationId": "kitchen",
+    "characters": [
+      "poppy-uk",
+      "elodie-france",
+      "brock-usa"
+    ],
+    "imagePrompt": "Sunlit kitchen. Poppy in Union Jack crop top clutching her Union Jack mug with hostage energy; Élodie in breton stripes and navy beret slicing fruit without looking up; Brock in American-flag tank and red backwards cap sliding a glass of water across the counter, grinning like a man closing a deal.. Setting: Bright luxury open villa kitchen, veined marble island with fresh pasta and flour mid-preparation, hanging copper pans catching the light, open shelves of colorful ceramics, bowls of lemons and tomatoes, herbs in pots on the windowsill, big windows with garden light streaming in, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Poppy: petite British woman, sharp blonde bob, big sunglasses on head, Union Jack crop top and skirt, Union Jack tea mug, smirk; Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare; Brock: tall tan American man, American-flag tank top (stars and stripes), red backwards cap with white star, star-print shorts, shaker bottle, huge grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-right",
+    "estimatedSeconds": 16.71923076923077
+  },
+  {
+    "scene": 3,
+    "slot": "escalation",
+    "kind": "scene",
+    "locationId": "pool",
+    "characters": [
+      "lucas-brazil",
+      "poppy-uk",
+      "elodie-france",
+      "matteo-italy",
+      "sienna-australia"
+    ],
+    "imagePrompt": "Poolside. Lucas in open canary-yellow Brazil jersey mid-hug with Élodie, who accepts it like paperwork; Poppy just behind, arms folded, smile clamped tight; Matteo in tricolore apron watching from a sun-lounger with tragic eyebrows; Sienna dripping wet, zinc stripe, grinning at all of it.. Setting: Luxury villa turquoise infinity pool glittering with caustic light reflections, rows of hot-pink sun loungers with striped towels, heart shaped swim-up bar stacked with tropical drinks and fruit, inflatable flamingo and beach ball floating, terracotta arches draped in bougainvillea, palm trees, distant hills, bright midday sun with sparkling water highlights, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Lucas: Brazilian man, sun-streaked dark curls, huge grin, open canary-yellow Brazil jersey with green trim, green-yellow-blue shorts, beaded necklace, hands on hips, huge grin; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, Union Jack crop top and skirt, Union Jack tea mug, smirk; Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare; Matteo: Italian man, dark curls, thick eyebrows, white linen shirt with Italian tricolore collar trim, Italian-flag apron, gold chain, holding a pasta bowl with both hands; Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, green-and-gold surf top, Australian-flag boardshorts with stars, cork hat on back, grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "parallax",
+    "estimatedSeconds": 16.876923076923077
+  },
+  {
+    "scene": 4,
+    "slot": "escalation",
+    "kind": "argument",
+    "locationId": "firepit",
+    "characters": [
+      "sienna-australia",
+      "elodie-france",
+      "lucas-brazil",
+      "poppy-uk",
+      "matteo-italy",
+      "brock-usa"
+    ],
+    "imagePrompt": "Firepit at dusk. Sienna in green-and-gold surf top leaning forward like a bookmaker; Élodie serene in her tricolore scarf holding up five fingers; Lucas's grin cracking; Poppy half-standing, furious; Matteo slamming a steaming lasagne onto the table; Brock beaming in his star-print shorts.. Setting: Sunken circular firepit lounge at dusk, plush amber and magenta cushions, crackling glowing fire casting warm flicker light on the stone, canopies of string lights and lanterns overhead, cocktails on a low table, purple-orange gradient sky over an ocean horizon with the first stars, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, green-and-gold surf top, Australian-flag boardshorts with stars, cork hat on back, grin; Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare; Lucas: Brazilian man, sun-streaked dark curls, huge grin, open canary-yellow Brazil jersey with green trim, green-yellow-blue shorts, beaded necklace, hands on hips, huge grin; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, Union Jack crop top and skirt, Union Jack tea mug, smirk; Matteo: Italian man, dark curls, thick eyebrows, white linen shirt with Italian tricolore collar trim, Italian-flag apron, gold chain, holding a pasta bowl with both hands; Brock: tall tan American man, American-flag tank top (stars and stripes), red backwards cap with white star, star-print shorts, shaker bottle, huge grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "shake",
+    "estimatedSeconds": 19.569230769230767
+  },
+  {
+    "scene": 5,
+    "slot": "twist",
+    "kind": "scene",
+    "locationId": "firepit",
+    "characters": [
+      "poppy-uk",
+      "elodie-france",
+      "lucas-brazil"
+    ],
+    "imagePrompt": "Firelight close on three faces: Poppy mid-accusation, mouth open; Élodie calm, chin lifted, delivering the line like a receipt; Lucas between them, beaded necklace catching light, brow slowly folding into confusion.. Setting: Sunken circular firepit lounge at dusk, plush amber and magenta cushions, crackling glowing fire casting warm flicker light on the stone, canopies of string lights and lanterns overhead, cocktails on a low table, purple-orange gradient sky over an ocean horizon with the first stars, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Poppy: petite British woman, sharp blonde bob, big sunglasses on head, Union Jack crop top and skirt, Union Jack tea mug, smirk; Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare; Lucas: Brazilian man, sun-streaked dark curls, huge grin, open canary-yellow Brazil jersey with green trim, green-yellow-blue shorts, beaded necklace, hands on hips, huge grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 14.98846153846154
+  },
+  {
+    "scene": 6,
+    "slot": "twist",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": [
+      "elodie-france"
+    ],
+    "imagePrompt": "Spill Room. Élodie alone in tiny sunglasses and tricolore scarf, arms crossed, one eyebrow up, denying everything with her mouth and confessing with her entire face.. Setting: Cozy velvet confessional booth wrapped in deep magenta drapes, glowing neon pink heart light on the wall, plush tufted armchair facing camera on a small stage, dramatic single spotlight with soft haze, scattered rose petals, gossip-ready intimacy, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "zoom-out",
+    "estimatedSeconds": 7.242307692307692
+  },
+  {
+    "scene": 7,
+    "slot": "engagement",
+    "kind": "arrival",
+    "locationId": "walkway",
+    "characters": [
+      "greta-germany",
+      "rohan-india",
+      "alejandro-spain"
+    ],
+    "imagePrompt": "Sunset walkway, gate swinging open. Alejandro in crimson shirt with gold trim and red sash, one red carnation, full smolder. Greta in black-red-gold kit blocking him with a clipboard; Rohan in his saffron-white-green polo frantically flipping notebook pages.. Setting: Dramatic torch-lit palm tree walkway leading to a grand villa entrance at night, flame torches with dancing light, polished stone path with petals scattered down the center, arched entry glowing warm from within, deep blue starry sky with a bright moon, red-carpet arrival energy, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, black-red-gold German kit swimwear, black-red-gold wristband, clipboard, waterproof watch, deadpan; Rohan: Indian man, neat black hair with one loose curl, saffron-white-green polo with chakra crest, cricket sweater on shoulders, tailored shorts, watch, notebook; Alejandro: Spanish man, flowing dark hair, crimson shirt with gold Spanish trim, red-gold sash, red carnation, white trousers, smolder.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-left",
+    "estimatedSeconds": 9.638461538461538
+  },
+  {
+    "scene": 8,
+    "slot": "engagement",
+    "kind": "endcard",
+    "locationId": "terrace",
+    "characters": [
+      "alejandro-spain"
+    ],
+    "imagePrompt": "Terrace at last light. Alejandro alone, crimson shirt and gold sash, twirling the carnation, looking straight down the lens with a smolder that took eleven months of mirror practice.. Setting: Rooftop villa terrace at golden hour, cascades of bougainvillea in full bloom, elegant wicker chairs around a candle-lit table with two glasses, ocean view with sailboats, sun flaring low over the water, warm honey-gold sunset glow with long soft shadows, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, cinematic three-point lighting with a warm key and cool bounce, strong foreground-midground-background depth layers, rich set dressing and props that reward a second look, gentle atmospheric haze, subtle depth of field, playful rounded toy-like shapes, high detail, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Alejandro: Spanish man, flowing dark hair, crimson shirt with gold Spanish trim, red-gold sash, red carnation, white trousers, smolder.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "zoom-out",
+    "estimatedSeconds": 10.476923076923075
+  }
+]

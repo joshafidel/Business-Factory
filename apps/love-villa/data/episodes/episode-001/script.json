@@ -1,0 +1,372 @@
+{
+  "episode": 1,
+  "title": "Sleep-Talking Sabotage",
+  "logline": "At 3am Poppy says the wrong name out loud, Élodie hears it and rates it a six, and by sunset the whole villa is being scored out of ten by people who cannot admit what they want.",
+  "scenes": [
+    {
+      "index": 1,
+      "slot": "hook",
+      "kind": "scene",
+      "locationId": "bedroom",
+      "characters": [
+        "poppy-uk",
+        "matteo-italy",
+        "elodie-france"
+      ],
+      "visual": "Dark bedroom, moonlight stripes. Poppy in Union Jack pyjama crop top asleep mouth-open mid-murmur; Matteo beside her in white linen shirt smiling blissfully in his sleep; Élodie two beds over, sleek dark bob on the pillow, eyes wide open, red lip, utterly unimpressed.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Poppy is asleep.",
+          "delivery": "sassy whisper, confidential",
+          "emphasize": [
+            "asleep"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Poppy is talking.",
+          "delivery": "delighted, slower — letting it land",
+          "emphasize": [
+            "talking"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "That is not Matteo's name.",
+          "delivery": "flat, scandalised",
+          "emphasize": [
+            "not"
+          ]
+        },
+        {
+          "speaker": "poppy-uk",
+          "text": "…Lucas.",
+          "delivery": "soft dreaming murmur, tragically fond",
+          "emphasize": [
+            "Lucas"
+          ]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "A six.",
+          "delivery": "deadpan whisper into the dark, eyes never blinking",
+          "emphasize": [
+            "six"
+          ]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [
+        "heartbeat",
+        "sting"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 3,
+      "slot": "escalation",
+      "kind": "scene",
+      "locationId": "pool",
+      "characters": [
+        "lucas-brazil",
+        "poppy-uk",
+        "elodie-france",
+        "matteo-italy",
+        "sienna-australia"
+      ],
+      "visual": "Poolside. Lucas in open canary-yellow Brazil jersey mid-hug with Élodie, who accepts it like paperwork; Poppy just behind, arms folded, smile clamped tight; Matteo in tricolore apron watching from a sun-lounger with tragic eyebrows; Sienna dripping wet, zinc stripe, grinning at all of it.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Lucas hugs Poppy. Then Élodie.",
+          "delivery": "casual, setting a trap",
+          "emphasize": [
+            "hugs"
+          ]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "I make lasagne. For eleven.",
+          "delivery": "quiet operatic doom, like declaring war",
+          "emphasize": [
+            "eleven"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Nobody asked.",
+          "delivery": "beat, then dry as bone",
+          "emphasize": [
+            "Nobody"
+          ]
+        }
+      ],
+      "motion": "parallax",
+      "sfx": [
+        "pop"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 4,
+      "slot": "escalation",
+      "kind": "argument",
+      "locationId": "firepit",
+      "characters": [
+        "sienna-australia",
+        "elodie-france",
+        "lucas-brazil",
+        "poppy-uk",
+        "matteo-italy",
+        "brock-usa"
+      ],
+      "visual": "Firepit at dusk. Sienna in green-and-gold surf top leaning forward like a bookmaker; Élodie serene in her tricolore scarf holding up five fingers; Lucas's grin cracking; Poppy half-standing, furious; Matteo slamming a steaming lasagne onto the table; Brock beaming in his star-print shorts.",
+      "lines": [
+        {
+          "speaker": "sienna-australia",
+          "text": "Rate the men. Out of ten. Go.",
+          "delivery": "gleeful dare-dealer, escalating fast",
+          "emphasize": [
+            "parking ticket",
+            "ten"
+          ]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "Lucas — a five.",
+          "delivery": "serene, surgical, five fingers raised",
+          "emphasize": [
+            "five"
+          ]
+        },
+        {
+          "speaker": "lucas-brazil",
+          "text": "Five is a nice number, no?",
+          "delivery": "laughing, visibly wounded",
+          "emphasize": [
+            "nice"
+          ]
+        },
+        {
+          "speaker": "poppy-uk",
+          "text": "A five? He's the best thing here.",
+          "delivery": "too loud, too fast, immediately regretting it",
+          "emphasize": [
+            "best"
+          ]
+        }
+      ],
+      "motion": "shake",
+      "sfx": [
+        "sting"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 5,
+      "slot": "twist",
+      "kind": "scene",
+      "locationId": "firepit",
+      "characters": [
+        "poppy-uk",
+        "elodie-france",
+        "lucas-brazil"
+      ],
+      "visual": "Firelight close on three faces: Poppy mid-accusation, mouth open; Élodie calm, chin lifted, delivering the line like a receipt; Lucas between them, beaded necklace catching light, brow slowly folding into confusion.",
+      "lines": [
+        {
+          "speaker": "poppy-uk",
+          "text": "You rate him a five and you—",
+          "delivery": "sharp, accelerating, cut off",
+          "emphasize": [
+            "five"
+          ]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "Day two. I kissed him. Two minutes.",
+          "delivery": "velvet, unbothered, weaponised calm",
+          "emphasize": [
+            "kissed"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "3am wasn't about Lucas.",
+          "delivery": "revelatory, hushed",
+          "emphasize": [
+            "wasn't"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "It was the balcony she pretended not to see.",
+          "delivery": "soft devastation, then silence",
+          "emphasize": [
+            "balcony"
+          ]
+        },
+        {
+          "speaker": "lucas-brazil",
+          "text": "That was a kiss? I filed it as a hug.",
+          "delivery": "genuinely stunned, sweetly clueless",
+          "emphasize": [
+            "hug"
+          ]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [
+        "heartbeat",
+        "sting"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 6,
+      "slot": "twist",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": [
+        "elodie-france"
+      ],
+      "visual": "Spill Room. Élodie alone in tiny sunglasses and tricolore scarf, arms crossed, one eyebrow up, denying everything with her mouth and confessing with her entire face.",
+      "lines": [
+        {
+          "speaker": "elodie-france",
+          "text": "Do I want Lucas? C'est un non.",
+          "delivery": "icy denial, hard cut, then a betrayed whisper on the last three words",
+          "emphasize": [
+            "non",
+            "yes"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "She scored him a five.",
+          "delivery": "dry setup",
+          "emphasize": [
+            "five"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "She meant nine.",
+          "delivery": "punchline, then hold",
+          "emphasize": [
+            "nine"
+          ]
+        }
+      ],
+      "motion": "zoom-out",
+      "sfx": [
+        "ding"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 7,
+      "slot": "engagement",
+      "kind": "arrival",
+      "locationId": "walkway",
+      "characters": [
+        "greta-germany",
+        "rohan-india",
+        "alejandro-spain"
+      ],
+      "visual": "Sunset walkway, gate swinging open. Alejandro in crimson shirt with gold trim and red sash, one red carnation, full smolder. Greta in black-red-gold kit blocking him with a clipboard; Rohan in his saffron-white-green polo frantically flipping notebook pages.",
+      "lines": [
+        {
+          "speaker": "greta-germany",
+          "text": "You are not on the schedule.",
+          "delivery": "deadpan, absolutely no emotion",
+          "emphasize": [
+            "schedule"
+          ]
+        },
+        {
+          "speaker": "alejandro-spain",
+          "text": "No.",
+          "delivery": "warm, unbothered, smolder intact",
+          "emphasize": [
+            "No"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "One carnation. Zero explanation.",
+          "delivery": "savouring it",
+          "emphasize": [
+            "Zero"
+          ]
+        }
+      ],
+      "motion": "pan-left",
+      "sfx": [
+        "whoosh",
+        "sting"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 8,
+      "slot": "engagement",
+      "kind": "endcard",
+      "locationId": "terrace",
+      "characters": [
+        "alejandro-spain"
+      ],
+      "visual": "Terrace at last light. Alejandro alone, crimson shirt and gold sash, twirling the carnation, looking straight down the lens with a smolder that took eleven months of mirror practice.",
+      "lines": [
+        {
+          "speaker": "alejandro-spain",
+          "text": "She gives numbers. Tomorrow I give her one.",
+          "delivery": "low, silky, straight to camera",
+          "emphasize": [
+            "numbers",
+            "one"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "What number does he give Élodie?",
+          "delivery": "direct address, conspiratorial dare",
+          "emphasize": [
+            "number",
+            "Guess"
+          ]
+        }
+      ],
+      "motion": "zoom-out",
+      "sfx": [
+        "ding"
+      ],
+      "textMessages": []
+    }
+  ],
+  "caption": "She rated him a FIVE with a nine on her whole face 💀 and Poppy talked in her sleep at 3am. Guess Alejandro's number before Ep 2 👇",
+  "hashtags": [
+    "#LoveVillaNations",
+    "#SleepTalkingSabotage",
+    "#RateHimOutOfTen",
+    "#EpisodeOne",
+    "#VillaDrama",
+    "#LasagneForEleven",
+    "#OffTheScaleBaby",
+    "#TeamPoppy",
+    "#TeamElodie",
+    "#AnimatedReality"
+  ],
+  "musicDirection": "Original royalty-free tracks only. 3am hook: sparse music-box plink with a heartbeat pulse. Kitchen: bright plucked ukulele-marimba gossip bed. Poolside: sunny bossa-flavoured shaker groove. Firepit dare: tick-tock percussion building under each rating, hard brass sting on the lasagne gavel. Twist: everything drops to a single sustained cello note and room tone. Arrival: one flamenco-adjacent guitar flourish, generated, no lyrics. Endcard: single cheeky pizzicato button.",
+  "continuityNotes": [
+    "Élodie's out-of-ten rating system is the season's comic currency; established Ep1 as a callback engine (six, five, four).",
+    "Poppy sleep-said 'Lucas' at 3am; Élodie heard it and rated it a six. Poppy knows she talked and is terrified.",
+    "Élodie kissed Lucas on day two for two minutes; Lucas 'filed it as a hug' and still doesn't grasp it. Poppy half-saw it from the balcony.",
+    "Brock believes 'thank you for the water' is a commitment; Élodie has scored the water a four. He will escalate.",
+    "Matteo built a lasagne for eleven as a loyalty alarm — carbohydrates are his conflict language going forward.",
+    "Lucas will not go past the pool steps. Nobody has asked why yet.",
+    "Poppy's poetry notebook under the mattress is still unrevealed on camera.",
+    "Alejandro arrived unscheduled with one red carnation, off Greta's clipboard and outside Rohan's framework, and is already scoring Élodie sight unseen."
+  ]
+}
