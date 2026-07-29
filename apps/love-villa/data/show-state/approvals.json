@@ -28,5 +28,11 @@
     "at": "2026-07-29T18:12:21.539Z",
     "note": "",
     "locked": true
+  },
+  "final-export:1": {
+    "status": "pending",
+    "at": "2026-07-29T18:20:26.264Z",
+    "note": "Review output/episodes/episode-001/final.mp4",
+    "locked": false
   }
 }

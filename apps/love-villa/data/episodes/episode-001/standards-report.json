@@ -1,5 +1,11 @@
 {
   "episode": 1,
-  "at": "2026-07-29T16:34:46.427Z",
-  "charter": []
+  "at": "2026-07-29T18:21:57.944Z",
+  "charter": [
+    {
+      "rule": "runtime",
+      "detail": "episode runs 84.8s — charter target 35–60s",
+      "severity": "minor"
+    }
+  ]
 }
