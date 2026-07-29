@@ -72,6 +72,18 @@ interface ZooScene {
 
 /** Compile a scene's choreography into a motion prompt for the i2v model. */
 function motionPrompt(scene: ZooScene | undefined): string {
+  // Count-freeze guard: in counting/number scenes the object count is the
+  // whole point, and count drift is the #1 image-to-video failure (bananas
+  // multiplying mid-clip sank an entire episode). For those scenes the
+  // choreography is restricted to motions that cannot change any count.
+  const text = `${scene?.visual ?? ""} ${scene?.lyrics ?? ""}`.toLowerCase();
+  const counting =
+    /\b(count|number|one|two|three|four|five|six|seven|eight|nine|ten|\d)\b/.test(text);
+  const countGuard = counting
+    ? " CRITICAL: the number of every object (fruit, toys, props) stays EXACTLY the same for the " +
+      "entire clip — nothing is picked up, added, eaten, or removed. The characters only dance, " +
+      "bounce, clap, point and sway next to the objects."
+    : "";
   const a = scene?.action;
   if (a?.main) {
     const parts = [
@@ -85,7 +97,8 @@ function motionPrompt(scene: ZooScene | undefined): string {
         `movements with anticipation and settle: ${parts.join(" ")} ` +
         "The characters keep moving the whole time — bouncing to the song's rhythm, blinking, " +
         "smiling wide, ears and tails swaying. Continuous joyful energy, never a frozen pose. " +
-        "Smooth gentle camera.",
+        "Smooth gentle camera." +
+        countGuard,
     );
   }
   const motion = (scene?.visual ?? "a happy baby zoo animal").slice(0, 300);
@@ -93,7 +106,8 @@ function motionPrompt(scene: ZooScene | undefined): string {
     `Lively toddler-cartoon animation like a modern nursery-rhyme show: ${motion}. The cute baby ` +
       "animals dance and bounce to the music the whole time — blinking, giggling, wiggling ears, " +
       "clapping, swaying side to side. Continuous joyful energy, never a frozen pose. " +
-      "Smooth gentle camera.",
+      "Smooth gentle camera." +
+      countGuard,
   );
 }
 
@@ -494,7 +508,7 @@ registerCodeFunction("assemble_zoo_video", async (args, context) => {
   const animationFallbacks: number[] = [];
   let clipCost = 0n;
   const MAX_TRIES_PER_SCENE = 3;
-  const MAX_TOTAL_SUBMISSIONS = 10;
+  const MAX_TOTAL_SUBMISSIONS = 12;
   const MAX_CONCURRENT = 4;
   const base = publicBaseUrl();
   if (motion && providers.real && base) {

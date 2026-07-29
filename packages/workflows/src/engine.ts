@@ -178,6 +178,29 @@ export async function advanceWorkflowRun(
       return;
     }
 
+    // Concurrency claim: self-dispatch retries, manual kicks and the
+    // self-healing re-dispatcher can all race into the same step. A live
+    // stepRun younger than the self-heal threshold means another invocation
+    // owns this step — duplicate executions have literally produced three
+    // copies of one video (triple provider spend). Genuinely dead
+    // invocations age past the window and the self-heal takes over.
+    const CLAIM_WINDOW_MS = 6 * 60_000;
+    const liveOwner = await prisma.stepRun.findFirst({
+      where: {
+        workflowRunId: run.id,
+        workflowStepId: step.id,
+        status: "RUNNING",
+        startedAt: { gt: new Date(Date.now() - CLAIM_WINDOW_MS) },
+      },
+    });
+    if (liveOwner) {
+      log.info(
+        { runId: run.id, stepKey: step.key, ownerStepRunId: liveOwner.id },
+        "step already owned by a live invocation; yielding",
+      );
+      return;
+    }
+
     const stepRun = await prisma.stepRun.create({
       data: {
         workflowRunId: run.id,
