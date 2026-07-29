@@ -364,7 +364,84 @@
       "estimatedUsd": 0.15701500000000002,
       "mode": "live",
       "at": "2026-07-29T16:47:57.362Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Lucas hugs Poppy. Then Élodie.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-29T17:08:36.209Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:I make lasagne. For eleven.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-29T17:08:39.028Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Nobody asked.",
+      "estimatedUsd": 0.00195,
+      "mode": "live",
+      "at": "2026-07-29T17:08:41.297Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:sienna-australia:Rate the men. Out of ten. Go.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-29T17:08:42.843Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Lucas — a five.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-29T17:08:46.665Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:Five is a nice number, no?",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-29T17:08:48.431Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:A five? He's the best thing here",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-29T17:08:50.315Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:She gives numbers. Tomorrow I gi",
+      "estimatedUsd": 0.006449999999999999,
+      "mode": "live",
+      "at": "2026-07-29T17:08:52.569Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:What number does he give Élodie?",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-29T17:08:54.635Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-1",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:08:59.225Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:1",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:08:59.469Z"
     }
   ],
-  "totalUsd": 3.944
+  "totalUsd": 4.581
 }

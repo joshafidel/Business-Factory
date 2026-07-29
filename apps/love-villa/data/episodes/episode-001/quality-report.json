@@ -1,6 +1,6 @@
 {
   "episode": 1,
-  "updatedAt": "2026-07-29T16:48:47.447Z",
+  "updatedAt": "2026-07-29T17:08:58.230Z",
   "script": {
     "scores": {
       "hook": 8,
@@ -30,7 +30,7 @@
   },
   "audio": {
     "findings": [],
-    "checkedAt": "2026-07-29T16:36:34.741Z"
+    "checkedAt": "2026-07-29T17:08:58.230Z"
   },
   "visuals": [
     {

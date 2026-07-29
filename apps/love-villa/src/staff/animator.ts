@@ -8,9 +8,12 @@ import { type Scene } from "../ai/schemas";
 
 export function motionDirection(scene: Scene): string {
   const base =
-    "SUBTLE ACTING ONLY: characters breathe, blink, make small head turns. At most ONE " +
-    "deliberate gesture in the whole clip, by the focal character; everyone else stays " +
-    "nearly still. No swaying, no constant limb motion, no billowing cloth. ";
+    "EXPRESSIVE FACES, RESTRAINED BODIES: the faces carry the performance — clear, readable " +
+    "emotions that visibly evolve across the clip (brows knit or lift, eyes narrow or widen, " +
+    "a mouth tightens into a forced smile). Bodies stay composed: characters breathe, blink, " +
+    "make small head turns. At most ONE deliberate gesture in the whole clip, by the focal " +
+    "character; everyone else stays nearly still but keeps a living, reacting face. " +
+    "No swaying, no constant limb motion, no billowing cloth. ";
   switch (scene.kind) {
     case "confessional":
       return (
