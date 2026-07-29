@@ -301,10 +301,12 @@ async function main(): Promise<void> {
                   `shadows, lighting matched to the environment's ${loc?.timeOfDay ?? "day"} key light.`,
                 `Character designs must match the references EXACTLY (faces, hair, flag outfits, ` +
                   `signature accessories like eyewear/hats/scarves — never swap or restyle them): ${looks}.`,
-                `EXACTLY ${paintCast.length} people in frame — ONLY ${paintNames}; every other ` +
+                `EXACTLY ${paintCast.length} people in frame — ONLY ${paintNames}, and each of ` +
+                  `them appears EXACTLY ONCE (never two copies of the same person). Every other ` +
                   `character mentioned in the scene description is OFF-CAMERA (tight reality-TV ` +
-                  `framing). No duplicates, no extra background people. Every character is an ` +
-                  `ADULT with the same adult proportions as their reference; no child-sized bodies.`,
+                  `framing), and the background contains NO people at all — empty loungers, empty ` +
+                  `pool, empty seats. Every character is an ADULT with the same adult proportions ` +
+                  `as their reference; no child-sized bodies.`,
                 "Stage the characters with CLEAR SEPARATION: bodies never overlap or interlock; " +
                   "any physical contact is minimal (a hand on a shoulder at most) with both " +
                   "people's arms fully visible and unmistakably attached to their own bodies. " +
