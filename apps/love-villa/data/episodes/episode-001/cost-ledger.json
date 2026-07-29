@@ -469,7 +469,21 @@
       "estimatedUsd": 0.25,
       "mode": "live",
       "at": "2026-07-29T17:14:24.482Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-7",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:17:31.043Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:7",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:17:31.088Z"
     }
   ],
-  "totalUsd": 5.781
+  "totalUsd": 6.381
 }
