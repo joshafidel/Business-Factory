@@ -24,17 +24,19 @@ const SEED_ITEMS: Array<{
   amountUsd: number;
   cadence?: "monthly" | "annual";
   notes: string;
+  /** Seed as confirmed (owner already told us the real amount). */
+  confirmed?: boolean;
 }> = [
   // ── Recurring subscriptions ──────────────────────────────────────────────
   {
     key: "claude-subscription",
     kind: "SUBSCRIPTION",
     vendor: "Anthropic",
-    name: "Claude plan (runs all the Claude sessions)",
-    amountUsd: 100,
+    name: "Claude Max plan (runs all the Claude sessions)",
+    amountUsd: 200,
     cadence: "monthly",
-    notes:
-      "Estimate. Pro is $20/mo; Max is $100 or $200/mo. Tap Edit and set the plan you actually pay for.",
+    notes: "Confirmed by owner 2026-07-30: Claude Max, $200/mo.",
+    confirmed: true,
   },
   {
     key: "elevenlabs-subscription",
@@ -126,7 +128,7 @@ export async function ensureSpendingRegistry(organizationId: string): Promise<vo
       cadence: item.cadence ?? null,
       startedAt: item.kind === "SUBSCRIPTION" ? PROJECT_START : null,
       purchasedAt: item.kind === "ONE_TIME" ? PROJECT_START : null,
-      isEstimate: true,
+      isEstimate: !item.confirmed,
       notes: item.notes,
     })),
     skipDuplicates: true,
