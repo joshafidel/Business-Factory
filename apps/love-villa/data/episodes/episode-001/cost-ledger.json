@@ -3,522 +3,704 @@
   "entries": [
     {
       "provider": "anthropic",
-      "item": "episode-1-script",
-      "estimatedUsd": 0.216255,
+      "item": "plot:pitches:e1",
+      "estimatedUsd": 0.10891,
       "mode": "live",
-      "at": "2026-07-28T15:44:38.767Z"
+      "at": "2026-07-29T16:28:01.059Z"
     },
     {
       "provider": "anthropic",
       "item": "episode-1-script",
-      "estimatedUsd": 0.216515,
+      "estimatedUsd": 0.2205,
       "mode": "live",
-      "at": "2026-07-28T15:46:06.084Z"
+      "at": "2026-07-29T16:28:45.360Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:script-review:e1",
+      "estimatedUsd": 0.11299000000000001,
+      "mode": "live",
+      "at": "2026-07-29T16:30:13.890Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "episode-1-script-rev2",
+      "estimatedUsd": 0.22439,
+      "mode": "live",
+      "at": "2026-07-29T16:30:51.826Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:script-review:e1",
+      "estimatedUsd": 0.11776500000000001,
+      "mode": "live",
+      "at": "2026-07-29T16:32:50.400Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Brock is about to start a war.",
-      "estimatedUsd": 0.0045,
-      "mode": "live",
-      "at": "2026-07-28T15:47:06.211Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:He does not know this yet.",
-      "estimatedUsd": 0.0039,
-      "mode": "live",
-      "at": "2026-07-28T15:47:08.034Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:brock-usa:Bro. We're both all-in on the sa",
-      "estimatedUsd": 0.00615,
-      "mode": "live",
-      "at": "2026-07-28T15:47:09.355Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:America. Italy. One French woman",
-      "estimatedUsd": 0.00495,
-      "mode": "live",
-      "at": "2026-07-28T15:47:10.789Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Brock made her a smoothie.",
-      "estimatedUsd": 0.0039,
-      "mode": "live",
-      "at": "2026-07-28T15:47:12.345Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Matteo made her eight courses.",
-      "estimatedUsd": 0.0045,
-      "mode": "live",
-      "at": "2026-07-28T15:47:13.745Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:matteo-italy:You made her a smoothie. I made ",
-      "estimatedUsd": 0.0069,
-      "mode": "live",
-      "at": "2026-07-28T15:47:15.185Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:poppy-uk:Day one and we've got a treaty v",
-      "estimatedUsd": 0.00615,
-      "mode": "live",
-      "at": "2026-07-28T15:47:16.676Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Watch the risotto. It's revenge ",
-      "estimatedUsd": 0.005399999999999999,
-      "mode": "live",
-      "at": "2026-07-28T15:47:18.234Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:brock-usa:Full send on the heart, baby!",
-      "estimatedUsd": 0.00435,
-      "mode": "live",
-      "at": "2026-07-28T15:47:19.714Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:matteo-italy:My heart is al dente. Yours is a",
-      "estimatedUsd": 0.00615,
-      "mode": "live",
-      "at": "2026-07-28T15:47:21.056Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Oh, that landed.",
+      "item": "tts:narrator:Poppy is asleep.",
       "estimatedUsd": 0.0024,
       "mode": "live",
-      "at": "2026-07-28T15:47:22.700Z"
+      "at": "2026-07-29T16:35:25.770Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Greta is logging it. Officially.",
-      "estimatedUsd": 0.0048,
+      "item": "tts:narrator:Poppy is talking.",
+      "estimatedUsd": 0.00255,
       "mode": "live",
-      "at": "2026-07-28T15:47:23.950Z"
+      "at": "2026-07-29T16:35:27.954Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:greta-germany:Conflict began 11:04. Escalation",
-      "estimatedUsd": 0.007649999999999999,
+      "item": "tts:narrator:That is not Matteo's name.",
+      "estimatedUsd": 0.0039,
       "mode": "live",
-      "at": "2026-07-28T15:47:25.354Z"
+      "at": "2026-07-29T16:35:29.987Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:poppy-uk:She's got a spreadsheet for a st",
-      "estimatedUsd": 0.00585,
+      "item": "tts:poppy-uk:…Lucas.",
+      "estimatedUsd": 0.00105,
       "mode": "live",
-      "at": "2026-07-28T15:47:27.519Z"
+      "at": "2026-07-29T16:35:31.610Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Someone tell France. Actually — ",
-      "estimatedUsd": 0.005699999999999999,
+      "item": "tts:elodie-france:A six.",
+      "estimatedUsd": 0.0009,
       "mode": "live",
-      "at": "2026-07-28T15:47:28.830Z"
+      "at": "2026-07-29T16:35:33.254Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Two kings. One croissant. Zero i",
-      "estimatedUsd": 0.006,
-      "mode": "live",
-      "at": "2026-07-28T15:47:30.398Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:elodie-france:The smoothie? Five. The risotto?",
-      "estimatedUsd": 0.008849999999999998,
-      "mode": "live",
-      "at": "2026-07-28T15:47:31.846Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:She rated the fight higher than ",
-      "estimatedUsd": 0.00615,
-      "mode": "live",
-      "at": "2026-07-28T15:47:33.164Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Spill Room. Brock's smile is doi",
-      "estimatedUsd": 0.006599999999999999,
-      "mode": "live",
-      "at": "2026-07-28T15:47:34.539Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:brock-usa:A five's basically a nine with r",
-      "estimatedUsd": 0.006599999999999999,
-      "mode": "live",
-      "at": "2026-07-28T15:47:35.981Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Nobody correct him. It's beautif",
-      "estimatedUsd": 0.00525,
-      "mode": "live",
-      "at": "2026-07-28T15:47:37.512Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:The villa reacts. Badly.",
-      "estimatedUsd": 0.0036,
-      "mode": "live",
-      "at": "2026-07-28T15:47:38.931Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:sienna-australia:She scored them like a diving co",
-      "estimatedUsd": 0.0063,
-      "mode": "live",
-      "at": "2026-07-28T15:47:40.247Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:lucas-brazil:I felt that in my ancestors.",
-      "estimatedUsd": 0.0042,
-      "mode": "live",
-      "at": "2026-07-28T15:47:41.620Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:rohan-india:I'm recalculating everything. Ev",
-      "estimatedUsd": 0.00615,
-      "mode": "live",
-      "at": "2026-07-28T15:47:42.948Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Torches lit. Gate open. Oh no.",
-      "estimatedUsd": 0.0045,
-      "mode": "live",
-      "at": "2026-07-28T15:47:44.321Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:alejandro-spain:I heard someone here rates men o",
-      "estimatedUsd": 0.0084,
-      "mode": "live",
-      "at": "2026-07-28T15:47:45.689Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Élodie lowered the sunglasses. T",
-      "estimatedUsd": 0.00675,
-      "mode": "live",
-      "at": "2026-07-28T15:47:47.117Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:matteo-italy:Spain. Of course. Spain.",
-      "estimatedUsd": 0.0036,
-      "mode": "live",
-      "at": "2026-07-28T15:47:48.596Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:So. Smoothie, risotto, or smould",
-      "estimatedUsd": 0.00525,
-      "mode": "live",
-      "at": "2026-07-28T15:47:49.978Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Who should Élodie pick? Comment ",
+      "item": "tts:narrator:Morning. Poppy remembers everyth",
       "estimatedUsd": 0.005399999999999999,
       "mode": "live",
-      "at": "2026-07-28T15:47:51.641Z"
+      "at": "2026-07-29T16:35:34.952Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:elodie-france:C'est un non. Probably.",
+      "item": "tts:elodie-france:A six.",
+      "estimatedUsd": 0.0009,
+      "mode": "live",
+      "at": "2026-07-29T16:35:36.843Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Lucas hugs Poppy. Then Élodie.",
+      "estimatedUsd": 0.0045,
+      "mode": "live",
+      "at": "2026-07-29T16:35:38.558Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Same minute.",
+      "estimatedUsd": 0.0018,
+      "mode": "live",
+      "at": "2026-07-29T16:35:42.366Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:Dance now, feelings later!",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-29T16:35:43.857Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:matteo-italy:I make lasagne. For eleven.",
+      "estimatedUsd": 0.00405,
+      "mode": "live",
+      "at": "2026-07-29T16:35:45.750Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Nobody asked.",
+      "estimatedUsd": 0.00195,
+      "mode": "live",
+      "at": "2026-07-29T16:35:48.006Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:sienna-australia:Rate the men. Out of ten. Go.",
+      "estimatedUsd": 0.00435,
+      "mode": "live",
+      "at": "2026-07-29T16:35:49.394Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Lucas — a five.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-29T16:35:51.128Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:Five is a nice number, no?",
+      "estimatedUsd": 0.0039,
+      "mode": "live",
+      "at": "2026-07-29T16:35:53.061Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:Watch his face.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-29T16:35:54.920Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:A five? He's the best thing here",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-29T16:35:56.873Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:poppy-uk:You rate him a five and you—",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-29T16:35:59.235Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Day two. I kissed him. Two minut",
+      "estimatedUsd": 0.00525,
+      "mode": "live",
+      "at": "2026-07-29T16:36:01.907Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:3am wasn't about Lucas.",
       "estimatedUsd": 0.00345,
       "mode": "live",
-      "at": "2026-07-28T15:47:53.140Z"
+      "at": "2026-07-29T16:36:06.189Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Probably? She said probably. Epi",
-      "estimatedUsd": 0.00615,
+      "item": "tts:narrator:It was the balcony she pretended",
+      "estimatedUsd": 0.006599999999999999,
       "mode": "live",
-      "at": "2026-07-28T15:47:54.165Z"
+      "at": "2026-07-29T16:36:08.667Z"
     },
     {
-      "provider": "fal-i2v",
-      "item": "motion:scene-0",
-      "estimatedUsd": 0.35,
+      "provider": "elevenlabs",
+      "item": "tts:lucas-brazil:That was a kiss? I filed it as a",
+      "estimatedUsd": 0.005549999999999999,
       "mode": "live",
-      "at": "2026-07-28T15:47:56.766Z"
+      "at": "2026-07-29T16:36:10.747Z"
     },
     {
-      "provider": "fal-i2v",
-      "item": "motion:scene-7",
-      "estimatedUsd": 0.35,
+      "provider": "elevenlabs",
+      "item": "tts:elodie-france:Do I want Lucas? C'est un non.",
+      "estimatedUsd": 0.0045,
       "mode": "live",
-      "at": "2026-07-28T15:49:40.217Z"
+      "at": "2026-07-29T16:36:13.280Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:She scored him a five.",
+      "estimatedUsd": 0.0032999999999999995,
+      "mode": "live",
+      "at": "2026-07-29T16:36:15.546Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:She meant nine.",
+      "estimatedUsd": 0.00225,
+      "mode": "live",
+      "at": "2026-07-29T16:36:17.057Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:greta-germany:You are not on the schedule.",
+      "estimatedUsd": 0.0042,
+      "mode": "live",
+      "at": "2026-07-29T16:36:18.432Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:No.",
+      "estimatedUsd": 0.00045,
+      "mode": "live",
+      "at": "2026-07-29T16:36:20.393Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:One carnation. Zero explanation.",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-29T16:36:21.707Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:She gives numbers. Tomorrow I gi",
+      "estimatedUsd": 0.006449999999999999,
+      "mode": "live",
+      "at": "2026-07-29T16:36:23.572Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:He hasn't met her.",
+      "estimatedUsd": 0.0026999999999999997,
+      "mode": "live",
+      "at": "2026-07-29T16:36:26.127Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:He's already scoring.",
+      "estimatedUsd": 0.00315,
+      "mode": "live",
+      "at": "2026-07-29T16:36:28.273Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:What number does he give Élodie?",
+      "estimatedUsd": 0.0048,
+      "mode": "live",
+      "at": "2026-07-29T16:36:29.898Z"
     },
     {
       "provider": "fal-i2v",
       "item": "motion:scene-1",
       "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T15:51:12.151Z"
+      "at": "2026-07-29T16:36:37.513Z"
     },
     {
-      "provider": "fal-i2v",
-      "item": "motion:scene-2",
-      "estimatedUsd": 0.35,
+      "provider": "openai",
+      "item": "scene-still:1",
+      "estimatedUsd": 0.063,
       "mode": "live",
-      "at": "2026-07-28T15:52:31.057Z"
-    },
-    {
-      "provider": "fal-i2v",
-      "item": "motion:scene-3",
-      "estimatedUsd": 0.35,
-      "mode": "live",
-      "at": "2026-07-28T15:54:03.412Z"
-    },
-    {
-      "provider": "fal-i2v",
-      "item": "motion:scene-4",
-      "estimatedUsd": 0.35,
-      "mode": "live",
-      "at": "2026-07-28T15:55:34.363Z"
+      "at": "2026-07-29T16:36:41.213Z"
     },
     {
       "provider": "fal-i2v",
       "item": "motion:scene-5",
       "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T15:57:11.262Z"
+      "at": "2026-07-29T16:38:58.883Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:5",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:38:59.069Z"
     },
     {
       "provider": "fal-i2v",
       "item": "motion:scene-6",
       "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T15:58:28.945Z"
+      "at": "2026-07-29T16:40:59.122Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:6",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:40:59.757Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-2",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:43:04.066Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:2",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:43:04.898Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:45:46.565Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:3",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:45:46.659Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:46:35.787Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:4",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:46:36.421Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-7",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T16:47:13.525Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:7",
+      "estimatedUsd": 0.063,
+      "mode": "live",
+      "at": "2026-07-29T16:47:14.518Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.15701500000000002,
+      "mode": "live",
+      "at": "2026-07-29T16:47:57.362Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Brock is about to start a war.",
+      "item": "tts:narrator:Lucas hugs Poppy. Then Élodie.",
       "estimatedUsd": 0.0045,
       "mode": "live",
-      "at": "2026-07-28T16:05:37.843Z"
+      "at": "2026-07-29T17:08:36.209Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:He does not know this yet.",
-      "estimatedUsd": 0.0039,
+      "item": "tts:matteo-italy:I make lasagne. For eleven.",
+      "estimatedUsd": 0.00405,
       "mode": "live",
-      "at": "2026-07-28T16:05:39.780Z"
+      "at": "2026-07-29T17:08:39.028Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:brock-usa:Bro. We're both all-in on the sa",
-      "estimatedUsd": 0.00615,
+      "item": "tts:narrator:Nobody asked.",
+      "estimatedUsd": 0.00195,
       "mode": "live",
-      "at": "2026-07-28T16:05:41.161Z"
+      "at": "2026-07-29T17:08:41.297Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:America. Italy. One French woman",
-      "estimatedUsd": 0.00495,
-      "mode": "live",
-      "at": "2026-07-28T16:05:42.675Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Brock made a smoothie. Matteo ma",
-      "estimatedUsd": 0.00735,
-      "mode": "live",
-      "at": "2026-07-28T16:05:44.125Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:matteo-italy:You made her a smoothie. I made ",
-      "estimatedUsd": 0.0069,
-      "mode": "live",
-      "at": "2026-07-28T16:05:45.704Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:poppy-uk:Day one and we've got a treaty v",
-      "estimatedUsd": 0.00615,
-      "mode": "live",
-      "at": "2026-07-28T16:05:47.135Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Watch the risotto. It's revenge ",
-      "estimatedUsd": 0.005399999999999999,
-      "mode": "live",
-      "at": "2026-07-28T16:05:48.542Z"
-    },
-    {
-      "provider": "elevenlabs",
-      "item": "tts:brock-usa:Full send on the heart, baby!",
+      "item": "tts:sienna-australia:Rate the men. Out of ten. Go.",
       "estimatedUsd": 0.00435,
       "mode": "live",
-      "at": "2026-07-28T16:05:50.056Z"
+      "at": "2026-07-29T17:08:42.843Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:matteo-italy:My heart is al dente. Yours is a",
-      "estimatedUsd": 0.00615,
+      "item": "tts:elodie-france:Lucas — a five.",
+      "estimatedUsd": 0.00225,
       "mode": "live",
-      "at": "2026-07-28T16:05:51.383Z"
+      "at": "2026-07-29T17:08:46.665Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Oh, that landed.",
-      "estimatedUsd": 0.0024,
+      "item": "tts:lucas-brazil:Five is a nice number, no?",
+      "estimatedUsd": 0.0039,
       "mode": "live",
-      "at": "2026-07-28T16:05:53.257Z"
+      "at": "2026-07-29T17:08:48.431Z"
     },
     {
       "provider": "elevenlabs",
-      "item": "tts:narrator:Greta is logging it. Officially.",
+      "item": "tts:poppy-uk:A five? He's the best thing here",
+      "estimatedUsd": 0.00495,
+      "mode": "live",
+      "at": "2026-07-29T17:08:50.315Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:alejandro-spain:She gives numbers. Tomorrow I gi",
+      "estimatedUsd": 0.006449999999999999,
+      "mode": "live",
+      "at": "2026-07-29T17:08:52.569Z"
+    },
+    {
+      "provider": "elevenlabs",
+      "item": "tts:narrator:What number does he give Élodie?",
       "estimatedUsd": 0.0048,
       "mode": "live",
-      "at": "2026-07-28T16:05:54.672Z"
+      "at": "2026-07-29T17:08:54.635Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:greta-germany:Conflict began 11:04. Escalation",
-      "estimatedUsd": 0.007649999999999999,
+      "provider": "fal-i2v",
+      "item": "motion:scene-1",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:05:56.200Z"
+      "at": "2026-07-29T17:08:59.225Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:poppy-uk:She's got a spreadsheet for a st",
-      "estimatedUsd": 0.00585,
+      "provider": "openai",
+      "item": "scene-still:1",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:05:57.872Z"
+      "at": "2026-07-29T17:08:59.469Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Two kings. One croissant. Zero i",
-      "estimatedUsd": 0.006,
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:05:59.649Z"
+      "at": "2026-07-29T17:11:33.050Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:elodie-france:The smoothie? Five. The risotto?",
-      "estimatedUsd": 0.008849999999999998,
+      "provider": "openai",
+      "item": "scene-still:3",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:06:01.263Z"
+      "at": "2026-07-29T17:11:33.341Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:She rated the fight higher than ",
-      "estimatedUsd": 0.00615,
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:06:02.523Z"
+      "at": "2026-07-29T17:14:24.439Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:brock-usa:A five's basically a nine with r",
-      "estimatedUsd": 0.006599999999999999,
+      "provider": "openai",
+      "item": "scene-still:4",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:06:04.252Z"
+      "at": "2026-07-29T17:14:24.482Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Nobody correct him. It's beautif",
-      "estimatedUsd": 0.00525,
+      "provider": "fal-i2v",
+      "item": "motion:scene-7",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:06:05.942Z"
+      "at": "2026-07-29T17:17:31.043Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:The villa reacts. Badly.",
-      "estimatedUsd": 0.0036,
+      "provider": "openai",
+      "item": "scene-still:7",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:06:08.037Z"
+      "at": "2026-07-29T17:17:31.088Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:sienna-australia:She scored them like a diving co",
-      "estimatedUsd": 0.0063,
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.148995,
       "mode": "live",
-      "at": "2026-07-28T16:06:09.517Z"
+      "at": "2026-07-29T17:20:07.930Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:rohan-india:I'm recalculating everything. Ev",
-      "estimatedUsd": 0.00615,
+      "provider": "fal-i2v",
+      "item": "motion:scene-1",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:06:10.893Z"
+      "at": "2026-07-29T17:22:26.330Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Torches lit. Gate open. Oh no.",
-      "estimatedUsd": 0.0045,
+      "provider": "openai",
+      "item": "scene-still:1",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:06:12.420Z"
+      "at": "2026-07-29T17:22:26.340Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:alejandro-spain:I heard someone here rates men o",
-      "estimatedUsd": 0.0084,
+      "provider": "fal-i2v",
+      "item": "motion:scene-5",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:06:13.837Z"
+      "at": "2026-07-29T17:25:29.556Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Élodie lowered the sunglasses. T",
-      "estimatedUsd": 0.00675,
+      "provider": "openai",
+      "item": "scene-still:5",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:06:15.282Z"
+      "at": "2026-07-29T17:25:29.580Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:matteo-italy:Spain. Of course. Spain.",
-      "estimatedUsd": 0.0036,
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:06:16.847Z"
+      "at": "2026-07-29T17:27:57.054Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:So. Smoothie, risotto, or smould",
-      "estimatedUsd": 0.00525,
+      "provider": "openai",
+      "item": "scene-still:3",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:06:18.240Z"
+      "at": "2026-07-29T17:27:57.083Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Who should Élodie pick? Comment ",
-      "estimatedUsd": 0.005399999999999999,
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:06:19.677Z"
+      "at": "2026-07-29T17:30:59.001Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:elodie-france:C'est un non. Probably.",
-      "estimatedUsd": 0.00345,
+      "provider": "openai",
+      "item": "scene-still:4",
+      "estimatedUsd": 0.25,
       "mode": "live",
-      "at": "2026-07-28T16:06:21.208Z"
+      "at": "2026-07-29T17:30:59.029Z"
     },
     {
-      "provider": "elevenlabs",
-      "item": "tts:narrator:Probably? She said probably. Epi",
-      "estimatedUsd": 0.00615,
+      "provider": "fal-i2v",
+      "item": "motion:scene-7",
+      "estimatedUsd": 0.35,
       "mode": "live",
-      "at": "2026-07-28T16:06:23.352Z"
+      "at": "2026-07-29T17:33:32.758Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:7",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:33:32.778Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.148995,
+      "mode": "live",
+      "at": "2026-07-29T17:36:25.288Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-1",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:38:30.857Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:1",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:38:30.866Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:41:19.498Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:3",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:41:19.519Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:43:57.877Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:4",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:43:57.902Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.148995,
+      "mode": "live",
+      "at": "2026-07-29T17:46:27.565Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-1",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:51:20.927Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:1",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:51:20.939Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:54:02.813Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:3",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:54:02.839Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:56:58.525Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:4",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:56:58.557Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.14956000000000003,
+      "mode": "live",
+      "at": "2026-07-29T17:58:07.711Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-3",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T17:59:27.355Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:3",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T17:59:27.368Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "quality:visual-review:e1",
+      "estimatedUsd": 0.14956000000000003,
+      "mode": "live",
+      "at": "2026-07-29T18:02:09.627Z"
+    },
+    {
+      "provider": "fal-i2v",
+      "item": "motion:scene-4",
+      "estimatedUsd": 0.35,
+      "mode": "live",
+      "at": "2026-07-29T18:09:30.935Z"
+    },
+    {
+      "provider": "openai",
+      "item": "scene-still:4",
+      "estimatedUsd": 0.25,
+      "mode": "live",
+      "at": "2026-07-29T18:09:30.961Z"
     }
   ],
-  "totalUsd": 3.587
+  "totalUsd": 14.928
 }

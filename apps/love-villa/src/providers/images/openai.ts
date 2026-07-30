@@ -67,3 +67,47 @@ export class OpenAIImageProvider implements ImageProvider {
 export function estimatedImageCostUsd(quality: "draft" | "high"): number {
   return COST_BY_QUALITY[quality === "high" ? "medium" : "low"] ?? 0.07;
 }
+
+/**
+ * gpt-image-1 EDIT call with reference images (the Videographer's painted
+ * scene stills): characters + location art go in as references, one composed
+ * scene comes out with unified lighting — Directive 3's core capability.
+ */
+export async function editImageWithReferences(params: {
+  prompt: string;
+  references: Buffer[];
+  quality: "draft" | "high" | "max";
+}): Promise<GeneratedAsset> {
+  const env = loadConfig();
+  const quality = params.quality === "max" ? "high" : params.quality === "high" ? "medium" : "low";
+  const form = new FormData();
+  form.append("model", env.OPENAI_IMAGE_MODEL);
+  form.append("prompt", params.prompt);
+  form.append("size", "1024x1536");
+  form.append("quality", quality);
+  form.append("n", "1");
+  params.references.slice(0, 6).forEach((buf, i) => {
+    form.append("image[]", new Blob([new Uint8Array(buf)], { type: "image/png" }), `ref-${i}.png`);
+  });
+  const res = await fetch("https://api.openai.com/v1/images/edits", {
+    ...(await fetchOpts()),
+    method: "POST",
+    headers: { authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: form,
+  });
+  if (!res.ok) {
+    throw new Error(
+      `OpenAI image edit failed (${res.status}): ${(await res.text()).slice(0, 300)}`,
+    );
+  }
+  const body = (await res.json()) as { data: { b64_json: string }[] };
+  const b64 = body.data[0]?.b64_json;
+  if (!b64) throw new Error("OpenAI image edit returned no image data");
+  return {
+    data: Buffer.from(b64, "base64"),
+    mime: "image/png",
+    ext: "png",
+    costUsd: COST_BY_QUALITY[quality] ?? 0.07,
+    provider: "openai-gpt-image",
+  };
+}

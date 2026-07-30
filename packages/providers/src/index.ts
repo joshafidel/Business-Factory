@@ -11,3 +11,5 @@ export * from "./media-picsart";
 export * from "./motion";
 export * from "./registry";
 export * from "./vision-qa";
+export * from "./media-kling-oneshot";
+export * from "./media-picsart-kling";

@@ -161,15 +161,30 @@ class FalKlingMotionProvider implements MotionProvider {
  */
 class VeoMotionProvider implements MotionProvider {
   readonly key = "veo";
-  // 8s × $0.12/s (veo-3.1-fast, 1080p).
+  // 8s × $0.12/s (veo-3.1-fast, 1080p). clipSeconds is the USABLE length:
+  // Veo's final second tends to drift (objects migrate, foreground clutter
+  // creeps in), so the renderer trims each clip to its first 7s.
   readonly clipCostMicroUsd = 960_000n;
-  readonly clipSeconds = 8;
+  readonly clipSeconds = 7;
   private readonly model = "veo-3.1-fast-generate-preview";
   private readonly base = "https://generativelanguage.googleapis.com/v1beta";
 
-  private headers(): Record<string, string> {
-    const env = loadEnv();
-    return { "x-goog-api-key": env.GEMINI_API_KEY ?? "", "content-type": "application/json" };
+  /**
+   * GEMINI_API_KEY accepts a comma-separated list: Veo preview quotas are
+   * PER PROJECT and tiny on new accounts, so the owner supplies one key per
+   * billed Google project and submissions rotate to whichever project still
+   * has quota. Operations and file URIs are project-scoped, so the jobId
+   * records which key owns it ("<keyIndex>|<operationName>").
+   */
+  private keys(): string[] {
+    return (loadEnv().GEMINI_API_KEY ?? "")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean);
+  }
+
+  private headersFor(key: string): Record<string, string> {
+    return { "x-goog-api-key": key, "content-type": "application/json" };
   }
 
   async submit(job: MotionJob): Promise<string> {
@@ -177,30 +192,47 @@ class VeoMotionProvider implements MotionProvider {
     const img = await fetch(job.imageUrl);
     if (!img.ok) throw new Error(`veo: could not fetch source still (${img.status})`);
     const b64 = Buffer.from(await img.arrayBuffer()).toString("base64");
-    const res = await fetch(`${this.base}/models/${this.model}:predictLongRunning`, {
-      method: "POST",
-      headers: this.headers(),
-      body: JSON.stringify({
-        instances: [
-          {
-            prompt: job.prompt,
-            image: { bytesBase64Encoded: b64, mimeType: "image/png" },
-          },
-        ],
-        parameters: { aspectRatio: "9:16", resolution: "1080p", negativePrompt:
-          "extra limbs, morphing, deformed characters, text, watermark, new characters appearing" },
-      }),
-    });
-    const text = await res.text();
-    if (!res.ok) throw new Error(`veo submit failed (${res.status}): ${text.slice(0, 300)}`);
-    const data = JSON.parse(text) as { name?: string };
-    if (!data.name) throw new Error(`veo submit returned no operation name: ${text.slice(0, 200)}`);
-    return data.name;
+    const keys = this.keys();
+    let lastText = "";
+    for (let i = 0; i < keys.length; i++) {
+      const res = await fetch(`${this.base}/models/${this.model}:predictLongRunning`, {
+        method: "POST",
+        headers: this.headersFor(keys[i] as string),
+        body: JSON.stringify({
+          instances: [
+            {
+              prompt: job.prompt,
+              image: { bytesBase64Encoded: b64, mimeType: "image/png" },
+            },
+          ],
+          parameters: { aspectRatio: "9:16", resolution: "1080p", negativePrompt:
+            "extra limbs, morphing, deformed characters, text, watermark, new characters appearing" },
+        }),
+      });
+      const text = await res.text();
+      if (res.ok) {
+        const data = JSON.parse(text) as { name?: string };
+        if (!data.name) {
+          throw new Error(`veo submit returned no operation name: ${text.slice(0, 200)}`);
+        }
+        return `${i}|${data.name}`;
+      }
+      lastText = text;
+      if (res.status !== 429) {
+        throw new Error(`veo submit failed (${res.status}): ${text.slice(0, 300)}`);
+      }
+      log.warn({ keyIndex: i }, "veo key out of quota; rotating to next project key");
+    }
+    throw new Error(
+      `veo submit failed (429): all ${keys.length} project keys exhausted: ${lastText.slice(0, 200)}`,
+    );
   }
 
   async poll(jobId: string): Promise<MotionJobStatus> {
     try {
-      const res = await fetch(`${this.base}/${jobId}`, { headers: this.headers() });
+      const [idxStr, opName] = jobId.includes("|") ? jobId.split("|", 2) : ["0", jobId];
+      const key = this.keys()[Number(idxStr)] ?? this.keys()[0] ?? "";
+      const res = await fetch(`${this.base}/${opName}`, { headers: this.headersFor(key) });
       if (!res.ok) return { jobId, status: "pending" };
       const data = (await res.json()) as {
         done?: boolean;
@@ -226,10 +258,16 @@ class VeoMotionProvider implements MotionProvider {
   }
 
   async download(url: string): Promise<Buffer> {
-    // Veo download URIs require the API key.
-    const res = await fetch(url, { headers: { "x-goog-api-key": loadEnv().GEMINI_API_KEY ?? "" } });
-    if (!res.ok) throw new Error(`veo clip download failed (${res.status})`);
-    return Buffer.from(await res.arrayBuffer());
+    // Veo file URIs are project-scoped; try each project key until the
+    // owner responds.
+    for (const key of this.keys()) {
+      const res = await fetch(url, { headers: { "x-goog-api-key": key } });
+      if (res.ok) return Buffer.from(await res.arrayBuffer());
+      if (![403, 404, 429].includes(res.status)) {
+        throw new Error(`veo clip download failed (${res.status})`);
+      }
+    }
+    throw new Error("veo clip download failed with every project key");
   }
 }
 
@@ -243,6 +281,25 @@ export function getMotionProvider(): MotionProvider | null {
   if (env.FAL_KEY) return new FalKlingMotionProvider();
   if (higgsfieldConfigured()) return new HiggsfieldMotionProvider();
   return null;
+}
+
+/**
+ * Resolve a specific provider by key — used by the hybrid motion manager,
+ * where each scene remembers which vendor its job belongs to (Veo's small
+ * preview rate limits overflow individual scenes to Higgsfield).
+ */
+export function getMotionProviderByKey(key: string): MotionProvider | null {
+  const env = loadEnv();
+  if (key === "veo" && env.GEMINI_API_KEY) return new VeoMotionProvider();
+  if (key === "fal-kling" && env.FAL_KEY) return new FalKlingMotionProvider();
+  if (key === "higgsfield" && higgsfieldConfigured()) return new HiggsfieldMotionProvider();
+  return null;
+}
+
+/** True for out-of-quota / rate-limit submit failures (retry later or overflow). */
+export function isQuotaError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return /\b429\b|RESOURCE_EXHAUSTED|exceeded your current quota|rate limit/i.test(msg);
 }
 
 /**

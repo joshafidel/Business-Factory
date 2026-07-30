@@ -1,0 +1,135 @@
+[
+  {
+    "scene": 0,
+    "slot": "hook",
+    "kind": "scene",
+    "locationId": "kitchen",
+    "characters": [
+      "brock-usa",
+      "matteo-italy"
+    ],
+    "imagePrompt": "Brock grinning with a pink smoothie in one hand; Matteo frozen mid-stir at the stove, eyebrows crashing together, wooden spoon raised like a sword.. Setting: Bright luxury open villa kitchen, marble island, hanging copper pans, bowls of lemons, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 9.515384615384615
+  },
+  {
+    "scene": 1,
+    "slot": "setup",
+    "kind": "scene",
+    "locationId": "kitchen",
+    "characters": [
+      "brock-usa",
+      "matteo-italy",
+      "poppy-uk"
+    ],
+    "imagePrompt": "Poppy leans in the doorway sipping tea, eyebrows up; Brock waves the smoothie proudly; Matteo clutches his chest with both hands.. Setting: Bright luxury open villa kitchen, marble island, hanging copper pans, bowls of lemons, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-right",
+    "estimatedSeconds": 10.669230769230769
+  },
+  {
+    "scene": 2,
+    "slot": "escalation",
+    "kind": "argument",
+    "locationId": "kitchen",
+    "characters": [
+      "brock-usa",
+      "matteo-italy"
+    ],
+    "imagePrompt": "Brock and Matteo nose to nose over a steaming risotto pan, Brock's cap backwards, Matteo's hands mid-gesture, both furious and both smiling politely.. Setting: Bright luxury open villa kitchen, marble island, hanging copper pans, bowls of lemons, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "shake",
+    "estimatedSeconds": 8.553846153846154
+  },
+  {
+    "scene": 3,
+    "slot": "escalation",
+    "kind": "scene",
+    "locationId": "terrace",
+    "characters": [
+      "greta-germany",
+      "poppy-uk"
+    ],
+    "imagePrompt": "Greta writing on a clipboard with zero expression; Poppy peering over her shoulder, delighted, tea mug forgotten.. Setting: Rooftop villa terrace at golden hour, bougainvillea flowers, wicker chairs, ocean view, warm sunset glow, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Greta: German woman, blonde braided crown, teal-and-navy sport swimwear, clipboard, waterproof watch, deadpan; Poppy: petite British woman, sharp blonde bob, big sunglasses on head, pastel co-ord, tea mug, smirk.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "pan-left",
+    "estimatedSeconds": 10.092307692307692
+  },
+  {
+    "scene": 4,
+    "slot": "escalation",
+    "kind": "scene",
+    "locationId": "pool",
+    "characters": [
+      "elodie-france",
+      "brock-usa",
+      "matteo-italy"
+    ],
+    "imagePrompt": "Élodie on a lounger in tiny sunglasses, unmoved; Brock offering the smoothie and Matteo offering the risotto from opposite sides, both leaning in hopefully.. Setting: Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare; Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 9.165384615384616
+  },
+  {
+    "scene": 5,
+    "slot": "escalation",
+    "kind": "confessional",
+    "locationId": "confessional",
+    "characters": [
+      "brock-usa"
+    ],
+    "imagePrompt": "Brock alone in the Spill Room chair, grin faltering, shaker bottle hugged to his chest like a teddy bear.. Setting: Cozy velvet confessional booth, neon pink heart light on wall, plush armchair facing camera, dramatic spotlight, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 8.78076923076923
+  },
+  {
+    "scene": 6,
+    "slot": "escalation",
+    "kind": "scene",
+    "locationId": "pool",
+    "characters": [
+      "lucas-brazil",
+      "sienna-australia",
+      "rohan-india",
+      "elodie-france"
+    ],
+    "imagePrompt": "Lucas mid-dance in shock, Sienna choking on a drink, Rohan flipping his notebook shut, Élodie reapplying red lipstick without blinking.. Setting: Luxury villa turquoise infinity pool, pink sun loungers, heart shaped swim-up bar, terracotta arches, palm trees, bright midday sun, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Lucas: Brazilian man, sun-streaked dark curls, huge grin, open green tropical shirt, beaded necklace, mid-dance; Sienna: Australian woman, sun-bleached ponytail, zinc nose stripe, orange surf top, shark-tooth necklace, grin; Rohan: Indian man, neat black hair with one loose curl, lavender polo, tailored shorts, watch, notebook; Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "zoom-out",
+    "estimatedSeconds": 10.284615384615385
+  },
+  {
+    "scene": 7,
+    "slot": "twist",
+    "kind": "arrival",
+    "locationId": "walkway",
+    "characters": [
+      "alejandro-spain",
+      "elodie-france",
+      "matteo-italy",
+      "brock-usa"
+    ],
+    "imagePrompt": "Alejandro at the top of the torch-lit walkway in a crimson shirt, backlit, smoldering; Brock and Matteo staring up in horror, Élodie slowly lowering her sunglasses.. Setting: Dramatic torch-lit palm tree walkway leading to villa entrance at night, flame torches, stone path, stars, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Alejandro: Spanish man, flowing dark hair, crimson shirt, white trousers, smolder, sunset backlight; Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands; Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "parallax",
+    "estimatedSeconds": 10.86153846153846
+  },
+  {
+    "scene": 8,
+    "slot": "engagement",
+    "kind": "endcard",
+    "locationId": "firepit",
+    "characters": [
+      "elodie-france",
+      "brock-usa",
+      "matteo-italy",
+      "alejandro-spain"
+    ],
+    "imagePrompt": "Firepit at night: Brock, Matteo and Alejandro in a tense row, Élodie centre-frame with an unreadable stare into the flames.. Setting: Sunken circular firepit lounge at dusk, amber cushions, glowing fire, string lights, ocean horizon, ultra-glossy 3D-render background in the style of viral animated reality-show shorts, candy-bright saturated colors, soft dreamy studio lighting, subtle depth of field, playful toy-like shapes, vertical 9:16 composition, no people, no text Characters (keep these exact designs): Élodie: French woman, sleek dark bob, red lip, breton stripes, silk scarf, tiny sunglasses, cool stare; Brock: tall tan American man, backwards red cap, star-print swim shorts, shaker bottle, huge grin; Matteo: Italian man, dark curls, thick eyebrows, cream linen shirt open two buttons, gold chain, expressive hands; Alejandro: Spanish man, flowing dark hair, crimson shirt, white trousers, smolder, sunset backlight.",
+    "negativeImagePrompt": "photorealistic, real location, text, watermark, logo, people, characters, gloomy, muted colors",
+    "motion": "push-in",
+    "estimatedSeconds": 9.515384615384615
+  }
+]

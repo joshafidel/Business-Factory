@@ -1,0 +1,127 @@
+{
+  "episode": 1,
+  "updatedAt": "2026-07-29T18:09:30.035Z",
+  "script": {
+    "scores": {
+      "hook": 8,
+      "comedicEngine": 7,
+      "causalEscalation": 7,
+      "characterVoice": 8,
+      "comedicPacing": 7,
+      "ending": 7
+    },
+    "verdict": "pass",
+    "topProblems": [
+      "The twist narration muddies its own logic: Poppy audibly says 'Lucas' at 3am, then the narrator insists '3am wasn't a dream about Lucas.' Viewers will re-read that as a contradiction rather than a gut-punch, and the balcony reveal loses its snap.",
+      "Matteo is set up as a numbered joke ('lasagne. For eleven.') and then abandoned — the gavel beat gets courtroom gravity but no punchline, and the one man whose name was NOT said at 3am exits the episode unpaid. The carb-language runner sits adjacent to the rating premise instead of inside it.",
+      "Poppy — the villa's designated scorer of everyone else — is the only major character who never receives a number. That's the episode's biggest missed joke: the premise's cleanest ironic payoff is left on the table.",
+      "Alejandro's arrival is thematically welded to the rating engine at the endcard but causally unconnected to Scene 5's kiss reveal. It reads as a scheduled format beat, not a consequence, which softens the run into the CTA.",
+      "Scene 4 is the densest scene and runs eight lines with no engineered silence; the 'four' punchline on Brock's water — the best rating gag in the script — gets cut off instead of held."
+    ],
+    "concreteFixes": [
+      "Scene 5, narrator lines 3–4: replace 'It was the balcony she pretended not to see' construction with clarified logic — 'She was dreaming about Lucas.' / (beat) 'She was dreaming about the balcony.' This keeps the reveal and kills the contradiction.",
+      "Scene 4, after 'Matteo sets the lasagne down like a gavel': add Élodie, flat, mid-sip — 'The lasagne — a nine.' Then narrator, dry: 'The highest score of the night went to pasta.' This pulls Matteo's carb-language inside the rating engine and pays the gavel.",
+      "Scene 3, after Matteo's 'For eleven': change narrator's 'Nobody asked' to 'There are nine of you, Matteo.' (beat) 'Nobody asked.' — makes the number do premise work instead of sitting as flavour.",
+      "Scene 4, Brock's 'That was a four': add a two-second hold (SFX drop to room tone) before the cut so the episode's sharpest rating beat lands instead of being buried under the scene transition.",
+      "Scene 7, Greta line: change 'You are not on the schedule' follow-up so the arrival is caused — Rohan: 'Someone scored low enough to trigger a replacement.' Now Alejandro walks in as a consequence of the firepit ratings, not a format injection.",
+      "Scene 8 endcard: before Alejandro's smolder, cut two seconds to Poppy in the Spill Room — 'I don't do numbers.' — then narrator over Alejandro's exit: 'She gave Lucas a ten in her sleep.' Pays off the only unscored character and hands the CTA a second guess to bait."
+    ],
+    "iterations": 2
+  },
+  "audio": {
+    "findings": [],
+    "checkedAt": "2026-07-29T18:09:30.035Z"
+  },
+  "visuals": [
+    {
+      "images": [
+        {
+          "index": 0,
+          "aiDefects": [
+            "blonde sleeper's torso/shoulder line bends awkwardly and her lower arm disappears into the bedding with no clear elbow",
+            "open-mouth yawn face is slightly soft/mushy around the jaw and chin",
+            "dark heavy eyebrows mismatched to platinum-blonde hair (continuity, not defect)",
+            "repeating dormitory beds/nightstand lamps in background are copy-pasted with slightly inconsistent bedside table geometry on the second bed"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Night-lit dorm scene; grading is much darker/cooler than the candy-bright poolside frames, so it reads as a moody variant of the house style rather than a break. Union Jack swimsuit and the green/red tricolore panels on the man's shirt plus the French beret/striped top/red scarf all read instantly. Only zoom-level issues: buried arm and slightly soft yawning face."
+        },
+        {
+          "index": 1,
+          "aiDefects": [
+            "arm tangle at center: the Brazilian's wrapping arm, a second forearm crossing the British girl's waist and the hand on the mug are hard to attribute — reads as a possible extra limb when paused",
+            "British girl's left arm is not accounted for anywhere in frame",
+            "flamingo pool float has a warped, melted face",
+            "fingers on the mug are slightly fused/soft"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Strongest match to the glossy candy-bright house style: saturated teal pool, coral villa, clean rim light. Brazil (yellow/green + flag), UK (Union Jack dress and mug), France (beret, marinière, red neckerchief) all read at a glance. The center arm cluster is the one thing that could catch a sharp eye, but in a moving 5-second clip it plausibly reads as him handing her the mug."
+        },
+        {
+          "index": 2,
+          "aiDefects": [
+            "blonde's face is flatter and more 2D-cartoon than the other two characters in the same frame (softer modeling, painted nose highlight)",
+            "pointing hand is slightly rubbery with an over-long index finger",
+            "Brazilian's left arm/hand at hip merges into the shorts silhouette"
+          ],
+          "styleConsistent": false,
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Grading is warm and appealing but the render leans more hand-painted/illustrative than the crisp 3D of frames 1 and 3, and the blonde's proportions/facial modeling drift from her poolside version (now cap + ponytail, green tee, Australian-flag shorts instead of Union Jack). If she is meant to be the same British girl this is a wardrobe/identity continuity problem; if she is a separate Australian cast member it works. Australian flag shorts, French marinière/beret and Brazil kit all read instantly."
+        },
+        {
+          "index": 3,
+          "aiDefects": [
+            "Brazilian's pointing arm has an unclear elbow join — the forearm appears to sprout from the torso, reading as a near-disembodied limb",
+            "his other arm is entirely absent from frame",
+            "pointing index finger is soft and slightly boneless",
+            "blonde's mug-holding fingers are mushy at the knuckles"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "minor",
+          "notes": "Good match to the glossy house style with warm firelight grading consistent with frame 2. Union Jack dress + Union Jack mug, Brazil yellow/green shirt, French striped top/beret/red scarf all instantly legible. The pointing arm's missing elbow is the only thing approaching a glance-level issue; the fire and lantern props are clean and consistent."
+        },
+        {
+          "index": 4,
+          "aiDefects": [
+            "scarf-to-collar transition is slightly incoherent where the neckerchief meets the striped turtleneck",
+            "crossed-hand fingertips are marginally soft/blended"
+          ],
+          "styleConsistent": true,
+          "nationalityObvious": true,
+          "severity": "ok",
+          "notes": "Clean glossy 3D beauty portrait, consistent facial design and proportions with her appearances in frames 0–3 (beret with tricolore cockade, cat-eye sunglasses, bob, marinière, red lips). Red-curtain/neon backdrop is a lighting change but stays within the candy-bright grading. Nothing a viewer would catch in motion."
+        },
+        {
+          "index": 5,
+          "aiDefects": [
+            "entirely new cast with no carry-over characters, and the man on the right is rendered in a taller, more Disney-prince proportion than the stylized cast (head-to-body ratio break)",
+            "the central character reads noticeably younger (teen) than the other two adults",
+            "pen/hand grip on the notebook is soft and the pen tip does not contact the page",
+            "blonde's clipboard is held with a single ambiguous grip and casts almost no contact shadow",
+            "background gate/villa geometry is vague and the flaming torches float without clear bases"
+          ],
+          "styleConsistent": false,
+          "nationalityObvious": false,
+          "severity": "minor",
+          "notes": "Glossy and warmly graded, but character proportions drift from the established cast (the red-shirted man is a different design language). Nationality only reads for India (tricolore polo with Ashoka chakra); the blonde's black/red athletic swimsuit and the red shirt with gold sash are generic and do not clearly signal any flag, so the flag-wardrobe rule fails here. Age mismatch of the central character is the closest thing to a glance-level problem."
+        }
+      ],
+      "overallNotes": "Cast continuity for the French girl is excellent across frames 0–4 (beret with cockade, cat-eye shades, marinière, red neckerchief) and the Brazil/UK wardrobe reads instantly in every frame they appear. Two consistency risks: (1) the blonde flips between Union Jack (frames 0,1,3) and Australian-flag shorts with a cap/ponytail (frame 2), which will read as either a wardrobe error or an unannounced second character; (2) frame 5 introduces a completely new trio in a slightly different proportion/style language with non-flag wardrobe, breaking the flag-colored-costume rule and the established ensemble. Style-wise, frames 1, 3 and 4 are the cleanest house-style anchors; frame 2 is more painterly and frame 0 is much darker — worth a grade pass to pull them toward the candy-bright baseline. Recurring micro-defects are soft/fused fingers and ambiguous arm joins around props (mugs, pointing gestures, clipboard); none rise to glance-level in motion, so all frames are shippable, with frame 4 fully clean.",
+      "labels": [
+        "still:s1.png",
+        "still:s3.png",
+        "still:s4.png",
+        "still:s5.png",
+        "still:s6.png",
+        "still:s7.png"
+      ],
+      "checkedAt": "2026-07-29T18:03:18.081Z"
+    }
+  ]
+}

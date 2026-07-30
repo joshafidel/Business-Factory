@@ -1,6 +1,6 @@
 {
   "season": 1,
-  "currentEpisode": 5,
+  "currentEpisode": 1,
   "cast": [
     "brock-usa",
     "poppy-uk",
@@ -37,30 +37,24 @@
     }
   ],
   "alliances": [],
-  "secretsRevealed": ["brock-usa: the seven-figure startup is a $43 lemonade stand"],
+  "secretsRevealed": [],
   "secretsUnrevealed": [
-    "poppy-uk: Keeps a notebook of embarrassingly sincere romantic poetry under her mattress.",
-    "matteo-italy: He is lactose intolerant. The mozzarella devotion is a beautiful, painful lie.",
-    "elodie-france: Owns every cheesy American rom-com ever made and cries at all of them.",
-    "lucas-brazil: He cannot really swim. Beach volleyball champion, yes. Deep end of the pool: terror.",
-    "sienna-australia: Was engaged once — for 48 hours — to a man she met at a jet-ski rental.",
-    "rohan-india: His famous 'compatibility algorithm' is just astrology with a spreadsheet skin.",
-    "greta-germany: Cries at dog videos every single night, on schedule, 22:15.",
-    "alejandro-spain: He applied to the show four times. The smolder took years of practice in a mirror."
+    "brock-usa: His 'seven-figure startup' is a lemonade-stand LLC with $43 in the bank and one investor: his mom.",
+    "poppy-uk: Keeps a notebook of catastrophically sincere romantic poetry under her mattress. Two of the poems rhyme 'Lucas' with 'ruckus'.",
+    "matteo-italy: He is lactose intolerant. The mozzarella devotion is a beautiful, agonizing lie he suffers for nightly.",
+    "elodie-france: Owns every cheesy American rom-com ever made and sobs at all of them, including the trailers.",
+    "lucas-brazil: He cannot swim. Beach volleyball champion, yes. Deep end: an unspoken horror he has been faking around for six days.",
+    "sienna-australia: Was engaged once, for 48 hours, to a man she met at a jet-ski rental. She still has the ring on a keyring.",
+    "rohan-india: His famous 'compatibility algorithm' is astrology in a spreadsheet wearing a lanyard.",
+    "greta-germany: Cries at dog videos every night at 22:15, precisely, in the bathroom, with the fan on.",
+    "alejandro-spain: He applied to the show four times. The smolder took eleven months of mirror practice and one pulled facial muscle."
   ],
-  "previousEpisodeSummary": "Rohan's innocent networking question unravels Brock's startup story in front of everyone. The villa braces to laugh — and Poppy, of all people, torches the pile-on instead. Brock's honest firepit speech about being broke and hopeful becomes his most genuinely liked moment ever.",
+  "previousEpisodeSummary": "Day six. The villa's four starter pairs look stable — Brock with Élodie, Matteo with Poppy, Lucas with Sienna, Rohan with Greta — and every single one is a clerical error. At 3am Poppy murmurs a name that is absolutely not Matteo's. Élodie hears it, says nothing, and rates the moment a six. By breakfast the narrator has confirmed the horror: Poppy and Élodie want the same Brazilian. Poppy attacks the feeling with jokes. Élodie attacks it with indifference so convincing she nearly deletes herself from the running. Lucas, oblivious, hugs both of them within ninety seconds and starts a fire he cannot name. Brock mistakes Élodie's politeness for a proposal and begins planning a joint venture. Matteo senses a disturbance in the loyalty field and preemptively makes lasagne for eleven. Then the gate opens.",
   "unresolvedStorylines": [
-    "Who will Élodie actually rate above a five?",
-    "Matteo vs Brock rivalry is now open",
-    "Alejandro's real intentions unknown",
-    "Brock's confidence wobble",
-    "Lucas vs Alejandro cold war begins",
-    "Rohan-Sienna almost-moment",
-    "Greta-Matteo prize dinner pending",
-    "Matteo's pivot from Élodie to Greta",
-    "Matteo's dairy secret ticking",
-    "Poppy's accidental sincerity",
-    "Is Brock-Poppy a thing?? (they insist: no)"
+    "Does Lucas know either of them likes him?",
+    "What exactly is under Poppy's mattress?",
+    "Why does Lucas refuse to go past the pool steps?",
+    "Who is Alejandro actually here for?"
   ],
   "viewerDecisions": [],
   "popularity": {
@@ -75,10 +69,6 @@
     "alejandro-spain": 50
   },
   "continuityNotes": [
-    "Series premiere — plants the triangle, the rivalry, and Alejandro's arrival.",
-    "Direct continuation of Alejandro's episode 1 arrival.",
-    "Sienna's ep2 teasing of Rohan escalates into the challenge dare.",
-    "The ep3 challenge prize plays out; Élodie continues testing Alejandro from ep2.",
-    "Brock's ep2 confidence crack finally splits open; Rohan's rivalry with flair over data."
+    "Season opener — plants the Poppy/Élodie/Lucas triangle that reroutes every couple through Episode 10, and delivers Alejandro as the season's chaos engine."
   ]
 }

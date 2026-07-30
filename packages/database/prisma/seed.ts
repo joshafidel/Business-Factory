@@ -674,7 +674,7 @@ async function main(): Promise<void> {
     "Zoo Shorts: episode idea",
     "Create a nursery-rhyme SONG EPISODE concept for a children's YouTube Short (ages 1-4) starring the Zoo Friends cast:\n" +
       castSheet() +
-      "\n\nPick 2-3 cast members for this episode (Ellie leads unless the input names another animal). The episode needs: (1) a tiny relatable STORY from toddler life mapped onto the zoo — e.g. bath time, sharing a snack, hide-and-seek, learning colors, counting, bedtime, a little fear overcome (dark, first slide, loud noise); (2) a super-catchy repeated CHORUS hook built on a simple sound or action phrase ('Splish splash splash!', 'Share share share!'); (3) a 4-beat arc: setup → little problem → friends try together (one funny fail) → happy fix + gentle lesson. If the input data names an animal, feature the matching cast member or make that animal a guest friend. facts = 3 ultra-simple true things woven into the story. The hook must be singable, repetitive, and instantly clear to a 2-year-old.",
+      "\n\nPick 2-3 cast members for this episode (Ellie leads unless the input names another animal). TOPIC SELECTION: input.trending lists recent high-view videos from winning kids channels — pick the strongest PROVEN demand there. Entries marked 'ALREADY PUBLISHED ON OUR CHANNEL' are FORBIDDEN topics: never pick them or anything close (no bath/washing episodes if bath is covered). Without trending data, rotate fresh toddler-life topics (counting, colors, food/tastes, vehicles, manners, bedtime, dance-along, hide-and-seek, first fears overcome) — never repeat a topic from the forbidden list. The episode needs: (1) a tiny relatable STORY from toddler life mapped onto the zoo; (2) a super-catchy repeated CHORUS hook built on a simple sound or action phrase tied to THIS topic; (3) a 4-beat arc: setup → little problem → friends try together (one funny fail) → happy fix + gentle lesson. If the input data names an animal, feature the matching cast member or make that animal a guest friend. facts = 3 ultra-simple true things woven into the story. The hook must be singable, repetitive, and instantly clear to a 2-year-old.",
   );
   const zooScriptPromptId = await seedPrompt(
     "zoo-script",
@@ -686,7 +686,7 @@ async function main(): Promise<void> {
   const zooMetadataPromptId = await seedPrompt(
     "zoo-metadata",
     "Zoo Shorts: YouTube metadata",
-    "Create SEO-optimized YouTube metadata for this children's nursery-rhyme Short. TITLE (under 85 chars): front-load the search phrase parents type, then the hook — format: '[Topic] Song for Kids 🐘 [Hook Sound]! | Zoo Friends Nursery Rhymes' (e.g. 'Bath Time Song for Kids 🛁 Splish Splash! | Zoo Friends Nursery Rhymes'). DESCRIPTION: first line repeats the title phrase + promises the lesson ('Sing along as Ellie learns to love bath time!'); second paragraph 2-3 sentences for parents (sing-along, learning, calm colors); end with hashtag line '#nurseryrhymes #kidssongs #babysongs #toddlersongs #shorts'. TAGS: 12-15 covering: nursery rhymes, kids songs, baby songs, toddler songs, [topic] song for kids, [animal] song, songs for babies, educational videos for toddlers, bedtime songs, sing along. This is 'made for kids' content under COPPA — honest, no clickbait.",
+    "Create SEO-optimized YouTube metadata for this children's nursery-rhyme Short. TITLE (under 85 chars): front-load the search phrase parents type, then the hook — format: '[Topic] Song for Kids [emoji] [Hook Sound]! | Zoo Friends Nursery Rhymes', where [Topic] and [Hook Sound] come from THIS episode's idea (never reuse a previous episode's topic in the title). DESCRIPTION: first line repeats the title phrase + promises the lesson ('Sing along as Ellie learns to love bath time!'); second paragraph 2-3 sentences for parents (sing-along, learning, calm colors); end with hashtag line '#nurseryrhymes #kidssongs #babysongs #toddlersongs #shorts'. TAGS: 12-15 covering: nursery rhymes, kids songs, baby songs, toddler songs, [topic] song for kids, [animal] song, songs for babies, educational videos for toddlers, bedtime songs, sing along. This is 'made for kids' content under COPPA — honest, no clickbait.",
   );
   const zooSafetyPromptId = await seedPrompt(
     "zoo-safety",
@@ -993,6 +993,16 @@ async function main(): Promise<void> {
       retryLimit: 12,
     },
     {
+      // The Quality Director (owner mandate): re-verifies the finished cut
+      // against the production bar before a human is even asked. Fails the
+      // run with a QUALITY_REJECT violation list otherwise.
+      key: "quality",
+      name: "Quality Director check",
+      type: "CODE_FUNCTION",
+      config: { functionKey: "zoo_quality_gate", args: {} },
+      retryLimit: 1,
+    },
+    {
       key: "review",
       name: "Your review",
       type: "HUMAN_APPROVAL",
@@ -1082,6 +1092,196 @@ async function main(): Promise<void> {
       where: { id: zooWf!.id },
       data: { costLimitMicroUsd: zooCostLimit },
     });
+  }
+
+  // ── Zoo Shorts ONE-SHOT pipeline (owner's proven workflow, 2026-07-30) ────
+  // Reference-winner → one rich prompt → Kling 3.0 renders the COMPLETE 15s
+  // vertical video with native audio in a single generation. Needs FAL_KEY.
+  const oneshotPromptId = await seedPrompt(
+    "zoo-oneshot-prompt",
+    "Zoo Shorts: one-shot video prompt",
+    "Write ONE rich cinematic prompt for a 15-second vertical (9:16) kids video generated in a " +
+      "single shot by a text-to-video model with native audio, starring the Zoo Friends cast:\n" +
+      castSheet() +
+      "\n\nSTEP 1 — pick the topic: input.trending lists recent high-view videos from winning " +
+      "kids channels; choose the strongest proven format NOT marked 'ALREADY PUBLISHED ON OUR " +
+      "CHANNEL' (those are forbidden). STEP 2 — write 2-4 SHORT original sung lines (a catchy " +
+      "hook a toddler can echo; never copy real lyrics). STEP 3 — write the videoPrompt as one " +
+      "flowing paragraph that a video model can execute in 15 seconds: name 2-3 cast members " +
+      "with their exact looks, one simple story beat (want → try → happy payoff), continuous " +
+      "lively motion (bouncing, dancing, clear gestures, blinking, expressive faces), a bright " +
+      "toddler-cartoon 3D style (soft rounded shapes, pastel colors, big sparkly eyes, sunny zoo " +
+      "playground), gentle camera (one slow push-in or pan), and the AUDIO direction: a bouncy " +
+      "cheerful kids song where a warm female voice sings your lyric lines, plus playful sound " +
+      "effects. End with quality guards: consistent character designs throughout, correct " +
+      "anatomy, no text or logos on screen, nothing scary. Output fields: videoPrompt (the " +
+      "paragraph), lyrics, topic, animal, title (working title), hook, facts (3 simple true " +
+      "facts), durationSeconds (15).",
+  );
+  await seedModuleAgent({
+    moduleId: zooModule.id,
+    key: "zoo-oneshot-prompt-agent",
+    name: "Zoo One-Shot Prompt Director",
+    role: "creative",
+    description: "Turns a trending winner into one Kling-ready 15s video prompt.",
+    instructions:
+      "You are a prompt director for one-shot AI video generation (Kling 3.0 class: 15s, 9:16, " +
+      "native audio). You study the trending list of winning kids videos, pick proven demand " +
+      "that our channel has not covered (entries marked ALREADY PUBLISHED are forbidden " +
+      "topics), and compress an entire micro-episode — cast, story beat, continuous joyful " +
+      "motion, sung hook, sound design, style, camera — into ONE executable paragraph. STRICT " +
+      "ORIGINALITY: learn only topics and formats from the references; never copy characters, " +
+      "melodies, lyrics, or titles. Never scary, no brands, no on-screen text.",
+    promptId: oneshotPromptId,
+    inputSchema: {
+      type: "object",
+      properties: {
+        trending: { type: "array", items: { type: "object" } },
+      },
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        videoPrompt: { type: "string", minLength: 200 },
+        lyrics: { type: "string" },
+        topic: { type: "string" },
+        animal: { type: "string" },
+        title: { type: "string" },
+        hook: { type: "string" },
+        facts: { type: "array", items: { type: "string" } },
+        durationSeconds: { type: "number" },
+      },
+      required: ["videoPrompt", "lyrics", "topic", "title", "hook"],
+    },
+  });
+  const oneshotSteps: typeof zooSteps = [
+    {
+      key: "prompt",
+      name: "Direct the one-shot prompt",
+      type: "AGENT_TASK",
+      config: {
+        agentKey: "zoo-oneshot-prompt-agent",
+        goal: "Turn the trending winners into one Kling-ready 15s video prompt",
+        inputMapping: { trending: "$.input.trending" },
+      },
+    },
+    {
+      key: "metadata",
+      name: "Write YouTube title & description",
+      type: "AGENT_TASK",
+      config: {
+        agentKey: "zoo-metadata-agent",
+        goal: "Write the YouTube metadata",
+        inputMapping: { idea: "$.steps.prompt", trending: "$.input.trending" },
+      },
+    },
+    {
+      key: "safety",
+      name: "Kid-safety check",
+      type: "AGENT_TASK",
+      config: {
+        agentKey: "zoo-safety-agent",
+        goal: "Independent safety and quality review",
+        inputMapping: { script: "$.steps.prompt", metadata: "$.steps.metadata" },
+      },
+    },
+    {
+      // Keyed "assemble" so the Quality Director, review payloads and the
+      // publisher work unchanged.
+      key: "assemble",
+      name: "Generate the one-shot video (Kling 3.0)",
+      type: "CODE_FUNCTION",
+      config: { functionKey: "zoo_oneshot_generate", args: {} },
+      retryLimit: 8,
+    },
+    {
+      key: "quality",
+      name: "Quality Director check",
+      type: "CODE_FUNCTION",
+      config: { functionKey: "zoo_quality_gate", args: {} },
+      retryLimit: 1,
+    },
+    {
+      key: "review",
+      name: "Your review",
+      type: "HUMAN_APPROVAL",
+      config: {
+        title: "Review one-shot zoo Short before publishing",
+        description: "15s Kling 3.0 one-shot episode. Approving publishes to YouTube.",
+        actionType: "PUBLISH_CONTENT",
+        riskLevel: "HIGH",
+        payloadPaths: ["$.steps.prompt", "$.steps.metadata", "$.steps.safety", "$.steps.quality"],
+      },
+    },
+    {
+      key: "publish",
+      name: "Publish to YouTube",
+      type: "PUBLISH",
+      // madeForKids MUST stay true for this module (COPPA).
+      config: { target: "youtube", payloadPath: "$.steps.metadata", madeForKids: true },
+    },
+  ];
+  const oneshotKey = "zoo-oneshot-pipeline";
+  let oneshotWf = await prisma.workflow.findUnique({
+    where: { organizationId_key: { organizationId: org.id, key: oneshotKey } },
+    include: { activeVersion: { include: { steps: { orderBy: { order: "asc" } } } } },
+  });
+  if (!oneshotWf) {
+    const created = await prisma.workflow.create({
+      data: {
+        organizationId: org.id,
+        moduleId: zooModule.id,
+        key: oneshotKey,
+        name: "Zoo Shorts: one-shot episode",
+        description: "Trend winner → one prompt → Kling 3.0 15s video with audio → QA → publish",
+        status: "ACTIVE",
+        costLimitMicroUsd: zooCostLimit,
+      },
+    });
+    oneshotWf = { ...created, activeVersion: null } as typeof oneshotWf & { activeVersion: null };
+  }
+  const oneshotActive = oneshotWf!.activeVersion?.steps ?? [];
+  const oneshotMatch =
+    oneshotActive.length === oneshotSteps.length &&
+    oneshotActive.every(
+      (s, i) =>
+        s.key === oneshotSteps[i]!.key &&
+        s.type === oneshotSteps[i]!.type &&
+        s.retryLimit === (oneshotSteps[i]!.retryLimit ?? 2) &&
+        JSON.stringify(s.config) === JSON.stringify(oneshotSteps[i]!.config),
+    );
+  if (!oneshotMatch) {
+    const latest = await prisma.workflowVersion.findFirst({
+      where: { workflowId: oneshotWf!.id },
+      orderBy: { version: "desc" },
+    });
+    const version = await prisma.workflowVersion.create({
+      data: {
+        workflowId: oneshotWf!.id,
+        version: (latest?.version ?? 0) + 1,
+        inputSchema: { type: "object", properties: { trending: { type: "array" } } },
+        changelog: latest ? "Updated by seed" : "Initial version",
+      },
+    });
+    let order = 0;
+    for (const step of oneshotSteps) {
+      await prisma.workflowStep.create({
+        data: {
+          workflowVersionId: version.id,
+          key: step.key,
+          name: step.name,
+          type: step.type,
+          order: order++,
+          config: step.config,
+          ...(step.retryLimit !== undefined ? { retryLimit: step.retryLimit } : {}),
+        },
+      });
+    }
+    await prisma.workflow.update({
+      where: { id: oneshotWf!.id },
+      data: { activeVersionId: version.id, costLimitMicroUsd: zooCostLimit },
+    });
+    console.log(`✓ Zoo one-shot pipeline v${version.version} (${oneshotSteps.length} steps)`);
   }
 
   // ── Love Villa: Nations: the second installed business ────────────────────

@@ -59,9 +59,23 @@ export function episodePrompt(
   cast: Character[],
   state: SeasonState,
   beat: EpisodeBeat,
+  pitch?: {
+    logline: string;
+    want: string;
+    lieOrSecret: string;
+    publicCollision: string;
+    reversal: string;
+  },
 ): string {
   return [
-    `You are the episode writer of "${bible.title}". Write episode ${beat.episode}: "${beat.title}".`,
+    `You are the Script Writer of "${bible.title}". Write episode ${beat.episode}: "${beat.title}".`,
+    ...(pitch
+      ? [
+          "THE APPROVED PITCH from the Plot Writer — follow it EXACTLY (the reversal is sacred):",
+          JSON.stringify(pitch),
+          "",
+        ]
+      : []),
     guardrails(bible),
     "Cast (only use characters currently in the villa, by id):",
     castSheet(cast.filter((c) => !state.eliminated.includes(c.id))),
@@ -110,9 +124,10 @@ export function episodePrompt(
     "Scene characters arrays may only contain contestant ids from the cast list above (never",
     '"narrator").',
     "",
-    "Structure: 7-9 scenes — hook (0-3s), setup, escalations (≥1 Spill Room confessional quote,",
-    "≥1 argument, ≥1 pure reaction beat), twist, engagement endcard. PACING: aim ~110-135 spoken",
-    "words TOTAL (count them) — fewer, funnier lines with air between them beat a wall of words.",
+    "Structure: 6-8 scenes — hook (0-3s), setup, escalations (≥1 Spill Room confessional quote,",
+    "≥1 argument, ≥1 pure reaction beat), the pitch's REVERSAL as the twist, engagement endcard.",
+    "PACING (charter): total runtime 35-55 seconds — aim ~80-105 spoken words TOTAL (count",
+    "them). Fewer, funnier lines with air between them beat a wall of words.",
     "Scene 'visual' fields describe one clear dramatic picture, naming each on-screen character",
     "(in their flag-colored signature outfit), their expression, and action.",
     "Set 'emphasize' on 1-2 punch words per line. Include a TikTok caption + 8+ hashtags.",

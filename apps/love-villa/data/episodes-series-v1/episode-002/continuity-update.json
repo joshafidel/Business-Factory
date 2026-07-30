@@ -9,6 +9,11 @@
   "secretsRevealed": [],
   "arrivals": [],
   "eliminations": [],
-  "unresolvedStorylines": ["Brock's confidence wobble", "Lucas vs Alejandro cold war begins"],
-  "continuityNotes": ["Direct continuation of Alejandro's episode 1 arrival."]
+  "unresolvedStorylines": [
+    "Brock's confidence wobble",
+    "Lucas vs Alejandro cold war begins"
+  ],
+  "continuityNotes": [
+    "Direct continuation of Alejandro's episode 1 arrival."
+  ]
 }

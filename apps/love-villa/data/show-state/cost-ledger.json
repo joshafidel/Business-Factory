@@ -70,7 +70,14 @@
       "estimatedUsd": 0.063,
       "mode": "live",
       "at": "2026-07-28T20:03:59.290Z"
+    },
+    {
+      "provider": "anthropic",
+      "item": "season-arc-10ep",
+      "estimatedUsd": 0.21123,
+      "mode": "live",
+      "at": "2026-07-29T16:24:05.507Z"
     }
   ],
-  "totalUsd": 0.982
+  "totalUsd": 1.193
 }

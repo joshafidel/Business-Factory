@@ -1,0 +1,41 @@
+{
+  "episode": 2,
+  "at": "2026-07-29T15:54:33.137Z",
+  "cinematography": [
+    {
+      "scene": 0,
+      "issue": "clip loops 2.4× — visible snap back to opening framing on every restart",
+      "severity": "critical"
+    },
+    {
+      "scene": 1,
+      "issue": "clip loops 3.2× — visible snap back to opening framing on every restart",
+      "severity": "critical"
+    },
+    {
+      "scene": 2,
+      "issue": "clip loops 2.7× — visible snap back to opening framing on every restart",
+      "severity": "critical"
+    },
+    {
+      "scene": 3,
+      "issue": "clip loops 3.1× — visible snap back to opening framing on every restart",
+      "severity": "critical"
+    },
+    {
+      "scene": 4,
+      "issue": "clip loops 2.2× — visible snap back to opening framing on every restart",
+      "severity": "critical"
+    },
+    {
+      "scene": 5,
+      "issue": "clip loops 2.2× — visible snap back to opening framing on every restart",
+      "severity": "critical"
+    },
+    {
+      "scene": 6,
+      "issue": "clip loops 4.0× — visible snap back to opening framing on every restart",
+      "severity": "critical"
+    }
+  ]
+}

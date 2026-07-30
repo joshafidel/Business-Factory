@@ -18,9 +18,9 @@
   "initialAttraction": "none",
   "recurringJoke": "Rates everything out of ten — sunsets, apologies, declarations of love, other people's crying.",
   "signaturePhrase": "C'est un non.",
-  "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob under a navy beret with a small blue-white-red cockade pin, red lipstick, breton stripe top, silk scarf in French tricolore blue white red, tiny sunglasses, looking over them with cool judgment, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
+  "imagePrompt": "Effortlessly chic French woman in her mid twenties, dark bob under a navy beret with a small blue-white-red cockade pin, red lipstick, breton stripe top, silk scarf in French tricolore blue white red, tiny sunglasses, arms elegantly crossed, looking over them with cool judgment, ultra-glossy stylized 3D render in the style of viral animated reality-show shorts, attractive adult character in their twenties, expressive big eyes, polished modern-animation adult proportions, candy-bright saturated colors, dreamy soft studio lighting, subtle rim light, national flag colors and motifs boldly woven into the outfit so their country reads at a glance, vertical 9:16 framing, consistent character design",
   "negativeImagePrompt": "photorealistic, deepfake, real person, celebrity likeness, text, watermark, logo, extra limbs, distorted hands, children, gore, nudity",
-  "visualReference": "Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, cool stare",
+  "visualReference": "Élodie: French woman, sleek dark bob, navy beret with tricolore pin, red lip, breton stripes, blue-white-red silk scarf, tiny sunglasses, arms crossed, cool stare",
   "imageSeed": 11004,
   "palette": {
     "skin": "#f0c39e",

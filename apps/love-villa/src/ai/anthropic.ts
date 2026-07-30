@@ -75,12 +75,27 @@ export async function generateStructured<T>(opts: GenerateOptions<T>): Promise<T
     })),
     { type: "text", text: opts.prompt },
   ];
-  const response = await getClient().beta.messages.parse({
-    model: env.ANTHROPIC_MODEL,
-    max_tokens: maxTokens,
-    messages: [{ role: "user", content }],
-    output_format: betaZodOutputFormat(opts.schema),
-  });
+  let response;
+  try {
+    response = await getClient().beta.messages.parse({
+      model: env.ANTHROPIC_MODEL,
+      max_tokens: maxTokens,
+      messages: [{ role: "user", content }],
+      output_format: betaZodOutputFormat(opts.schema),
+    });
+  } catch (err) {
+    // Truncated/garbled structured output happens rarely — one retry with a
+    // larger budget before giving up.
+    log.warn(
+      `structured output failed for ${opts.item} (${err instanceof Error ? err.message.slice(0, 80) : err}) — retrying once`,
+    );
+    response = await getClient().beta.messages.parse({
+      model: env.ANTHROPIC_MODEL,
+      max_tokens: Math.min(32000, maxTokens * 2),
+      messages: [{ role: "user", content }],
+      output_format: betaZodOutputFormat(opts.schema),
+    });
+  }
 
   if (response.stop_reason === "refusal") {
     throw new Error(

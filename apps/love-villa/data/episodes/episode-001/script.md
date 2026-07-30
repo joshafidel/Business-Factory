@@ -1,94 +1,81 @@
-# Episode 1: Two Kings, One Croissant
+# Episode 1: Sleep-Talking Sabotage
 
-_Brock and Matteo discover they're chasing the same French woman, escalate into smoothie-versus-risotto warfare, get rated a five each, and then Spain walks in._
+_At 3am Poppy says the wrong name out loud, Élodie hears it and rates it a six, and by sunset the whole villa is being scored out of ten by people who cannot admit what they want._
 
-Review this file for the "script" approval checkpoint.
+### Scene 1 — HOOK · scene · bedroom
 
-### Scene 1 — HOOK · scene · Open Kitchen
+_Dark bedroom, moonlight stripes. Poppy in Union Jack pyjama crop top asleep mouth-open mid-murmur; Matteo beside her in white linen shirt smiling blissfully in his sleep; Élodie two beds over, sleek dark bob on the pillow, eyes wide open, red lip, utterly unimpressed._
 
-_Brock grinning with a pink smoothie in one hand; Matteo frozen mid-stir at the stove, eyebrows crashing together, wooden spoon raised like a sword._
+> **narrator:** Poppy is asleep. _(sassy whisper, confidential)_
+> **narrator:** Poppy is talking. _(delighted, slower — letting it land)_
+> **narrator:** That is not Matteo's name. _(flat, scandalised)_
+> **poppy-uk:** …Lucas. _(soft dreaming murmur, tragically fond)_
+> **elodie-france:** A six. _(deadpan whisper into the dark, eyes never blinking)_
 
-> **narrator:** Brock is about to start a war. _(fast, delighted)_
-> **narrator:** He does not know this yet. _(dry)_
-> **Brock:** Bro. We're both all-in on the same girl?! _(loud, thrilled then horrified)_
-> **narrator:** America. Italy. One French woman. _(clipped)_
+### Scene 2 — SETUP · scene · kitchen
 
-### Scene 2 — SETUP · scene · Open Kitchen
+_Sunlit kitchen. Poppy in Union Jack crop top clutching her Union Jack mug with hostage energy; Élodie in breton stripes and navy beret slicing fruit without looking up; Brock in American-flag tank and red backwards cap sliding a glass of water across the counter, grinning like a man closing a deal._
 
-_Poppy leans in the doorway sipping tea, eyebrows up; Brock waves the smoothie proudly; Matteo clutches his chest with both hands._
+> **narrator:** Morning. Poppy remembers everything. _(gossip-glee, quick then pause)_
+> **elodie-france:** A six. _(flat, not looking up, still slicing)_
 
-> **narrator:** Brock made her a smoothie.
-> **narrator:** Matteo made her eight courses.
-> **Matteo:** You made her a smoothie. I made her a promise. _(operatic, wounded)_
-> **Poppy:** Day one and we've got a treaty violation. _(deadpan sip)_
+### Scene 3 — ESCALATION · scene · pool
 
-### Scene 3 — ESCALATION · argument · Open Kitchen
+_Poolside. Lucas in open canary-yellow Brazil jersey mid-hug with Élodie, who accepts it like paperwork; Poppy just behind, arms folded, smile clamped tight; Matteo in tricolore apron watching from a sun-lounger with tragic eyebrows; Sienna dripping wet, zinc stripe, grinning at all of it._
 
-_Brock and Matteo nose to nose over a steaming risotto pan, Brock's cap backwards, Matteo's hands mid-gesture, both furious and both smiling politely._
+> **narrator:** Lucas hugs Poppy. Then Élodie. _(casual, setting a trap)_
+> **narrator:** Same minute. _(quicker, gasp underneath)_
+> **lucas-brazil:** Dance now, feelings later! _(radiant, oblivious, mid-shimmy)_
+> **matteo-italy:** I make lasagne. For eleven. _(quiet operatic doom, like declaring war)_
+> **narrator:** Nobody asked. _(beat, then dry as bone)_
 
-> **narrator:** Watch the risotto. It's revenge now. _(gleeful)_
-> **Brock:** Full send on the heart, baby! _(shouted)_
-> **Matteo:** My heart is al dente. Yours is a blender. _(scathing)_
-> **narrator:** Oh, that landed.
+### Scene 4 — ESCALATION · argument · firepit
 
-### Scene 4 — ESCALATION · scene · Sunset Terrace
+_Firepit at dusk. Sienna in green-and-gold surf top leaning forward like a bookmaker; Élodie serene in her tricolore scarf holding up five fingers; Lucas's grin cracking; Poppy half-standing, furious; Matteo slamming a steaming lasagne onto the table; Brock beaming in his star-print shorts._
 
-_Greta writing on a clipboard with zero expression; Poppy peering over her shoulder, delighted, tea mug forgotten._
+> **sienna-australia:** Rate the men. Out of ten. Go. _(gleeful dare-dealer, escalating fast)_
+> **elodie-france:** Lucas — a five. _(serene, surgical, five fingers raised)_
+> **lucas-brazil:** Five is a nice number, no? _(laughing, visibly wounded)_
+> **narrator:** Watch his face. _(whispered thrill)_
+> **poppy-uk:** A five? He's the best thing here. _(too loud, too fast, immediately regretting it)_
 
-> **narrator:** Greta is logging it. Officially.
-> **Greta:** Conflict began 11:04. Escalation, 11:06. Efficient. _(flat)_
-> **Poppy:** She's got a spreadsheet for a stabbing. _(cackling)_
-> **narrator:** Someone tell France. Actually — don't. _(conspiratorial)_
+### Scene 5 — TWIST · scene · firepit
 
-### Scene 5 — ESCALATION · scene · Infinity Pool
+_Firelight close on three faces: Poppy mid-accusation, mouth open; Élodie calm, chin lifted, delivering the line like a receipt; Lucas between them, beaded necklace catching light, brow slowly folding into confusion._
 
-_Élodie on a lounger in tiny sunglasses, unmoved; Brock offering the smoothie and Matteo offering the risotto from opposite sides, both leaning in hopefully._
+> **poppy-uk:** You rate him a five and you— _(sharp, accelerating, cut off)_
+> **elodie-france:** Day two. I kissed him. Two minutes. _(velvet, unbothered, weaponised calm)_
+> **narrator:** 3am wasn't about Lucas. _(revelatory, hushed)_
+> **narrator:** It was the balcony she pretended not to see. _(soft devastation, then silence)_
+> **lucas-brazil:** That was a kiss? I filed it as a hug. _(genuinely stunned, sweetly clueless)_
 
-> **narrator:** Two kings. One croissant. Zero interest.
-> **Élodie:** The smoothie? Five. The risotto? Five. The drama? ...Seven. _(cool, surgical)_
-> **narrator:** She rated the fight higher than both men. _(savoring it)_
+### Scene 6 — TWIST · confessional · confessional
 
-### Scene 6 — ESCALATION · confessional · The Spill Room
+_Spill Room. Élodie alone in tiny sunglasses and tricolore scarf, arms crossed, one eyebrow up, denying everything with her mouth and confessing with her entire face._
 
-_Brock alone in the Spill Room chair, grin faltering, shaker bottle hugged to his chest like a teddy bear._
+> **elodie-france:** Do I want Lucas? C'est un non. _(icy denial, hard cut, then a betrayed whisper on the last three words)_
+> **narrator:** She scored him a five. _(dry setup)_
+> **narrator:** She meant nine. _(punchline, then hold)_
 
-> **narrator:** Spill Room. Brock's smile is doing overtime.
-> **Brock:** A five's basically a nine with room to grow. _(hopeful, cracking)_
-> **narrator:** Nobody correct him. It's beautiful. _(gentle then wicked)_
+### Scene 7 — ENGAGEMENT · arrival · walkway
 
-### Scene 7 — ESCALATION · scene · Infinity Pool
+_Sunset walkway, gate swinging open. Alejandro in crimson shirt with gold trim and red sash, one red carnation, full smolder. Greta in black-red-gold kit blocking him with a clipboard; Rohan in his saffron-white-green polo frantically flipping notebook pages._
 
-_Lucas mid-dance in shock, Sienna choking on a drink, Rohan flipping his notebook shut, Élodie reapplying red lipstick without blinking._
+> **greta-germany:** You are not on the schedule. _(deadpan, absolutely no emotion)_
+> **alejandro-spain:** No. _(warm, unbothered, smolder intact)_
+> **narrator:** One carnation. Zero explanation. _(savouring it)_
 
-> **narrator:** The villa reacts. Badly.
-> **Sienna:** She scored them like a diving competition! _(howling)_
-> **Lucas:** I felt that in my ancestors. _(clutching chest, laughing)_
-> **Rohan:** I'm recalculating everything. Everything. _(panicked whisper)_
+### Scene 8 — ENGAGEMENT · endcard · terrace
 
-### Scene 8 — TWIST · arrival · Entrance Walkway
+_Terrace at last light. Alejandro alone, crimson shirt and gold sash, twirling the carnation, looking straight down the lens with a smolder that took eleven months of mirror practice._
 
-_Alejandro at the top of the torch-lit walkway in a crimson shirt, backlit, smoldering; Brock and Matteo staring up in horror, Élodie slowly lowering her sunglasses._
-
-> **narrator:** Torches lit. Gate open. Oh no. _(hushed, thrilled)_
-> **Alejandro:** I heard someone here rates men out of ten. I am the ten. _(velvet, unbothered)_
-> **narrator:** Élodie lowered the sunglasses. That's a gasp.
-> **Matteo:** Spain. Of course. Spain. _(betrayed whisper)_
-
-### Scene 9 — ENGAGEMENT · endcard · Firepit Lounge
-
-_Firepit at night: Brock, Matteo and Alejandro in a tense row, Élodie centre-frame with an unreadable stare into the flames._
-
-> **narrator:** So. Smoothie, risotto, or smoulder?
-> **narrator:** Who should Élodie pick? Comment now. _(direct to camera)_
-> **Élodie:** C'est un non. Probably. _(cool, then a flicker of doubt)_
-> **narrator:** Probably? She said probably. Episode two. _(scandalised)_
+> **alejandro-spain:** She gives numbers. Tomorrow I give her one. _(low, silky, straight to camera)_
+> **narrator:** He hasn't met her. _(flat setup)_
+> **narrator:** He's already scoring. _(punchline, gleeful, then a beat)_
+> **narrator:** What number does he give Élodie? _(direct address, conspiratorial dare)_
 
 ## Caption
 
-Two kings, one croissant, and Spain kicking the door in on DAY ONE 🇺🇸🇮🇹🇫🇷🇪🇸 Who should Élodie pick? Vote in the comments 👇
+She rated him a FIVE with a nine on her whole face 💀 and Poppy talked in her sleep at 3am. Guess Alejandro's number before Ep 2 👇
 
-#LoveVillaNations #TwoKingsOneCroissant #VillaDrama #RateThemOutOfTen #SmoothieVsRisotto #SpainHasEntered #AnimatedRealityTV #Episode1 #WhoShouldShePick
-
-## Music direction
-
-Original royalty-free tropical-house bed, 118bpm, plucky marimba under comedy beats; swap to a single sustained flamenco-flavoured guitar note plus low sub-drop for Alejandro's arrival; cut to silence on Élodie's 'Probably'.
+#LoveVillaNations #SleepTalkingSabotage #RateHimOutOfTen #EpisodeOne #VillaDrama #LasagneForEleven #OffTheScaleBaby #TeamPoppy #TeamElodie #AnimatedReality

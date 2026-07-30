@@ -66,6 +66,7 @@ model Organization {
   errorEvents      ErrorEvent[]
   listingProjects  ListingProject[]
   brandProfiles    BrandProfile[]
+  purchaseRecords  PurchaseRecord[]
 }
 
 enum OrgRole {
@@ -1112,4 +1113,44 @@ model StorageBlob {
   mimeType  String?
   sizeBytes Int
   createdAt DateTime @default(now())
+}
+
+/// Owner-facing money ledger: real purchases (credit top-ups) and recurring
+/// subscriptions across the businesses — distinct from CostRecord, which
+/// meters API usage drawn AGAINST these purchases. Seeded lazily with the
+/// accounts each session set up (isEstimate=true until the owner confirms
+/// the real amount from the Spending page).
+enum PurchaseKind {
+  ONE_TIME
+  SUBSCRIPTION
+}
+
+model PurchaseRecord {
+  id             String       @id @default(cuid())
+  organizationId String
+  /// Stable seed key (e.g. "elevenlabs-subscription") so lazy seeding is idempotent
+  key            String
+  kind           PurchaseKind
+  vendor         String
+  name           String
+  /// One-time: the purchase amount. Subscription: the per-cycle price.
+  amountMicroUsd BigInt       @default(0)
+  /// Subscription cycle: "monthly" | "annual"
+  cadence        String?
+  /// Subscription start (used to compute total-to-date)
+  startedAt      DateTime?
+  /// Set when a subscription is cancelled — stops the total-to-date clock
+  endedAt        DateTime?
+  /// One-time purchase date
+  purchasedAt    DateTime?
+  /// True until the owner confirms the real amount
+  isEstimate     Boolean      @default(true)
+  notes          String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, key])
+  @@index([organizationId, kind])
 }

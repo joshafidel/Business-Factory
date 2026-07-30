@@ -1,0 +1,434 @@
+{
+  "episode": 1,
+  "title": "Two Kings, One Croissant",
+  "logline": "Brock and Matteo discover they're chasing the same French woman, escalate into smoothie-versus-risotto warfare, get rated a five each, and then Spain walks in.",
+  "scenes": [
+    {
+      "index": 0,
+      "slot": "hook",
+      "kind": "scene",
+      "locationId": "kitchen",
+      "characters": [
+        "brock-usa",
+        "matteo-italy"
+      ],
+      "visual": "Brock grinning with a pink smoothie in one hand; Matteo frozen mid-stir at the stove, eyebrows crashing together, wooden spoon raised like a sword.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Brock is about to start a war.",
+          "delivery": "fast, delighted",
+          "emphasize": [
+            "war"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "He does not know this yet.",
+          "delivery": "dry",
+          "emphasize": []
+        },
+        {
+          "speaker": "brock-usa",
+          "text": "Bro. We're both all-in on the same girl?!",
+          "delivery": "loud, thrilled then horrified",
+          "emphasize": [
+            "same girl"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "America. Italy. One French woman.",
+          "delivery": "clipped",
+          "emphasize": [
+            "French"
+          ]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [
+        "sting",
+        "whoosh"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 1,
+      "slot": "setup",
+      "kind": "scene",
+      "locationId": "kitchen",
+      "characters": [
+        "brock-usa",
+        "matteo-italy",
+        "poppy-uk"
+      ],
+      "visual": "Poppy leans in the doorway sipping tea, eyebrows up; Brock waves the smoothie proudly; Matteo clutches his chest with both hands.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Brock made a smoothie. Matteo made eight courses.",
+          "delivery": "",
+          "emphasize": [
+            "smoothie",
+            "eight"
+          ]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "You made her a smoothie. I made her a promise.",
+          "delivery": "operatic, wounded",
+          "emphasize": [
+            "promise"
+          ]
+        },
+        {
+          "speaker": "poppy-uk",
+          "text": "Day one and we've got a treaty violation.",
+          "delivery": "deadpan sip",
+          "emphasize": [
+            "treaty"
+          ]
+        }
+      ],
+      "motion": "pan-right",
+      "sfx": [
+        "ding"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 2,
+      "slot": "escalation",
+      "kind": "argument",
+      "locationId": "kitchen",
+      "characters": [
+        "brock-usa",
+        "matteo-italy"
+      ],
+      "visual": "Brock and Matteo nose to nose over a steaming risotto pan, Brock's cap backwards, Matteo's hands mid-gesture, both furious and both smiling politely.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Watch the risotto. It's revenge now.",
+          "delivery": "gleeful",
+          "emphasize": [
+            "revenge"
+          ]
+        },
+        {
+          "speaker": "brock-usa",
+          "text": "Full send on the heart, baby!",
+          "delivery": "shouted",
+          "emphasize": [
+            "Full send"
+          ]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "My heart is al dente. Yours is a blender.",
+          "delivery": "scathing",
+          "emphasize": [
+            "blender"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Oh, that landed.",
+          "delivery": "",
+          "emphasize": []
+        }
+      ],
+      "motion": "shake",
+      "sfx": [
+        "sting"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 3,
+      "slot": "escalation",
+      "kind": "scene",
+      "locationId": "terrace",
+      "characters": [
+        "greta-germany",
+        "poppy-uk"
+      ],
+      "visual": "Greta writing on a clipboard with zero expression; Poppy peering over her shoulder, delighted, tea mug forgotten.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Greta is logging it. Officially.",
+          "delivery": "",
+          "emphasize": [
+            "logging"
+          ]
+        },
+        {
+          "speaker": "greta-germany",
+          "text": "Conflict began 11:04. Escalation, 11:06. Efficient.",
+          "delivery": "flat",
+          "emphasize": [
+            "Efficient"
+          ]
+        },
+        {
+          "speaker": "poppy-uk",
+          "text": "She's got a spreadsheet for a stabbing.",
+          "delivery": "cackling",
+          "emphasize": [
+            "spreadsheet"
+          ]
+        }
+      ],
+      "motion": "pan-left",
+      "sfx": [
+        "pop"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 4,
+      "slot": "escalation",
+      "kind": "scene",
+      "locationId": "pool",
+      "characters": [
+        "elodie-france",
+        "brock-usa",
+        "matteo-italy"
+      ],
+      "visual": "\u00c9lodie on a lounger in tiny sunglasses, unmoved; Brock offering the smoothie and Matteo offering the risotto from opposite sides, both leaning in hopefully.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Two kings. One croissant. Zero interest.",
+          "delivery": "",
+          "emphasize": [
+            "Zero"
+          ]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "The smoothie? Five. The risotto? Five. The drama? ...Seven.",
+          "delivery": "cool, surgical",
+          "emphasize": [
+            "Five",
+            "Seven"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "She rated the fight higher than both men.",
+          "delivery": "savoring it",
+          "emphasize": [
+            "higher"
+          ]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [
+        "ding",
+        "sting"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 5,
+      "slot": "escalation",
+      "kind": "confessional",
+      "locationId": "confessional",
+      "characters": [
+        "brock-usa"
+      ],
+      "visual": "Brock alone in the Spill Room chair, grin faltering, shaker bottle hugged to his chest like a teddy bear.",
+      "lines": [
+        {
+          "speaker": "brock-usa",
+          "text": "A five's basically a nine with room to grow.",
+          "delivery": "hopeful, cracking",
+          "emphasize": [
+            "room to grow"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Nobody correct him. It's beautiful.",
+          "delivery": "gentle then wicked",
+          "emphasize": []
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [
+        "heartbeat"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 6,
+      "slot": "escalation",
+      "kind": "scene",
+      "locationId": "pool",
+      "characters": [
+        "lucas-brazil",
+        "sienna-australia",
+        "rohan-india",
+        "elodie-france"
+      ],
+      "visual": "Lucas mid-dance in shock, Sienna choking on a drink, Rohan flipping his notebook shut, \u00c9lodie reapplying red lipstick without blinking.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "The villa reacts. Badly.",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "sienna-australia",
+          "text": "She scored them like a diving competition!",
+          "delivery": "howling",
+          "emphasize": [
+            "scored"
+          ]
+        },
+        {
+          "speaker": "rohan-india",
+          "text": "I'm recalculating everything. Everything.",
+          "delivery": "panicked whisper",
+          "emphasize": [
+            "recalculating"
+          ]
+        }
+      ],
+      "motion": "zoom-out",
+      "sfx": [
+        "pop",
+        "sting"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 7,
+      "slot": "twist",
+      "kind": "arrival",
+      "locationId": "walkway",
+      "characters": [
+        "alejandro-spain",
+        "elodie-france",
+        "matteo-italy",
+        "brock-usa"
+      ],
+      "visual": "Alejandro at the top of the torch-lit walkway in a crimson shirt, backlit, smoldering; Brock and Matteo staring up in horror, \u00c9lodie slowly lowering her sunglasses.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Torches lit. Gate open. Oh no.",
+          "delivery": "hushed, thrilled",
+          "emphasize": [
+            "Oh no"
+          ]
+        },
+        {
+          "speaker": "alejandro-spain",
+          "text": "I heard someone here rates men out of ten. I am the ten.",
+          "delivery": "velvet, unbothered",
+          "emphasize": [
+            "the ten"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "\u00c9lodie lowered the sunglasses. That's a gasp.",
+          "delivery": "",
+          "emphasize": [
+            "sunglasses"
+          ]
+        },
+        {
+          "speaker": "matteo-italy",
+          "text": "Spain. Of course. Spain.",
+          "delivery": "betrayed whisper",
+          "emphasize": [
+            "Spain"
+          ]
+        }
+      ],
+      "motion": "parallax",
+      "sfx": [
+        "whoosh",
+        "heartbeat"
+      ],
+      "textMessages": []
+    },
+    {
+      "index": 8,
+      "slot": "engagement",
+      "kind": "endcard",
+      "locationId": "firepit",
+      "characters": [
+        "elodie-france",
+        "brock-usa",
+        "matteo-italy",
+        "alejandro-spain"
+      ],
+      "visual": "Firepit at night: Brock, Matteo and Alejandro in a tense row, \u00c9lodie centre-frame with an unreadable stare into the flames.",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "So. Smoothie, risotto, or smoulder?",
+          "delivery": "",
+          "emphasize": []
+        },
+        {
+          "speaker": "narrator",
+          "text": "Who should \u00c9lodie pick? Comment now.",
+          "delivery": "direct to camera",
+          "emphasize": [
+            "Comment"
+          ]
+        },
+        {
+          "speaker": "elodie-france",
+          "text": "C'est un non. Probably.",
+          "delivery": "cool, then a flicker of doubt",
+          "emphasize": [
+            "Probably"
+          ]
+        },
+        {
+          "speaker": "narrator",
+          "text": "Probably? She said probably. Episode two.",
+          "delivery": "scandalised",
+          "emphasize": [
+            "probably"
+          ]
+        }
+      ],
+      "motion": "push-in",
+      "sfx": [
+        "ding"
+      ],
+      "textMessages": []
+    }
+  ],
+  "caption": "Two kings, one croissant, and Spain kicking the door in on DAY ONE \ud83c\uddfa\ud83c\uddf8\ud83c\uddee\ud83c\uddf9\ud83c\uddeb\ud83c\uddf7\ud83c\uddea\ud83c\uddf8 Who should \u00c9lodie pick? Vote in the comments \ud83d\udc47",
+  "hashtags": [
+    "#LoveVillaNations",
+    "#TwoKingsOneCroissant",
+    "#VillaDrama",
+    "#RateThemOutOfTen",
+    "#SmoothieVsRisotto",
+    "#SpainHasEntered",
+    "#AnimatedRealityTV",
+    "#Episode1",
+    "#WhoShouldShePick"
+  ],
+  "musicDirection": "Original royalty-free tropical-house bed, 118bpm, plucky marimba under comedy beats; swap to a single sustained flamenco-flavoured guitar note plus low sub-drop for Alejandro's arrival; cut to silence on \u00c9lodie's 'Probably'.",
+  "continuityNotes": [
+    "Series premiere: establishes Brock vs Matteo rivalry over \u00c9lodie.",
+    "\u00c9lodie's five-out-of-ten rating becomes a running scoreboard motif.",
+    "Alejandro arrives claiming \u00c9lodie \u2014 real intentions unrevealed, seeded for later.",
+    "Brock's confidence wobble planted here pays off in the startup-exposure episode.",
+    "Greta's conflict log and Poppy's commentary established as recurring devices.",
+    "Rohan-Sienna proximity seeded quietly at the pool.",
+    "Lucas and Alejandro not yet in conflict \u2014 sunshine-king cold war begins next."
+  ]
+}

@@ -16,6 +16,9 @@ import {
   type LineAudioInfo,
 } from "../render/render-plan";
 import { renderEpisodeVideo, renderSceneStill, resetBundleCache } from "../render/render";
+import { editImageWithReferences } from "../providers/images/openai";
+import { cameraDirection, framingDirection, palindromify } from "../staff/videographer";
+import { motionDirection } from "../staff/animator";
 import {
   loadQualityReport,
   reviewAudio,
@@ -27,6 +30,7 @@ import { parseArgs, intArg } from "../utils/args";
 import { CostTracker } from "../utils/cost";
 import { ensureDir, episodeId, writeJson } from "../utils/fs";
 import { log } from "../utils/log";
+import { wavDurationSeconds } from "../utils/wav";
 
 export interface AssetManifest {
   episode: number;
@@ -137,6 +141,25 @@ async function main(): Promise<void> {
       const line = scene.lines[li]!;
       const character = characterById(cast, line.speaker);
       const seed = episode * 100000 + scene.index * 100 + li;
+      // Voice lines are paid assets like clips: reuse existing takes instead
+      // of re-billing on every produce run (delete a file to re-record it).
+      const existingAudio = findExistingAsset(
+        assetRel("episodes", epId, "audio", `s${scene.index}-l${li}`),
+        ["mp3", "wav"],
+      );
+      if (env.REUSE_EXISTING_ASSETS && existingAudio) {
+        const buf = readFileSync(assetAbs(existingAudio));
+        let seconds: number;
+        if (existingAudio.endsWith(".wav")) {
+          seconds = wavDurationSeconds(buf);
+        } else {
+          const { parseBuffer } = await import("music-metadata");
+          const meta = await parseBuffer(new Uint8Array(buf), { mimeType: "audio/mpeg" });
+          seconds = meta.format.duration ?? line.text.length / 14;
+        }
+        manifest.lines.push({ scene: scene.index, line: li, file: existingAudio, seconds });
+        continue;
+      }
       let attempt = 0;
       let done = false;
       while (!done) {
@@ -220,7 +243,8 @@ async function main(): Promise<void> {
       const existingClip = assetRel("episodes", epId, "clips", `s${planScene.index}.mp4`);
       if (env.REUSE_EXISTING_ASSETS && existsSync(assetAbs(existingClip))) {
         planScene.clipFile = existingClip;
-        planScene.clipDurationFrames = Math.round(env.MOTION_CLIP_SECONDS * plan.fps);
+        // Clips are stored as palindromes (Videographer) — double duration.
+        planScene.clipDurationFrames = Math.round(2 * env.MOTION_CLIP_SECONDS * plan.fps);
         log.info(`scene ${planScene.index + 1}: reusing existing clip`);
         continue;
       }
@@ -232,15 +256,94 @@ async function main(): Promise<void> {
           mode: "live",
         });
         const stillFile = assetAbs(assetRel("episodes", epId, "stills", `s${planScene.index}.png`));
-        await renderSceneStill(plan, planScene.index, stillFile);
+        ensureDir(path.dirname(stillFile));
+        // Videographer: painted scene still — characters rendered INTO the
+        // environment with reference images (Directive 3). Falls back to the
+        // legacy cutout composite on failure.
+        let stillMade = false;
+        if (env.OPENAI_API_KEY && scriptScene) {
+          try {
+            const loc = bible.villa.locations.find((l) => l.id === scriptScene.locationId);
+            // Focal casting (QD rounds 1-3 finding): the image model produces
+            // duplicated people, identity blends, and fused limbs whenever a
+            // frame holds 4+ characters. Paint only the first 3 characters of
+            // the scene roster (the script orders them by importance);
+            // everyone else stays off-camera, reality-TV style.
+            const paintCast = scriptScene.characters.slice(0, 3);
+            const refs: Buffer[] = [];
+            const locRef = findExistingAsset(assetRel("locations", scriptScene.locationId), [
+              "png",
+            ]);
+            if (locRef) refs.push(readFileSync(assetAbs(locRef)));
+            for (const id of paintCast) {
+              const cRef = findExistingAsset(assetRel("characters", id), ["png"]);
+              if (cRef) refs.push(readFileSync(assetAbs(cRef)));
+            }
+            const paintNames = paintCast
+              .map((id) => cast.find((c) => c.id === id)?.fullName.split(" ")[0] ?? id)
+              .join(", ");
+            const looks = paintCast
+              .map((id) => cast.find((c) => c.id === id)?.visualReference)
+              .filter(Boolean)
+              .join("; ");
+            tracker.charge({
+              provider: "openai",
+              item: `scene-still:${planScene.index}`,
+              estimatedUsd: 0.25,
+              mode: "live",
+            });
+            const painted = await editImageWithReferences({
+              prompt: [
+                `${scriptScene.visual}.`,
+                framingDirection(scriptScene),
+                `Paint the referenced characters INTO the referenced ${loc?.name ?? "villa"} ` +
+                  `environment as ONE unified scene: correct relative scale, believable contact ` +
+                  `shadows, lighting matched to the environment's ${loc?.timeOfDay ?? "day"} key light.`,
+                `Character designs must match the references EXACTLY (faces, hair, flag outfits, ` +
+                  `signature accessories like eyewear/hats/scarves — never swap or restyle them): ${looks}.`,
+                `EXACTLY ${paintCast.length} people in frame — ONLY ${paintNames}, and each of ` +
+                  `them appears EXACTLY ONCE (never two copies of the same person). Every other ` +
+                  `character mentioned in the scene description is OFF-CAMERA (tight reality-TV ` +
+                  `framing), and the background contains NO people at all — empty loungers, empty ` +
+                  `pool, empty seats. Every character is an ADULT with the same adult proportions ` +
+                  `as their reference; no child-sized bodies.`,
+                "Stage the characters with CLEAR SEPARATION: bodies never overlap or interlock; " +
+                  "any physical contact is minimal (a hand on a shoulder at most) with both " +
+                  "people's arms fully visible and unmistakably attached to their own bodies. " +
+                  "Minimal set dressing: never duplicate a furniture item, one clean silhouette " +
+                  "per bed/table/lamp, and everything rests on a real surface.",
+                "Hands must be anatomically correct with five clearly separated fingers; every " +
+                  "held object fully resolved and physically supported; no floating, merged, or " +
+                  "half-formed props; every hand and arm attaches to a visible body — no " +
+                  "disembodied limbs; flames only inside a fire pit, torch sconce, or lamp.",
+                "Ultra-glossy stylized chunky 3D render matching the character references' style " +
+                  "exactly (NOT painterly, NOT semi-realistic), candy-bright saturated palette even " +
+                  "in night scenes (moonlit teal with warm accents, never grey), vertical 9:16 " +
+                  "composition, no text, no watermark.",
+              ].join(" "),
+              references: refs,
+              quality: "max",
+            });
+            writeFileSync(stillFile, painted.data);
+            stillMade = true;
+            log.ok(`scene ${planScene.index + 1}: painted still (Videographer)`);
+          } catch (err) {
+            log.warn(
+              `scene ${planScene.index + 1}: painted still failed (${err instanceof Error ? err.message.slice(0, 120) : err}) — cutout fallback`,
+            );
+          }
+        }
+        if (!stillMade) await renderSceneStill(plan, planScene.index, stillFile);
         const clip = await motion.imageToVideo({
           image: readFileSync(stillFile),
           prompt:
-            `${scriptScene?.visual ?? "villa scene"}. Gentle expressive character animation: they ` +
-            `blink, breathe, gesture and react naturally; subtle cloth and hair movement; slow ` +
-            `cinematic camera. STRICT CONSISTENCY: preserve every character's exact face, body ` +
-            `proportions, outfit, colors and position from the image — identical designs, no ` +
-            `redesign, no morphing, no warping, characters stay in place; keep the exact glossy ` +
+            `${scriptScene?.visual ?? "villa scene"}. ` +
+            (scriptScene
+              ? `${motionDirection(scriptScene)} ${cameraDirection(scriptScene)} `
+              : "") +
+            `STRICT CONSISTENCY: preserve every character's exact face, body proportions, outfit, ` +
+            `colors and position from the image — no redesign, no morphing, no new clothing items ` +
+            `or accessories, no flags other than those already present; keep the exact glossy ` +
             `animated reality-show art style and color grading of the image; no text.`,
           seconds: env.MOTION_CLIP_SECONDS,
         });
@@ -248,8 +351,10 @@ async function main(): Promise<void> {
           const rel = assetRel("episodes", epId, "clips", `s${planScene.index}.${clip.ext}`);
           ensureDir(path.dirname(assetAbs(rel)));
           writeFileSync(assetAbs(rel), clip.data);
+          // Videographer: palindrome the clip so looping never snaps back.
+          palindromify(assetAbs(rel));
           planScene.clipFile = rel;
-          planScene.clipDurationFrames = Math.round(env.MOTION_CLIP_SECONDS * plan.fps);
+          planScene.clipDurationFrames = Math.round(2 * env.MOTION_CLIP_SECONDS * plan.fps);
           log.ok(`scene ${planScene.index + 1} animated → assets/${rel}`);
         }
       } catch (err) {

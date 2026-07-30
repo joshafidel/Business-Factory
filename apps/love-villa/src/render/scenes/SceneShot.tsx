@@ -37,7 +37,7 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
   if (scene.clipFile) {
     return (
       <AbsoluteFill style={{ overflow: "hidden" }}>
-        <AbsoluteFill style={{ transform: `scale(${((1 + 0.04 * p) * punch).toFixed(4)})` }}>
+        <AbsoluteFill style={{ transform: `scale(${(1 + 0.03 * p).toFixed(4)})` }}>
           <Loop durationInFrames={Math.max(1, scene.clipDurationFrames ?? scene.durationFrames)}>
             <OffthreadVideo
               src={staticFile(scene.clipFile)}
@@ -64,15 +64,41 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
         />
       </AbsoluteFill>
       {scene.kind === "confessional" ? <ConfessionalFrame /> : null}
-      {scene.characters.map((c) => {
+      {scene.characters.map((c, i) => {
+        const n = scene.characters.length;
         const speaking = c.id === activeSpeaker;
         const parallax = scene.motion === "parallax" ? (c.position === 0 ? 1 : -1) * p * 40 : 0;
-        const bob = Math.sin((frame + c.position * 20) / 9) * 8;
-        const entering = scene.kind === "arrival" && c.position === 2;
+        const bob = 0;
+        const entering = scene.kind === "arrival" && i === n - 1;
         const approach = entering
           ? interpolate(p, [0, 0.65], [0.45, 1], { extrapolateRight: "clamp" })
           : 1;
-        const x = c.position === 0 ? "-6%" : c.position === 1 ? "40%" : "17%";
+        // Crowd layout: 1-2 characters keep the classic big two-shot; 3+ are
+        // spread evenly and shrunk so nobody's face is occluded by a
+        // neighbor (Quality Director finding: stacked cutouts read as warped
+        // faces / floating hands).
+        let x: string;
+        let width: string;
+        if (n === 1) {
+          x = "17%";
+          width = "66%";
+        } else if (n === 2) {
+          x = i === 0 ? "-6%" : "40%";
+          width = "66%";
+        } else {
+          const w = n === 3 ? 40 : 33;
+          const span = 100 - w + 8;
+          x = `${-4 + (i * span) / (n - 1)}%`;
+          width = `${w}%`;
+        }
+        // Match the cutouts to the set's key light so they don't read as
+        // flat frontal-lit stickers (Quality Director finding).
+        const timeGrade =
+          scene.timeOfDay === "sunset"
+            ? "sepia(0.22) saturate(1.15) brightness(0.96)"
+            : scene.timeOfDay === "night"
+              ? "brightness(0.85) saturate(0.92) hue-rotate(-8deg)"
+              : "";
         return (
           <div
             key={c.id}
@@ -80,13 +106,15 @@ export const SceneShot: React.FC<{ scene: PlanScene }> = ({ scene }) => {
               position: "absolute",
               bottom: entering ? -40 + (1 - approach) * 300 : -40,
               left: x,
-              width: "66%",
+              width,
               transform: `translateX(${parallax}px) translateY(${bob}px) scale(${(speaking ? 1.07 : 1) * approach})`,
               transformOrigin: "bottom center",
-              filter: speaking
-                ? "brightness(1.08) drop-shadow(0 0 34px rgba(255,95,162,0.55))"
-                : "brightness(0.94) drop-shadow(0 10px 24px rgba(0,0,0,0.45))",
-              zIndex: c.position === 2 ? 3 : 2,
+              filter: `${timeGrade} ${
+                speaking
+                  ? "brightness(1.08) drop-shadow(0 0 34px rgba(255,95,162,0.55))"
+                  : "brightness(0.94) drop-shadow(0 10px 24px rgba(0,0,0,0.45))"
+              }`,
+              zIndex: speaking ? 4 : i === Math.floor(n / 2) ? 3 : 2,
             }}
           >
             <Img src={staticFile(c.file)} style={{ width: "100%" }} />
