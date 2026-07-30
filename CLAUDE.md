@@ -126,7 +126,14 @@ never around it.** Concretely:
 9. **Database is a shared 512MB Neon budget.** Media bytes live in Postgres
    (DbStorage) until S3/R2 lands — keep intermediates prunable (asset
    `metadata.role` and `source` set), clean up after failed runs, and prefer
-   external URLs over copying bytes when a provider hosts output. Schema
+   external URLs over copying bytes when a provider hosts output.
+   **Never delete another lane's rows** — projects, photos, assets, renders,
+   or cost records that belong to a module you don't own (incident
+   2026-07-29: all Listing Factory projects/photos/assets were deleted at
+   runtime, owner-visible data loss, restored from a session's local
+   copies). Under storage pressure prune only YOUR module's regenerable
+   media via `/api/maintenance/storage`, then coordinate in the ledger
+   before touching anything shared. Schema
    changes: additive migrations only; never rename/drop another session's
    tables or columns.
 10. **Deploys are whole-site releases.** After your deploy goes READY, load
