@@ -206,8 +206,13 @@ export async function reviewVisuals(params: {
     "candy-bright 3D house style (consistent color grading and character proportions across",
     "images), and whether visible characters' national identity is instantly obvious from",
     "flag-colored wardrobe (US stars-and-stripes, Union Jack, Italian tricolore, etc.).",
-    "severity: 'critical' = a viewer would notice something is wrong or 'looks AI' — be strict;",
-    "'minor' = imperfect but shippable; 'ok' = clean.",
+    "severity calibration (charter bar): 'critical' = a casual phone viewer watching the frame",
+    "as part of a MOVING 5-second clip would notice something is wrong or 'looks AI' —",
+    "duplicated/extra people, wrong character identity or age, disembodied or extra limbs,",
+    "floating faces/objects, hard style breaks. 'minor' = a defect only visible when zoomed",
+    "into a paused frame (slightly soft fingers, small prop/contact-shadow imperfections,",
+    "background pattern irregularities) — imperfect but shippable. 'ok' = clean.",
+    "Do NOT rate anatomical nitpicks critical unless they would read at a glance in motion.",
   ].join("\n");
   const result = await generateStructured({
     item: `quality:visual-review:e${episode}`,

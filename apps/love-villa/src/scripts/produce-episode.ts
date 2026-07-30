@@ -264,21 +264,32 @@ async function main(): Promise<void> {
         if (env.OPENAI_API_KEY && scriptScene) {
           try {
             const loc = bible.villa.locations.find((l) => l.id === scriptScene.locationId);
+            // Focal casting (QD rounds 1-3 finding): the image model produces
+            // duplicated people, identity blends, and fused limbs whenever a
+            // frame holds 4+ characters. Paint only the first 3 characters of
+            // the scene roster (the script orders them by importance);
+            // everyone else stays off-camera, reality-TV style.
+            const paintCast = scriptScene.characters.slice(0, 3);
             const refs: Buffer[] = [];
-            const locRef = findExistingAsset(assetRel("locations", scriptScene.locationId), ["png"]);
+            const locRef = findExistingAsset(assetRel("locations", scriptScene.locationId), [
+              "png",
+            ]);
             if (locRef) refs.push(readFileSync(assetAbs(locRef)));
-            for (const id of scriptScene.characters.slice(0, 4)) {
+            for (const id of paintCast) {
               const cRef = findExistingAsset(assetRel("characters", id), ["png"]);
               if (cRef) refs.push(readFileSync(assetAbs(cRef)));
             }
-            const looks = scriptScene.characters
+            const paintNames = paintCast
+              .map((id) => cast.find((c) => c.id === id)?.fullName.split(" ")[0] ?? id)
+              .join(", ");
+            const looks = paintCast
               .map((id) => cast.find((c) => c.id === id)?.visualReference)
               .filter(Boolean)
               .join("; ");
             tracker.charge({
               provider: "openai",
               item: `scene-still:${planScene.index}`,
-              estimatedUsd: env.IMAGE_QUALITY === "high" ? 0.063 : 0.016,
+              estimatedUsd: 0.25,
               mode: "live",
             });
             const painted = await editImageWithReferences({
@@ -288,11 +299,30 @@ async function main(): Promise<void> {
                 `Paint the referenced characters INTO the referenced ${loc?.name ?? "villa"} ` +
                   `environment as ONE unified scene: correct relative scale, believable contact ` +
                   `shadows, lighting matched to the environment's ${loc?.timeOfDay ?? "day"} key light.`,
-                `Character designs must match the references EXACTLY (faces, hair, flag outfits): ${looks}.`,
-                "Ultra-glossy stylized 3D render, candy-bright, vertical 9:16 composition, no text, no watermark.",
+                `Character designs must match the references EXACTLY (faces, hair, flag outfits, ` +
+                  `signature accessories like eyewear/hats/scarves — never swap or restyle them): ${looks}.`,
+                `EXACTLY ${paintCast.length} people in frame — ONLY ${paintNames}, and each of ` +
+                  `them appears EXACTLY ONCE (never two copies of the same person). Every other ` +
+                  `character mentioned in the scene description is OFF-CAMERA (tight reality-TV ` +
+                  `framing), and the background contains NO people at all — empty loungers, empty ` +
+                  `pool, empty seats. Every character is an ADULT with the same adult proportions ` +
+                  `as their reference; no child-sized bodies.`,
+                "Stage the characters with CLEAR SEPARATION: bodies never overlap or interlock; " +
+                  "any physical contact is minimal (a hand on a shoulder at most) with both " +
+                  "people's arms fully visible and unmistakably attached to their own bodies. " +
+                  "Minimal set dressing: never duplicate a furniture item, one clean silhouette " +
+                  "per bed/table/lamp, and everything rests on a real surface.",
+                "Hands must be anatomically correct with five clearly separated fingers; every " +
+                  "held object fully resolved and physically supported; no floating, merged, or " +
+                  "half-formed props; every hand and arm attaches to a visible body — no " +
+                  "disembodied limbs; flames only inside a fire pit, torch sconce, or lamp.",
+                "Ultra-glossy stylized chunky 3D render matching the character references' style " +
+                  "exactly (NOT painterly, NOT semi-realistic), candy-bright saturated palette even " +
+                  "in night scenes (moonlit teal with warm accents, never grey), vertical 9:16 " +
+                  "composition, no text, no watermark.",
               ].join(" "),
               references: refs,
-              quality: env.IMAGE_QUALITY,
+              quality: "max",
             });
             writeFileSync(stillFile, painted.data);
             stillMade = true;
@@ -308,7 +338,9 @@ async function main(): Promise<void> {
           image: readFileSync(stillFile),
           prompt:
             `${scriptScene?.visual ?? "villa scene"}. ` +
-            (scriptScene ? `${motionDirection(scriptScene)} ${cameraDirection(scriptScene)} ` : "") +
+            (scriptScene
+              ? `${motionDirection(scriptScene)} ${cameraDirection(scriptScene)} `
+              : "") +
             `STRICT CONSISTENCY: preserve every character's exact face, body proportions, outfit, ` +
             `colors and position from the image — no redesign, no morphing, no new clothing items ` +
             `or accessories, no flags other than those already present; keep the exact glossy ` +

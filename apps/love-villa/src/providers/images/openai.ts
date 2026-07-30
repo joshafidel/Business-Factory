@@ -76,10 +76,10 @@ export function estimatedImageCostUsd(quality: "draft" | "high"): number {
 export async function editImageWithReferences(params: {
   prompt: string;
   references: Buffer[];
-  quality: "draft" | "high";
+  quality: "draft" | "high" | "max";
 }): Promise<GeneratedAsset> {
   const env = loadConfig();
-  const quality = params.quality === "high" ? "medium" : "low";
+  const quality = params.quality === "max" ? "high" : params.quality === "high" ? "medium" : "low";
   const form = new FormData();
   form.append("model", env.OPENAI_IMAGE_MODEL);
   form.append("prompt", params.prompt);
@@ -96,7 +96,9 @@ export async function editImageWithReferences(params: {
     body: form,
   });
   if (!res.ok) {
-    throw new Error(`OpenAI image edit failed (${res.status}): ${(await res.text()).slice(0, 300)}`);
+    throw new Error(
+      `OpenAI image edit failed (${res.status}): ${(await res.text()).slice(0, 300)}`,
+    );
   }
   const body = (await res.json()) as { data: { b64_json: string }[] };
   const b64 = body.data[0]?.b64_json;

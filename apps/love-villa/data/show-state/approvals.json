@@ -4,5 +4,35 @@
     "at": "2026-07-28T20:05:07.087Z",
     "note": "",
     "locked": true
+  },
+  "season": {
+    "status": "approved",
+    "at": "2026-07-29T16:27:59.786Z",
+    "note": "",
+    "locked": true
+  },
+  "script:1": {
+    "status": "approved",
+    "at": "2026-07-29T16:35:23.688Z",
+    "note": "",
+    "locked": true
+  },
+  "visual-prompts:1": {
+    "status": "approved",
+    "at": "2026-07-29T16:35:24.444Z",
+    "note": "",
+    "locked": true
+  },
+  "rough-cut:1": {
+    "status": "approved",
+    "at": "2026-07-29T18:12:21.539Z",
+    "note": "",
+    "locked": true
+  },
+  "final-export:1": {
+    "status": "approved",
+    "at": "2026-07-29T18:30:38.914Z",
+    "note": "",
+    "locked": true
   }
 }

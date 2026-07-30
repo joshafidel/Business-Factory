@@ -59,7 +59,13 @@ export function episodePrompt(
   cast: Character[],
   state: SeasonState,
   beat: EpisodeBeat,
-  pitch?: { logline: string; want: string; lieOrSecret: string; publicCollision: string; reversal: string },
+  pitch?: {
+    logline: string;
+    want: string;
+    lieOrSecret: string;
+    publicCollision: string;
+    reversal: string;
+  },
 ): string {
   return [
     `You are the Script Writer of "${bible.title}". Write episode ${beat.episode}: "${beat.title}".`,

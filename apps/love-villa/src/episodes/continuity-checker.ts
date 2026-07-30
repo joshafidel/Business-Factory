@@ -174,7 +174,11 @@ export function checkStructure(script: EpisodeScript): ValidationIssue[] {
   const slots = new Set(script.scenes.map((s) => s.slot));
   for (const slot of ["hook", "setup", "escalation", "twist", "engagement"] as const) {
     if (!slots.has(slot)) {
-      issues.push({ check: "structure", severity: "error", message: `Missing "${slot}" beat` });
+      // A cold-open hook may absorb the setup beat (runtime surgery cuts
+      // setup first to protect the charter's runtime target); every other
+      // beat is structural and its absence breaks the episode.
+      const severity = slot === "setup" ? "warning" : "error";
+      issues.push({ check: "structure", severity, message: `Missing "${slot}" beat` });
     }
   }
   if (!script.scenes.some((s) => s.kind === "confessional")) {

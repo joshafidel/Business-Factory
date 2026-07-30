@@ -61,7 +61,7 @@ export const EndCard: React.FC<{ scene: PlanScene; plan: RenderPlan }> = ({ scen
               borderRadius: 999,
             }}
           >
-            FOLLOW FOR EPISODE {plan.episode + 1} ➜
+            TELL US IN THE COMMENTS 👇
           </div>
         </div>
       </AbsoluteFill>

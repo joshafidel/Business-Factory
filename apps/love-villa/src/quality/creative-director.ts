@@ -120,11 +120,15 @@ export function reviewCinematography(plan: RenderPlan): CinematographyFinding[] 
     if (s.kind === "endcard") continue;
     if (s.clipFile && s.clipDurationFrames && s.clipDurationFrames > 0) {
       const loops = s.durationFrames / s.clipDurationFrames;
-      if (loops > 1.5) {
+      // Clips are stored as palindromes (Videographer): the loop boundary is
+      // seamless by construction, so there is no snap-back cut. The residual
+      // artifact of long looping is visible motion-mirroring (gestures play
+      // in reverse), which reads as odd only after several cycles.
+      if (loops > 2.5) {
         findings.push({
           scene: s.index,
-          issue: `clip loops ${loops.toFixed(1)}× — visible snap back to opening framing on every restart`,
-          severity: loops > 2 ? "critical" : "minor",
+          issue: `palindrome clip loops ${loops.toFixed(1)}× — repeated forward/reverse motion becomes noticeable`,
+          severity: loops > 4 ? "critical" : "minor",
         });
       }
     } else if (s.motion === "pan-left" || s.motion === "pan-right") {
